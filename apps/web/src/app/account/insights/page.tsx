@@ -290,11 +290,21 @@ export default function InsightsPage() {
             </div>
 
             <button
-              style={{ margin: "16px 0 0 0", padding: "10px 18px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.1)", background: "transparent", color: "#e4e4e7", fontSize: 13, cursor: "pointer" }}
+              style={{
+                margin: "16px 0 0 0",
+                padding: "10px 18px",
+                borderRadius: 999,
+                border: "1px solid rgba(255,255,255,0.1)",
+                background: loading ? "rgba(255,255,255,0.04)" : "transparent",
+                color: "#e4e4e7",
+                fontSize: 13,
+                cursor: loading ? "default" : "pointer",
+                opacity: loading ? 0.6 : 1
+              }}
               onClick={handleRunSimulation}
               disabled={loading}
             >
-              Preview how this may land
+              {loading ? "Looking at how this may land…" : "Preview how this may land"}
             </button>
             <SimulationPreview simulation={simulation} />
           </>
