@@ -137,6 +137,13 @@ export default function InsightsPage() {
   return (
     <div style={{ display: "grid", gridTemplateColumns: history.length > 0 ? "1fr 300px" : "1fr", gap: 48, alignItems: "start" }}>
       <div style={{ display: "grid", gap: 32 }}>
+        {(isPaid && (view === "result" || view === "form")) && (
+          <div style={{ marginBottom: 4 }}>
+            <div style={{ fontSize: 13, color: "#f5c98b", background: "rgba(255, 220, 120, 0.07)", borderRadius: 8, padding: "7px 14px", fontWeight: 500, maxWidth: 420, lineHeight: 1.5 }}>
+              This may land more easily with a softer start right now.
+            </div>
+          </div>
+        )}
         <div style={{ display: "grid", gap: 10, maxWidth: 720 }}>
           <h1 style={{ margin: 0, fontSize: 24, fontWeight: 600 }}>
             Look a little closer
