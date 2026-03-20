@@ -17,6 +17,11 @@ export default function SimulationPreview({ simulation }: SimulationPreviewProps
   const { simulation: sim, structured_synthesis } = simulation;
   return (
     <section style={{ padding: "24px 20px", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 16, background: "rgba(255,255,255,0.02)", marginTop: 8, marginBottom: 8 }}>
+      <div style={{ marginBottom: 10 }}>
+        <div style={{ fontSize: 13, color: "#f5c98b", background: "rgba(255, 220, 120, 0.07)", borderRadius: 8, padding: "7px 14px", fontWeight: 500, maxWidth: 420, lineHeight: 1.5 }}>
+          This may land more easily with a softer start right now.
+        </div>
+      </div>
       <div style={{ display: "grid", gap: 22 }}>
         <div>
           <h3 style={{ fontSize: 12, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.15em", margin: 0, marginBottom: 8 }}>How this may land</h3>
