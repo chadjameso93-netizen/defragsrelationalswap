@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="defrag_scaffold">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/defrag_scaffold.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
