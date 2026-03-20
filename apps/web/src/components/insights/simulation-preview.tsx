@@ -41,6 +41,18 @@ export default function SimulationPreview({ simulation }: SimulationPreviewProps
             {sim.phrasing_options?.[0] || "Try beginning with a softer, open phrasing."}
           </p>
         </div>
+        <div>
+          <h4 style={{ fontSize: 12, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.13em", margin: 0, marginBottom: 6 }}>How you could begin</h4>
+          <p style={{ fontSize: 15, color: "#e4e4e7", margin: 0, lineHeight: 1.6, maxWidth: 420, fontWeight: 500 }}>
+            {sim.possible_openings?.[0] || "You could start with a simple, open line."}
+          </p>
+          <p style={{ fontSize: 15, color: "#e4e4e7", margin: 0, lineHeight: 1.6, maxWidth: 420, fontWeight: 500 }}>
+            {sim.phrasing_options?.[0] || "Or try a gentler alternative if it feels tense."}
+          </p>
+          <p style={{ fontSize: 15, color: "#a1a1aa", margin: 0, lineHeight: 1.6, maxWidth: 420, fontWeight: 400 }}>
+            {structured_synthesis.other_experience?.split(". ")[0] || "This may land differently for each person."}
+          </p>
+        </div>
       </div>
     </section>
   );
