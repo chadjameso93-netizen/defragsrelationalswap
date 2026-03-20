@@ -41,22 +41,18 @@ export default function SimulationPreview({ simulation }: SimulationPreviewProps
           <h3 style={{ fontSize: 12, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.15em", margin: 0, marginBottom: 8 }}>What they may need</h3>
           <p style={{ fontSize: 15, color: "#e4e4e7", margin: 0, lineHeight: 1.6, maxWidth: 420, fontWeight: 500 }}>{sim.likely_tension_points?.[0]}</p>
         </div>
-        <div>
-          <h3 style={{ fontSize: 12, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.15em", margin: 0, marginBottom: 8 }}>What may help this land better</h3>
-          <p style={{ fontSize: 15, color: "#e4e4e7", margin: 0, lineHeight: 1.6, maxWidth: 420, fontWeight: 500 }}>{sim.possible_openings?.[0]}</p>
-        </div>
       </div>
       <div style={{ marginTop: 28, paddingTop: 18, borderTop: "1px solid rgba(255,255,255,0.04)", display: "grid", gap: 10 }}>
         <div>
           <h4 style={{ fontSize: 12, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.13em", margin: 0, marginBottom: 6 }}>How you could say it</h4>
           <p style={{ fontSize: 15, color: "#e4e4e7", margin: 0, lineHeight: 1.6, maxWidth: 420, fontWeight: 500 }}>
-            {sim.possible_openings?.[0] || "You could start with a simple, open line."}
+            {sim.possible_openings?.[0] || "You could start with something simple and open, like ‘Could we talk for a minute?’"}
           </p>
           <p style={{ fontSize: 15, color: "#e4e4e7", margin: 0, lineHeight: 1.6, maxWidth: 420, fontWeight: 500 }}>
-            {sim.phrasing_options?.[0] || "Or try a gentler alternative if it feels tense."}
+            {sim.phrasing_options?.[0] || "Or try a gentler alternative, such as ‘I want to make sure this comes across the right way.’"}
           </p>
           <p style={{ fontSize: 15, color: "#a1a1aa", margin: 0, lineHeight: 1.6, maxWidth: 420, fontWeight: 400 }}>
-            {structured_synthesis.other_experience?.split(". ")[0] || "This may land differently for each person."}
+            {structured_synthesis.other_experience?.split(". ")[0] || "This may land differently for each person or group, and that’s okay."}
           </p>
         </div>
       </div>
