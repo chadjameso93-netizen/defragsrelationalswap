@@ -5,6 +5,16 @@ interface SimulationPreviewProps {
 }
 
 export default function SimulationPreview({ simulation }: SimulationPreviewProps) {
+  // Awareness line variants
+  const awarenessVariants = [
+    "This may land more easily with a softer start right now.",
+    "This may be a slightly sensitive moment to bring this up.",
+    "A steadier approach may help this come across more clearly right now."
+  ];
+  // Deterministic rotation: changes every minute
+  const variantIndex = Math.floor(Date.now() / 60000) % awarenessVariants.length;
+  const awarenessLine = awarenessVariants[variantIndex];
+
   if (!simulation) {
     return (
       <section style={{ padding: "24px 20px", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 16, background: "rgba(255,255,255,0.02)", marginTop: 8, marginBottom: 8, display: "flex", alignItems: "center", justifyContent: "center", minHeight: 96 }}>
@@ -19,7 +29,7 @@ export default function SimulationPreview({ simulation }: SimulationPreviewProps
     <section style={{ padding: "24px 20px", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 16, background: "rgba(255,255,255,0.02)", marginTop: 8, marginBottom: 8 }}>
       <div style={{ marginBottom: 10 }}>
         <div style={{ fontSize: 13, color: "#f5c98b", background: "rgba(255, 220, 120, 0.07)", borderRadius: 8, padding: "7px 14px", fontWeight: 500, maxWidth: 420, lineHeight: 1.5 }}>
-          This may land more easily with a softer start right now.
+          {awarenessLine}
         </div>
       </div>
       <div style={{ display: "grid", gap: 22 }}>
