@@ -31,6 +31,17 @@ export default function SimulationPreview({ simulation }: SimulationPreviewProps
           <p style={{ fontSize: 15, color: "#e4e4e7", margin: 0, lineHeight: 1.6, maxWidth: 420, fontWeight: 500 }}>{sim.possible_openings?.[0]}</p>
         </div>
       </div>
+      <div style={{ marginTop: 28, paddingTop: 18, borderTop: "1px solid rgba(255,255,255,0.04)", display: "grid", gap: 10 }}>
+        <div>
+          <h4 style={{ fontSize: 12, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.13em", margin: 0, marginBottom: 6 }}>Bridge to action</h4>
+          <p style={{ fontSize: 15, color: "#e4e4e7", margin: 0, lineHeight: 1.6, maxWidth: 420, fontWeight: 500 }}>
+            {sim.possible_openings?.[0] || "A small shift in approach may help this land more gently."}
+          </p>
+          <p style={{ fontSize: 15, color: "#e4e4e7", margin: 0, lineHeight: 1.6, maxWidth: 420, fontWeight: 500 }}>
+            {sim.phrasing_options?.[0] || "Try beginning with a softer, open phrasing."}
+          </p>
+        </div>
+      </div>
     </section>
   );
 }
