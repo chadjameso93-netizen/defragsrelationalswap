@@ -5,6 +5,8 @@ import GuidanceNote from "./guidance-note";
 import PhrasingSuggestions from "./phrasing-suggestions";
 import ConversationPrep from "./conversation-prep";
 import PerspectiveNote from "./perspective-note";
+import PlaybackButton from "./playback-button";
+import ReturnNote from "./return-note";
 import { guidancePhrasing } from "@/lib/guidance-rules";
 
 interface InsightResultProps {
@@ -40,6 +42,26 @@ export default function InsightResult({ result, onReset }: InsightResultProps) {
             <p style={{ fontSize: 14, lineHeight: 1.6, color: "#a1a1aa", margin: 0 }}>{guidancePhrasing.simpleWaysToBegin[0].text}</p>
           </div>
         </div>
+        <div style={{ marginTop: 18, display: "flex", alignItems: "center", gap: 12 }}>
+          <PlaybackButton />
+        </div>
+        <div style={{ marginTop: 10 }}>
+          <ReturnNote />
+        </div>
+        <button
+          style={{
+            marginTop: 12,
+            padding: "8px 14px",
+            borderRadius: 999,
+            border: "1px solid rgba(255,255,255,0.08)",
+            background: "rgba(255,255,255,0.02)",
+            color: "#d4d4d8",
+            fontSize: 12,
+            cursor: "pointer"
+          }}
+        >
+          Hear this
+        </button>
       </section>
       <PhrasingSuggestions />
       <ConversationPrep />
