@@ -18,7 +18,8 @@ import UpgradePanel from "@/components/insights/upgrade-panel";
 import PhrasingSuggestions from "@/components/insights/phrasing-suggestions";
 import ConversationPrep from "@/components/insights/conversation-prep";
 import PerspectiveNote from "@/components/insights/perspective-note";
-import type { InsightApiResponse } from "@/types/contracts";
+import SimulationPreview from "@/components/insights/simulation-preview";
+import type { InsightApiResponse, SimulationApiResponse } from "@/types/contracts";
 
 export default function InsightsPage() {
   const router = useRouter();
@@ -33,6 +34,7 @@ export default function InsightsPage() {
   const [activeHistoryId, setActiveHistoryId] = useState<string | undefined>();
   const [patternSummary, setPatternSummary] = useState<PatternSummary | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
+  const [simulation, setSimulation] = useState<SimulationApiResponse | null>(null);
 
   useEffect(() => {
     async function init() {
@@ -110,6 +112,24 @@ export default function InsightsPage() {
     }
   };
 
+  const handleRunSimulation = async () => {
+    if (!result) return;
+    setLoading(true);
+    try {
+      const { fetchSimulation } = await import("@/lib/api");
+      const payload = {
+        ...result, // Use the same context as the last insight
+        requested_mode: "simulation"
+      };
+      const simResult = await fetchSimulation(payload as any);
+      setSimulation(simResult);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (loading || !user) {
     return <div style={{ color: "#71717a", fontSize: 14 }}>Loading...</div>;
   }
@@ -167,49 +187,80 @@ export default function InsightsPage() {
         )}
 
         {view === "result" && result && (
-          <div style={{ display: "grid", gap: 18 }}>
-            <div style={{ display: "grid", gap: 12, padding: 20, borderRadius: 16, border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.02)" }}>
-              <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: "#71717a" }}>
-                First read
-              </p>
-              <p style={{ margin: 0, fontSize: 20, lineHeight: 1.45, color: "#f5f5f5", fontWeight: 500 }}>
-                {guidancePhrasing.soften(result.insight.what_may_be_happening)}
-              </p>
-              <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "#71717a" }}>
-                {guidancePhrasing.soften(result.insight.what_it_may_be_causing)}
-              </p>
-            </div>
-
-            <div style={{ display: "grid", gap: 12, padding: 20, borderRadius: 16, border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.02)" }}>
-              <p style={{ margin: 0, fontSize: 14, color: "#f5f5f5", fontWeight: 500 }}>
-                This may be easier if…
-              </p>
-              <div style={{ display: "grid", gap: 10 }}>
-                {result.insight.what_to_try_next.slice(0, 3).map((item, index) => (
-                  <div key={index} style={{ display: "grid", gap: 4, padding: "12px 14px", borderRadius: 12, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.04)" }}>
-                    <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>
-                      Option {index + 1}
-                    </p>
-                    <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "#d4d4d8" }}>
-                      {item}
-                    </p>
-                  </div>
-                ))}
+          <>
+            <div style={{ display: "grid", gap: 18 }}>
+              <div style={{ display: "grid", gap: 12, padding: 20, borderRadius: 16, border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.02)" }}>
+                <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: "#71717a" }}>
+                  First read
+                </p>
+                <p style={{ margin: 0, fontSize: 20, lineHeight: 1.45, color: "#f5f5f5", fontWeight: 500 }}>
+                  {guidancePhrasing.soften(result.insight.what_may_be_happening)}
+                </p>
+                <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "#71717a" }}>
+                  {guidancePhrasing.soften(result.insight.what_it_may_be_causing)}
+                </p>
               </div>
-            </div>
 
-            {!detailsOpen && (
-              <>
-                <ClarityQuestions />
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24, marginTop: 12 }}>
-                  <PhrasingSuggestions />
-                  <ConversationPrep />
+              <div style={{ display: "grid", gap: 12, padding: 20, borderRadius: 16, border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.02)" }}>
+                <p style={{ margin: 0, fontSize: 14, color: "#f5f5f5", fontWeight: 500 }}>
+                  This may be easier if…
+                </p>
+                <div style={{ display: "grid", gap: 10 }}>
+                  {result.insight.what_to_try_next.slice(0, 3).map((item, index) => (
+                    <div key={index} style={{ display: "grid", gap: 4, padding: "12px 14px", borderRadius: 12, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.04)" }}>
+                      <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>
+                        Option {index + 1}
+                      </p>
+                      <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "#d4d4d8" }}>
+                        {item}
+                      </p>
+                    </div>
+                  ))}
                 </div>
-                <div style={{ marginTop: 24 }}>
-                  <PerspectiveNote />
-                </div>
-                <GuidanceNote />
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", marginTop: 24 }}>
+              </div>
+
+              {!detailsOpen && (
+                <>
+                  <ClarityQuestions />
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24, marginTop: 12 }}>
+                    <PhrasingSuggestions />
+                    <ConversationPrep />
+                  </div>
+                  <div style={{ marginTop: 24 }}>
+                    <PerspectiveNote />
+                  </div>
+                  <GuidanceNote />
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", marginTop: 24 }}>
+                    <button
+                      type="button"
+                      onClick={() => setDetailsOpen((value) => !value)}
+                      style={{ border: "1px solid rgba(255,255,255,0.1)", background: "transparent", color: "#e4e4e7", borderRadius: 999, padding: "10px 18px", fontSize: 13, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
+                    >
+                      {detailsOpen ? "Close fuller view" : "Open fuller view"}
+                      <span style={{ opacity: 0.5 }}>{detailsOpen ? "↑" : "↓"}</span>
+                    </button>
+
+                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                      <span style={{ fontSize: 12, color: "#71717a" }}>Helpful?</span>
+                      <button 
+                        style={{ background: "transparent", border: "none", color: "#a1a1aa", fontSize: 12, cursor: "pointer", padding: "4px 8px" }}
+                        onClick={() => {}}
+                      >
+                        Yes
+                      </button>
+                      <button 
+                        style={{ background: "transparent", border: "none", color: "#a1a1aa", fontSize: 12, cursor: "pointer", padding: "4px 8px" }}
+                        onClick={() => {}}
+                      >
+                        Not yet
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {detailsOpen && (
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
                   <button
                     type="button"
                     onClick={() => setDetailsOpen((value) => !value)}
@@ -218,55 +269,35 @@ export default function InsightsPage() {
                     {detailsOpen ? "Close fuller view" : "Open fuller view"}
                     <span style={{ opacity: 0.5 }}>{detailsOpen ? "↑" : "↓"}</span>
                   </button>
-
-                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                    <span style={{ fontSize: 12, color: "#71717a" }}>Helpful?</span>
-                    <button 
-                      style={{ background: "transparent", border: "none", color: "#a1a1aa", fontSize: 12, cursor: "pointer", padding: "4px 8px" }}
-                      onClick={() => {}}
-                    >
-                      Yes
-                    </button>
-                    <button 
-                      style={{ background: "transparent", border: "none", color: "#a1a1aa", fontSize: 12, cursor: "pointer", padding: "4px 8px" }}
-                      onClick={() => {}}
-                    >
-                      Not yet
-                    </button>
-                  </div>
                 </div>
-              </>
-            )}
+              )}
 
-            {detailsOpen && (
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
-                <button
-                  type="button"
-                  onClick={() => setDetailsOpen((value) => !value)}
-                  style={{ border: "1px solid rgba(255,255,255,0.1)", background: "transparent", color: "#e4e4e7", borderRadius: 999, padding: "10px 18px", fontSize: 13, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
-                >
-                  {detailsOpen ? "Close fuller view" : "Open fuller view"}
-                  <span style={{ opacity: 0.5 }}>{detailsOpen ? "↑" : "↓"}</span>
-                </button>
-              </div>
-            )}
+              {detailsOpen && (
+                <InsightResult
+                  result={result}
+                  onReset={() => {
+                    if (isPaid) {
+                      setResult(null);
+                      setActiveHistoryId(undefined);
+                      setDetailsOpen(false);
+                      setView("form");
+                    } else {
+                      router.push("/account/billing");
+                    }
+                  }}
+                />
+              )}
+            </div>
 
-            {detailsOpen && (
-              <InsightResult
-                result={result}
-                onReset={() => {
-                  if (isPaid) {
-                    setResult(null);
-                    setActiveHistoryId(undefined);
-                    setDetailsOpen(false);
-                    setView("form");
-                  } else {
-                    router.push("/account/billing");
-                  }
-                }}
-              />
-            )}
-          </div>
+            <button
+              style={{ margin: "16px 0 0 0", padding: "10px 18px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.1)", background: "transparent", color: "#e4e4e7", fontSize: 13, cursor: "pointer" }}
+              onClick={handleRunSimulation}
+              disabled={loading}
+            >
+              Preview how this may land
+            </button>
+            <SimulationPreview simulation={simulation} />
+          </>
         )}
       </div>
 
