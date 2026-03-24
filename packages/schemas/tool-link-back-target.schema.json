@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "defrag.tool-link-back-target.schema.json",
+  "title": "ToolLinkBackTarget",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["path", "label", "intent", "mode"],
+  "properties": {
+    "path": { "type": "string" },
+    "label": { "type": "string" },
+    "intent": { "type": "string", "enum": ["continue", "manage", "upgrade", "review"] },
+    "mode": { "type": "string", "enum": ["website-redirect"] }
+  }
+}

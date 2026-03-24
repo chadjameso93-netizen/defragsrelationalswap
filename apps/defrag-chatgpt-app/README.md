@@ -17,9 +17,12 @@ The future app should:
 - reuse billing and entitlement logic from `packages/billing`
 - reuse schemas from `packages/schemas`
 - reuse future tool contracts from `packages/platform`
+- reuse server-safe orchestration from `packages/platform-server`
 
 The future app should not:
 
 - clone the website
 - replace `apps/web`
 - own canonical billing or account management
+- import page components from `apps/web`
+- import route handlers from `apps/web`

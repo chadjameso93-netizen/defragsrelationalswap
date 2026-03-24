@@ -1,15 +1,42 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "defrag.tool-response-metadata.schema.json",
-  "title": "ToolResponseMetadata",
+  "title": "ToolResultMetadata",
   "type": "object",
   "additionalProperties": false,
-  "required": ["toolName", "structuredContent", "primaryMode", "supportsFullscreen", "websiteBacklink"],
+  "required": ["toolName", "auth", "display", "linkBack", "ctas"],
   "properties": {
-    "toolName": { "type": "string" },
-    "structuredContent": { "type": "boolean" },
-    "primaryMode": { "type": "string", "enum": ["inline-card", "inline-carousel", "fullscreen", "website-redirect-only"] },
-    "supportsFullscreen": { "type": "boolean" },
-    "websiteBacklink": { "type": ["string", "null"] }
+    "toolName": {
+      "type": "string",
+      "enum": [
+        "get_companion_guidance",
+        "generate_relationship_insight",
+        "interpret_world_signal",
+        "get_account_entitlements",
+        "begin_upgrade_checkout",
+        "open_billing_portal"
+      ]
+    },
+    "session": {
+      "$ref": "defrag.tool-session-reference.schema.json"
+    },
+    "auth": {
+      "$ref": "defrag.auth-link-state.schema.json"
+    },
+    "display": {
+      "$ref": "defrag.tool-display-spec.schema.json"
+    },
+    "linkBack": {
+      "anyOf": [
+        { "type": "null" },
+        { "$ref": "defrag.tool-link-back-target.schema.json" }
+      ]
+    },
+    "ctas": {
+      "type": "array",
+      "items": {
+        "$ref": "defrag.tool-call-to-action.schema.json"
+      }
+    }
   }
 }

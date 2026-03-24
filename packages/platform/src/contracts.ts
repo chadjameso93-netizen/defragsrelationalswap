@@ -1,6 +1,9 @@
 import type {
   BillingPlan,
+  CompanionEvaluationRubric,
+  CompanionOutputContract,
   CompanionReasoningResult,
+  CompanionStructuredSynthesis,
   Entitlements,
   WorldScene,
 } from "../../core/src";
@@ -61,22 +64,113 @@ export interface WorldInterpretation {
   timingSummary: string;
 }
 
-export type ToolDisplayMode = "inline-card" | "inline-carousel" | "fullscreen" | "website-redirect-only";
+export type FutureToolName =
+  | "get_companion_guidance"
+  | "generate_relationship_insight"
+  | "interpret_world_signal"
+  | "get_account_entitlements"
+  | "begin_upgrade_checkout"
+  | "open_billing_portal";
 
-export interface ToolPresentation {
-  primaryMode: ToolDisplayMode;
-  supportsFullscreen: boolean;
-  websiteBacklink: string | null;
+export type ToolDisplayMode = "inline-card" | "inline-carousel" | "fullscreen" | "redirect-only";
+export type ToolDisplayCapability = "inline-only" | "inline-plus-fullscreen" | "redirect-only";
+export type ToolExposure = "user-facing" | "helper-only" | "website-only";
+export type ToolAuthPolicy = "required" | "optional";
+export type ToolAuthStateKind =
+  | "unauthenticated"
+  | "linked_unentitled"
+  | "linked_entitled"
+  | "upgrade_required"
+  | "relink_required";
+
+export interface ToolLinkBackTarget {
+  path: string;
+  label: string;
+  intent: "continue" | "manage" | "upgrade" | "review";
+  mode: "website-redirect";
 }
 
-export interface ToolCatalogEntry {
-  name: string;
-  purpose: string;
-  authRequired: boolean;
-  entitlementRequired: BillingPlan | null;
-  structuredContent: boolean;
-  presentation: ToolPresentation;
-  websiteOnly: boolean;
+export interface ToolCallToAction {
+  id: string;
+  label: string;
+  kind: "continue" | "open_fullscreen" | "upgrade" | "manage_billing" | "open_website";
+  target?: ToolLinkBackTarget;
+}
+
+export interface ToolSessionReference {
+  sessionId?: string;
+  threadId?: string;
+  insightId?: string;
+  continuationId?: string;
+  worldStateId?: string;
+}
+
+export interface ToolAuthBoundaryState {
+  state: ToolAuthStateKind;
+  userId?: string;
+  plan?: BillingPlan;
+  entitlementStatus?: string;
+  redirectTarget?: ToolLinkBackTarget;
+  reason?: string;
+}
+
+export interface ToolDisplaySpec {
+  defaultMode: ToolDisplayMode;
+  capability: ToolDisplayCapability;
+  inlineCardSufficient: boolean;
+  fullscreenJustifiedLater: boolean;
+  maxInlineCtas: number;
+  inlineFields: string[];
+  omitFromInline: string[];
+}
+
+export interface ToolResultMetadata {
+  toolName: FutureToolName;
+  session?: ToolSessionReference;
+  auth: ToolAuthBoundaryState;
+  display: ToolDisplaySpec;
+  linkBack: ToolLinkBackTarget | null;
+  ctas: ToolCallToAction[];
+}
+
+export interface ToolEntitlementPolicy {
+  requiredPlan: BillingPlan | null;
+  requiresActiveSubscription: boolean;
+}
+
+export interface ToolRegistryEntry<Input = unknown, Output = unknown> {
+  name: FutureToolName;
+  title: string;
+  description: string;
+  authPolicy: ToolAuthPolicy;
+  entitlementPolicy: ToolEntitlementPolicy;
+  exposure: ToolExposure;
+  userFacing: boolean;
+  helperOnly: boolean;
+  websiteOnlyForNow: boolean;
+  redirectToWebsite: boolean;
+  display: ToolDisplaySpec;
+  inputSchema: Record<string, unknown>;
+  outputSchema: Record<string, unknown>;
+  inputExample: Input;
+  outputExample: Output;
+}
+
+export type CompanionActionType = "show_evidence" | "rephrase" | "practice_conversation";
+
+export interface CompanionActionResult {
+  title: string;
+  lines: string[];
+  confidence: number;
+}
+
+export interface CompanionActionResolution {
+  action: {
+    type: CompanionActionType;
+    label: string;
+    payload?: Record<string, unknown>;
+  };
+  result: CompanionActionResult;
 }
 
 export interface CompanionGuidanceInput {
@@ -92,6 +186,7 @@ export interface CompanionGuidanceOutput {
   threadId: string;
   insightId: string;
   reasoning: CompanionReasoningResult;
+  metadata: ToolResultMetadata;
 }
 
 export interface RelationshipInsightInput {
@@ -101,10 +196,12 @@ export interface RelationshipInsightInput {
 
 export interface RelationshipInsightOutput {
   insight: InsightApiResponse;
+  metadata: ToolResultMetadata;
 }
 
 export interface RelationshipSimulationOutput {
   simulation: SimulationApiResponse;
+  metadata: ToolResultMetadata;
 }
 
 export interface WorldSignalInput {
@@ -114,6 +211,7 @@ export interface WorldSignalInput {
 
 export interface WorldSignalOutput {
   interpretation: WorldInterpretation;
+  metadata: ToolResultMetadata;
 }
 
 export interface AccountEntitlementsOutput {
@@ -121,6 +219,7 @@ export interface AccountEntitlementsOutput {
   plan: BillingPlan;
   status: string;
   entitlements: Entitlements;
+  metadata: ToolResultMetadata;
 }
 
 export interface CheckoutHandoffInput {
@@ -134,6 +233,7 @@ export interface CheckoutHandoffInput {
 export interface CheckoutHandoffOutput {
   checkoutUrl: string;
   sessionId: string;
+  metadata: ToolResultMetadata;
 }
 
 export interface BillingPortalHandoffInput {
@@ -143,4 +243,13 @@ export interface BillingPortalHandoffInput {
 
 export interface BillingPortalHandoffOutput {
   portalUrl: string;
+  metadata: ToolResultMetadata;
+}
+
+export interface CompanionInsightListItem {
+  id: string;
+  contract: CompanionOutputContract;
+  createdAt: string;
+  synthesis?: CompanionStructuredSynthesis | null;
+  evaluation?: CompanionEvaluationRubric | null;
 }

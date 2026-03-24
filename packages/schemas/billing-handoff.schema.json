@@ -6,17 +6,19 @@
   "oneOf": [
     {
       "additionalProperties": false,
-      "required": ["checkoutUrl", "sessionId"],
+      "required": ["checkoutUrl", "sessionId", "metadata"],
       "properties": {
         "checkoutUrl": { "type": "string", "format": "uri" },
-        "sessionId": { "type": "string" }
+        "sessionId": { "type": "string" },
+        "metadata": { "$ref": "defrag.tool-response-metadata.schema.json" }
       }
     },
     {
       "additionalProperties": false,
-      "required": ["portalUrl"],
+      "required": ["portalUrl", "metadata"],
       "properties": {
-        "portalUrl": { "type": "string", "format": "uri" }
+        "portalUrl": { "type": "string", "format": "uri" },
+        "metadata": { "$ref": "defrag.tool-response-metadata.schema.json" }
       }
     }
   ]

@@ -33,6 +33,7 @@
 - `packages/core`
 - `packages/billing`
 - `packages/platform`
+- `packages/platform-server`
 - `packages/schemas`
 
 ### Platform dependencies
@@ -41,14 +42,14 @@
 - Stripe for billing and subscription state
 - Vercel for hosting and previews
 
-### Reusable service seams inside the current web app
+### Reusable service seams for future tool surfaces
 
-- `apps/web/src/server/services/companion-service.ts`
-- `apps/web/src/server/services/insight-service.ts`
-- `apps/web/src/server/services/world-service.ts`
-- `apps/web/src/server/services/billing-service.ts`
+- `packages/platform-server/src/companion-service.ts`
+- `packages/platform-server/src/insight-service.ts`
+- `packages/platform-server/src/world-service.ts`
+- `packages/platform-server/src/billing-service.ts`
 
-These are the current extraction points between web route handlers and reusable platform capabilities.
+The web app now composes these through thin wrappers in `apps/web/src/server/services/*`.
 
 ## Future ChatGPT/OpenAI integration boundary
 
@@ -104,3 +105,9 @@ What does not exist today:
 - MCP server
 - tool manifest
 - ChatGPT-facing auth/tool boundary
+
+What now exists for that future boundary:
+
+- authoritative tool registry in `packages/platform`
+- transport-neutral tool/session/auth/display contracts in `packages/platform`
+- reusable server-safe orchestration in `packages/platform-server`

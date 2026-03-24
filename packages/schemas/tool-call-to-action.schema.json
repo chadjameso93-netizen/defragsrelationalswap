@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "defrag.tool-call-to-action.schema.json",
+  "title": "ToolCallToAction",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "label", "kind"],
+  "properties": {
+    "id": { "type": "string" },
+    "label": { "type": "string" },
+    "kind": {
+      "type": "string",
+      "enum": ["continue", "open_fullscreen", "upgrade", "manage_billing", "open_website"]
+    },
+    "target": {
+      "$ref": "defrag.tool-link-back-target.schema.json"
+    }
+  }
+}

@@ -23,11 +23,35 @@ These are owned by `apps/web` and `defrag.app`.
 - billing plans, entitlements, and Stripe plan mapping in `packages/billing`
 - structured schemas in `packages/schemas`
 - tool catalog and future tool IO contracts in `packages/platform`
-- server-side reasoning and orchestration through service boundaries in:
-  - `apps/web/src/server/services/companion-service.ts`
-  - `apps/web/src/server/services/insight-service.ts`
-  - `apps/web/src/server/services/world-service.ts`
-  - `apps/web/src/server/services/billing-service.ts`
+- server-side orchestration through reusable services in:
+  - `packages/platform-server/src/companion-service.ts`
+  - `packages/platform-server/src/insight-service.ts`
+  - `packages/platform-server/src/world-service.ts`
+  - `packages/platform-server/src/billing-service.ts`
+
+The website now composes these services through thin wrappers inside `apps/web`.
+
+## V1 ChatGPT MVP scope
+
+First-class user-facing tools:
+
+- `get_companion_guidance`
+- `generate_relationship_insight`
+- `interpret_world_signal`
+- `get_account_entitlements`
+
+Helper-only tools:
+
+- `begin_upgrade_checkout`
+- `open_billing_portal`
+
+Website-only capabilities for now:
+
+- homepage marketing
+- onboarding flow
+- full account shell
+- deep billing management UI
+- full preview/public browsing behavior
 
 ## Likely future ChatGPT tools
 
@@ -133,6 +157,21 @@ High-level expectation:
 - entitlements remain canonical on DEFRAG infrastructure
 - ChatGPT-facing tools should read entitlement state, not own it
 
+Expected transport-neutral auth states:
+
+- `unauthenticated`
+- `linked_unentitled`
+- `linked_entitled`
+- `upgrade_required`
+- `relink_required`
+
+Expected behavior:
+
+- unauthenticated users get website redirect CTAs to sign in or link account
+- linked but unentitled users can see account state and upgrade CTAs
+- entitled users can use the user-facing tools inline
+- billing redirects always resolve to `defrag.app`
+
 ## Billing ownership
 
 Canonical billing ownership remains on `defrag.app`.
@@ -146,6 +185,9 @@ Even if a future ChatGPT app can initiate upgrade intent, the actual checkout ha
 - Do not move canonical billing ownership away from `defrag.app`.
 - Do not claim Apps SDK readiness before a real ChatGPT app surface, tool server, auth boundary, and deploy path exist.
 - Do not couple future tool contracts directly to page components.
+- Do not import from `apps/web/src/app/*` or `apps/web/src/components/*` into any future ChatGPT app.
+- Do not make future tool code depend on `apps/web` as its home.
+- Do not treat redirect helpers as a substitute for the canonical website account shell.
 
 ## Optional future app location
 

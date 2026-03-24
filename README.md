@@ -46,7 +46,8 @@ Route behavior today:
 - `apps/web`: canonical Next.js app
 - `packages/core`: shared product contracts and types
 - `packages/billing`: shared plan, entitlement, and Stripe mapping logic
-- `packages/platform`: future tool contracts and platform-facing capability definitions
+- `packages/platform`: future tool contracts, registry, auth/display/state metadata, and examples
+- `packages/platform-server`: reusable server-safe orchestration for future tool surfaces
 - `packages/schemas`: JSON schemas used for structured-output alignment
 - `supabase/migrations`: database schema and data-flow migrations
 - `docs`: product, architecture, and operator documentation
@@ -183,3 +184,5 @@ That future app should reuse:
 - platform capabilities already exposed by Supabase, Stripe, and shared reasoning logic
 
 It should not replace the website or become a second consumer website.
+
+It should depend on `packages/platform` and `packages/platform-server`, not on page components or route code from `apps/web`.

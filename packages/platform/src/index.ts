@@ -1,2 +1,3 @@
 export * from "./contracts";
-export * from "./tool-catalog";
+export * from "./examples";
+export * from "./tool-registry";

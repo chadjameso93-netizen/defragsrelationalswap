@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "defrag.auth-link-state.schema.json",
+  "title": "ToolAuthBoundaryState",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["state"],
+  "properties": {
+    "state": {
+      "type": "string",
+      "enum": [
+        "unauthenticated",
+        "linked_unentitled",
+        "linked_entitled",
+        "upgrade_required",
+        "relink_required"
+      ]
+    },
+    "userId": { "type": "string" },
+    "plan": { "type": "string" },
+    "entitlementStatus": { "type": "string" },
+    "reason": { "type": "string" },
+    "redirectTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "label", "intent", "mode"],
+      "properties": {
+        "path": { "type": "string" },
+        "label": { "type": "string" },
+        "intent": { "type": "string", "enum": ["continue", "manage", "upgrade", "review"] },
+        "mode": { "type": "string", "enum": ["website-redirect"] }
+      }
+    }
+  }
+}
