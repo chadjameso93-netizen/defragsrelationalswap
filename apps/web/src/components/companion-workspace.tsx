@@ -82,56 +82,152 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
   const suggestedTitle = situation.trim().slice(0, 42) || "Recent conversation";
 
   return (
-    <div style={{ display: "grid", gap: 18 }}>
-      <section style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 16, padding: 16, background: "rgba(255,255,255,0.02)" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", marginBottom: 12 }}>
-          <div>
-            <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Threads</p>
-            <p style={{ margin: "6px 0 0 0", fontSize: 13, color: "#a1a1aa" }}>
-              Keep related moments together so Companion can reason over a recurring pattern.
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={() => {
-              setActiveThreadId(undefined);
-              setSituation("");
-              setInsights([]);
-              setResult(null);
-              setLatestInsightId(null);
-              setActions([]);
-              setActionResult(null);
-              setError(null);
-            }}
-            style={{ borderRadius: 999, border: "1px solid rgba(255,255,255,0.15)", background: "transparent", color: "#f5f5f5", padding: "8px 12px", cursor: "pointer", whiteSpace: "nowrap" }}
-          >
-            New thread
-          </button>
+    <div
+      className="companion-layout"
+      style={{
+        display: "grid",
+        gridTemplateColumns: "300px minmax(0, 1fr)",
+        gap: 22,
+        alignItems: "start",
+      }}
+    >
+      <aside
+        className="companion-rail"
+        style={{
+          border: "1px solid rgba(255,255,255,0.1)",
+          borderRadius: 24,
+          padding: 18,
+          background:
+            "radial-gradient(circle at top left, rgba(216,196,159,0.12), transparent 30%), linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02))",
+          display: "grid",
+          gap: 16,
+          position: "sticky",
+          top: 24,
+        }}
+      >
+        <div style={{ display: "grid", gap: 6 }}>
+          <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#d8c49f" }}>Threads</p>
+          <p style={{ margin: 0, fontSize: 13, color: "#b4b8c1", lineHeight: 1.7 }}>
+            Keep recurring moments together so Companion can track the shape, not just the latest sentence.
+          </p>
         </div>
-        <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+            gap: 10,
+          }}
+        >
+          {[
+            ["Threads", String(threads.length)],
+            ["Insights", String(insights.length)],
+          ].map(([label, value]) => (
+            <div key={label} style={{ padding: 12, borderRadius: 16, background: "rgba(0,0,0,0.18)", border: "1px solid rgba(255,255,255,0.06)" }}>
+              <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "#8d8d95" }}>{label}</div>
+              <div style={{ marginTop: 8, fontSize: 18, color: "#f5f5f5" }}>{value}</div>
+            </div>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          onClick={() => {
+            setActiveThreadId(undefined);
+            setSituation("");
+            setInsights([]);
+            setResult(null);
+            setLatestInsightId(null);
+            setActions([]);
+            setActionResult(null);
+            setError(null);
+          }}
+          style={{ borderRadius: 999, border: "1px solid rgba(255,255,255,0.15)", background: "rgba(255,255,255,0.04)", color: "#f5f5f5", padding: "10px 14px", cursor: "pointer", whiteSpace: "nowrap" }}
+        >
+          Start a new thread
+        </button>
+
+        <div style={{ display: "grid", gap: 10 }}>
           {threads.map((thread) => (
             <button
               key={thread.id}
               type="button"
               onClick={() => setActiveThreadId(thread.id)}
               style={{
-                borderRadius: 999,
-                border: thread.id === activeThreadId ? "1px solid #fff" : "1px solid rgba(255,255,255,0.15)",
-                background: "transparent",
+                borderRadius: 18,
+                border: thread.id === activeThreadId ? "1px solid #d8c49f" : "1px solid rgba(255,255,255,0.08)",
+                background: thread.id === activeThreadId ? "rgba(216,196,159,0.08)" : "rgba(255,255,255,0.02)",
                 color: "#f5f5f5",
-                fontSize: 12,
-                padding: "7px 12px",
+                fontSize: 13,
+                padding: "14px 14px",
                 cursor: "pointer",
+                textAlign: "left",
+                display: "grid",
+                gap: 6,
               }}
             >
-              {thread.title}
+              <span style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: thread.id === activeThreadId ? "#d8c49f" : "#7d8593" }}>
+                Thread
+              </span>
+              <span style={{ lineHeight: 1.55 }}>{thread.title}</span>
             </button>
           ))}
           {threads.length === 0 ? <span style={{ color: "#71717a", fontSize: 13 }}>No threads yet. Start with one moment below.</span> : null}
         </div>
-      </section>
+      </aside>
 
-      <section style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 16, padding: 16 }}>
+      <div style={{ display: "grid", gap: 18 }}>
+      <section
+        style={{
+          border: "1px solid rgba(255,255,255,0.1)",
+          borderRadius: 24,
+          padding: 18,
+          background:
+            "radial-gradient(circle at top left, rgba(216,196,159,0.12), transparent 28%), linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015))",
+          display: "grid",
+          gap: 18,
+        }}
+      >
+        <div
+          className="companion-intro"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: 14,
+          }}
+        >
+          <div style={{ display: "grid", gap: 8 }}>
+            <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#d8c49f" }}>Compose the moment</p>
+            <p style={{ margin: 0, fontSize: 24, lineHeight: 1.2, color: "#f5f5f5" }}>
+              Keep it small enough for a real read.
+            </p>
+            <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "#b4b8c1" }}>
+              Companion works best on one exchange, one rupture, or one shift in tone rather than a whole relationship summary.
+            </p>
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+              gap: 10,
+              alignSelf: "end",
+            }}
+          >
+            {[
+              ["Mode", result ? "Read ready" : "Drafting"],
+              ["Premium", entitlements.canUseCompanionPremiumView ? "Unlocked" : "Locked"],
+              ["Thread", activeThreadId ? "Active" : "New"],
+            ].map(([label, value]) => (
+              <div key={label} style={{ padding: 12, borderRadius: 16, background: "rgba(0,0,0,0.18)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "#8d8d95" }}>{label}</div>
+                <div style={{ marginTop: 8, fontSize: 14, color: "#f5f5f5" }}>{value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      <section style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 20, padding: 16, background: "rgba(0,0,0,0.12)" }}>
         <div style={{ display: "grid", gap: 6, marginBottom: 12 }}>
           <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Describe a moment</p>
           <p style={{ margin: 0, color: "#a1a1aa", fontSize: 13 }}>
@@ -146,7 +242,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
           style={{ width: "100%", borderRadius: 12, padding: 12, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.1)", color: "#fff", boxSizing: "border-box" }}
         />
 
-        <div style={{ marginTop: 12, display: "flex", gap: 10 }}>
+        <div style={{ marginTop: 12, display: "flex", gap: 10, flexWrap: "wrap" }}>
           <button
             type="button"
             disabled={busy}
@@ -197,19 +293,24 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
           >
             {busy ? "Working…" : "Generate Companion insight"}
           </button>
+
+          <div style={{ display: "flex", alignItems: "center", color: "#8d8d95", fontSize: 12 }}>
+            Best input: one recent exchange, one unclear turn, one felt shift.
+          </div>
         </div>
 
         {error ? <p style={{ marginBottom: 0, color: "#fca5a5" }}>{error}</p> : null}
       </section>
+      </section>
 
       {loadingThread ? (
-        <section style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: 16, color: "#a1a1aa" }}>
+        <section style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 20, padding: 18, color: "#a1a1aa", background: "rgba(255,255,255,0.02)" }}>
           Loading thread history…
         </section>
       ) : null}
 
       {insights.length > 0 ? (
-        <section style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: 16 }}>
+        <section style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 20, padding: 18, background: "rgba(255,255,255,0.02)" }}>
           <p style={{ marginTop: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Prior insights</p>
           <div style={{ display: "grid", gap: 8 }}>
             {insights.map((insight) => (
@@ -221,10 +322,18 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
                   setResult(insight.contract);
                   setActionResult(null);
                 }}
-                style={{ textAlign: "left", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 10, background: "transparent", color: "#d4d4d8", padding: 10, cursor: "pointer" }}
+                style={{
+                  textAlign: "left",
+                  border: insight.id === latestInsightId ? "1px solid rgba(216,196,159,0.4)" : "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: 14,
+                  background: insight.id === latestInsightId ? "rgba(216,196,159,0.06)" : "transparent",
+                  color: "#d4d4d8",
+                  padding: 12,
+                  cursor: "pointer",
+                }}
               >
                 <div style={{ fontSize: 12, color: "#71717a" }}>{new Date(insight.createdAt).toLocaleString()}</div>
-                <div style={{ marginTop: 4 }}>{insight.contract.whatChanged}</div>
+                <div style={{ marginTop: 6, lineHeight: 1.65 }}>{insight.contract.whatChanged}</div>
               </button>
             ))}
           </div>
@@ -232,7 +341,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
       ) : null}
 
       {!loadingThread && !result && !busy ? (
-        <section style={{ border: "1px dashed rgba(255,255,255,0.16)", borderRadius: 16, padding: 20, display: "grid", gap: 8 }}>
+        <section style={{ border: "1px dashed rgba(255,255,255,0.16)", borderRadius: 20, padding: 22, display: "grid", gap: 8 }}>
           <p style={{ margin: 0, fontSize: 12, color: "#f5f5f5", fontWeight: 600 }}>Nothing in focus yet</p>
           <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "#a1a1aa" }}>
             Start a new thread or choose an existing one, then describe one exchange Companion should read.
@@ -241,7 +350,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
       ) : null}
 
       {actions.length > 0 && latestInsightId ? (
-        <section style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: 16 }}>
+        <section style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 20, padding: 18, background: "rgba(255,255,255,0.02)" }}>
           <p style={{ marginTop: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Follow-up actions</p>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
             {actions.map((action) => (
@@ -261,7 +370,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
                   }
                   setActionResult(body.result);
                 }}
-                style={{ borderRadius: 999, border: "1px solid rgba(255,255,255,0.2)", background: "transparent", color: "#f5f5f5", padding: "8px 12px", cursor: "pointer" }}
+                style={{ borderRadius: 999, border: "1px solid rgba(255,255,255,0.14)", background: "rgba(255,255,255,0.03)", color: "#f5f5f5", padding: "10px 14px", cursor: "pointer" }}
               >
                 {action.label}
               </button>
@@ -271,9 +380,9 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
       ) : null}
 
       {actionResult ? (
-        <section style={{ border: "1px solid rgba(255,255,255,0.14)", borderRadius: 12, padding: 14 }}>
-          <p style={{ marginTop: 0, marginBottom: 8, fontWeight: 600 }}>{actionResult.title}</p>
-          <ul style={{ margin: 0, paddingLeft: 18 }}>
+        <section style={{ border: "1px solid rgba(255,255,255,0.14)", borderRadius: 18, padding: 16, background: "rgba(255,255,255,0.03)" }}>
+          <p style={{ marginTop: 0, marginBottom: 10, fontWeight: 600, color: "#f5f5f5" }}>{actionResult.title}</p>
+          <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.8, color: "#d4d4d8" }}>
             {actionResult.lines.map((line) => (
               <li key={line}>{line}</li>
             ))}
@@ -289,6 +398,24 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
           evaluation={activeInsight?.evaluation ?? null}
         />
       ) : null}
+      </div>
+      <style>{`
+        @media (max-width: 980px) {
+          .companion-layout {
+            grid-template-columns: 1fr !important;
+          }
+
+          .companion-rail {
+            position: static !important;
+          }
+        }
+
+        @media (max-width: 720px) {
+          .companion-intro {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
