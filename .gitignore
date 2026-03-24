@@ -4,3 +4,4 @@ node_modules/
 .next/
 apps/web/.next/
 apps/web/node_modules/
+.vercel
