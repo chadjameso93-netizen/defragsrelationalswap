@@ -1,5 +1,6 @@
-import type { ReactNode } from "react";
+import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
+import type { ReactNode } from "react";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -10,6 +11,16 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
 });
+
+export const metadata: Metadata = {
+  title: "DEFRAG",
+  description: "Relational reasoning system for Companion, billing, and World.",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
+};
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
