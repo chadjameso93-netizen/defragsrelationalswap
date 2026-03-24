@@ -10,7 +10,7 @@ interface InsightShareStudioProps {
   request?: string;
 }
 
-function buildCardCopy(mode: ShareCardMode, result: InsightApiResponse, request?: string) {
+function buildCardCopy(mode: ShareCardMode, result: InsightApiResponse, request?: string, includeSource = false) {
   const title =
     mode === "summary"
       ? "A calmer read"
@@ -41,7 +41,7 @@ function buildCardCopy(mode: ShareCardMode, result: InsightApiResponse, request?
   const footer =
     mode === "teaser"
       ? "Shared from DEFRAG"
-      : request
+      : includeSource && request
         ? `From: ${request.slice(0, 72)}${request.length > 72 ? "…" : ""}`
         : "Shared from DEFRAG";
 
@@ -109,44 +109,85 @@ function makeSvgCard(copy: ReturnType<typeof buildCardCopy>, result: InsightApiR
       ${bodyLines
         .map(
           (line, index) =>
-            `<text x="108" y="${730 + index * 44}" fill="rgba(245,245,245,0.72)" font-size="30" font-family="Arial, sans-serif">${safe(line)}</text>`,
+            `<text x="108" y="${730 + index * 44}" fill="rgba(245,245,245,0.72)" font-size="30" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif">${safe(line)}</text>`,
         )
         .join("")}
       <rect x="108" y="930" rx="24" ry="24" width="984" height="300" fill="rgba(255,255,255,0.035)" stroke="rgba(255,255,255,0.06)" />
-      <text x="146" y="1002" fill="rgba(245,245,245,0.58)" font-size="22" font-family="Arial, sans-serif" letter-spacing="4">WHAT TO HOLD</text>
+      <text x="146" y="1002" fill="rgba(245,245,245,0.58)" font-size="22" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" letter-spacing="4">WHAT TO HOLD</text>
       ${result.insight.what_to_try_next
         .slice(0, 3)
         .map(
           (item, index) =>
-            `<text x="146" y="${1074 + index * 60}" fill="#f5f5f5" font-size="28" font-family="Arial, sans-serif">0${index + 1}  ${safe(item)}</text>`,
+            `<text x="146" y="${1074 + index * 60}" fill="#f5f5f5" font-size="28" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif">0${index + 1}  ${safe(item)}</text>`,
         )
         .join("")}
-      <text x="108" y="1344" fill="rgba(245,245,245,0.48)" font-size="24" font-family="Arial, sans-serif">${safe(copy.footer)}</text>
+      <text x="108" y="1344" fill="rgba(245,245,245,0.48)" font-size="24" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif">${safe(copy.footer)}</text>
     </svg>
   `;
+}
+
+async function svgToPngBlob(svg: string, scale = 2) {
+  const svgBlob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
+  const url = URL.createObjectURL(svgBlob);
+
+  try {
+    const image = await new Promise<HTMLImageElement>((resolve, reject) => {
+      const nextImage = new Image();
+      nextImage.onload = () => resolve(nextImage);
+      nextImage.onerror = () => reject(new Error("Unable to render share card image."));
+      nextImage.src = url;
+    });
+
+    const canvas = document.createElement("canvas");
+    canvas.width = 1200 * scale;
+    canvas.height = 1500 * scale;
+
+    const context = canvas.getContext("2d");
+    if (!context) {
+      throw new Error("Unable to prepare image export.");
+    }
+
+    context.scale(scale, scale);
+    context.drawImage(image, 0, 0, 1200, 1500);
+
+    return await new Promise<Blob>((resolve, reject) => {
+      canvas.toBlob((blob) => {
+        if (blob) resolve(blob);
+        else reject(new Error("Unable to create PNG export."));
+      }, "image/png");
+    });
+  } finally {
+    URL.revokeObjectURL(url);
+  }
 }
 
 export default function InsightShareStudio({ result, request }: InsightShareStudioProps) {
   const [mode, setMode] = useState<ShareCardMode>("summary");
   const [status, setStatus] = useState<string | null>(null);
+  const [includeSource, setIncludeSource] = useState(false);
 
-  const copy = useMemo(() => buildCardCopy(mode, result, request), [mode, request, result]);
+  const copy = useMemo(() => buildCardCopy(mode, result, request, includeSource), [includeSource, mode, request, result]);
 
   const shareText = `${copy.title}\n\n${copy.headline}\n\n${copy.body}\n\n${result.insight.what_to_try_next
     .slice(0, 2)
     .map((item) => `• ${item}`)
     .join("\n")}\n\nShared from DEFRAG`;
 
-  const downloadCard = async () => {
+  const getPngFile = async () => {
     const svg = makeSvgCard(copy, result);
-    const blob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
+    const blob = await svgToPngBlob(svg, 3);
+    return new File([blob], `defrag-${mode}-card.png`, { type: "image/png" });
+  };
+
+  const downloadPngCard = async () => {
+    const file = await getPngFile();
+    const url = URL.createObjectURL(file);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `defrag-${mode}-card.svg`;
+    link.download = file.name;
     link.click();
     URL.revokeObjectURL(url);
-    setStatus("Card downloaded.");
+    setStatus("PNG card downloaded.");
   };
 
   const copyCard = async () => {
@@ -154,7 +195,31 @@ export default function InsightShareStudio({ result, request }: InsightShareStud
     setStatus("Card text copied.");
   };
 
-  const shareCard = async () => {
+  const shareImage = async () => {
+    if (!navigator.share) {
+      await copyCard();
+      return;
+    }
+
+    const file = await getPngFile();
+    if (navigator.canShare?.({ files: [file] })) {
+      await navigator.share({
+        title: "DEFRAG insight card",
+        text: "Shared from DEFRAG",
+        files: [file],
+      });
+      setStatus("Image share sheet opened.");
+      return;
+    }
+
+    await navigator.share({
+      title: "DEFRAG insight card",
+      text: shareText,
+    });
+    setStatus("Share sheet opened.");
+  };
+
+  const shareTextOnly = async () => {
     if (navigator.share) {
       await navigator.share({
         title: "DEFRAG insight card",
@@ -217,6 +282,23 @@ export default function InsightShareStudio({ result, request }: InsightShareStud
         })}
       </div>
 
+      <label
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          padding: "12px 14px",
+          borderRadius: 16,
+          border: "1px solid rgba(255,255,255,0.08)",
+          background: "rgba(255,255,255,0.025)",
+          color: "#d4d4d8",
+          fontSize: 13,
+        }}
+      >
+        <input type="checkbox" checked={includeSource} onChange={(event) => setIncludeSource(event.target.checked)} />
+        Include the original situation as a short footer
+      </label>
+
       <div
         style={{
           padding: 22,
@@ -255,24 +337,31 @@ export default function InsightShareStudio({ result, request }: InsightShareStud
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
         <button
           type="button"
-          onClick={shareCard}
-          style={{ padding: "12px 16px", borderRadius: 999, border: 0, background: "#f5f5f5", color: "#050505", fontWeight: 700, cursor: "pointer" }}
+          onClick={shareImage}
+          style={{ minHeight: 44, padding: "12px 16px", borderRadius: 999, border: 0, background: "#f5f5f5", color: "#050505", fontWeight: 700, cursor: "pointer" }}
         >
-          Share card
+          Share image
         </button>
         <button
           type="button"
           onClick={copyCard}
-          style={{ padding: "12px 16px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.14)", background: "transparent", color: "#f5f5f5", cursor: "pointer" }}
+          style={{ minHeight: 44, padding: "12px 16px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.14)", background: "transparent", color: "#f5f5f5", cursor: "pointer" }}
         >
           Copy text
         </button>
         <button
           type="button"
-          onClick={downloadCard}
-          style={{ padding: "12px 16px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.14)", background: "transparent", color: "#f5f5f5", cursor: "pointer" }}
+          onClick={shareTextOnly}
+          style={{ minHeight: 44, padding: "12px 16px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.14)", background: "transparent", color: "#f5f5f5", cursor: "pointer" }}
         >
-          Download SVG
+          Share text
+        </button>
+        <button
+          type="button"
+          onClick={downloadPngCard}
+          style={{ minHeight: 44, padding: "12px 16px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.14)", background: "transparent", color: "#f5f5f5", cursor: "pointer" }}
+        >
+          Download PNG
         </button>
       </div>
 
