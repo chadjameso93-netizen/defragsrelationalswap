@@ -1,7 +1,8 @@
 import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const root = "/Users/cjo/Documents/defragsrelationalswap";
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const files = [
   "apps/web/src/components/app-shell.tsx",
   "apps/web/src/app/layout.tsx",
