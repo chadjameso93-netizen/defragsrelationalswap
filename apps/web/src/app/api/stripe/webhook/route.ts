@@ -60,19 +60,27 @@ export async function POST(request: Request) {
       return NextResponse.json({ received: true, account });
     }
 
+    let canonicalSubscription = subscription;
+
+    try {
+      canonicalSubscription = await stripe.subscriptions.retrieve(subscription.id);
+    } catch {
+      canonicalSubscription = subscription;
+    }
+
     const normalized = normalizeStripeSubscription(
       {
-        id: subscription.id,
-        status: subscription.status,
-        current_period_end: subscription.current_period_end,
+        id: canonicalSubscription.id,
+        status: canonicalSubscription.status,
+        current_period_end: canonicalSubscription.current_period_end,
         items: {
-          data: subscription.items.data.map((item) => ({ price: { id: item.price.id } })),
+          data: canonicalSubscription.items.data.map((item) => ({ price: { id: item.price.id } })),
         },
       },
       process.env,
     );
 
-    const normalizedState = normalizeStripeStatus(subscription.status);
+    const normalizedState = normalizeStripeStatus(canonicalSubscription.status);
     if (!["active", "trialing", "past_due", "canceled", "incomplete"].includes(normalizedState)) {
       return NextResponse.json({ error: "unsupported_subscription_state", state: normalizedState }, { status: 400 });
     }

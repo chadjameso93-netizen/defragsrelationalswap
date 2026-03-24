@@ -38,6 +38,20 @@ export function BillingActions({ currentPlan, hasCustomer }: BillingActionsProps
     ? `Upgrade to ${upgradeDefinition.name}${upgradeDefinition.monthlyPriceUsd ? ` ($${upgradeDefinition.monthlyPriceUsd}/mo)` : ""}`
     : "No upgrade available";
 
+  function presentError(err: unknown, action: "checkout" | "portal") {
+    const message = err instanceof Error ? err.message : String(err);
+
+    if (message.includes("stale_customer_for_user")) {
+      return "Your billing profile needed a reset. Try checkout once more and the account will reconnect.";
+    }
+
+    if (action === "checkout") {
+      return "Checkout could not start right now. Please try again in a moment.";
+    }
+
+    return "Billing portal could not open right now. Please try again in a moment.";
+  }
+
   return (
     <div style={{ display: "grid", gap: 12 }}>
       <div style={{ display: "flex", gap: 12 }}>
@@ -53,7 +67,7 @@ export function BillingActions({ currentPlan, hasCustomer }: BillingActionsProps
             try {
               await postJson("/api/stripe/checkout", { plan: upgradePlan });
             } catch (err) {
-              setError(String(err));
+              setError(presentError(err, "checkout"));
               setBusy(null);
             }
           }}
@@ -76,7 +90,7 @@ export function BillingActions({ currentPlan, hasCustomer }: BillingActionsProps
             try {
               await postJson("/api/stripe/portal", {});
             } catch (err) {
-              setError(String(err));
+              setError(presentError(err, "portal"));
               setBusy(null);
             }
           }}

@@ -24,7 +24,7 @@ export default function LoginPage() {
     });
 
     if (signInError) {
-      setError(signInError.message);
+      setError("Sign in failed. Check your email and password, then try again.");
       setLoading(false);
       return;
     }
@@ -74,7 +74,7 @@ export default function LoginPage() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
             {[
               ["Companion", "Thread-based reasoning"],
-              ["Insights", "Saved local reads"],
+              ["Insights", "Saved account reads"],
               ["World", "Field interpretation"],
             ].map(([label, value]) => (
               <div key={label} style={{ padding: 12, borderRadius: 16, background: "rgba(0,0,0,0.22)", backdropFilter: "blur(10px)" }}>
@@ -105,7 +105,7 @@ export default function LoginPage() {
             </p>
             <h1 style={{ margin: 0, fontSize: 34 }}>Sign in</h1>
             <p style={{ margin: 0, color: "#a1a1aa", lineHeight: 1.7 }}>
-              Use the same Supabase account you created for local testing.
+              Use your DEFRAG account to reopen private threads, saved reads, and billing state.
             </p>
           </div>
 
