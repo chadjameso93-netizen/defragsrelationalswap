@@ -15,7 +15,7 @@ export default function StateSummary() {
         {[
           ["Steadiest area", "One or two relationships still feel readable and open enough for gentle repair."],
           ["Watchpoint", "Distance is more likely to accumulate where the conversation stayed unfinished."],
-          ["Suggested posture", "Use observation first, then ask one low-pressure question rather than explaining everything."],
+          ["Suggested approach", "Use observation first, then ask one low-pressure question rather than explaining everything."],
         ].map(([label, value]) => (
           <div key={label} style={{ padding: 14, borderRadius: 16, background: "rgba(0,0,0,0.16)", border: "1px solid rgba(255,255,255,0.05)" }}>
             <div style={{ fontSize: 11, color: "#f5f5f5", marginBottom: 8 }}>{label}</div>

@@ -14,7 +14,7 @@ export default async function WorldPage() {
       <AppShell
         eyebrow="World Alpha"
         title="See the field, not just the transcript."
-        description="The public view keeps the visual field open so you can inspect the canvas language, mobile behavior, and interpretive posture before sign-in."
+        description="The public view keeps the visual field open so you can inspect the canvas language, mobile behavior, and interpretive frame before sign-in."
         accent="#9fbde8"
       >
         <div style={{ display: "grid", gap: 20 }}>

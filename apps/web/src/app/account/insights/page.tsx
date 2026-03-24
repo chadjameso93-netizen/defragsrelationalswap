@@ -174,12 +174,12 @@ export default function InsightsPage() {
 
           <section className="insight-preview-hero" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 18, padding: 22, borderRadius: 26, border: "1px solid rgba(255,255,255,0.08)", background: "radial-gradient(circle at top left, rgba(217,196,159,0.16), transparent 30%), linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015))" }}>
             <div style={{ display: "grid", gap: 14, alignContent: "start" }}>
-              <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#d9c49f" }}>Studio posture</p>
+              <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#d9c49f" }}>Studio view</p>
               <p style={{ margin: 0, fontSize: 26, lineHeight: 1.18, color: "#f5f5f5", maxWidth: 520 }}>
                 One moment, one closer insight, one move that feels human-sized.
               </p>
               <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "rgba(245,245,245,0.68)", maxWidth: 520 }}>
-                The surface stays spare on purpose: enough structure to steady the moment, not enough to turn it into performance.
+                The layout stays spare on purpose: enough structure to steady the moment, not enough to turn it into performance.
               </p>
             </div>
 
@@ -307,7 +307,7 @@ export default function InsightsPage() {
       >
         <div style={{ display: "grid", gap: 14, alignContent: "start" }}>
           <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#d9c49f" }}>
-            Studio posture
+            Studio view
           </p>
           <p style={{ margin: 0, fontSize: 26, lineHeight: 1.18, color: "#f5f5f5", maxWidth: 520 }}>
             Study the moment, keep the tone soft, and leave with one move you can actually make.

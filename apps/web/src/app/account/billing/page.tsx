@@ -38,7 +38,7 @@ export default async function BillingPage() {
       >
         <div style={{ display: "grid", gap: 22 }}>
           <PublicPreviewCta
-            title="The billing surface is visible before the account handoff."
+            title="The billing page is visible before the account handoff."
             description="You can inspect the plan architecture and account language without starting checkout. Sign in when you want a real Stripe session and a saved billing record."
             primaryLabel="Sign in for billing"
             secondaryLabel="Open Companion preview"
@@ -134,7 +134,7 @@ export default async function BillingPage() {
         <section className="billing-card" style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 22, padding: 22, display: "grid", gap: 14 }}>
           <div style={{ fontSize: 11, color: "#71717a", letterSpacing: "0.18em", textTransform: "uppercase" }}>Included in this slice</div>
           {[
-            "Checkout session creation from the app surface",
+            "Checkout session creation from the app",
             "Customer portal handoff for active billing accounts",
             "Webhook-driven subscription synchronization",
             "Plan-aware upgrade path across free, core, studio, and realtime",

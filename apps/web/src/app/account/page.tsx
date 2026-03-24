@@ -35,7 +35,7 @@ export default async function AccountPage() {
       title="See where care, distance, and timing are clustering."
       description={user
         ? "This page keeps the wider relational field in view so you can notice where attention may help before moving into a single insight."
-        : "The account landscape stays visible in preview mode so you can inspect the wider field surface before authentication turns it into your own working map."}
+        : "The account landscape stays visible in preview mode so you can inspect the wider field view before authentication turns it into your own working map."}
       accent="#9dd0be"
     >
       {!user ? (

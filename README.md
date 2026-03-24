@@ -1,6 +1,6 @@
 # DEFRAG
 
-DEFRAG is a relationship clarity product with two initial surfaces:
+DEFRAG is a relationship clarity product with two initial areas:
 - **Companion** (`/companion`)
 - **World alpha** (`/world`)
 
