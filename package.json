@@ -8,7 +8,8 @@
     "dev": "pnpm --dir apps/web dev",
     "build": "pnpm --dir apps/web build",
     "start": "pnpm --dir apps/web start",
-    "test": "vitest run"
+    "test": "pnpm run lint:copy && vitest run",
+    "lint:copy": "node scripts/copy-guard.mjs"
   },
   "devDependencies": {
     "next": "15.5.14",

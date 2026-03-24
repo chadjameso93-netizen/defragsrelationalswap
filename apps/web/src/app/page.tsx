@@ -4,7 +4,7 @@ import { AppShell } from "../components/app-shell";
 export default function LandingPage() {
   return (
     <AppShell
-      eyebrow="System"
+      eyebrow="Relationship clarity"
       title="Calm structure for moments that would otherwise stay tangled."
       description="DEFRAG turns charged exchanges into readable pattern, timing, and next-step guidance without turning the moment into a label."
     >
@@ -39,9 +39,9 @@ export default function LandingPage() {
 
           <div style={{ display: "grid", gap: 16 }}>
             {[
-              ["Companion", "Structured reads of one moment, one thread, and one next move at a time."],
+              ["Companion", "Structured insights for one moment, one thread, and one next move at a time."],
               ["Billing", "Stripe-backed upgrade, portal access, and webhook-driven subscription state."],
-              ["World Alpha", "A visual field surface for charge, pressure, and stabilization guidance."],
+              ["World Alpha", "A visual field view for charge, pressure, and stabilization guidance."],
             ].map(([label, copy]) => (
               <div key={label} className="premium-fade-up" data-delay="2" style={{ padding: "14px 0", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
                 <div style={{ fontSize: 14, color: "#f5f5f5", marginBottom: 6 }}>{label}</div>
@@ -74,7 +74,7 @@ export default function LandingPage() {
                 ))}
               </div>
               <p style={{ margin: 0, maxWidth: 340, fontSize: 24, lineHeight: 1.18 }}>
-                Reads that stay gentle in tone while still naming the actual pattern.
+                Guidance that stays gentle in tone while still naming the actual pattern.
               </p>
             </div>
             <div style={{ display: "grid", gap: 12 }}>

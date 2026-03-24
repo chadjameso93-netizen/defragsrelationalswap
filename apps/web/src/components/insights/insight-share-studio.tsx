@@ -13,7 +13,7 @@ interface InsightShareStudioProps {
 function buildCardCopy(mode: ShareCardMode, result: InsightApiResponse, request?: string, includeSource = false) {
   const title =
     mode === "summary"
-      ? "A calmer read"
+      ? "A calmer insight"
       : mode === "prep"
         ? "Conversation prep"
         : mode === "next"
@@ -36,7 +36,7 @@ function buildCardCopy(mode: ShareCardMode, result: InsightApiResponse, request?
         ? result.structured_synthesis?.other_experience ?? "The other person may be hearing pressure before they can hear intent."
         : mode === "next"
           ? result.insight.what_to_try_next.slice(1, 3).join(" ")
-          : "A softer read can sometimes reveal more than the first story we tell ourselves.";
+          : "A softer insight can sometimes reveal more than the first story we tell ourselves.";
 
   const footer =
     mode === "teaser"
@@ -249,7 +249,7 @@ export default function InsightShareStudio({ result, request }: InsightShareStud
       <div style={{ display: "grid", gap: 8 }}>
         <p style={{ margin: 0, fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#d9c49f" }}>Share studio</p>
         <p style={{ margin: 0, fontSize: 18, lineHeight: 1.45, color: "#f5f5f5" }}>
-          Turn this read into a message-sized card that stays gentle, specific, and safe to share.
+          Turn this insight into a message-sized card that stays gentle, specific, and safe to share.
         </p>
       </div>
 

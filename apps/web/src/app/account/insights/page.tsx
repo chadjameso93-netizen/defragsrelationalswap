@@ -147,7 +147,7 @@ export default function InsightsPage() {
       <AppShell
         eyebrow="Insight Studio"
         title="Look a little closer."
-        description="Stored reads, simulations, and calmer reframes for one moment at a time."
+        description="Saved insights, simulations, and calmer reframes for one moment at a time."
         accent="#d9c49f"
       >
         <div style={{ color: "#71717a", fontSize: 14 }}>Loading insight workspace…</div>
@@ -160,14 +160,14 @@ export default function InsightsPage() {
       <AppShell
         eyebrow="Insight Studio"
         title="Look a little closer."
-        description="Preview the studio posture, saved-read format, and analysis rhythm here. Sign in when you want your own stored reads, simulations, and billing-aware access."
+        description="Preview the studio flow, saved insight format, and analysis rhythm here. Sign in when you want your own saved insights, simulations, and billing-aware access."
         accent="#d9c49f"
       >
         <div style={{ display: "grid", gap: 22 }}>
           <PublicPreviewCta
             title="Insight Studio can be explored before it starts saving."
-            description="You can inspect the studio structure and read quality here. Authentication turns the preview into your own archive, simulation history, and follow-up workspace."
-            primaryLabel="Sign in for saved reads"
+            description="You can inspect the studio structure and insight quality here. Authentication turns the preview into your own archive, simulation history, and follow-up workspace."
+            primaryLabel="Sign in for saved insights"
             secondaryLabel="Open billing"
             secondaryHref="/account/billing"
           />
@@ -176,7 +176,7 @@ export default function InsightsPage() {
             <div style={{ display: "grid", gap: 14, alignContent: "start" }}>
               <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#d9c49f" }}>Studio posture</p>
               <p style={{ margin: 0, fontSize: 26, lineHeight: 1.18, color: "#f5f5f5", maxWidth: 520 }}>
-                One moment, one closer read, one move that feels human-sized.
+                One moment, one closer insight, one move that feels human-sized.
               </p>
               <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "rgba(245,245,245,0.68)", maxWidth: 520 }}>
                 The surface stays spare on purpose: enough structure to steady the moment, not enough to turn it into performance.
@@ -185,7 +185,7 @@ export default function InsightsPage() {
 
             <div className="insight-preview-metrics" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 12, alignSelf: "end" }}>
               {[
-                ["Reads saved", "Preview"],
+                ["Insights saved", "Preview"],
                 ["Access", "Upgrade aware"],
                 ["Current mode", "Archive view"],
               ].map(([label, value]) => (
@@ -200,12 +200,12 @@ export default function InsightsPage() {
           <div className="insight-preview-grid" style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 320px", gap: 28, alignItems: "start" }}>
             <div style={{ display: "grid", gap: 18 }}>
               <div style={{ display: "grid", gap: 12, padding: 20, borderRadius: 18, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)" }}>
-                <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#71717a" }}>First read</p>
+                <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#71717a" }}>Lead insight</p>
                 <p style={{ margin: 0, fontSize: 20, lineHeight: 1.45, color: "#f5f5f5", fontWeight: 500 }}>
                   This looks less like a lack of care and more like two people trying to repair while still protecting themselves from a repeat of the last rupture.
                 </p>
                 <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "#71717a" }}>
-                  Studio keeps the interpretation specific, softens the phrasing, and narrows the next step so the read stays usable.
+                  Studio keeps the interpretation specific, softens the phrasing, and narrows the next step so the guidance stays usable.
                 </p>
               </div>
 
@@ -230,7 +230,7 @@ export default function InsightsPage() {
 
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                 <Link href="/login" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "12px 18px", borderRadius: 999, background: "#f5f5f5", color: "#050505", textDecoration: "none", fontWeight: 700 }}>
-                  Sign in to save reads
+                  Sign in to save insights
                 </Link>
               </div>
             </div>
@@ -243,7 +243,7 @@ export default function InsightsPage() {
                 "Why the apology did not land as repair",
               ].map((title, index) => (
                 <div key={title} style={{ padding: 14, borderRadius: 16, border: index === 0 ? "1px solid rgba(217,196,159,0.42)" : "1px solid rgba(255,255,255,0.06)", background: index === 0 ? "rgba(217,196,159,0.08)" : "rgba(255,255,255,0.02)", display: "grid", gap: 6 }}>
-                  <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: index === 0 ? "#d9c49f" : "#71717a" }}>Saved read</div>
+                  <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: index === 0 ? "#d9c49f" : "#71717a" }}>Saved insight</div>
                   <div style={{ color: "#f5f5f5", lineHeight: 1.55, fontSize: 14 }}>{title}</div>
                 </div>
               ))}
@@ -288,7 +288,7 @@ export default function InsightsPage() {
     <AppShell
       eyebrow="Insight Studio"
       title="Look a little closer."
-      description="Bring one moment into focus and keep the read grounded, specific, and usable when the real conversation begins."
+      description="Bring one moment into focus and keep the insight grounded, specific, and usable when the real conversation begins."
       accent="#d9c49f"
     >
     <div style={{ display: "grid", gap: 22 }}>
@@ -310,7 +310,7 @@ export default function InsightsPage() {
             Studio posture
           </p>
           <p style={{ margin: 0, fontSize: 26, lineHeight: 1.18, color: "#f5f5f5", maxWidth: 520 }}>
-            Read the moment, keep the tone soft, and leave with one move you can actually make.
+            Study the moment, keep the tone soft, and leave with one move you can actually make.
           </p>
           <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "rgba(245,245,245,0.68)", maxWidth: 520 }}>
             Insight Studio is strongest when the slice is small: one exchange, one rupture, one confusing aftertaste.
@@ -327,7 +327,7 @@ export default function InsightsPage() {
           }}
         >
           {[
-            ["Reads saved", String(history.length)],
+            ["Insights saved", String(history.length)],
             ["Access", isPaid ? "Enabled" : "Upgrade"],
             ["Current mode", view === "result" ? "Result" : view === "form" ? "Drafting" : "Starter"],
           ].map(([label, value]) => (
@@ -351,8 +351,8 @@ export default function InsightsPage() {
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 12 }}>
           {[
-            ["Access", isPaid ? "Paid reading enabled" : "Upgrade required for full reads"],
-            ["History", history.length > 0 ? `${history.length} saved reads` : "No saved reads yet"],
+            ["Access", isPaid ? "Full insights enabled" : "Upgrade required for full insights"],
+            ["History", history.length > 0 ? `${history.length} saved insights` : "No saved insights yet"],
             ["Mode", view === "result" ? "Result" : view === "form" ? "Drafting" : "Starter state"],
           ].map(([label, value]) => (
             <div key={label} style={{ borderRadius: 18, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)", padding: 16 }}>
@@ -412,7 +412,7 @@ export default function InsightsPage() {
             <div style={{ display: "grid", gap: 18 }}>
               <div style={{ display: "grid", gap: 12, padding: 20, borderRadius: 16, border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.02)" }}>
                 <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: "#71717a" }}>
-                  First read
+                  Lead insight
                 </p>
                 <p style={{ margin: 0, fontSize: 20, lineHeight: 1.45, color: "#f5f5f5", fontWeight: 500 }}>
                   {guidancePhrasing.soften(result.insight.what_may_be_happening)}

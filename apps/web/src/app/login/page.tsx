@@ -64,17 +64,17 @@ export default function LoginPage() {
               DEFRAG
             </Link>
             <p style={{ margin: 0, fontSize: "clamp(2.2rem, 5vw, 4.6rem)", lineHeight: 0.98, maxWidth: 520, fontFamily: "var(--font-display), serif" }}>
-              Sign in to re-enter the workspace with your threads, reads, and field state intact.
+              Sign in to re-enter the workspace with your threads, saved insights, and field state intact.
             </p>
             <p style={{ margin: 0, maxWidth: 480, color: "rgba(245,245,245,0.66)", lineHeight: 1.75 }}>
-              Companion, billing, insights, and World now live in the same shared system. Authentication is the handoff between private reasoning and stored history.
+              Companion, billing, insights, and World now live in one shared workspace. Authentication is the handoff between private guidance and stored history.
             </p>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
             {[
               ["Companion", "Thread-based reasoning"],
-              ["Insights", "Saved account reads"],
+              ["Insights", "Saved account insights"],
               ["World", "Field interpretation"],
             ].map(([label, value]) => (
               <div key={label} style={{ padding: 12, borderRadius: 16, background: "rgba(0,0,0,0.22)", backdropFilter: "blur(10px)" }}>
@@ -105,7 +105,7 @@ export default function LoginPage() {
             </p>
             <h1 style={{ margin: 0, fontSize: 34 }}>Sign in</h1>
             <p style={{ margin: 0, color: "#a1a1aa", lineHeight: 1.7 }}>
-              Use your DEFRAG account to reopen private threads, saved reads, and billing state.
+              Use your DEFRAG account to reopen private threads, saved insights, and billing state.
             </p>
           </div>
 

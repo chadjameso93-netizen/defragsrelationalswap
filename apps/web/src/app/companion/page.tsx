@@ -13,14 +13,14 @@ export default async function CompanionPage() {
     return (
       <AppShell
         eyebrow="Companion"
-        title="A steadier read of one moment before it becomes a whole story."
-        description="Preview the workspace structure, reading posture, and thread flow here. Sign in when you want your own private reasoning history and saved follow-up actions."
+        title="A steadier view of one moment before it becomes a whole story."
+        description="Preview the workspace layout, thread flow, and next-step guidance here. Sign in when you want private history and saved follow-up actions."
         accent="#d8c49f"
       >
         <div style={{ display: "grid", gap: 22 }}>
           <PublicPreviewCta
             title="Companion is visible in preview, private in use."
-            description="You can inspect the thread rail, read architecture, and action rhythm without crossing the auth boundary. Sign in when you want to write, save, and keep an ongoing reasoning thread."
+            description="You can inspect the thread rail, guidance layout, and action flow without crossing the auth boundary. Sign in when you want to write, save, and keep an ongoing thread."
             primaryLabel="Sign in for your workspace"
             secondaryLabel="See billing"
             secondaryHref="/account/billing"
@@ -30,7 +30,7 @@ export default async function CompanionPage() {
             <aside style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 24, padding: 18, background: "radial-gradient(circle at top left, rgba(216,196,159,0.12), transparent 30%), linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02))", display: "grid", gap: 16 }}>
               <div style={{ display: "grid", gap: 6 }}>
                 <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#d8c49f" }}>Sample threads</p>
-                <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "#b4b8c1" }}>Recurring themes stay grouped so the read tracks pattern, not only the latest sentence.</p>
+                <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "#b4b8c1" }}>Recurring themes stay grouped so the guidance tracks pattern, not only the latest sentence.</p>
               </div>
               {[
                 "After dinner repair attempt",
@@ -48,7 +48,7 @@ export default async function CompanionPage() {
               <section style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 24, padding: 18, background: "radial-gradient(circle at top left, rgba(216,196,159,0.12), transparent 28%), linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015))", display: "grid", gap: 18 }}>
                 <div className="companion-preview-metrics" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 10 }}>
                   {[
-                    ["Mode", "Lead read"],
+                    ["Mode", "Lead summary"],
                     ["Confidence", "Measured"],
                     ["Action", "One next move"],
                   ].map(([label, value]) => (
@@ -116,8 +116,8 @@ export default async function CompanionPage() {
   return (
     <AppShell
       eyebrow="Companion"
-      title="A steadier read of one moment before it becomes a whole story."
-      description="Thread-based reasoning, stored insight history, follow-up actions, and premium evidence views now sit inside one calmer workspace."
+        title="A steadier view of one moment before it becomes a whole story."
+        description="Thread-based guidance, saved insight history, follow-up actions, and evidence views now sit inside one calmer workspace."
       accent="#d8c49f"
     >
       <CompanionWorkspace

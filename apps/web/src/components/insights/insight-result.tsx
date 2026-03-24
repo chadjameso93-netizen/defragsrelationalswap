@@ -19,7 +19,7 @@ interface InsightResultProps {
 function confidenceTone(level?: string) {
   if (level === "high") return { label: "Grounded", color: "#d9c49f" };
   if (level === "medium") return { label: "Directional", color: "#cddcf8" };
-  return { label: "Open read", color: "#c4c4c9" };
+  return { label: "Open view", color: "#c4c4c9" };
 }
 
 export default function InsightResult({ result, request, onReset }: InsightResultProps) {
@@ -63,7 +63,7 @@ export default function InsightResult({ result, request, onReset }: InsightResul
             <div style={{ padding: 14, borderRadius: 16, background: "rgba(0,0,0,0.18)", border: "1px solid rgba(255,255,255,0.06)" }}>
               <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8d8d95" }}>Uncertainty</div>
               <p style={{ margin: "10px 0 0 0", color: "#f5f5f5", lineHeight: 1.6 }}>
-                {proof?.uncertainty_notes?.[0] ?? "Use this as orientation, not proof. The real event still matters more than the read."}
+                {proof?.uncertainty_notes?.[0] ?? "Use this as orientation, not proof. The real event still matters more than the summary."}
               </p>
             </div>
             <div style={{ padding: 14, borderRadius: 16, background: "rgba(0,0,0,0.18)", border: "1px solid rgba(255,255,255,0.06)" }}>
@@ -75,7 +75,7 @@ export default function InsightResult({ result, request, onReset }: InsightResul
           </div>
 
           <div>
-            <h3 style={{ fontSize: 14, fontWeight: 500, marginBottom: 6, color: "#f4f4f5" }}>First read</h3>
+            <h3 style={{ fontSize: 14, fontWeight: 500, marginBottom: 6, color: "#f4f4f5" }}>Lead insight</h3>
             <p style={{ fontSize: 14, lineHeight: 1.6, color: "#a1a1aa", margin: 0 }}>{guidancePhrasing.soften(insight.what_may_be_happening)}</p>
           </div>
           <div>
@@ -124,7 +124,7 @@ export default function InsightResult({ result, request, onReset }: InsightResul
           <div style={{ display: "grid", gap: 6 }}>
             <p style={{ margin: 0, fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#71717a" }}>What this is based on</p>
             <p style={{ margin: 0, color: "#a1a1aa", lineHeight: 1.7 }}>
-              The read is strongest when the details are recent and concrete. This keeps the reasoning grounded instead of overreaching.
+              The insight is strongest when the details are recent and concrete. This keeps the reasoning grounded instead of overreaching.
             </p>
           </div>
 

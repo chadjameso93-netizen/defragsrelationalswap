@@ -65,7 +65,7 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
               <Link href="/" style={{ textDecoration: "none", color: "#f5f5f5", fontSize: 18, letterSpacing: "0.28em", textTransform: "uppercase" }}>
                 DEFRAG
               </Link>
-              <span style={{ color: "rgba(245,245,245,0.44)", fontSize: 12 }}>Relational reasoning system</span>
+              <span style={{ color: "rgba(245,245,245,0.44)", fontSize: 12 }}>Clarity for real conversations</span>
             </div>
 
             <div
@@ -93,7 +93,7 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
                   boxShadow: `0 0 18px ${accent}`,
                 }}
               />
-              Live reasoning surfaces
+              Preview available
             </div>
           </div>
 

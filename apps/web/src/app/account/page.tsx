@@ -34,14 +34,14 @@ export default async function AccountPage() {
       eyebrow="Landscape"
       title="See where care, distance, and timing are clustering."
       description={user
-        ? "This surface keeps the wider relational field in view so you can notice where attention may help before dropping into a single read."
+        ? "This page keeps the wider relational field in view so you can notice where attention may help before moving into a single insight."
         : "The account landscape stays visible in preview mode so you can inspect the wider field surface before authentication turns it into your own working map."}
       accent="#9dd0be"
     >
       {!user ? (
         <PublicPreviewCta
           title="The landscape can be viewed before it becomes personal."
-          description="Preview the wider relational field, orientation panels, and next-step flow here. Sign in when you want your actual people, stored profile, and linked account surfaces."
+          description="Preview the wider relational field, orientation panels, and next-step flow here. Sign in when you want your actual people, stored profile, and linked account pages."
           primaryLabel="Sign in for your landscape"
           secondaryLabel="Open Insights preview"
           secondaryHref="/account/insights"
@@ -93,7 +93,7 @@ export default async function AccountPage() {
               Take one relationship moment from this map and open it inside Insight Studio.
             </p>
             <p style={{ margin: 0, color: "#a1a1aa", fontSize: 14, lineHeight: 1.7 }}>
-              The map keeps the wider field visible. Insights gives you the closer read.
+              The map keeps the wider field visible. Insights gives you the closer view.
             </p>
             <Link
               href={user ? "/account/insights" : "/login"}
@@ -119,7 +119,7 @@ export default async function AccountPage() {
             <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Orientation</div>
             <div style={{ color: "#d4d4d8", lineHeight: 1.75, fontSize: 14 }}>
               Use this page to notice where things feel charged or unfinished.
-              Then move to Companion for a relational read or Insights for a more direct interpretation.
+              Then move to Companion for guided context or Insights for a more direct interpretation.
             </div>
           </section>
         </aside>

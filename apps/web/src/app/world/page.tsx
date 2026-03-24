@@ -21,7 +21,7 @@ export default async function WorldPage() {
           <PublicPreviewCta
             title="World stays visible, while interpretation stays private."
             description="The field canvas is open here in preview mode. Sign in when you want a stored interpretation, billing-aware access, and a personal relational scene."
-            primaryLabel="Sign in for field reads"
+            primaryLabel="Sign in for field insights"
             secondaryLabel="Open Companion preview"
             secondaryHref="/companion"
           />
@@ -30,7 +30,7 @@ export default async function WorldPage() {
             {[
               ["Pressure", "Preview where intensity accumulates before the conversation can name it."],
               ["Edges", "See which connection is carrying strain, reach, or repair demand."],
-              ["Repair", "Use the field as orientation before moving into a specific read."],
+              ["Repair", "Use the field as orientation before moving into a specific insight."],
             ].map(([label, copy]) => (
               <div key={label} className="premium-panel premium-fade-up" data-delay="2" style={{ padding: 18, borderRadius: 20, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)" }}>
                 <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8ca5ca" }}>{label}</div>
@@ -94,7 +94,7 @@ export default async function WorldPage() {
         {[
           ["Pressure", "Track where intensity is accumulating before the conversation names it."],
           ["Edges", "Watch which connection is carrying the most charge, distance, or repair demand."],
-          ["Timing", "Use the field read to slow down rushed repair and find the softer entry."],
+          ["Timing", "Use the field insight to slow down rushed repair and find the softer entry."],
         ].map(([label, copy]) => (
           <div key={label} className="premium-panel premium-fade-up" data-delay="2" style={{ padding: 18, borderRadius: 20, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)" }}>
             <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8ca5ca" }}>{label}</div>

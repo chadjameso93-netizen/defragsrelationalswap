@@ -15,10 +15,10 @@ export default function UpgradePanel() {
     >
       <div style={{ display: "grid", gap: 6 }}>
         <p style={{ margin: 0, fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#71717a" }}>
-          Upgrade for deeper reads
+          Upgrade for deeper insights
         </p>
         <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: "#f5f5f5" }}>
-          Paid access unlocks stored insight history, multi-angle reads, and the fuller reflection flow.
+          Paid access unlocks stored insight history, multi-angle guidance, and the fuller reflection flow.
         </p>
       </div>
       <Link

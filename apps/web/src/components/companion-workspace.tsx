@@ -199,7 +199,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
           <div style={{ display: "grid", gap: 8 }}>
             <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#d8c49f" }}>Compose the moment</p>
             <p style={{ margin: 0, fontSize: 24, lineHeight: 1.2, color: "#f5f5f5" }}>
-              Keep it small enough for a real read.
+              Keep it small enough for a real insight.
             </p>
             <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "#b4b8c1" }}>
               Companion works best on one exchange, one rupture, or one shift in tone rather than a whole relationship summary.
@@ -215,7 +215,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
             }}
           >
             {[
-              ["Mode", result ? "Read ready" : "Drafting"],
+              ["Mode", result ? "Insight ready" : "Drafting"],
               ["Premium", entitlements.canUseCompanionPremiumView ? "Unlocked" : "Locked"],
               ["Thread", activeThreadId ? "Active" : "New"],
             ].map(([label, value]) => (
@@ -231,7 +231,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
         <div style={{ display: "grid", gap: 6, marginBottom: 12 }}>
           <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Describe a moment</p>
           <p style={{ margin: 0, color: "#a1a1aa", fontSize: 13 }}>
-            Focus on one recent exchange. The tighter the moment, the better the read.
+            Focus on one recent exchange. The tighter the moment, the clearer the insight.
           </p>
         </div>
         <textarea
@@ -344,7 +344,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
         <section style={{ border: "1px dashed rgba(255,255,255,0.16)", borderRadius: 20, padding: 22, display: "grid", gap: 8 }}>
           <p style={{ margin: 0, fontSize: 12, color: "#f5f5f5", fontWeight: 600 }}>Nothing in focus yet</p>
           <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "#a1a1aa" }}>
-            Start a new thread or choose an existing one, then describe one exchange Companion should read.
+            Start a new thread or choose an existing one, then describe one exchange Companion should help you understand.
           </p>
         </section>
       ) : null}

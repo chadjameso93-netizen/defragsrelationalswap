@@ -16,7 +16,7 @@ export default function OnboardingPage() {
     <AppShell
       eyebrow="Onboarding"
       title="Set the workspace once, then move freely."
-      description="This is a minimal handoff that marks the account ready for the private surfaces. You can refine everything else later."
+      description="This is a minimal handoff that marks the account ready for private pages. You can refine everything else later."
       accent="#9dd0be"
     >
       <section

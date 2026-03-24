@@ -16,7 +16,7 @@ const STARTERS = [
 export default function FirstRun({ onComplete }: { onComplete: (data: { what: string; who: string; difficult: string }) => void }) {
   return (
     <div style={{ display: "grid", gap: 12, maxWidth: 760 }}>
-      <p style={{ margin: 0, fontSize: 13, color: "#a1a1aa" }}>Start from a common pattern or open a blank read below.</p>
+      <p style={{ margin: 0, fontSize: 13, color: "#a1a1aa" }}>Start from a common pattern or open a blank insight below.</p>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 12 }}>
         {STARTERS.map((starter) => (
           <button

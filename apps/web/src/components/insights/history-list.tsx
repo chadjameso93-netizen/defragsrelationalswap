@@ -15,10 +15,10 @@ export default function HistoryList({ insights, activeId, onSelect }: HistoryLis
     <div style={{ display: "grid", gap: 14 }}>
       <div style={{ display: "grid", gap: 4 }}>
         <p style={{ margin: 0, fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#71717a" }}>
-          Recent reads
+          Recent insights
         </p>
         <p style={{ margin: 0, fontSize: 13, lineHeight: 1.6, color: "#a1a1aa" }}>
-          Return to a prior interpretation or reopen the latest saved read.
+          Return to a prior interpretation or reopen the latest saved insight.
         </p>
       </div>
 
@@ -26,7 +26,7 @@ export default function HistoryList({ insights, activeId, onSelect }: HistoryLis
         <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Archive state</div>
         <div style={{ marginTop: 8, color: "#f5f5f5", fontSize: 22 }}>{insights.length}</div>
         <div style={{ marginTop: 4, fontSize: 13, lineHeight: 1.6, color: "#a1a1aa" }}>
-          Reads saved for this account and ready to reopen.
+          Insights saved for this account and ready to reopen.
         </div>
       </div>
 

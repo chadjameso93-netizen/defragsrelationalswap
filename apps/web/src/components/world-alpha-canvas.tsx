@@ -75,7 +75,7 @@ export function WorldAlphaCanvas({ preview = false, previewInsight = null }: Wor
           {[
             ["Active nodes", String(nodes.length)],
             ["Charged edge", `${Math.round(Math.max(...edges.map((edge) => edge.intensity)) * 100)}%`],
-            ["Field state", insight ? "Interpreted" : "Awaiting read"],
+            ["Field state", insight ? "Interpreted" : "Awaiting insight"],
           ].map(([label, value]) => (
             <div key={label} style={{ padding: 12, borderRadius: 16, border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.03)" }}>
               <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#7f8a99" }}>{label}</div>
@@ -252,7 +252,7 @@ export function WorldAlphaCanvas({ preview = false, previewInsight = null }: Wor
           <span style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#334155" }}>
             {preview ? "Preview" : "Interpretation"}
           </span>
-          <span style={{ fontSize: 16 }}>{preview ? "Field read available after sign-in" : loading ? "Interpreting field…" : "Generate field read"}</span>
+          <span style={{ fontSize: 16 }}>{preview ? "Field insight available after sign-in" : loading ? "Interpreting field…" : "Generate field insight"}</span>
           <span style={{ fontSize: 13, lineHeight: 1.65, color: preview ? "rgba(245,245,245,0.68)" : "#475569" }}>
             {preview
               ? "The canvas stays interactive here, but stored interpretation is reserved for signed-in sessions."
@@ -264,7 +264,7 @@ export function WorldAlphaCanvas({ preview = false, previewInsight = null }: Wor
       {insight ? (
         <section style={{ display: "grid", gap: 14 }}>
           <div style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 18, padding: 18, color: "#d4d4d8", lineHeight: 1.6, display: "grid", gap: 8, background: "rgba(255,255,255,0.025)" }}>
-            <p style={{ margin: 0, fontSize: 10, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.18em" }}>Field read</p>
+            <p style={{ margin: 0, fontSize: 10, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.18em" }}>Field insight</p>
             <p style={{ margin: 0 }}>
               <strong>Pattern:</strong> {insight.dominantPattern}
             </p>

@@ -46,7 +46,7 @@ export function CompanionV1Shell({ contract, entitlements, synthesis, evaluation
         >
           <div style={{ display: "grid", gap: 6 }}>
             <h3 style={{ margin: 0, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "#d8c49f" }}>
-              Companion read
+              Companion view
             </h3>
             <p style={{ margin: 0, color: "#f3f4f6", fontSize: 22, lineHeight: 1.45, maxWidth: 840 }}>{synthesis.betweenDynamic}</p>
           </div>

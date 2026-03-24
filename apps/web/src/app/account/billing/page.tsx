@@ -56,10 +56,10 @@ export default async function BillingPage() {
                   </div>
                   <p style={{ margin: 0, color: "#b8bac2", lineHeight: 1.7, fontSize: 14 }}>
                     {plan.id === "core"
-                      ? "Entry access for calmer reads and basic guided flow."
+                      ? "Entry access for calmer insights and basic guided flow."
                       : plan.id === "studio"
                         ? "Adds deeper support for ongoing reflection and heavier use."
-                        : "Designed for faster iteration and more active reasoning surfaces."}
+                        : "Designed for faster iteration and more active guidance tools."}
                   </p>
                 </div>
               ))}

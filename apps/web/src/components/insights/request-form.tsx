@@ -57,7 +57,7 @@ export default function RequestForm({ userId, userName, onSubmit, onCancel }: Re
             cursor: busy ? "default" : "pointer",
           }}
         >
-          {busy ? "Reading…" : "Generate read"}
+          {busy ? "Working…" : "Generate insight"}
         </button>
         <button
           type="button"

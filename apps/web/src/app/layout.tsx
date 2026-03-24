@@ -14,7 +14,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "DEFRAG",
-  description: "Relational reasoning system for Companion, billing, and World.",
+  description: "Guidance for real conversations, clearer next steps, and calmer follow-through.",
   icons: {
     icon: "/icon.svg",
     shortcut: "/icon.svg",
