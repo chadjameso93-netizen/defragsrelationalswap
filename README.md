@@ -135,7 +135,7 @@ Then copy the printed webhook signing secret into:
 ## 5) Vercel deployment path
 
 1. Import repo into Vercel.
-2. Set **Root Directory** to `apps/web`.
+2. Keep **Root Directory** at the repo root and use the checked-in `vercel.json`.
 3. Configure env vars (Preview + Production):
    - `NEXT_PUBLIC_APP_URL`
    - `NEXT_PUBLIC_SUPABASE_URL`

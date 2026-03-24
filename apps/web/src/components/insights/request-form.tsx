@@ -5,7 +5,7 @@ import { fetchInsight } from "@/lib/api";
 interface RequestFormProps {
   userId: string;
   userName: string;
-  onSubmit: (response: InsightApiResponse) => void;
+  onSubmit: (response: InsightApiResponse, request: string) => void;
   onCancel: () => void;
 }
 
@@ -41,7 +41,7 @@ export default function RequestForm({ userId, userName, onSubmit, onCancel }: Re
             setBusy(true);
             try {
               const response = await fetchInsight({ userId, userName, request });
-              onSubmit(response);
+              onSubmit(response, request);
             } finally {
               setBusy(false);
             }

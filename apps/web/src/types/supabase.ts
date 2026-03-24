@@ -4,6 +4,7 @@ import type {
   CompanionStructuredSynthesis,
   SubscriptionState,
 } from "../../../../packages/core/src";
+import type { InsightApiResponse } from "../types/contracts";
 
 export type Json =
   | string
@@ -204,6 +205,30 @@ export interface Database {
           action_type?: string;
           label?: string;
           payload?: Json | null;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      insight_reads: {
+        Row: {
+          id: string;
+          user_id: string;
+          prompt: string | null;
+          response: InsightApiResponse;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          prompt?: string | null;
+          response: InsightApiResponse;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          prompt?: string | null;
+          response?: InsightApiResponse;
           created_at?: string;
         };
         Relationships: [];

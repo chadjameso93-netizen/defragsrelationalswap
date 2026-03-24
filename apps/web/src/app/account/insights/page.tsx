@@ -38,6 +38,7 @@ export default function InsightsPage() {
   const [patternSummary, setPatternSummary] = useState<PatternSummary | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [simulation, setSimulation] = useState<SimulationApiResponse | null>(null);
+  const [activeRequest, setActiveRequest] = useState("");
 
   useEffect(() => {
     async function init() {
@@ -64,6 +65,7 @@ export default function InsightsPage() {
       if (insights.length > 0) {
         setResult(insights[0].response);
         setActiveHistoryId(insights[0].id);
+        setActiveRequest(insights[0].prompt ?? insights[0].response.insight.what_may_be_happening);
         setDetailsOpen(false);
         setView("result");
       } else {
@@ -84,6 +86,7 @@ export default function InsightsPage() {
   const handleHistorySelect = (entry: InsightEntry) => {
     setResult(entry.response);
     setActiveHistoryId(entry.id);
+    setActiveRequest(entry.prompt ?? entry.response.insight.what_may_be_happening);
     setSimulation(null);
     setDetailsOpen(false);
     setView("result");
@@ -107,6 +110,7 @@ export default function InsightsPage() {
       await saveInsight(user.id, payload as any, result);
       setResult(result);
       setActiveHistoryId(undefined);
+      setActiveRequest(payload.user_request);
       setSimulation(null);
       setDetailsOpen(false);
       setView("result");
@@ -123,10 +127,7 @@ export default function InsightsPage() {
     setLoading(true);
     try {
       const { fetchSimulation } = await import("@/lib/api");
-      const payload = {
-        ...result, // Use the same context as the last insight
-        requested_mode: "simulation"
-      };
+      const payload = { request: activeRequest };
       const simResult = await fetchSimulation(payload as any);
       setSimulation(simResult);
     } catch (err) {
@@ -386,9 +387,12 @@ export default function InsightsPage() {
           <RequestForm
             userId={user.id}
             userName={profile?.display_name || user.email}
-            onSubmit={(res) => {
+            onSubmit={async (res, request) => {
+              const { saveInsight } = await import("@/lib/insights");
+              await saveInsight(user.id, { user_request: request }, res);
               setResult(res);
               setActiveHistoryId(undefined);
+              setActiveRequest(request);
               setSimulation(null);
               setDetailsOpen(false);
               setView("result");

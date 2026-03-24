@@ -26,7 +26,7 @@ export default function HistoryList({ insights, activeId, onSelect }: HistoryLis
         <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Archive state</div>
         <div style={{ marginTop: 8, color: "#f5f5f5", fontSize: 22 }}>{insights.length}</div>
         <div style={{ marginTop: 4, fontSize: 13, lineHeight: 1.6, color: "#a1a1aa" }}>
-          Reads saved locally for this account and ready to reopen.
+          Reads saved for this account and ready to reopen.
         </div>
       </div>
 

@@ -4,6 +4,7 @@ import { BillingActions } from "../../../components/billing-actions";
 import { PublicPreviewCta } from "../../../components/public-preview-cta";
 import { getBillingStateForUser } from "../../../lib/billing-server";
 import { getAuthenticatedUserOrNull } from "../../../server/auth";
+import type { BillingPlan } from "../../../../../../packages/core/src";
 import { PLAN_CATALOG } from "../../../../../../packages/billing/src";
 
 function formatPeriodEnd(value: string | null): string {
@@ -25,6 +26,7 @@ function formatPeriodEnd(value: string | null): string {
 
 export default async function BillingPage() {
   const user = await getAuthenticatedUserOrNull();
+  const previewPlans = (["core", "studio", "realtime"] as BillingPlan[]).map((planId) => PLAN_CATALOG[planId]);
 
   if (!user) {
     return (
@@ -46,17 +48,19 @@ export default async function BillingPage() {
           <section className="billing-preview-grid" style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 20 }}>
             <section style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 24, padding: 22, display: "grid", gap: 16, background: "rgba(255,255,255,0.025)" }}>
               <div style={{ fontSize: 11, color: "#8f7dd9", letterSpacing: "0.18em", textTransform: "uppercase" }}>Plan ladder</div>
-              {[
-                ["Core", "$9/mo", "Entry access for calmer reads and basic guided flow."],
-                ["Studio", "$19/mo", "Adds deeper support for ongoing reflection and heavier use."],
-                ["Realtime", "$29/mo", "Designed for faster iteration and more active reasoning surfaces."],
-              ].map(([name, price, copy], index) => (
-                <div key={name} style={{ display: "grid", gap: 8, padding: 16, borderRadius: 18, border: index === 1 ? "1px solid rgba(203,184,255,0.45)" : "1px solid rgba(255,255,255,0.08)", background: index === 1 ? "rgba(203,184,255,0.08)" : "rgba(255,255,255,0.02)" }}>
+              {previewPlans.map((plan, index) => (
+                <div key={plan.id} style={{ display: "grid", gap: 8, padding: 16, borderRadius: 18, border: index === 1 ? "1px solid rgba(203,184,255,0.45)" : "1px solid rgba(255,255,255,0.08)", background: index === 1 ? "rgba(203,184,255,0.08)" : "rgba(255,255,255,0.02)" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "baseline" }}>
-                    <strong style={{ fontSize: 18 }}>{name}</strong>
-                    <span style={{ color: "#d4d4d8" }}>{price}</span>
+                    <strong style={{ fontSize: 18 }}>{plan.name}</strong>
+                    <span style={{ color: "#d4d4d8" }}>{plan.monthlyPriceUsd ? `$${plan.monthlyPriceUsd}/mo` : "Custom"}</span>
                   </div>
-                  <p style={{ margin: 0, color: "#b8bac2", lineHeight: 1.7, fontSize: 14 }}>{copy}</p>
+                  <p style={{ margin: 0, color: "#b8bac2", lineHeight: 1.7, fontSize: 14 }}>
+                    {plan.id === "core"
+                      ? "Entry access for calmer reads and basic guided flow."
+                      : plan.id === "studio"
+                        ? "Adds deeper support for ongoing reflection and heavier use."
+                        : "Designed for faster iteration and more active reasoning surfaces."}
+                  </p>
                 </div>
               ))}
             </section>
