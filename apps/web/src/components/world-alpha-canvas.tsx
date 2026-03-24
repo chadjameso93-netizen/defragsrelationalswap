@@ -37,10 +37,15 @@ function nodeAccent(type: WorldNode["type"]) {
   return "#d4d4d8";
 }
 
-export function WorldAlphaCanvas() {
+interface WorldAlphaCanvasProps {
+  preview?: boolean;
+  previewInsight?: WorldInterpretation | null;
+}
+
+export function WorldAlphaCanvas({ preview = false, previewInsight = null }: WorldAlphaCanvasProps) {
   const [nodes, setNodes] = useState(defaultNodes);
   const [edges, setEdges] = useState(defaultEdges);
-  const [insight, setInsight] = useState<WorldInterpretation | null>(null);
+  const [insight, setInsight] = useState<WorldInterpretation | null>(previewInsight);
   const [loading, setLoading] = useState(false);
 
   const indexed = useMemo(() => Object.fromEntries(nodes.map((node) => [node.id, node])), [nodes]);
@@ -203,6 +208,10 @@ export function WorldAlphaCanvas() {
         <button
           type="button"
           onClick={async () => {
+            if (preview) {
+              return;
+            }
+
             setLoading(true);
             const response = await fetch("/api/world/interpret", {
               method: "POST",
@@ -227,24 +236,27 @@ export function WorldAlphaCanvas() {
           }}
           style={{
             borderRadius: 20,
-            border: 0,
-            background: "linear-gradient(135deg, #f5f5f5, #dce8ff)",
-            color: "#111",
+            border: preview ? "1px solid rgba(255,255,255,0.12)" : 0,
+            background: preview ? "rgba(255,255,255,0.04)" : "linear-gradient(135deg, #f5f5f5, #dce8ff)",
+            color: preview ? "#f5f5f5" : "#111",
             padding: 16,
-            cursor: "pointer",
+            cursor: preview ? "default" : "pointer",
             fontWeight: 600,
             display: "grid",
             gap: 8,
             textAlign: "left",
-            boxShadow: "0 18px 40px rgba(138,168,224,0.18)",
+            boxShadow: preview ? "none" : "0 18px 40px rgba(138,168,224,0.18)",
           }}
+          disabled={preview}
         >
           <span style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#334155" }}>
-            Interpretation
+            {preview ? "Preview" : "Interpretation"}
           </span>
-          <span style={{ fontSize: 16 }}>{loading ? "Interpreting field…" : "Generate field read"}</span>
-          <span style={{ fontSize: 13, lineHeight: 1.65, color: "#475569" }}>
-            Collapse the scene into pattern, pressure, repair timing, and next moves.
+          <span style={{ fontSize: 16 }}>{preview ? "Field read available after sign-in" : loading ? "Interpreting field…" : "Generate field read"}</span>
+          <span style={{ fontSize: 13, lineHeight: 1.65, color: preview ? "rgba(245,245,245,0.68)" : "#475569" }}>
+            {preview
+              ? "The canvas stays interactive here, but stored interpretation is reserved for signed-in sessions."
+              : "Collapse the scene into pattern, pressure, repair timing, and next moves."}
           </span>
         </button>
       </section>

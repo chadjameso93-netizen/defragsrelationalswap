@@ -1,6 +1,7 @@
-import { redirect } from "next/navigation";
+import Link from "next/link";
 import { AppShell } from "../../../components/app-shell";
 import { BillingActions } from "../../../components/billing-actions";
+import { PublicPreviewCta } from "../../../components/public-preview-cta";
 import { getBillingStateForUser } from "../../../lib/billing-server";
 import { getAuthenticatedUserOrNull } from "../../../server/auth";
 import { PLAN_CATALOG } from "../../../../../../packages/billing/src";
@@ -26,7 +27,71 @@ export default async function BillingPage() {
   const user = await getAuthenticatedUserOrNull();
 
   if (!user) {
-    redirect("/login");
+    return (
+      <AppShell
+        eyebrow="Account"
+        title="Billing that stays operational, not mysterious."
+        description="Preview the plan ladder, upgrade flow, and Stripe-backed account rhythm here. Sign in when you want checkout, portal, and live subscription state."
+        accent="#cbb8ff"
+      >
+        <div style={{ display: "grid", gap: 22 }}>
+          <PublicPreviewCta
+            title="The billing surface is visible before the account handoff."
+            description="You can inspect the plan architecture and account language without starting checkout. Sign in when you want a real Stripe session and a saved billing record."
+            primaryLabel="Sign in for billing"
+            secondaryLabel="Open Companion preview"
+            secondaryHref="/companion"
+          />
+
+          <section className="billing-preview-grid" style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 20 }}>
+            <section style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 24, padding: 22, display: "grid", gap: 16, background: "rgba(255,255,255,0.025)" }}>
+              <div style={{ fontSize: 11, color: "#8f7dd9", letterSpacing: "0.18em", textTransform: "uppercase" }}>Plan ladder</div>
+              {[
+                ["Core", "$9/mo", "Entry access for calmer reads and basic guided flow."],
+                ["Studio", "$19/mo", "Adds deeper support for ongoing reflection and heavier use."],
+                ["Realtime", "$29/mo", "Designed for faster iteration and more active reasoning surfaces."],
+              ].map(([name, price, copy], index) => (
+                <div key={name} style={{ display: "grid", gap: 8, padding: 16, borderRadius: 18, border: index === 1 ? "1px solid rgba(203,184,255,0.45)" : "1px solid rgba(255,255,255,0.08)", background: index === 1 ? "rgba(203,184,255,0.08)" : "rgba(255,255,255,0.02)" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "baseline" }}>
+                    <strong style={{ fontSize: 18 }}>{name}</strong>
+                    <span style={{ color: "#d4d4d8" }}>{price}</span>
+                  </div>
+                  <p style={{ margin: 0, color: "#b8bac2", lineHeight: 1.7, fontSize: 14 }}>{copy}</p>
+                </div>
+              ))}
+            </section>
+
+            <section style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 24, padding: 22, display: "grid", gap: 16, background: "linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015))" }}>
+              <div style={{ fontSize: 11, color: "#71717a", letterSpacing: "0.18em", textTransform: "uppercase" }}>What happens after sign-in</div>
+              {[
+                "Upgrade actions open Stripe Checkout in test or production mode.",
+                "Portal handoff appears once a customer record exists.",
+                "Webhook sync updates plan status back into the app.",
+              ].map((item) => (
+                <div key={item} style={{ color: "rgba(245,245,245,0.74)", lineHeight: 1.7, paddingBottom: 10, borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+                  {item}
+                </div>
+              ))}
+              <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 8 }}>
+                <Link href="/login" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "12px 18px", borderRadius: 999, background: "#f5f5f5", color: "#050505", textDecoration: "none", fontWeight: 700 }}>
+                  Sign in for Checkout
+                </Link>
+                <Link href="/account/insights" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "12px 18px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.14)", color: "#f5f5f5", textDecoration: "none" }}>
+                  Open Insights preview
+                </Link>
+              </div>
+            </section>
+          </section>
+        </div>
+        <style>{`
+          @media (max-width: 860px) {
+            .billing-preview-grid {
+              grid-template-columns: 1fr !important;
+            }
+          }
+        `}</style>
+      </AppShell>
+    );
   }
 
   const { account } = await getBillingStateForUser(user.userId);

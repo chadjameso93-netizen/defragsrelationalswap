@@ -1,9 +1,10 @@
 import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { AppShell } from "@/components/app-shell";
 
 import MapView from "@/components/field/map-view";
+import { PublicPreviewCta } from "@/components/public-preview-cta";
 import StateSummary from "@/components/field/state-summary";
 import TimingHints from "@/components/field/timing-hints";
 
@@ -15,22 +16,19 @@ export default async function AccountPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user) {
-    redirect("/login");
-  }
-
-  if (!user.user_metadata?.onboarding_completed) {
+  if (user && !user.user_metadata?.onboarding_completed) {
     redirect("/onboarding");
   }
 
-  const { data: profileData } = await supabase
-    .from("profiles")
-    .select("display_name")
-    .eq("id", user.id)
-    .single();
-  const profile = profileData as ProfileRow | null;
+  const profile = user
+    ? ((await supabase
+        .from("profiles")
+        .select("display_name")
+        .eq("id", user.id)
+        .single()).data as ProfileRow | null)
+    : null;
 
-  const initialConnections = user.user_metadata?.initial_connections || [];
+  const initialConnections = user?.user_metadata?.initial_connections || [];
   const mockPeople = initialConnections.length > 0 
     ? initialConnections.map((p: any, i: number) => ({ id: String(i), name: p.name }))
     : [
@@ -38,14 +36,26 @@ export default async function AccountPage() {
         { id: "2", name: "David" },
         { id: "3", name: "Alex" }
       ];
+  const profileLabel = profile?.display_name || user?.email?.split("@")[0] || "Preview visitor";
 
   return (
     <AppShell
       eyebrow="Landscape"
       title="See where care, distance, and timing are clustering."
-      description="This surface keeps the wider relational field in view so you can notice where attention may help before dropping into a single read."
+      description={user
+        ? "This surface keeps the wider relational field in view so you can notice where attention may help before dropping into a single read."
+        : "The account landscape stays visible in preview mode so you can inspect the wider field surface before authentication turns it into your own working map."}
       accent="#9dd0be"
     >
+      {!user ? (
+        <PublicPreviewCta
+          title="The landscape can be viewed before it becomes personal."
+          description="Preview the wider relational field, orientation panels, and next-step flow here. Sign in when you want your actual people, stored profile, and linked account surfaces."
+          primaryLabel="Sign in for your landscape"
+          secondaryLabel="Open Insights preview"
+          secondaryHref="/account/insights"
+        />
+      ) : null}
       <section
         className="account-hero-grid"
         style={{
@@ -57,8 +67,8 @@ export default async function AccountPage() {
       >
         {[
           ["People in frame", String(mockPeople.length)],
-          ["Profile", profile?.display_name || user.email?.split("@")[0] || "You"],
-          ["Next move", "Open Insights"],
+          ["Profile", profileLabel],
+          ["Next move", user ? "Open Insights" : "Sign in to save"],
         ].map(([label, value]) => (
           <div key={label} style={{ padding: 18, borderRadius: 20, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)" }}>
             <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8ab7a7" }}>{label}</div>
@@ -78,7 +88,7 @@ export default async function AccountPage() {
       >
         <div style={{ display: "grid", gap: 18 }}>
           <MapView
-            user={{ name: profile?.display_name || user.email?.split("@")[0] || "You" }}
+            user={{ name: profileLabel }}
             people={mockPeople}
           />
           <StateSummary />
@@ -95,7 +105,7 @@ export default async function AccountPage() {
               The map keeps the wider field visible. Insights gives you the closer read.
             </p>
             <Link
-              href="/account/insights"
+              href={user ? "/account/insights" : "/login"}
               style={{
                 marginTop: 6,
                 display: "inline-flex",
@@ -110,7 +120,7 @@ export default async function AccountPage() {
                 fontWeight: 700,
               }}
             >
-              Open Insight Studio
+              {user ? "Open Insight Studio" : "Sign in to open Insight Studio"}
             </Link>
           </section>
 

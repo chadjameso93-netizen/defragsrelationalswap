@@ -11,6 +11,7 @@ import GuidanceNote from "@/components/insights/guidance-note";
 import ClarityQuestions from "@/components/insights/clarity-questions";
 import { guidancePhrasing } from "@/lib/guidance-rules";
 import FirstRun from "@/components/insights/first-run";
+import Link from "next/link";
 import RequestForm from "@/components/insights/request-form";
 import InsightResult from "@/components/insights/insight-result";
 import HistoryList from "@/components/insights/history-list";
@@ -20,6 +21,7 @@ import PhrasingSuggestions from "@/components/insights/phrasing-suggestions";
 import ConversationPrep from "@/components/insights/conversation-prep";
 import PerspectiveNote from "@/components/insights/perspective-note";
 import SimulationPreview from "@/components/insights/simulation-preview";
+import { PublicPreviewCta } from "@/components/public-preview-cta";
 import type { InsightApiResponse, SimulationApiResponse } from "@/types/contracts";
 
 export default function InsightsPage() {
@@ -41,7 +43,7 @@ export default function InsightsPage() {
     async function init() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        router.push("/login");
+        setLoading(false);
         return;
       }
       setUser(user);
@@ -134,7 +136,7 @@ export default function InsightsPage() {
     }
   };
 
-  if (loading || !user) {
+  if (loading) {
     return (
       <AppShell
         eyebrow="Insight Studio"
@@ -143,6 +145,125 @@ export default function InsightsPage() {
         accent="#d9c49f"
       >
         <div style={{ color: "#71717a", fontSize: 14 }}>Loading insight workspace…</div>
+      </AppShell>
+    );
+  }
+
+  if (!user) {
+    return (
+      <AppShell
+        eyebrow="Insight Studio"
+        title="Look a little closer."
+        description="Preview the studio posture, saved-read format, and analysis rhythm here. Sign in when you want your own stored reads, simulations, and billing-aware access."
+        accent="#d9c49f"
+      >
+        <div style={{ display: "grid", gap: 22 }}>
+          <PublicPreviewCta
+            title="Insight Studio can be explored before it starts saving."
+            description="You can inspect the studio structure and read quality here. Authentication turns the preview into your own archive, simulation history, and follow-up workspace."
+            primaryLabel="Sign in for saved reads"
+            secondaryLabel="Open billing"
+            secondaryHref="/account/billing"
+          />
+
+          <section className="insight-preview-hero" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 18, padding: 22, borderRadius: 26, border: "1px solid rgba(255,255,255,0.08)", background: "radial-gradient(circle at top left, rgba(217,196,159,0.16), transparent 30%), linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015))" }}>
+            <div style={{ display: "grid", gap: 14, alignContent: "start" }}>
+              <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#d9c49f" }}>Studio posture</p>
+              <p style={{ margin: 0, fontSize: 26, lineHeight: 1.18, color: "#f5f5f5", maxWidth: 520 }}>
+                One moment, one closer read, one move that feels human-sized.
+              </p>
+              <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "rgba(245,245,245,0.68)", maxWidth: 520 }}>
+                The surface stays spare on purpose: enough structure to steady the moment, not enough to turn it into performance.
+              </p>
+            </div>
+
+            <div className="insight-preview-metrics" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 12, alignSelf: "end" }}>
+              {[
+                ["Reads saved", "Preview"],
+                ["Access", "Upgrade aware"],
+                ["Current mode", "Archive view"],
+              ].map(([label, value]) => (
+                <div key={label} style={{ padding: 14, borderRadius: 16, background: "rgba(0,0,0,0.18)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                  <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8d8d95" }}>{label}</div>
+                  <div style={{ marginTop: 8, color: "#f5f5f5", fontSize: 16 }}>{value}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <div className="insight-preview-grid" style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 320px", gap: 28, alignItems: "start" }}>
+            <div style={{ display: "grid", gap: 18 }}>
+              <div style={{ display: "grid", gap: 12, padding: 20, borderRadius: 18, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)" }}>
+                <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#71717a" }}>First read</p>
+                <p style={{ margin: 0, fontSize: 20, lineHeight: 1.45, color: "#f5f5f5", fontWeight: 500 }}>
+                  This looks less like a lack of care and more like two people trying to repair while still protecting themselves from a repeat of the last rupture.
+                </p>
+                <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "#71717a" }}>
+                  Studio keeps the interpretation specific, softens the phrasing, and narrows the next step so the read stays usable.
+                </p>
+              </div>
+
+              <FirstRun onComplete={() => router.push("/login")} />
+
+              <div style={{ display: "grid", gap: 10 }}>
+                {[
+                  "Look for the smallest true description before you explain meaning.",
+                  "If repair already happened once, acknowledge that before adding new content.",
+                  "A ten-minute container may work better than trying to resolve the whole pattern.",
+                ].map((item, index) => (
+                  <div key={item} style={{ display: "grid", gap: 4, padding: "12px 14px", borderRadius: 12, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.04)" }}>
+                    <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>
+                      Option {index + 1}
+                    </p>
+                    <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "#d4d4d8" }}>
+                      {item}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                <Link href="/login" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "12px 18px", borderRadius: 999, background: "#f5f5f5", color: "#050505", textDecoration: "none", fontWeight: 700 }}>
+                  Sign in to save reads
+                </Link>
+              </div>
+            </div>
+
+            <aside className="insight-preview-rail" style={{ borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 28, display: "grid", gap: 12 }}>
+              <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Archive preview</p>
+              {[
+                "The text that stayed with me after the call",
+                "What made the family dinner feel heavier than it sounded",
+                "Why the apology did not land as repair",
+              ].map((title, index) => (
+                <div key={title} style={{ padding: 14, borderRadius: 16, border: index === 0 ? "1px solid rgba(217,196,159,0.42)" : "1px solid rgba(255,255,255,0.06)", background: index === 0 ? "rgba(217,196,159,0.08)" : "rgba(255,255,255,0.02)", display: "grid", gap: 6 }}>
+                  <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: index === 0 ? "#d9c49f" : "#71717a" }}>Saved read</div>
+                  <div style={{ color: "#f5f5f5", lineHeight: 1.55, fontSize: 14 }}>{title}</div>
+                </div>
+              ))}
+            </aside>
+          </div>
+        </div>
+        <style>{`
+          @media (max-width: 860px) {
+            .insight-preview-grid {
+              grid-template-columns: 1fr !important;
+            }
+
+            .insight-preview-rail {
+              border-left: 0 !important;
+              border-top: 1px solid rgba(255,255,255,0.08);
+              padding-left: 0 !important;
+              padding-top: 20px;
+            }
+          }
+
+          @media (max-width: 720px) {
+            .insight-preview-metrics {
+              grid-template-columns: 1fr !important;
+            }
+          }
+        `}</style>
       </AppShell>
     );
   }
