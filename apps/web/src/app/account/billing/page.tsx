@@ -2,6 +2,24 @@ import { redirect } from "next/navigation";
 import { BillingActions } from "../../../components/billing-actions";
 import { getBillingStateForUser } from "../../../lib/billing-server";
 import { getAuthenticatedUserOrNull } from "../../../server/auth";
+import { PLAN_CATALOG } from "../../../../../../packages/billing/src";
+
+function formatPeriodEnd(value: string | null): string {
+  if (!value) {
+    return "—";
+  }
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return value;
+  }
+
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(date);
+}
 
 export default async function BillingPage() {
   const user = await getAuthenticatedUserOrNull();
@@ -11,6 +29,7 @@ export default async function BillingPage() {
   }
 
   const { account } = await getBillingStateForUser(user.userId);
+  const currentPlan = PLAN_CATALOG[account.plan];
 
   return (
     <main style={{ minHeight: "100vh", background: "#050505", color: "#f5f5f5" }}>
@@ -20,17 +39,17 @@ export default async function BillingPage() {
 
         <section style={{ border: "1px solid rgba(255,255,255,0.12)", borderRadius: 12, padding: 16, display: "grid", gap: 8 }}>
           <p style={{ margin: 0 }}>
-            <strong>Current plan:</strong> {account.plan}
+            <strong>Current plan:</strong> {currentPlan.name}
           </p>
           <p style={{ margin: 0 }}>
             <strong>Billing status:</strong> {account.subscriptionState}
           </p>
           <p style={{ margin: 0 }}>
-            <strong>Current period end:</strong> {account.currentPeriodEnd ?? "—"}
+            <strong>Current period end:</strong> {formatPeriodEnd(account.currentPeriodEnd)}
           </p>
         </section>
 
-        <BillingActions currentPlan={account.plan} />
+        <BillingActions currentPlan={account.plan} hasCustomer={Boolean(account.customerId)} />
       </div>
     </main>
   );

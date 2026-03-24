@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { validatePortalInput } from "../../../../lib/validation/stripe-requests";
 import { getStripeServerClient } from "../../../../lib/stripe";
 import { getAuthenticatedUserOrNull } from "../../../../server/auth";
-import { getAppEnv } from "../../../../server/env";
+import { getBaseAppEnv } from "../../../../server/env";
 import { getBillingAccount } from "../../../../server/billing-state-store";
 
 export async function POST(request: Request) {
@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     }
 
     const payload = validatePortalInput(await request.json());
-    const env = getAppEnv();
+    const env = getBaseAppEnv();
     const account = await getBillingAccount(user.userId);
 
     if (!account.customerId) {

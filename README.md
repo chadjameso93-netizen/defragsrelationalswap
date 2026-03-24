@@ -17,7 +17,7 @@ The repository preserves a shared architecture:
 
 ```bash
 cd /Users/cjo/Documents/defragsrelationalswap
-cp apps/web/.env.local.example apps/web/.env.local   # or create manually if no example exists
+cp apps/web/.env.local.example apps/web/.env.local
 pnpm install
 pnpm dev
 ```
@@ -63,16 +63,18 @@ SUPABASE_SERVICE_ROLE_KEY=...
 NEXT_PUBLIC_APP_URL=http://localhost:3001
 ```
 
-### Required now
+### Required now for local page load + Stripe checkout/portal
 - `NEXT_PUBLIC_APP_URL`
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `STRIPE_SECRET_KEY`
-- `STRIPE_WEBHOOK_SECRET`
 - `STRIPE_PRICE_CORE`
 - `STRIPE_PRICE_STUDIO`
 - `STRIPE_PRICE_REALTIME`
+
+### Required later for local webhook sync
+- `STRIPE_WEBHOOK_SECRET`
 
 ### Optional now
 - `DEFRAG_ENABLE_MODEL_GENERATION` (`false` by default)

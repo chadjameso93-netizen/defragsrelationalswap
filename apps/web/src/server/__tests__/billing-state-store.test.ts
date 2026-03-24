@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { resolveEntitlements } from "../../../../../../packages/billing/src";
+import { resolveEntitlements } from "../../../../../packages/billing/src";
 
 describe("billing state access helpers", () => {
   it("derives entitlements from persisted billing state shape", () => {

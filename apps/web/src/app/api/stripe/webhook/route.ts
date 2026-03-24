@@ -9,7 +9,7 @@ import {
   recordProcessedWebhookEvent,
   upsertSubscriptionForUser,
 } from "../../../../server/billing-state-store";
-import { getAppEnv } from "../../../../server/env";
+import { getStripeWebhookEnv } from "../../../../server/env";
 
 function extractSubscription(event: Stripe.Event): Stripe.Subscription | null {
   if (
@@ -31,7 +31,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const env = getAppEnv();
+    const env = getStripeWebhookEnv();
     const stripe = getStripeServerClient();
     const rawBody = await request.text();
     const event = stripe.webhooks.constructEvent(rawBody, signature, env.STRIPE_WEBHOOK_SECRET);

@@ -4,7 +4,7 @@ import { validateCheckoutInput } from "../../../../lib/validation/stripe-request
 import { getStripeServerClient } from "../../../../lib/stripe";
 import { getAuthenticatedUserOrNull } from "../../../../server/auth";
 import { ensureBillingAccount, upsertCustomerForUser } from "../../../../server/billing-state-store";
-import { getAppEnv } from "../../../../server/env";
+import { getBaseAppEnv } from "../../../../server/env";
 
 export async function POST(request: Request) {
   try {
@@ -14,7 +14,7 @@ export async function POST(request: Request) {
     }
 
     const payload = validateCheckoutInput(await request.json());
-    const env = getAppEnv();
+    const env = getBaseAppEnv();
     const account = await ensureBillingAccount(user.userId);
     const priceMapping = getStripePriceMappingFromEnv(process.env);
     const priceId = priceMapping[payload.plan];
