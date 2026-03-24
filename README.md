@@ -16,15 +16,16 @@ The repository preserves a shared architecture:
 > Intended package manager: **pnpm**.
 
 ```bash
-# from repo root
+cd /Users/cjo/Documents/defragsrelationalswap
+cp apps/web/.env.local.example apps/web/.env.local   # or create manually if no example exists
 pnpm install
 pnpm dev
 ```
 
-Alternative explicit app command:
+The local app runs at:
 
 ```bash
-pnpm --dir apps/web dev
+http://localhost:3001
 ```
 
 Build/start:
@@ -44,10 +45,22 @@ pnpm test
 
 ## 2) Environment variables
 
-Copy and fill `.env.example`:
+For local development, `pnpm dev` runs Next from `apps/web`, so env vars must live in:
 
 ```bash
-cp .env.example .env.local
+apps/web/.env.local
+```
+
+The repo-root `.env.local` is not used for local run.
+
+Example:
+
+```env
+# apps/web/.env.local
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+SUPABASE_SERVICE_ROLE_KEY=...
+NEXT_PUBLIC_APP_URL=http://localhost:3001
 ```
 
 ### Required now
@@ -69,6 +82,11 @@ cp .env.example .env.local
 - `STRIPE_PRICE_TEAM`
 - `STRIPE_PRICE_API`
 - `STRIPE_PRICE_ENTERPRISE`
+
+Protected routes (`/companion`, `/account/billing`, `/world`) require:
+1. valid Supabase env vars in `apps/web/.env.local`
+2. Supabase migrations applied
+3. a real Supabase auth user
 
 ---
 
@@ -104,7 +122,7 @@ Webhook route:
 Forward events to local app:
 
 ```bash
-stripe listen --forward-to localhost:3000/api/stripe/webhook
+stripe listen --forward-to localhost:3001/api/stripe/webhook
 ```
 
 Then copy the printed webhook signing secret into:
