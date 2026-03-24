@@ -29,6 +29,14 @@ function edgeColor(type: WorldEdge["type"]) {
   return "#c4b5fd";
 }
 
+function nodeAccent(type: WorldNode["type"]) {
+  if (type === "person") return "#f4efe6";
+  if (type === "self_part") return "#93c5fd";
+  if (type === "conflict") return "#fda4af";
+  if (type === "future") return "#86efac";
+  return "#d4d4d8";
+}
+
 export function WorldAlphaCanvas() {
   const [nodes, setNodes] = useState(defaultNodes);
   const [edges, setEdges] = useState(defaultEdges);
@@ -39,24 +47,78 @@ export function WorldAlphaCanvas() {
 
   return (
     <div style={{ display: "grid", gap: 14 }}>
-      <div style={{ border: "1px solid rgba(255,255,255,0.12)", borderRadius: 18, padding: 12, background: "#060606" }}>
+      <section
+        style={{
+          border: "1px solid rgba(255,255,255,0.12)",
+          borderRadius: 26,
+          padding: 18,
+          background:
+            "radial-gradient(circle at 18% 14%, rgba(159,189,232,0.16), transparent 24%), radial-gradient(circle at 82% 18%, rgba(253,164,175,0.14), transparent 22%), linear-gradient(180deg, rgba(8,11,16,0.96), rgba(4,5,8,0.98))",
+          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), 0 18px 60px rgba(0,0,0,0.32)",
+          display: "grid",
+          gap: 16,
+        }}
+      >
+        <div
+          className="world-canvas-meta"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+            gap: 12,
+          }}
+        >
+          {[
+            ["Active nodes", String(nodes.length)],
+            ["Charged edge", `${Math.round(Math.max(...edges.map((edge) => edge.intensity)) * 100)}%`],
+            ["Field state", insight ? "Interpreted" : "Awaiting read"],
+          ].map(([label, value]) => (
+            <div key={label} style={{ padding: 12, borderRadius: 16, border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.03)" }}>
+              <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#7f8a99" }}>{label}</div>
+              <div style={{ marginTop: 8, color: "#f5f5f5", fontSize: 16 }}>{value}</div>
+            </div>
+          ))}
+        </div>
+
         <svg viewBox={`0 0 ${width} ${height}`} style={{ width: "100%", height: "auto", display: "block" }}>
+          <defs>
+            {nodes.map((node) => (
+              <radialGradient key={`gradient-${node.id}`} id={`node-gradient-${node.id}`} cx="50%" cy="50%" r="65%">
+                <stop offset="0%" stopColor={nodeAccent(node.type)} stopOpacity="0.95" />
+                <stop offset="65%" stopColor={nodeAccent(node.type)} stopOpacity="0.18" />
+                <stop offset="100%" stopColor="#050505" stopOpacity="0.08" />
+              </radialGradient>
+            ))}
+          </defs>
+
           {edges.map((edge) => {
             const from = indexed[edge.from];
             const to = indexed[edge.to];
             if (!from || !to) return null;
 
             return (
-              <line
-                key={edge.id}
-                x1={from.x}
-                y1={from.y}
-                x2={to.x}
-                y2={to.y}
-                stroke={edgeColor(edge.type)}
-                strokeOpacity={0.3 + edge.intensity * 0.6}
-                strokeWidth={1 + edge.intensity * 4}
-              />
+              <g key={edge.id}>
+                <line
+                  x1={from.x}
+                  y1={from.y}
+                  x2={to.x}
+                  y2={to.y}
+                  stroke={edgeColor(edge.type)}
+                  strokeOpacity={0.12 + edge.intensity * 0.22}
+                  strokeWidth={8 + edge.intensity * 10}
+                  strokeLinecap="round"
+                />
+                <line
+                  x1={from.x}
+                  y1={from.y}
+                  x2={to.x}
+                  y2={to.y}
+                  stroke={edgeColor(edge.type)}
+                  strokeOpacity={0.42 + edge.intensity * 0.4}
+                  strokeWidth={1 + edge.intensity * 4}
+                  strokeLinecap="round"
+                  strokeDasharray={edge.type === "trust" ? "0" : "3 7"}
+                />
+              </g>
             );
           })}
 
@@ -65,50 +127,78 @@ export function WorldAlphaCanvas() {
               <circle
                 cx={node.x}
                 cy={node.y}
-                r={20 + node.charge * 24}
-                fill="rgba(255,255,255,0.03)"
-                stroke="rgba(255,255,255,0.6)"
+                r={30 + node.charge * 34}
+                fill={nodeAccent(node.type)}
+                fillOpacity={0.08}
               />
-              <text x={node.x} y={node.y + 5} fontSize={12} textAnchor="middle" fill="#f4f4f5">
-                {node.label}
+              <circle
+                cx={node.x}
+                cy={node.y}
+                r={20 + node.charge * 24}
+                fill={`url(#node-gradient-${node.id})`}
+                stroke={nodeAccent(node.type)}
+                strokeOpacity={0.9}
+                strokeWidth={1.4}
+              />
+              <text x={node.x} y={node.y + 4} fontSize={12} fontWeight="600" textAnchor="middle" fill="#f4f4f5">
+                {node.label.length > 14 ? `${node.label.slice(0, 14)}…` : node.label}
               </text>
             </g>
           ))}
         </svg>
-      </div>
+      </section>
 
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-        <button
-          type="button"
-          onClick={() =>
-            setNodes((prev) =>
-              prev.map((node) =>
-                node.id === "self" ? { ...node, x: node.x - 26 } : node.id === "other" ? { ...node, x: node.x + 26 } : node,
+      <section
+        className="world-controls"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          gap: 12,
+        }}
+      >
+        {[
+          {
+            label: "Create distance",
+            copy: "Pull the core people apart to see what charge remains when the field has more air.",
+            action: () =>
+              setNodes((prev) =>
+                prev.map((node) =>
+                  node.id === "self" ? { ...node, x: node.x - 26 } : node.id === "other" ? { ...node, x: node.x + 26 } : node,
+                ),
               ),
-            )
-          }
-          style={{ borderRadius: 999, border: "1px solid rgba(255,255,255,0.2)", background: "transparent", color: "#fff", padding: "8px 12px", cursor: "pointer" }}
-        >
-          Move nodes apart
-        </button>
-
-        <button
-          type="button"
-          onClick={() =>
-            setEdges((prev) => prev.map((edge) => (edge.type === "tension" ? { ...edge, intensity: Math.max(0.2, edge.intensity - 0.15) } : edge)))
-          }
-          style={{ borderRadius: 999, border: "1px solid rgba(255,255,255,0.2)", background: "transparent", color: "#fff", padding: "8px 12px", cursor: "pointer" }}
-        >
-          Reduce tension edge
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setNodes((prev) => prev.map((node) => (node.id === "future" ? { ...node, charge: Math.max(0.2, node.charge - 0.15) } : node)))}
-          style={{ borderRadius: 999, border: "1px solid rgba(255,255,255,0.2)", background: "transparent", color: "#fff", padding: "8px 12px", cursor: "pointer" }}
-        >
-          Add boundary witness effect
-        </button>
+          },
+          {
+            label: "Soften tension",
+            copy: "Reduce the most visibly strained edge and watch how the field recalibrates.",
+            action: () =>
+              setEdges((prev) => prev.map((edge) => (edge.type === "tension" ? { ...edge, intensity: Math.max(0.2, edge.intensity - 0.15) } : edge))),
+          },
+          {
+            label: "Add witness",
+            copy: "Lower future pressure to simulate a steadier, more bounded frame around the scene.",
+            action: () => setNodes((prev) => prev.map((node) => (node.id === "future" ? { ...node, charge: Math.max(0.2, node.charge - 0.15) } : node))),
+          },
+        ].map((control) => (
+          <button
+            key={control.label}
+            type="button"
+            onClick={control.action}
+            style={{
+              textAlign: "left",
+              borderRadius: 20,
+              border: "1px solid rgba(255,255,255,0.08)",
+              background: "rgba(255,255,255,0.025)",
+              color: "#fff",
+              padding: 16,
+              cursor: "pointer",
+              display: "grid",
+              gap: 8,
+            }}
+          >
+            <span style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8ca5ca" }}>{control.label}</span>
+            <span style={{ fontSize: 13, lineHeight: 1.65, color: "#cfd7e4" }}>{control.copy}</span>
+          </button>
+        ))}
 
         <button
           type="button"
@@ -135,15 +225,33 @@ export function WorldAlphaCanvas() {
             setInsight(body.interpretation);
             setLoading(false);
           }}
-          style={{ borderRadius: 999, border: 0, background: "#fafafa", color: "#111", padding: "8px 12px", cursor: "pointer", fontWeight: 600 }}
+          style={{
+            borderRadius: 20,
+            border: 0,
+            background: "linear-gradient(135deg, #f5f5f5, #dce8ff)",
+            color: "#111",
+            padding: 16,
+            cursor: "pointer",
+            fontWeight: 600,
+            display: "grid",
+            gap: 8,
+            textAlign: "left",
+            boxShadow: "0 18px 40px rgba(138,168,224,0.18)",
+          }}
         >
-          {loading ? "Interpreting…" : "Interpret field"}
+          <span style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#334155" }}>
+            Interpretation
+          </span>
+          <span style={{ fontSize: 16 }}>{loading ? "Interpreting field…" : "Generate field read"}</span>
+          <span style={{ fontSize: 13, lineHeight: 1.65, color: "#475569" }}>
+            Collapse the scene into pattern, pressure, repair timing, and next moves.
+          </span>
         </button>
-      </div>
+      </section>
 
       {insight ? (
         <section style={{ display: "grid", gap: 14 }}>
-          <div style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 14, padding: 14, color: "#d4d4d8", lineHeight: 1.6, display: "grid", gap: 8 }}>
+          <div style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 18, padding: 18, color: "#d4d4d8", lineHeight: 1.6, display: "grid", gap: 8, background: "rgba(255,255,255,0.025)" }}>
             <p style={{ margin: 0, fontSize: 10, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.18em" }}>Field read</p>
             <p style={{ margin: 0 }}>
               <strong>Pattern:</strong> {insight.dominantPattern}
@@ -158,10 +266,10 @@ export function WorldAlphaCanvas() {
           </div>
 
           <div className="world-insight-grid" style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 14 }}>
-            <section className="world-panel" style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 14, padding: 14, display: "grid", gap: 10 }}>
+            <section className="world-panel" style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 18, padding: 16, display: "grid", gap: 10, background: "rgba(255,255,255,0.025)" }}>
               <p style={{ margin: 0, fontSize: 10, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.18em" }}>Node readings</p>
               {insight.nodeReadings.map((node) => (
-                <div key={node.id} style={{ padding: 12, borderRadius: 12, background: "rgba(255,255,255,0.03)", display: "grid", gap: 4 }}>
+                <div key={node.id} style={{ padding: 12, borderRadius: 14, background: "rgba(255,255,255,0.03)", display: "grid", gap: 4, border: "1px solid rgba(255,255,255,0.04)" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
                     <span style={{ color: "#f5f5f5" }}>{node.label}</span>
                     <span style={{ color: "#a1a1aa", fontSize: 12 }}>{Math.round(node.charge * 100)}%</span>
@@ -171,7 +279,7 @@ export function WorldAlphaCanvas() {
               ))}
             </section>
 
-            <section className="world-panel" style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 14, padding: 14, display: "grid", gap: 10 }}>
+            <section className="world-panel" style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 18, padding: 16, display: "grid", gap: 10, background: "rgba(255,255,255,0.025)" }}>
               <p style={{ margin: 0, fontSize: 10, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.18em" }}>Next moves</p>
               <ul style={{ margin: 0, paddingLeft: 18, color: "#d4d4d8", lineHeight: 1.7 }}>
                 {insight.nextMoves.map((move) => (
@@ -179,7 +287,7 @@ export function WorldAlphaCanvas() {
                 ))}
               </ul>
               {insight.strongestEdge ? (
-                <div style={{ marginTop: 4, padding: 12, borderRadius: 12, background: "rgba(255,255,255,0.03)", color: "#a1a1aa", fontSize: 13, lineHeight: 1.6 }}>
+                <div style={{ marginTop: 4, padding: 12, borderRadius: 14, background: "rgba(255,255,255,0.03)", color: "#a1a1aa", fontSize: 13, lineHeight: 1.6, border: "1px solid rgba(255,255,255,0.04)" }}>
                   Strongest edge: <strong style={{ color: "#f5f5f5" }}>{insight.strongestEdge.type}</strong> between{" "}
                   <strong style={{ color: "#f5f5f5" }}>{indexed[insight.strongestEdge.from]?.label ?? insight.strongestEdge.from}</strong> and{" "}
                   <strong style={{ color: "#f5f5f5" }}>{indexed[insight.strongestEdge.to]?.label ?? insight.strongestEdge.to}</strong>.
@@ -189,12 +297,16 @@ export function WorldAlphaCanvas() {
           </div>
         </section>
       ) : (
-        <section style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 14, padding: 14, color: "#d4d4d8", lineHeight: 1.6 }}>
+        <section style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 18, padding: 18, color: "#d4d4d8", lineHeight: 1.6, background: "rgba(255,255,255,0.02)" }}>
           Generate interpretation to see field guidance.
         </section>
       )}
       <style>{`
         @media (max-width: 720px) {
+          .world-canvas-meta {
+            grid-template-columns: 1fr !important;
+          }
+
           .world-insight-grid {
             grid-template-columns: 1fr !important;
           }
