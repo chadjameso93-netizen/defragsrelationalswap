@@ -208,12 +208,12 @@ export function generateInsightResponse(request: string): InsightApiResponse {
       pattern_candidates: patternCandidates,
       timing_notes: [inferTimingAssessment(normalized)],
       uncertainty_notes: [
-        "This read is directional, not definitive.",
+        "This interpretation is directional, not definitive.",
         "Real events and direct clarification matter more than any one interpretive frame.",
       ],
       confidence_reason:
         confidence === "medium"
-          ? "The request includes specific relational cues that support a grounded directional read."
+          ? "The request includes specific relational cues that support a grounded directional interpretation."
           : "The request is usable, but still broad enough that multiple explanations could fit.",
     },
   };

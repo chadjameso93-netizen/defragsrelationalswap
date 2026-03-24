@@ -11,6 +11,9 @@ const files = [
   "apps/web/src/app/account/insights/page.tsx",
   "apps/web/src/components/insights/insight-share-studio.tsx",
   "apps/web/src/components/insights/insight-result.tsx",
+  "apps/web/src/server/reasoning/insight-generator.ts",
+  "apps/web/src/server/reasoning/narrative-generator.ts",
+  "apps/web/src/server/reasoning/evaluation/fixtures.ts",
 ];
 
 const banned = [
@@ -19,6 +22,10 @@ const banned = [
   "Structured reads",
   "A steadier read",
   "A calmer read",
+  "This read is",
+  "directional read",
+  "adjusted this read",
+  "last read",
 ];
 
 const failures = [];

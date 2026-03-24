@@ -26,7 +26,7 @@ export async function generateNarrative(input: NarrativeInput): Promise<Companio
   }
 
   const correctionLead = correctionDetected
-    ? "Thank you for the correction. I’ve adjusted this read to better fit what you clarified. "
+    ? "Thank you for the correction. I’ve adjusted this view to better fit what you clarified. "
     : "";
 
   return {
