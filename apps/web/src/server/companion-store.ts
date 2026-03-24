@@ -1,5 +1,6 @@
 import type { CompanionEvaluationRubric, CompanionOutputContract, CompanionStructuredSynthesis } from "../../../../packages/core/src";
 import { createAdminClient } from "../utils/supabase/admin";
+import type { Json } from "../types/supabase";
 
 export type FollowUpActionType =
   | "show_evidence"
@@ -37,6 +38,30 @@ export interface CompanionInsightRecord {
 
 const insightSelect =
   "id,thread_id,created_at,confidence,synthesis,evaluation,what_happened,your_side,their_side,what_changed,next_move,what_this_is_based_on";
+
+function asStringArray(value: Json): string[] {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value.filter((item): item is string => typeof item === "string");
+}
+
+function asRecord(value: Json | null): Record<string, unknown> {
+  if (!value || Array.isArray(value) || typeof value !== "object") {
+    return {};
+  }
+
+  return value as Record<string, unknown>;
+}
+
+function asFollowUpActionType(value: string): FollowUpActionType {
+  if (value === "show_evidence" || value === "rephrase" || value === "practice_conversation") {
+    return value;
+  }
+
+  return "show_evidence";
+}
 
 export async function listThreadsForUser(userId: string): Promise<CompanionThreadRecord[]> {
   const supabase = createAdminClient();
@@ -91,9 +116,9 @@ export async function listRecentActionsForUser(userId: string): Promise<FollowUp
   return (data ?? []).map((row) => ({
     id: row.id,
     insightId: row.insight_id,
-    type: row.action_type,
+    type: asFollowUpActionType(row.action_type),
     label: row.label,
-    payload: row.payload ?? {},
+    payload: asRecord(row.payload),
     createdAt: row.created_at,
   }));
 }
@@ -147,7 +172,7 @@ export async function listInsightsForThread(userId: string, threadId: string): P
       theirSide: row.their_side,
       whatChanged: row.what_changed,
       nextMove: row.next_move,
-      whatThisIsBasedOn: Array.isArray(row.what_this_is_based_on) ? row.what_this_is_based_on : [],
+      whatThisIsBasedOn: asStringArray(row.what_this_is_based_on),
     },
   }));
 }
@@ -178,7 +203,7 @@ export async function listRecentInsightsForUser(userId: string): Promise<Compani
       theirSide: row.their_side,
       whatChanged: row.what_changed,
       nextMove: row.next_move,
-      whatThisIsBasedOn: Array.isArray(row.what_this_is_based_on) ? row.what_this_is_based_on : [],
+      whatThisIsBasedOn: asStringArray(row.what_this_is_based_on),
     },
   }));
 }
@@ -213,7 +238,7 @@ export async function getInsightById(userId: string, insightId: string): Promise
       theirSide: data.their_side,
       whatChanged: data.what_changed,
       nextMove: data.next_move,
-      whatThisIsBasedOn: Array.isArray(data.what_this_is_based_on) ? data.what_this_is_based_on : [],
+      whatThisIsBasedOn: asStringArray(data.what_this_is_based_on),
     },
   };
 }
@@ -233,9 +258,9 @@ export async function listActionsForInsight(insightId: string): Promise<FollowUp
   return (data ?? []).map((row) => ({
     id: row.id,
     insightId: row.insight_id,
-    type: row.action_type,
+    type: asFollowUpActionType(row.action_type),
     label: row.label,
-    payload: row.payload ?? {},
+    payload: asRecord(row.payload),
     createdAt: row.created_at,
   }));
 }
@@ -278,7 +303,7 @@ export async function createInsightForThread(
         insight_id: insightData.id,
         action_type: action.type,
         label: action.label,
-        payload: action.payload ?? {},
+        payload: (action.payload ?? {}) as Json,
       })),
     );
 

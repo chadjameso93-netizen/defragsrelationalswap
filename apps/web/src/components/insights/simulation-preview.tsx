@@ -24,7 +24,9 @@ export default function SimulationPreview({ simulation }: SimulationPreviewProps
       </section>
     );
   }
-  const { simulation: sim, structured_synthesis } = simulation;
+
+  const [firstBranch, secondBranch, thirdBranch] = simulation.branches;
+
   return (
     <section style={{ padding: "24px 20px", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 16, background: "rgba(255,255,255,0.02)", marginTop: 8, marginBottom: 8 }}>
       <div style={{ marginBottom: 10 }}>
@@ -35,24 +37,28 @@ export default function SimulationPreview({ simulation }: SimulationPreviewProps
       <div style={{ display: "grid", gap: 22 }}>
         <div>
           <h3 style={{ fontSize: 12, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.15em", margin: 0, marginBottom: 8 }}>How this may land</h3>
-          <p style={{ fontSize: 15, color: "#e4e4e7", margin: 0, lineHeight: 1.6, maxWidth: 420, fontWeight: 500 }}>{structured_synthesis.other_experience?.split(". ").slice(0,2).join(". ")}</p>
+          <p style={{ fontSize: 15, color: "#e4e4e7", margin: 0, lineHeight: 1.6, maxWidth: 420, fontWeight: 500 }}>
+            {firstBranch || "This may land more clearly if the opening feels simple and non-accusing."}
+          </p>
         </div>
         <div>
           <h3 style={{ fontSize: 12, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.15em", margin: 0, marginBottom: 8 }}>What they may need</h3>
-          <p style={{ fontSize: 15, color: "#e4e4e7", margin: 0, lineHeight: 1.6, maxWidth: 420, fontWeight: 500 }}>{sim.likely_tension_points?.[0]}</p>
+          <p style={{ fontSize: 15, color: "#e4e4e7", margin: 0, lineHeight: 1.6, maxWidth: 420, fontWeight: 500 }}>
+            {secondBranch || "A little more space, specificity, and less urgency."}
+          </p>
         </div>
       </div>
       <div style={{ marginTop: 28, paddingTop: 18, borderTop: "1px solid rgba(255,255,255,0.04)", display: "grid", gap: 10 }}>
         <div>
           <h4 style={{ fontSize: 12, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.13em", margin: 0, marginBottom: 6 }}>How you could say it</h4>
           <p style={{ fontSize: 15, color: "#e4e4e7", margin: 0, lineHeight: 1.6, maxWidth: 420, fontWeight: 500 }}>
-            {sim.possible_openings?.[0] || "You could start with something simple and open, like ‘Could we talk for a minute?’"}
+            {thirdBranch || "You could start with something simple and open, like ‘Could we talk for a minute?’"}
           </p>
           <p style={{ fontSize: 15, color: "#e4e4e7", margin: 0, lineHeight: 1.6, maxWidth: 420, fontWeight: 500 }}>
-            {sim.phrasing_options?.[0] || "Or try a gentler alternative, such as ‘I want to make sure this comes across the right way.’"}
+            Or try a gentler alternative, such as “I want to make sure this comes across the right way.”
           </p>
           <p style={{ fontSize: 15, color: "#a1a1aa", margin: 0, lineHeight: 1.6, maxWidth: 420, fontWeight: 400 }}>
-            {structured_synthesis.other_experience?.split(". ")[0] || "This may land differently for each person or group, and that’s okay."}
+            This may land differently for each person or group, and that’s okay.
           </p>
         </div>
       </div>

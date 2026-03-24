@@ -9,6 +9,6 @@ export async function getRecentInsights(): Promise<InsightEntry[]> {
   return [];
 }
 
-export async function saveInsight() {
+export async function saveInsight(_userId?: string, _payload?: unknown, _response?: InsightApiResponse) {
   return;
 }
