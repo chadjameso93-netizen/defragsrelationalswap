@@ -21,6 +21,15 @@ export async function POST(request: Request) {
     }
 
     const stripe = getStripeServerClient();
+    try {
+      const customer = await stripe.customers.retrieve(account.customerId);
+      if ("deleted" in customer && customer.deleted) {
+        return NextResponse.json({ error: "stale_customer_for_user" }, { status: 404 });
+      }
+    } catch {
+      return NextResponse.json({ error: "stale_customer_for_user" }, { status: 404 });
+    }
+
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: account.customerId,
       return_url: payload.returnUrl ?? `${env.NEXT_PUBLIC_APP_URL}/account/billing`,

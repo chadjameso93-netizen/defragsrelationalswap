@@ -6,6 +6,34 @@ import { getAuthenticatedUserOrNull } from "../../../../server/auth";
 import { ensureBillingAccount, upsertCustomerForUser } from "../../../../server/billing-state-store";
 import { getBaseAppEnv } from "../../../../server/env";
 
+async function ensureStripeCustomerId(
+  existingCustomerId: string | null,
+  user: { userId: string; email: string },
+) {
+  const stripe = getStripeServerClient();
+
+  if (existingCustomerId) {
+    try {
+      const customer = await stripe.customers.retrieve(existingCustomerId);
+      if (!("deleted" in customer && customer.deleted)) {
+        return existingCustomerId;
+      }
+    } catch {
+      // Stored customer may belong to an older Stripe configuration; recreate it below.
+    }
+  }
+
+  const customer = await stripe.customers.create({
+    email: user.email,
+    metadata: {
+      userId: user.userId,
+    },
+  });
+
+  await upsertCustomerForUser(user.userId, customer.id);
+  return customer.id;
+}
+
 export async function POST(request: Request) {
   try {
     const user = await getAuthenticatedUserOrNull();
@@ -24,18 +52,7 @@ export async function POST(request: Request) {
     }
 
     const stripe = getStripeServerClient();
-    let customerId = account.customerId;
-
-    if (!customerId) {
-      const customer = await stripe.customers.create({
-        email: user.email,
-        metadata: {
-          userId: user.userId,
-        },
-      });
-      customerId = customer.id;
-      await upsertCustomerForUser(user.userId, customerId);
-    }
+    const customerId = await ensureStripeCustomerId(account.customerId, user);
 
     const checkoutSession = await stripe.checkout.sessions.create({
       mode: "subscription",
