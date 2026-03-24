@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { AppShell } from "../../components/app-shell";
 import { WorldAlphaCanvas } from "../../components/world-alpha-canvas";
 import { getBillingStateForUser } from "../../lib/billing-server";
 import { getAuthenticatedUserOrNull } from "../../server/auth";
@@ -17,15 +18,13 @@ export default async function WorldPage() {
   }
 
   return (
-    <main style={{ minHeight: "100vh", background: "#050505", color: "#f5f5f5" }}>
-      <div style={{ maxWidth: 980, margin: "0 auto", padding: "30px 24px 64px", display: "grid", gap: 16 }}>
-        <h1 style={{ margin: 0 }}>World alpha</h1>
-        <p style={{ margin: 0, color: "#a1a1aa" }}>
-          A minimal relational field demo using shared DEFRAG event, feature, pattern, and timing interpretation.
-        </p>
-
-        <WorldAlphaCanvas />
-      </div>
-    </main>
+    <AppShell
+      eyebrow="World Alpha"
+      title="See the field, not just the transcript."
+      description="World maps charge, edge strength, repair timing, and likely stabilization moves across a shared relational scene."
+      accent="#9fbde8"
+    >
+      <WorldAlphaCanvas />
+    </AppShell>
   );
 }

@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { AppShell } from "../../../components/app-shell";
 import { BillingActions } from "../../../components/billing-actions";
 import { getBillingStateForUser } from "../../../lib/billing-server";
 import { getAuthenticatedUserOrNull } from "../../../server/auth";
@@ -32,25 +33,49 @@ export default async function BillingPage() {
   const currentPlan = PLAN_CATALOG[account.plan];
 
   return (
-    <main style={{ minHeight: "100vh", background: "#050505", color: "#f5f5f5" }}>
-      <div style={{ maxWidth: 800, margin: "0 auto", padding: "32px 24px 64px", display: "grid", gap: 16 }}>
-        <h1 style={{ margin: 0 }}>Billing & Account</h1>
-        <p style={{ margin: 0, color: "#a1a1aa" }}>Signed in as {user.email}</p>
+    <AppShell
+      eyebrow="Account"
+      title="Billing that stays operational, not mysterious."
+      description={`Signed in as ${user.email}. Stripe-backed subscriptions, checkout, portal access, and entitlement sync are active on this branch.`}
+      accent="#cbb8ff"
+    >
+      <section style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 20 }}>
+        <section style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 22, padding: 22, display: "grid", gap: 16, background: "rgba(255,255,255,0.025)" }}>
+          <div style={{ display: "grid", gap: 10 }}>
+            <div style={{ fontSize: 11, color: "#71717a", letterSpacing: "0.18em", textTransform: "uppercase" }}>Current state</div>
+            <div style={{ display: "grid", gap: 10 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 12, paddingBottom: 10, borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                <span style={{ color: "rgba(245,245,245,0.58)" }}>Plan</span>
+                <strong>{currentPlan.name}</strong>
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 12, paddingBottom: 10, borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                <span style={{ color: "rgba(245,245,245,0.58)" }}>Billing status</span>
+                <strong>{account.subscriptionState}</strong>
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
+                <span style={{ color: "rgba(245,245,245,0.58)" }}>Current period end</span>
+                <strong>{formatPeriodEnd(account.currentPeriodEnd)}</strong>
+              </div>
+            </div>
+          </div>
 
-        <section style={{ border: "1px solid rgba(255,255,255,0.12)", borderRadius: 12, padding: 16, display: "grid", gap: 8 }}>
-          <p style={{ margin: 0 }}>
-            <strong>Current plan:</strong> {currentPlan.name}
-          </p>
-          <p style={{ margin: 0 }}>
-            <strong>Billing status:</strong> {account.subscriptionState}
-          </p>
-          <p style={{ margin: 0 }}>
-            <strong>Current period end:</strong> {formatPeriodEnd(account.currentPeriodEnd)}
-          </p>
+          <BillingActions currentPlan={account.plan} hasCustomer={Boolean(account.customerId)} />
         </section>
 
-        <BillingActions currentPlan={account.plan} hasCustomer={Boolean(account.customerId)} />
-      </div>
-    </main>
+        <section style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 22, padding: 22, display: "grid", gap: 14 }}>
+          <div style={{ fontSize: 11, color: "#71717a", letterSpacing: "0.18em", textTransform: "uppercase" }}>Included in this slice</div>
+          {[
+            "Checkout session creation from the app surface",
+            "Customer portal handoff for active billing accounts",
+            "Webhook-driven subscription synchronization",
+            "Plan-aware upgrade path across free, core, studio, and realtime",
+          ].map((item) => (
+            <div key={item} style={{ color: "rgba(245,245,245,0.74)", lineHeight: 1.7, paddingBottom: 10, borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+              {item}
+            </div>
+          ))}
+        </section>
+      </section>
+    </AppShell>
   );
 }

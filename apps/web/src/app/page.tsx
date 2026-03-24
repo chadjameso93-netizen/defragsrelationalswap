@@ -1,49 +1,92 @@
 import Link from "next/link";
+import { AppShell } from "../components/app-shell";
 
 export default function LandingPage() {
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        background: "#050505",
-        color: "#f5f5f5",
-        display: "grid",
-        placeItems: "center",
-        padding: 24,
-      }}
+    <AppShell
+      eyebrow="System"
+      title="Calm structure for moments that would otherwise stay tangled."
+      description="DEFRAG turns charged exchanges into readable pattern, timing, and next-step guidance without slipping into diagnosis theater."
     >
-      <div style={{ maxWidth: 780, display: "grid", gap: 20 }}>
-        <p style={{ margin: 0, fontSize: 12, letterSpacing: "0.24em", textTransform: "uppercase", color: "#71717a" }}>
-          DEFRAG
-        </p>
-        <h1 style={{ margin: 0, fontSize: "clamp(2.2rem, 6vw, 4rem)", lineHeight: 1.05 }}>
-          Calm structure for relationship clarity.
-        </h1>
-        <p style={{ margin: 0, color: "#a1a1aa", lineHeight: 1.7 }}>
-          Companion helps you reflect on one moment at a time using a non-diagnostic, uncertainty-aware format.
-        </p>
+      <section
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1.1fr 0.9fr",
+          gap: 24,
+          alignItems: "end",
+        }}
+      >
+        <div style={{ display: "grid", gap: 18 }}>
+          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+            <Link
+              href="/companion"
+              style={{ padding: "12px 16px", borderRadius: 999, background: "#f5f5f5", color: "#050505", textDecoration: "none", fontWeight: 700 }}
+            >
+              Open Companion
+            </Link>
+            <Link
+              href="/world"
+              style={{ padding: "12px 16px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.18)", color: "#f5f5f5", textDecoration: "none" }}
+            >
+              Open World
+            </Link>
+          </div>
 
-        <div style={{ display: "flex", gap: 12 }}>
-          <Link
-            href="/companion"
-            style={{ padding: "10px 14px", borderRadius: 10, background: "#f5f5f5", color: "#050505", textDecoration: "none", fontWeight: 600 }}
-          >
-            Open Companion
-          </Link>
-          <Link
-            href="/account/billing"
-            style={{ padding: "10px 14px", borderRadius: 10, border: "1px solid rgba(255,255,255,0.2)", color: "#f5f5f5", textDecoration: "none" }}
-          >
-            Billing
-          </Link>
-          <Link
-            href="/world"
-            style={{ padding: "10px 14px", borderRadius: 10, border: "1px solid rgba(255,255,255,0.2)", color: "#f5f5f5", textDecoration: "none" }}
-          >
-            World alpha
-          </Link>
+          <div style={{ display: "grid", gap: 16 }}>
+            {[
+              ["Companion", "Structured reads of one moment, one thread, and one next move at a time."],
+              ["Billing", "Stripe-backed upgrade, portal access, and webhook-driven subscription state."],
+              ["World", "A visual field surface for charge, pressure, and stabilization guidance."],
+            ].map(([label, copy]) => (
+              <div key={label} style={{ padding: "14px 0", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+                <div style={{ fontSize: 14, color: "#f5f5f5", marginBottom: 6 }}>{label}</div>
+                <div style={{ color: "rgba(245,245,245,0.62)", lineHeight: 1.65 }}>{copy}</div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    </main>
+
+        <section
+          style={{
+            minHeight: 420,
+            borderRadius: 28,
+            overflow: "hidden",
+            position: "relative",
+            border: "1px solid rgba(255,255,255,0.08)",
+            background:
+              "radial-gradient(circle at 20% 18%, rgba(255,240,205,0.38), transparent 24%), radial-gradient(circle at 70% 28%, rgba(130,155,219,0.28), transparent 26%), linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01))",
+          }}
+        >
+          <div style={{ position: "absolute", inset: 0, padding: 24, display: "grid", alignContent: "space-between" }}>
+            <div style={{ display: "grid", gap: 12 }}>
+              <div style={{ display: "flex", gap: 10 }}>
+                {["pressure", "timing", "repair"].map((token) => (
+                  <span key={token} style={{ padding: "6px 10px", borderRadius: 999, background: "rgba(255,255,255,0.08)", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase" }}>
+                    {token}
+                  </span>
+                ))}
+              </div>
+              <p style={{ margin: 0, maxWidth: 340, fontSize: 24, lineHeight: 1.18 }}>
+                Reads that stay gentle in tone while still naming the actual pattern.
+              </p>
+            </div>
+            <div style={{ display: "grid", gap: 12 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
+                {[
+                  ["Highest charge", "Conflict"],
+                  ["Repair window", "Narrow"],
+                  ["Next move", "One small reset"],
+                ].map(([label, value]) => (
+                  <div key={label} style={{ padding: 12, borderRadius: 16, background: "rgba(0,0,0,0.22)", backdropFilter: "blur(10px)" }}>
+                    <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(245,245,245,0.54)" }}>{label}</div>
+                    <div style={{ marginTop: 8, fontSize: 14 }}>{value}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </AppShell>
   );
 }
