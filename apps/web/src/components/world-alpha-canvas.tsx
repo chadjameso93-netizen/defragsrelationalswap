@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { WorldEdge, WorldNode } from "../../../../packages/core/src";
+import type { WorldInterpretation } from "../server/reasoning/world-field";
 
 const width = 860;
 const height = 520;
@@ -31,7 +32,8 @@ function edgeColor(type: WorldEdge["type"]) {
 export function WorldAlphaCanvas() {
   const [nodes, setNodes] = useState(defaultNodes);
   const [edges, setEdges] = useState(defaultEdges);
-  const [insight, setInsight] = useState<string>("Generate interpretation to see field guidance.");
+  const [insight, setInsight] = useState<WorldInterpretation | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const indexed = useMemo(() => Object.fromEntries(nodes.map((node) => [node.id, node])), [nodes]);
 
@@ -111,6 +113,7 @@ export function WorldAlphaCanvas() {
         <button
           type="button"
           onClick={async () => {
+            setLoading(true);
             const response = await fetch("/api/world/interpret", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -123,24 +126,73 @@ export function WorldAlphaCanvas() {
                 ],
               }),
             });
-            const body = (await response.json()) as { interpretation?: { dominantPattern: string; highestChargeNodeId: string; stabilizationHint: string; timingSummary: string } };
+            const body = (await response.json()) as { interpretation?: WorldInterpretation };
             if (!response.ok || !body.interpretation) {
-              setInsight("Interpretation unavailable right now.");
+              setInsight(null);
+              setLoading(false);
               return;
             }
-            setInsight(
-              `Pattern: ${body.interpretation.dominantPattern}. Highest charge: ${body.interpretation.highestChargeNodeId}. ${body.interpretation.timingSummary} ${body.interpretation.stabilizationHint}`,
-            );
+            setInsight(body.interpretation);
+            setLoading(false);
           }}
           style={{ borderRadius: 999, border: 0, background: "#fafafa", color: "#111", padding: "8px 12px", cursor: "pointer", fontWeight: 600 }}
         >
-          Interpret field
+          {loading ? "Interpreting…" : "Interpret field"}
         </button>
       </div>
 
-      <section style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 14, padding: 14, color: "#d4d4d8", lineHeight: 1.6 }}>
-        {insight}
-      </section>
+      {insight ? (
+        <section style={{ display: "grid", gap: 14 }}>
+          <div style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 14, padding: 14, color: "#d4d4d8", lineHeight: 1.6, display: "grid", gap: 8 }}>
+            <p style={{ margin: 0, fontSize: 10, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.18em" }}>Field read</p>
+            <p style={{ margin: 0 }}>
+              <strong>Pattern:</strong> {insight.dominantPattern}
+            </p>
+            <p style={{ margin: 0 }}>
+              <strong>Highest charge:</strong> {insight.highestChargeNodeLabel ?? insight.highestChargeNodeId}
+            </p>
+            <p style={{ margin: 0 }}>
+              <strong>Pressure:</strong> {insight.pressureLevel} | <strong>Repair window:</strong> {insight.repairWindow}
+            </p>
+            <p style={{ margin: 0 }}>{insight.stabilizationHint}</p>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 14 }}>
+            <section style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 14, padding: 14, display: "grid", gap: 10 }}>
+              <p style={{ margin: 0, fontSize: 10, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.18em" }}>Node readings</p>
+              {insight.nodeReadings.map((node) => (
+                <div key={node.id} style={{ padding: 12, borderRadius: 12, background: "rgba(255,255,255,0.03)", display: "grid", gap: 4 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
+                    <span style={{ color: "#f5f5f5" }}>{node.label}</span>
+                    <span style={{ color: "#a1a1aa", fontSize: 12 }}>{Math.round(node.charge * 100)}%</span>
+                  </div>
+                  <p style={{ margin: 0, color: "#a1a1aa", fontSize: 13, lineHeight: 1.6 }}>{node.note}</p>
+                </div>
+              ))}
+            </section>
+
+            <section style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 14, padding: 14, display: "grid", gap: 10 }}>
+              <p style={{ margin: 0, fontSize: 10, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.18em" }}>Next moves</p>
+              <ul style={{ margin: 0, paddingLeft: 18, color: "#d4d4d8", lineHeight: 1.7 }}>
+                {insight.nextMoves.map((move) => (
+                  <li key={move}>{move}</li>
+                ))}
+              </ul>
+              {insight.strongestEdge ? (
+                <div style={{ marginTop: 4, padding: 12, borderRadius: 12, background: "rgba(255,255,255,0.03)", color: "#a1a1aa", fontSize: 13, lineHeight: 1.6 }}>
+                  Strongest edge: <strong style={{ color: "#f5f5f5" }}>{insight.strongestEdge.type}</strong> between{" "}
+                  <strong style={{ color: "#f5f5f5" }}>{indexed[insight.strongestEdge.from]?.label ?? insight.strongestEdge.from}</strong> and{" "}
+                  <strong style={{ color: "#f5f5f5" }}>{indexed[insight.strongestEdge.to]?.label ?? insight.strongestEdge.to}</strong>.
+                </div>
+              ) : null}
+            </section>
+          </div>
+        </section>
+      ) : (
+        <section style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 14, padding: 14, color: "#d4d4d8", lineHeight: 1.6 }}>
+          Generate interpretation to see field guidance.
+        </section>
+      )}
     </div>
   );
 }
