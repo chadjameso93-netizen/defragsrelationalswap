@@ -8,10 +8,6 @@ import { PublicPreviewCta } from "@/components/public-preview-cta";
 import StateSummary from "@/components/field/state-summary";
 import TimingHints from "@/components/field/timing-hints";
 
-interface ProfileRow {
-  display_name: string | null;
-}
-
 export default async function AccountPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -19,14 +15,6 @@ export default async function AccountPage() {
   if (user && !user.user_metadata?.onboarding_completed) {
     redirect("/onboarding");
   }
-
-  const profile = user
-    ? ((await supabase
-        .from("profiles")
-        .select("display_name")
-        .eq("id", user.id)
-        .single()).data as ProfileRow | null)
-    : null;
 
   const initialConnections = user?.user_metadata?.initial_connections || [];
   const mockPeople = initialConnections.length > 0 
@@ -36,7 +24,10 @@ export default async function AccountPage() {
         { id: "2", name: "David" },
         { id: "3", name: "Alex" }
       ];
-  const profileLabel = profile?.display_name || user?.email?.split("@")[0] || "Preview visitor";
+  const profileLabel =
+    (typeof user?.user_metadata?.display_name === "string" && user.user_metadata.display_name) ||
+    user?.email?.split("@")[0] ||
+    "Preview visitor";
 
   return (
     <AppShell

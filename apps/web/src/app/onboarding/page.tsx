@@ -73,26 +73,13 @@ export default function OnboardingPage() {
 
                 const metadata = {
                   ...user.user_metadata,
+                  display_name: displayName.trim() || user.user_metadata?.display_name,
                   onboarding_completed: true,
                 };
 
                 const updateResult = await supabase.auth.updateUser({ data: metadata });
                 if (updateResult.error) {
                   throw updateResult.error;
-                }
-
-                if (displayName.trim()) {
-                  const profileResult = await supabase.from("profiles").upsert(
-                    {
-                      id: user.id,
-                      display_name: displayName.trim(),
-                    } as never,
-                    { onConflict: "id" },
-                  );
-
-                  if (profileResult.error) {
-                    throw profileResult.error;
-                  }
                 }
 
                 router.push("/account");

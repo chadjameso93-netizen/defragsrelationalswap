@@ -39,6 +39,11 @@ export default function InsightsPage() {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [simulation, setSimulation] = useState<SimulationApiResponse | null>(null);
   const [activeRequest, setActiveRequest] = useState("");
+  const profileName =
+    profile?.display_name ||
+    (typeof user?.user_metadata?.display_name === "string" ? user.user_metadata.display_name : null) ||
+    user?.email ||
+    "";
 
   useEffect(() => {
     async function init() {
@@ -53,12 +58,12 @@ export default function InsightsPage() {
       const active = isSubscriptionActive(subscription);
       setIsPaid(active);
 
-      const [{ data: profile }, insights] = await Promise.all([
-        supabase.from("profiles").select("display_name").eq("id", user.id).single(),
-        getRecentInsights(user.id)
-      ]);
-
-      setProfile(profile);
+      const insights = await getRecentInsights(user.id);
+      setProfile(
+        typeof user.user_metadata?.display_name === "string"
+          ? { display_name: user.user_metadata.display_name }
+          : null,
+      );
       setHistory(insights);
       setPatternSummary(derivePatternSummary(insights));
 
@@ -99,7 +104,7 @@ export default function InsightsPage() {
     setLoading(true);
     try {
       const payload = {
-        user: { id: user.id, name: profile?.display_name || user.email, data_confidence: "partial" },
+        user: { id: user.id, name: profileName, data_confidence: "partial" },
         user_request: `Analysis of interaction with ${data.who}. ${data.difficult ? `Core difficulty: ${data.difficult}` : ""}`,
         requested_mode: "insight",
         recent_events: [{ timestamp: new Date().toISOString(), type: "interaction", description: data.what }]
@@ -386,7 +391,7 @@ export default function InsightsPage() {
         {view === "form" && isPaid && (
           <RequestForm
             userId={user.id}
-            userName={profile?.display_name || user.email}
+            userName={profileName}
             onSubmit={async (res, request) => {
               const { saveInsight } = await import("@/lib/insights");
               await saveInsight(user.id, { user_request: request }, res);
