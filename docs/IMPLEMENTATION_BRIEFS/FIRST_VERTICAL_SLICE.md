@@ -1,5 +1,12 @@
 # First Vertical Slice
 
+## Status
+
+Historical brief only.
+
+This file describes the earliest prototype target and does not describe the current production architecture.
+The current repo does not expose `POST /api/v1/insights`.
+
 ## Goal
 
 Build a working insight endpoint.
@@ -14,7 +21,7 @@ RequestContext JSON
 
 ## Endpoint
 
-POST /api/v1/insights
+Historical prototype endpoint only. Not part of the current app.
 
 ---
 

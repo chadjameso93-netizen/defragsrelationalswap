@@ -1,6 +1,6 @@
 # DEFRAG Overview
 
-DEFRAG is a system for understanding relationship dynamics.
+DEFRAG is a relationship clarity product delivered through one web app.
 
 It does not diagnose or label people.
 
@@ -13,12 +13,12 @@ It helps users:
 
 ## How It Works
 
-The system looks at:
+The product looks at:
 - recent interactions
 - communication patterns
 - timing and repetition
 
-It produces:
+It currently produces:
 
 1. structured_synthesis
 2. insight
@@ -52,3 +52,10 @@ Help users:
 - see clearly
 - act intentionally
 - reduce unnecessary conflict
+
+## Current delivery model
+
+- website and account shell on `defrag.app`
+- preview and authenticated views in the same app
+- Supabase-backed auth and storage
+- Stripe-backed billing
