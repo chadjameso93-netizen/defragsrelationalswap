@@ -22,6 +22,14 @@ export default function HistoryList({ insights, activeId, onSelect }: HistoryLis
         </p>
       </div>
 
+      <div style={{ padding: 14, borderRadius: 16, border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.03)" }}>
+        <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Archive state</div>
+        <div style={{ marginTop: 8, color: "#f5f5f5", fontSize: 22 }}>{insights.length}</div>
+        <div style={{ marginTop: 4, fontSize: 13, lineHeight: 1.6, color: "#a1a1aa" }}>
+          Reads saved locally for this account and ready to reopen.
+        </div>
+      </div>
+
       <div style={{ display: "grid", gap: 10 }}>
         {insights.map((entry, index) => {
           const isActive = entry.id === activeId;

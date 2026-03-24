@@ -164,7 +164,55 @@ export default function InsightsPage() {
       description="Bring one moment into focus and keep the read grounded, specific, and usable when the real conversation begins."
       accent="#d9c49f"
     >
-    <div style={{ display: "grid", gridTemplateColumns: history.length > 0 ? "minmax(0, 1fr) 320px" : "minmax(0, 1fr)", gap: 32, alignItems: "start" }}>
+    <div style={{ display: "grid", gap: 22 }}>
+      <section
+        className="insight-hero"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+          gap: 18,
+          padding: 22,
+          borderRadius: 26,
+          border: "1px solid rgba(255,255,255,0.08)",
+          background:
+            "radial-gradient(circle at top left, rgba(217,196,159,0.16), transparent 30%), linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015))",
+        }}
+      >
+        <div style={{ display: "grid", gap: 14, alignContent: "start" }}>
+          <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#d9c49f" }}>
+            Studio posture
+          </p>
+          <p style={{ margin: 0, fontSize: 26, lineHeight: 1.18, color: "#f5f5f5", maxWidth: 520 }}>
+            Read the moment, keep the tone soft, and leave with one move you can actually make.
+          </p>
+          <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "rgba(245,245,245,0.68)", maxWidth: 520 }}>
+            Insight Studio is strongest when the slice is small: one exchange, one rupture, one confusing aftertaste.
+          </p>
+        </div>
+
+        <div
+          className="insight-hero-metrics"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+            gap: 12,
+            alignSelf: "end",
+          }}
+        >
+          {[
+            ["Reads saved", String(history.length)],
+            ["Access", isPaid ? "Enabled" : "Upgrade"],
+            ["Current mode", view === "result" ? "Result" : view === "form" ? "Drafting" : "Starter"],
+          ].map(([label, value]) => (
+            <div key={label} style={{ padding: 14, borderRadius: 16, background: "rgba(0,0,0,0.18)", border: "1px solid rgba(255,255,255,0.06)" }}>
+              <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8d8d95" }}>{label}</div>
+              <div style={{ marginTop: 8, color: "#f5f5f5", fontSize: 16 }}>{value}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+    <div className="insight-workspace" style={{ display: "grid", gridTemplateColumns: history.length > 0 ? "minmax(0, 1fr) 320px" : "minmax(0, 1fr)", gap: 32, alignItems: "start" }}>
       <div style={{ display: "grid", gap: 28 }}>
         {(isPaid && (view === "result" || view === "form")) && (
           <div style={{ marginBottom: 2 }}>
@@ -356,7 +404,7 @@ export default function InsightsPage() {
       </div>
 
       {history.length > 0 && (
-        <aside style={{ borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 28, height: "100%" }}>
+        <aside className="insight-history-rail" style={{ borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 28, height: "100%" }}>
           <HistoryList 
             insights={history} 
             onSelect={handleHistorySelect}
@@ -365,6 +413,33 @@ export default function InsightsPage() {
         </aside>
       )}
     </div>
+    </div>
+    <style>{`
+      @media (max-width: 860px) {
+        .insight-workspace {
+          grid-template-columns: 1fr !important;
+          gap: 20px !important;
+        }
+
+        .insight-history-rail {
+          border-left: 0 !important;
+          border-top: 1px solid rgba(255,255,255,0.08);
+          padding-left: 0 !important;
+          padding-top: 20px;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .insight-hero {
+          padding: 18px !important;
+          border-radius: 20px !important;
+        }
+
+        .insight-hero-metrics {
+          grid-template-columns: 1fr !important;
+        }
+      }
+    `}</style>
     </AppShell>
   );
 }
