@@ -47,6 +47,7 @@ export default function LoginPage() {
     >
       <div style={{ width: "min(100%, 980px)", display: "grid", gridTemplateColumns: "1fr 420px", gap: 24, alignItems: "stretch" }}>
         <section
+          className="login-story"
           style={{
             borderRadius: 28,
             border: "1px solid rgba(255,255,255,0.08)",
@@ -85,6 +86,7 @@ export default function LoginPage() {
         </section>
 
         <form
+          className="login-form"
           onSubmit={handleSubmit}
           style={{
             width: "100%",
@@ -162,6 +164,21 @@ export default function LoginPage() {
           </button>
         </form>
       </div>
+      <style>{`
+        @media (max-width: 920px) {
+          .login-story {
+            min-height: auto !important;
+          }
+
+          .login-form {
+            order: -1;
+          }
+
+          main > div {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </main>
   );
 }

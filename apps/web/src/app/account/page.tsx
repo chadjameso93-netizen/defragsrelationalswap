@@ -1,6 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { AppShell } from "@/components/app-shell";
 
 import MapView from "@/components/field/map-view";
 import StateSummary from "@/components/field/state-summary";
@@ -39,57 +40,97 @@ export default async function AccountPage() {
       ];
 
   return (
-    <div style={{ maxWidth: 640, margin: "0 auto", padding: "0 20px 60px" }}>
-      <div style={{ display: "grid", gap: 12, marginBottom: 28 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16 }}>
-          <div style={{ display: "grid", gap: 6 }}>
-            <p style={{ margin: 0, fontSize: 10, letterSpacing: "0.25em", textTransform: "uppercase", color: "#71717a" }}>
-              Relational Landscape
+    <AppShell
+      eyebrow="Landscape"
+      title="See where care, distance, and timing are clustering."
+      description="This surface keeps the wider relational field in view so you can notice where attention may help before dropping into a single read."
+      accent="#9dd0be"
+    >
+      <section
+        className="account-hero-grid"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+          gap: 16,
+          marginBottom: 18,
+        }}
+      >
+        {[
+          ["People in frame", String(mockPeople.length)],
+          ["Profile", profile?.display_name || user.email?.split("@")[0] || "You"],
+          ["Next move", "Open Insights"],
+        ].map(([label, value]) => (
+          <div key={label} style={{ padding: 18, borderRadius: 20, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)" }}>
+            <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8ab7a7" }}>{label}</div>
+            <div style={{ marginTop: 10, color: "#f5f5f5", fontSize: 18, lineHeight: 1.5 }}>{value}</div>
+          </div>
+        ))}
+      </section>
+
+      <div
+        className="account-main-grid"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "minmax(0, 1.25fr) minmax(280px, 0.75fr)",
+          gap: 22,
+          alignItems: "start",
+        }}
+      >
+        <div style={{ display: "grid", gap: 18 }}>
+          <MapView
+            user={{ name: profile?.display_name || user.email?.split("@")[0] || "You" }}
+            people={mockPeople}
+          />
+          <StateSummary />
+          <TimingHints />
+        </div>
+
+        <aside style={{ display: "grid", gap: 16 }}>
+          <section style={{ padding: 20, borderRadius: 22, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)", display: "grid", gap: 10 }}>
+            <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8ab7a7" }}>Best next step</div>
+            <p style={{ margin: 0, color: "#f5f5f5", fontSize: 18, lineHeight: 1.5 }}>
+              Take one relationship moment from this map and open it inside Insight Studio.
             </p>
-            <h1 style={{ fontSize: 22, fontWeight: 600, margin: 0, letterSpacing: "-0.02em", color: "#f4f4f5" }}>
-              Where things may need more care.
-            </h1>
-          </div>
-          <Link
-            href="/account/insights"
-            style={{ fontSize: 12, color: "#a1a1aa", textDecoration: "none", border: "1px solid rgba(255,255,255,0.1)", padding: "8px 14px", borderRadius: 999, whiteSpace: "nowrap" }}
-          >
-            Insights
-          </Link>
-        </div>
+            <p style={{ margin: 0, color: "#a1a1aa", fontSize: 14, lineHeight: 1.7 }}>
+              The map keeps the wider field visible. Insights gives you the closer read.
+            </p>
+            <Link
+              href="/account/insights"
+              style={{
+                marginTop: 6,
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+                padding: "12px 16px",
+                borderRadius: 999,
+                background: "#f5f5f5",
+                color: "#050505",
+                textDecoration: "none",
+                fontWeight: 700,
+              }}
+            >
+              Open Insight Studio
+            </Link>
+          </section>
 
-        <p style={{ margin: 0, color: "#71717a", fontSize: 14, lineHeight: 1.6, maxWidth: 480 }}>
-          This map helps you notice where connection may feel steady, where things may feel distant, and where a conversation may need more care.
-        </p>
+          <section style={{ padding: 20, borderRadius: 22, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)", display: "grid", gap: 10 }}>
+            <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Orientation</div>
+            <div style={{ color: "#d4d4d8", lineHeight: 1.75, fontSize: 14 }}>
+              Use this page to notice where things feel charged or unfinished.
+              Then move to Companion for a relational read or Insights for a more direct interpretation.
+            </div>
+          </section>
+        </aside>
       </div>
 
-      <MapView 
-        user={{ name: profile?.display_name || user.email?.split("@")[0] || "You" }} 
-        people={mockPeople} 
-      />
-
-      <StateSummary />
-      <TimingHints />
-
-      <div style={{ marginTop: 24, padding: 24, background: "rgba(255,255,255,0.02)", borderRadius: 16, border: "1px solid rgba(255,255,255,0.05)", display: "grid", gap: 12 }}>
-        <div>
-          <div style={{ display: "inline-block", padding: "4px 8px", background: "rgba(255,255,255,0.05)", borderRadius: 4, fontSize: 10, fontWeight: 600, color: "#a1a1aa", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 12 }}>
-            Best Next Step
-          </div>
-          <p style={{ color: "#f5f5f5", fontSize: 15, margin: "0 0 4px 0", fontWeight: 500 }}>
-            Ready to explore a specific dynamic?
-          </p>
-          <p style={{ color: "#71717a", fontSize: 14, margin: 0, lineHeight: 1.6 }}>
-            Look closer at a conversation, decision, or recurring pattern from multiple angles.
-          </p>
-        </div>
-        <Link 
-          href="/account/insights" 
-          style={{ color: "#f4f4f5", textDecoration: "none", fontSize: 13, fontWeight: 500, display: "flex", alignItems: "center", gap: 6 }}
-        >
-          Start a new insight <span style={{ fontSize: 16 }}>→</span>
-        </Link>
-      </div>
-    </div>
+      <style>{`
+        @media (max-width: 900px) {
+          .account-main-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
+    </AppShell>
   );
 }
