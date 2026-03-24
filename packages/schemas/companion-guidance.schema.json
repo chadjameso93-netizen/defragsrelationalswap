@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "defrag.companion-guidance.schema.json",
+  "title": "CompanionGuidanceOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["threadId", "insightId", "reasoning"],
+  "properties": {
+    "threadId": { "type": "string", "minLength": 1 },
+    "insightId": { "type": "string", "minLength": 1 },
+    "reasoning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["synthesis", "output", "evaluation", "followUpActions"],
+      "properties": {
+        "synthesis": {
+          "type": "object",
+          "required": ["userSideHypothesis", "otherSideHypothesis", "betweenDynamic", "timingSignal", "helpNeeded", "confidence", "detectedPatterns", "timing"],
+          "additionalProperties": false,
+          "properties": {
+            "userSideHypothesis": { "type": "string" },
+            "otherSideHypothesis": { "type": "string" },
+            "betweenDynamic": { "type": "string" },
+            "timingSignal": { "type": "string" },
+            "helpNeeded": { "type": "string" },
+            "confidence": { "type": "number" },
+            "detectedPatterns": { "type": "array", "items": { "type": "string" } },
+            "timing": {
+              "type": "object",
+              "required": ["pressureLevel", "conversationFavorability", "repairWindow", "delayRecommended"],
+              "additionalProperties": false,
+              "properties": {
+                "pressureLevel": { "type": "string", "enum": ["low", "medium", "high"] },
+                "conversationFavorability": { "type": "string", "enum": ["low", "medium", "high"] },
+                "repairWindow": { "type": "string", "enum": ["closed", "narrow", "open"] },
+                "delayRecommended": { "type": "boolean" }
+              }
+            }
+          }
+        },
+        "output": {
+          "type": "object",
+          "required": ["whatHappened", "yourSide", "theirSide", "whatChanged", "nextMove", "whatThisIsBasedOn"],
+          "additionalProperties": false,
+          "properties": {
+            "whatHappened": { "type": "string" },
+            "yourSide": { "type": "string" },
+            "theirSide": { "type": "string" },
+            "whatChanged": { "type": "string" },
+            "nextMove": { "type": "string" },
+            "whatThisIsBasedOn": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "evaluation": {
+          "type": "object",
+          "required": ["clarity", "groundedness", "relationalAccuracy", "uncertaintyHandling", "actionability", "safety"],
+          "additionalProperties": false,
+          "properties": {
+            "clarity": { "type": "number" },
+            "groundedness": { "type": "number" },
+            "relationalAccuracy": { "type": "number" },
+            "uncertaintyHandling": { "type": "number" },
+            "actionability": { "type": "number" },
+            "safety": { "type": "number" }
+          }
+        },
+        "followUpActions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["type", "label"],
+            "additionalProperties": true,
+            "properties": {
+              "type": { "type": "string", "enum": ["show_evidence", "rephrase", "practice_conversation"] },
+              "label": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

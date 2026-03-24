@@ -1,14 +1,7 @@
 import { NextResponse } from "next/server";
+import type { CompanionEvaluationRubric, CompanionOutputContract, CompanionStructuredSynthesis } from "../../../../../../../packages/core/src";
 import { getAuthenticatedUserOrNull } from "../../../../server/auth";
-import {
-  createInsightForThread,
-  createThread,
-  listInsightsForThread,
-  listRecentActionsForUser,
-  listRecentInsightsForUser,
-  listThreadsForUser,
-} from "../../../../server/companion-store";
-import { runCompanionReasoning } from "../../../../server/reasoning/companion-reasoner";
+import { createCompanionGuidance, listCompanionInsights, listCompanionThreads } from "../../../../server/services/companion-service";
 
 interface CreateInsightPayload {
   threadId?: string;
@@ -16,6 +9,14 @@ interface CreateInsightPayload {
   situation: string;
   recentEvents?: string[];
   corrections?: string[];
+}
+
+interface InsightRecord {
+  id: string;
+  contract: CompanionOutputContract;
+  createdAt: string;
+  synthesis?: CompanionStructuredSynthesis | null;
+  evaluation?: CompanionEvaluationRubric | null;
 }
 
 export async function GET(request: Request) {
@@ -28,11 +29,11 @@ export async function GET(request: Request) {
   const threadId = url.searchParams.get("threadId");
 
   if (!threadId) {
-    const threads = await listThreadsForUser(user.userId);
+    const threads = await listCompanionThreads(user.userId);
     return NextResponse.json({ threads });
   }
 
-  const insights = await listInsightsForThread(user.userId, threadId);
+  const insights = await listCompanionInsights(user.userId, threadId);
   return NextResponse.json({ insights });
 }
 
@@ -49,41 +50,27 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "situation_too_short" }, { status: 400 });
     }
 
-    const thread = payload.threadId
-      ? { id: payload.threadId }
-      : await createThread(user.userId, payload.threadTitle?.trim() || "Untitled thread");
-
-    const [priorInsights, priorActions] = await Promise.all([
-      listRecentInsightsForUser(user.userId),
-      listRecentActionsForUser(user.userId),
-    ]);
-
-    const reasoning = await runCompanionReasoning({
+    const guidance = await createCompanionGuidance({
       userId: user.userId,
-      threadId: thread.id,
-      situationText: payload.situation,
-      recentEvents: payload.recentEvents?.length ? payload.recentEvents : [payload.situation],
-      userCorrections: payload.corrections ?? [],
-      priorInsights: priorInsights.map((insight) => ({
-        whatChanged: insight.contract.whatChanged,
-        nextMove: insight.contract.nextMove,
-      })),
-      priorActions: priorActions.map((action) => ({
-        type: action.type,
-        label: action.label,
-      })),
+      threadId: payload.threadId,
+      threadTitle: payload.threadTitle,
+      situation: payload.situation,
+      recentEvents: payload.recentEvents,
+      corrections: payload.corrections,
     });
-
-    const insight = await createInsightForThread(
-      user.userId,
-      thread.id,
-      reasoning.output,
-      reasoning.synthesis,
-      reasoning.evaluation,
-      reasoning.followUpActions,
-    );
-
-    return NextResponse.json({ insight, threadId: thread.id, actions: reasoning.followUpActions });
+    const insight: InsightRecord = {
+      id: guidance.insightId,
+      contract: guidance.reasoning.output,
+      createdAt: new Date().toISOString(),
+      synthesis: guidance.reasoning.synthesis,
+      evaluation: guidance.reasoning.evaluation,
+    };
+    return NextResponse.json({
+      insight,
+      threadId: guidance.threadId,
+      reasoning: guidance.reasoning,
+      actions: guidance.reasoning.followUpActions,
+    });
   } catch (error) {
     return NextResponse.json({ error: "companion_insight_failed", detail: String(error) }, { status: 400 });
   }

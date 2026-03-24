@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "defrag.billing-handoff.schema.json",
+  "title": "BillingHandoffResponses",
+  "type": "object",
+  "oneOf": [
+    {
+      "additionalProperties": false,
+      "required": ["checkoutUrl", "sessionId"],
+      "properties": {
+        "checkoutUrl": { "type": "string", "format": "uri" },
+        "sessionId": { "type": "string" }
+      }
+    },
+    {
+      "additionalProperties": false,
+      "required": ["portalUrl"],
+      "properties": {
+        "portalUrl": { "type": "string", "format": "uri" }
+      }
+    }
+  ]
+}

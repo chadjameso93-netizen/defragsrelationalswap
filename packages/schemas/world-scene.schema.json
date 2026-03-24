@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "defrag.world-scene.schema.json",
+  "title": "WorldScene",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["nodes", "edges", "events"],
+  "properties": {
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "type", "x", "y", "charge"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "type": { "type": "string", "enum": ["person", "self_part", "conflict", "future"] },
+          "x": { "type": "number" },
+          "y": { "type": "number" },
+          "charge": { "type": "number" }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "from", "to", "type", "intensity"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "from": { "type": "string" },
+          "to": { "type": "string" },
+          "type": { "type": "string", "enum": ["closeness", "tension", "influence", "trust"] },
+          "intensity": { "type": "number" }
+        }
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getAuthenticatedUserOrNull } from "../../../../server/auth";
-import { generateSimulationResponse } from "../../../../server/reasoning/insight-generator";
+import { generateRelationshipSimulation } from "../../../../server/services/insight-service";
 
 export async function POST(request: Request) {
   const user = await getAuthenticatedUserOrNull();
@@ -16,7 +16,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "request_too_short" }, { status: 400 });
     }
 
-    return NextResponse.json(await generateSimulationResponse(prompt));
+    const result = await generateRelationshipSimulation({
+      userId: user.userId,
+      request: prompt,
+    });
+    return NextResponse.json(result.simulation);
   } catch (error) {
     return NextResponse.json({ error: "simulation_failed", detail: String(error) }, { status: 400 });
   }

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "defrag.companion-input.schema.json",
+  "title": "CompanionGuidanceInput",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["userId", "situation"],
+  "properties": {
+    "userId": { "type": "string", "minLength": 1 },
+    "threadId": { "type": "string" },
+    "threadTitle": { "type": "string" },
+    "situation": { "type": "string", "minLength": 8 },
+    "recentEvents": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "corrections": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

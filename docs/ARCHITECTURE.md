@@ -32,6 +32,7 @@
 
 - `packages/core`
 - `packages/billing`
+- `packages/platform`
 - `packages/schemas`
 
 ### Platform dependencies
@@ -39,6 +40,15 @@
 - Supabase for auth and persistence
 - Stripe for billing and subscription state
 - Vercel for hosting and previews
+
+### Reusable service seams inside the current web app
+
+- `apps/web/src/server/services/companion-service.ts`
+- `apps/web/src/server/services/insight-service.ts`
+- `apps/web/src/server/services/world-service.ts`
+- `apps/web/src/server/services/billing-service.ts`
+
+These are the current extraction points between web route handlers and reusable platform capabilities.
 
 ## Future ChatGPT/OpenAI integration boundary
 

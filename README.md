@@ -46,6 +46,7 @@ Route behavior today:
 - `apps/web`: canonical Next.js app
 - `packages/core`: shared product contracts and types
 - `packages/billing`: shared plan, entitlement, and Stripe mapping logic
+- `packages/platform`: future tool contracts and platform-facing capability definitions
 - `packages/schemas`: JSON schemas used for structured-output alignment
 - `supabase/migrations`: database schema and data-flow migrations
 - `docs`: product, architecture, and operator documentation
@@ -163,6 +164,7 @@ See:
 
 - [`docs/ARCHITECTURE.md`](/Users/cjo/Documents/defragsrelationalswap/docs/ARCHITECTURE.md)
 - [`docs/OPERATOR_VERCEL_RUNBOOK.md`](/Users/cjo/Documents/defragsrelationalswap/docs/OPERATOR_VERCEL_RUNBOOK.md)
+- [`docs/CHATGPT_PLATFORM_BOUNDARY.md`](/Users/cjo/Documents/defragsrelationalswap/docs/CHATGPT_PLATFORM_BOUNDARY.md)
 
 ## Future ChatGPT/OpenAI-compatible integration
 
@@ -176,6 +178,7 @@ That future app should reuse:
 
 - `packages/core`
 - `packages/billing`
+- `packages/platform`
 - `packages/schemas`
 - platform capabilities already exposed by Supabase, Stripe, and shared reasoning logic
 

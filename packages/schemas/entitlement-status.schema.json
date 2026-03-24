@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "defrag.entitlement-status.schema.json",
+  "title": "AccountEntitlementsOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["userId", "plan", "status", "entitlements"],
+  "properties": {
+    "userId": { "type": "string" },
+    "plan": { "type": "string" },
+    "status": { "type": "string" },
+    "entitlements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["plan", "canUseCompanion", "canUseCompanionPremiumView", "canUseStudio", "canUseRealtime", "monthlySituationLimit"],
+      "properties": {
+        "plan": { "type": "string" },
+        "canUseCompanion": { "type": "boolean" },
+        "canUseCompanionPremiumView": { "type": "boolean" },
+        "canUseStudio": { "type": "boolean" },
+        "canUseRealtime": { "type": "boolean" },
+        "monthlySituationLimit": { "type": "number" }
+      }
+    }
+  }
+}
