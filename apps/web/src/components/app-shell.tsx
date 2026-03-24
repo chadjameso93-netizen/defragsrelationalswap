@@ -24,6 +24,7 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
 
   return (
     <main
+      className="premium-fade-up"
       style={{
         minHeight: "100vh",
         color: "#f5f5f5",
@@ -111,7 +112,7 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="app-shell-nav-link"
+                  className="app-shell-nav-link premium-panel"
                   data-active={active ? "true" : "false"}
                   style={{
                     textDecoration: "none",
@@ -124,7 +125,7 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
                     color: active ? "#050505" : "rgba(245,245,245,0.72)",
                     background: active ? accent : "rgba(255,255,255,0.03)",
                     boxShadow: active ? `0 12px 30px color-mix(in srgb, ${accent} 28%, transparent)` : "none",
-                    transition: "background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease",
+                    transition: "background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms var(--motion-spring), box-shadow 180ms ease",
                   }}
                 >
                   {item.label}
@@ -135,6 +136,8 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
         </header>
 
         <section
+          className="premium-fade-up"
+          data-delay="1"
           style={{
             display: "grid",
             gap: 12,

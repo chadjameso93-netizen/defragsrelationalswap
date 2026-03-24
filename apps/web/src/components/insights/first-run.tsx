@@ -23,6 +23,8 @@ export default function FirstRun({ onComplete }: { onComplete: (data: { what: st
             key={starter.label}
             type="button"
             onClick={() => onComplete(starter.data)}
+            className="premium-panel premium-fade-up"
+            data-delay="2"
             style={{
               textAlign: "left",
               borderRadius: 16,

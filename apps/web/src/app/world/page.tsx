@@ -38,7 +38,7 @@ export default async function WorldPage() {
           ["Edges", "Watch which connection is carrying the most charge, distance, or repair demand."],
           ["Timing", "Use the field read to slow down rushed repair and find the softer entry."],
         ].map(([label, copy]) => (
-          <div key={label} style={{ padding: 18, borderRadius: 20, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)" }}>
+          <div key={label} className="premium-panel premium-fade-up" data-delay="2" style={{ padding: 18, borderRadius: 20, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)" }}>
             <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8ca5ca" }}>{label}</div>
             <div style={{ marginTop: 10, color: "#d8e3f8", lineHeight: 1.7, fontSize: 14 }}>{copy}</div>
           </div>

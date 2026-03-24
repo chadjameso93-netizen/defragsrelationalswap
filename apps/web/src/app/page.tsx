@@ -21,12 +21,16 @@ export default function LandingPage() {
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
             <Link
               href="/companion"
+              className="premium-panel premium-fade-up"
+              data-delay="2"
               style={{ padding: "12px 16px", borderRadius: 999, background: "#f5f5f5", color: "#050505", textDecoration: "none", fontWeight: 700 }}
             >
               Open Companion
             </Link>
             <Link
               href="/world"
+              className="premium-panel premium-fade-up"
+              data-delay="3"
               style={{ padding: "12px 16px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.18)", color: "#f5f5f5", textDecoration: "none" }}
             >
               Open World
@@ -39,7 +43,7 @@ export default function LandingPage() {
               ["Billing", "Stripe-backed upgrade, portal access, and webhook-driven subscription state."],
               ["World", "A visual field surface for charge, pressure, and stabilization guidance."],
             ].map(([label, copy]) => (
-              <div key={label} style={{ padding: "14px 0", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+              <div key={label} className="premium-fade-up" data-delay="2" style={{ padding: "14px 0", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
                 <div style={{ fontSize: 14, color: "#f5f5f5", marginBottom: 6 }}>{label}</div>
                 <div style={{ color: "rgba(245,245,245,0.62)", lineHeight: 1.65 }}>{copy}</div>
               </div>
@@ -48,7 +52,8 @@ export default function LandingPage() {
         </div>
 
         <section
-          className="landing-visual"
+          className="landing-visual premium-panel premium-fade-up"
+          data-delay="2"
           style={{
             minHeight: 420,
             borderRadius: 28,

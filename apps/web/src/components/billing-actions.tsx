@@ -57,6 +57,7 @@ export function BillingActions({ currentPlan, hasCustomer }: BillingActionsProps
               setBusy(null);
             }
           }}
+          className="premium-panel"
           style={{ padding: "12px 16px", borderRadius: 999, border: 0, cursor: "pointer", background: "#f5f5f5", color: "#050505", fontWeight: 700 }}
           disabled={busy !== null || !upgradePlan}
         >
@@ -79,6 +80,7 @@ export function BillingActions({ currentPlan, hasCustomer }: BillingActionsProps
               setBusy(null);
             }
           }}
+          className="premium-panel"
           style={{ padding: "12px 16px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.18)", background: "transparent", color: "#f5f5f5", cursor: "pointer" }}
           disabled={busy !== null || !hasCustomer}
         >
