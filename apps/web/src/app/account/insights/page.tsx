@@ -496,6 +496,7 @@ export default function InsightsPage() {
               {detailsOpen && (
                 <InsightResult
                   result={result}
+                  request={activeRequest}
                   onReset={() => {
                     if (isPaid) {
                       setResult(null);

@@ -68,6 +68,83 @@ function inferOtherExperience(text: string) {
   return "The other person may be hearing pressure first and meaning second, even if your intention is care.";
 }
 
+function inferUserExperience(text: string) {
+  if (containsAny(text, [/silent/i, /pull(?:ed|ing)? back/i, /distance/i, /withdrew?/i])) {
+    return "You may be feeling the distance more sharply because the connection still matters and the silence leaves too much room for guessing.";
+  }
+
+  if (containsAny(text, [/critic/i, /defens/i, /argu/i, /blame/i])) {
+    return "You may be carrying both frustration and a wish to finally be understood, which can make the first words come out with more force than you mean.";
+  }
+
+  if (containsAny(text, [/family/i, /parent/i, /mother/i, /father/i, /sibling/i])) {
+    return "You may be reacting to more than this single exchange, especially if older family roles or expectations were already close to the surface.";
+  }
+
+  return "You may be trying to make sense of a moment that felt heavier or less clear than it first appeared.";
+}
+
+function inferDynamicBetween(text: string) {
+  if (containsAny(text, [/silent/i, /pull(?:ed|ing)? back/i, /distance/i, /withdrew?/i])) {
+    return "One side seems to be reaching for contact while the other side is reducing intensity before they can stay present.";
+  }
+
+  if (containsAny(text, [/critic/i, /defens/i, /argu/i, /blame/i])) {
+    return "The exchange may be moving too quickly from concern into self-protection for either side to feel fully met.";
+  }
+
+  if (containsAny(text, [/family/i, /parent/i, /mother/i, /father/i, /sibling/i])) {
+    return "The current moment may be getting mixed with older family positions, which can make each person sound more fixed than they really are.";
+  }
+
+  return "Both sides may be reacting to pressure before the deeper need in the moment has been named clearly.";
+}
+
+function inferTimingAssessment(text: string) {
+  if (containsAny(text, [/timing/i, /too soon/i, /not ready/i, /later/i, /high/i])) {
+    return "This looks like a slower-timing moment. Meaning may land better after the intensity drops a little.";
+  }
+
+  if (containsAny(text, [/silent/i, /distance/i, /withdrew?/i])) {
+    return "Reopening too fast may create more distance. A smaller first reach is likely to land better than a full repair attempt.";
+  }
+
+  return "This may be workable if the next step stays narrow, specific, and easy to answer.";
+}
+
+function inferConfidenceLevel(text: string): "low" | "medium" | "high" {
+  if (containsAny(text, [/family/i, /parent/i, /mother/i, /father/i, /sibling/i, /critic/i, /defens/i, /argu/i, /silent/i, /distance/i])) {
+    return "medium";
+  }
+
+  return "low";
+}
+
+function inferPatternCandidates(text: string) {
+  if (containsAny(text, [/silent/i, /pull(?:ed|ing)? back/i, /distance/i, /withdrew?/i])) {
+    return [
+      { name: "pursue-withdraw", confidence: "medium" as const },
+      { name: "timing mismatch", confidence: "low" as const },
+    ];
+  }
+
+  if (containsAny(text, [/critic/i, /defens/i, /argu/i, /blame/i])) {
+    return [
+      { name: "criticism-defensiveness", confidence: "medium" as const },
+      { name: "repair pressure", confidence: "low" as const },
+    ];
+  }
+
+  if (containsAny(text, [/family/i, /parent/i, /mother/i, /father/i, /sibling/i])) {
+    return [
+      { name: "family role reactivation", confidence: "medium" as const },
+      { name: "timing mismatch", confidence: "low" as const },
+    ];
+  }
+
+  return [{ name: "shared pressure", confidence: "low" as const }];
+}
+
 function inferSimulationBranches(text: string) {
   if (containsAny(text, [/silent/i, /distance/i, /withdrew?/i])) {
     return [
@@ -85,6 +162,14 @@ function inferSimulationBranches(text: string) {
     ];
   }
 
+  if (containsAny(text, [/family/i, /parent/i, /mother/i, /father/i, /sibling/i])) {
+    return [
+      "Naming the current moment without retelling the whole family history may keep the next exchange steadier.",
+      "If older roles get named too early, people may defend the role instead of responding to the present concern.",
+      "A smaller follow-up with one person first may create more room than trying to settle the whole family field at once.",
+    ];
+  }
+
   return [
     "A softer opening may lower defensiveness and make the next exchange more honest.",
     "If the conversation starts too forcefully, the other person may retreat into explanation instead of connection.",
@@ -95,15 +180,39 @@ function inferSimulationBranches(text: string) {
 export function generateInsightResponse(request: string): InsightApiResponse {
   const normalized = normalize(request);
   const pattern = inferPattern(normalized);
+  const confidence = inferConfidenceLevel(normalized);
+  const patternCandidates = inferPatternCandidates(normalized);
 
   return {
     insight: {
       what_may_be_happening: pattern.happening,
       what_it_may_be_causing: pattern.causing,
       what_to_try_next: pattern.next,
+      tone: "soft",
     },
     structured_synthesis: {
+      user_experience: inferUserExperience(normalized),
       other_experience: inferOtherExperience(normalized),
+      dynamic_between: inferDynamicBetween(normalized),
+      timing_assessment: inferTimingAssessment(normalized),
+      help_needed: "insight + phrasing",
+      confidence_level: confidence,
+    },
+    proof: {
+      evidence_used: [
+        `Grounded in the words and cues inside this request: ${normalized.slice(0, 120)}${normalized.length > 120 ? "…" : ""}`,
+        "Uses lightweight pattern matching against timing, distance, blame, and role language.",
+      ],
+      pattern_candidates: patternCandidates,
+      timing_notes: [inferTimingAssessment(normalized)],
+      uncertainty_notes: [
+        "This read is directional, not definitive.",
+        "Real events and direct clarification matter more than any one interpretive frame.",
+      ],
+      confidence_reason:
+        confidence === "medium"
+          ? "The request includes specific relational cues that support a grounded directional read."
+          : "The request is usable, but still broad enough that multiple explanations could fit.",
     },
   };
 }

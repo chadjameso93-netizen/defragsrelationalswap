@@ -6,7 +6,7 @@ export default function LandingPage() {
     <AppShell
       eyebrow="System"
       title="Calm structure for moments that would otherwise stay tangled."
-      description="DEFRAG turns charged exchanges into readable pattern, timing, and next-step guidance without slipping into diagnosis theater."
+      description="DEFRAG turns charged exchanges into readable pattern, timing, and next-step guidance without turning the moment into a label."
     >
       <section
         className="landing-grid"
@@ -41,7 +41,7 @@ export default function LandingPage() {
             {[
               ["Companion", "Structured reads of one moment, one thread, and one next move at a time."],
               ["Billing", "Stripe-backed upgrade, portal access, and webhook-driven subscription state."],
-              ["World", "A visual field surface for charge, pressure, and stabilization guidance."],
+              ["World Alpha", "A visual field surface for charge, pressure, and stabilization guidance."],
             ].map(([label, copy]) => (
               <div key={label} className="premium-fade-up" data-delay="2" style={{ padding: "14px 0", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
                 <div style={{ fontSize: 14, color: "#f5f5f5", marginBottom: 6 }}>{label}</div>

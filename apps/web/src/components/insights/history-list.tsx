@@ -18,7 +18,7 @@ export default function HistoryList({ insights, activeId, onSelect }: HistoryLis
           Recent reads
         </p>
         <p style={{ margin: 0, fontSize: 13, lineHeight: 1.6, color: "#a1a1aa" }}>
-          Return to a prior interpretation or re-open the latest thread.
+          Return to a prior interpretation or reopen the latest saved read.
         </p>
       </div>
 

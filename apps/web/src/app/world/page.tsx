@@ -51,7 +51,7 @@ export default async function WorldPage() {
               nodeReadings: [
                 { id: "self", label: "You", type: "person", charge: 0.62, note: "Still trying to stay connected while bracing for another hard turn." },
                 { id: "other", label: "Other", type: "person", charge: 0.71, note: "Reading the moment through threat or overwhelm more than closeness." },
-                { id: "conflict", label: "Conflict", type: "conflict", charge: 0.8, note: "Holding the most symbolic weight in the scene right now." },
+                { id: "conflict", label: "Conflict", type: "conflict", charge: 0.8, note: "Holding the most relational weight in the scene right now." },
               ],
               stabilizationHint: "A smaller, slower reopening would likely help more than another fast repair attempt.",
               nextMoves: ["Lower speed before content.", "Name the moment, not the whole pattern.", "Ask for one bounded repair window."],
