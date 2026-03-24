@@ -13,7 +13,7 @@ interface InsightShareStudioProps {
 function buildCardCopy(mode: ShareCardMode, result: InsightApiResponse, request?: string, includeSource = false) {
   const title =
     mode === "summary"
-      ? "A calmer insight"
+      ? "One-card insight"
       : mode === "prep"
         ? "Conversation prep"
         : mode === "next"
@@ -167,6 +167,14 @@ export default function InsightShareStudio({ result, request }: InsightShareStud
   const [includeSource, setIncludeSource] = useState(false);
 
   const copy = useMemo(() => buildCardCopy(mode, result, request, includeSource), [includeSource, mode, request, result]);
+  const modeHint =
+    mode === "summary"
+      ? "A compact version for messaging when you want the whole moment in one card."
+      : mode === "prep"
+        ? "Use this before a conversation when timing and tone matter more than the whole backstory."
+        : mode === "next"
+          ? "Keeps the share focused on one practical next step."
+          : "Creates curiosity without exposing the whole situation.";
 
   const shareText = `${copy.title}\n\n${copy.headline}\n\n${copy.body}\n\n${result.insight.what_to_try_next
     .slice(0, 2)
@@ -251,6 +259,7 @@ export default function InsightShareStudio({ result, request }: InsightShareStud
         <p style={{ margin: 0, fontSize: 18, lineHeight: 1.45, color: "#f5f5f5" }}>
           Turn this insight into a message-sized card that stays gentle, specific, and safe to share.
         </p>
+        <p style={{ margin: 0, fontSize: 13, lineHeight: 1.65, color: "rgba(245,245,245,0.6)" }}>{modeHint}</p>
       </div>
 
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
@@ -309,13 +318,29 @@ export default function InsightShareStudio({ result, request }: InsightShareStud
           display: "grid",
           gap: 18,
           boxShadow: "0 24px 60px rgba(0,0,0,0.32)",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              mode === "teaser"
+                ? "radial-gradient(circle at 84% 18%, rgba(123,164,224,0.18), transparent 26%)"
+                : mode === "next"
+                  ? "radial-gradient(circle at 80% 18%, rgba(171,223,177,0.16), transparent 24%)"
+                  : "radial-gradient(circle at 84% 18%, rgba(217,196,159,0.14), transparent 28%)",
+            pointerEvents: "none",
+          }}
+        />
         <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center" }}>
           <div style={{ fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", color: "#d9c49f" }}>DEFRAG</div>
           <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245,245,245,0.48)" }}>{copy.title}</div>
         </div>
-        <div style={{ display: "grid", gap: 12 }}>
+        <div style={{ display: "grid", gap: 12, position: "relative" }}>
           <p style={{ margin: 0, fontSize: 28, lineHeight: 1.18, color: "#f5f5f5", fontFamily: "var(--font-display), serif" }}>{copy.headline}</p>
           <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, color: "rgba(245,245,245,0.7)" }}>{copy.body}</p>
         </div>
@@ -326,6 +351,26 @@ export default function InsightShareStudio({ result, request }: InsightShareStud
               <span style={{ color: "#d9c49f", fontSize: 11, paddingTop: 3 }}>0{index + 1}</span>
               <span style={{ color: "#f5f5f5", lineHeight: 1.6, fontSize: 14 }}>{item}</span>
             </div>
+          ))}
+        </div>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          {[
+            mode === "summary" ? "Whole moment" : mode === "prep" ? "Before you send" : mode === "next" ? "One next step" : "Low-detail share",
+            "Safe to share",
+          ].map((tag) => (
+            <span
+              key={tag}
+              style={{
+                padding: "8px 12px",
+                borderRadius: 999,
+                border: "1px solid rgba(255,255,255,0.08)",
+                background: "rgba(255,255,255,0.03)",
+                color: "#d4d4d8",
+                fontSize: 12,
+              }}
+            >
+              {tag}
+            </span>
           ))}
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "end", color: "rgba(245,245,245,0.45)", fontSize: 12 }}>
@@ -365,7 +410,12 @@ export default function InsightShareStudio({ result, request }: InsightShareStud
         </button>
       </div>
 
-      {status ? <p style={{ margin: 0, color: "#a1a1aa", fontSize: 13 }}>{status}</p> : null}
+      <div style={{ display: "grid", gap: 6 }}>
+        <p style={{ margin: 0, color: "#a1a1aa", fontSize: 13 }}>
+          Default export keeps the original situation out of the card. Turn the footer on only when you want that context included.
+        </p>
+        {status ? <p style={{ margin: 0, color: "#cbd5e1", fontSize: 13 }}>{status}</p> : null}
+      </div>
     </section>
   );
 }

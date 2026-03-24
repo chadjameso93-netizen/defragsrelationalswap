@@ -204,6 +204,27 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
             <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "#b4b8c1" }}>
               Companion works best on one exchange, one rupture, or one shift in tone rather than a whole relationship summary.
             </p>
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+              {[
+                "Recent exchange",
+                "One unclear turn",
+                "Next move",
+              ].map((chip) => (
+                <span
+                  key={chip}
+                  style={{
+                    padding: "8px 12px",
+                    borderRadius: 999,
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    background: "rgba(255,255,255,0.03)",
+                    color: "#d4d4d8",
+                    fontSize: 12,
+                  }}
+                >
+                  {chip}
+                </span>
+              ))}
+            </div>
           </div>
 
           <div
@@ -299,7 +320,21 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
           </div>
         </div>
 
-        {error ? <p style={{ marginBottom: 0, color: "#fca5a5" }}>{error}</p> : null}
+          {error ? (
+            <p
+              style={{
+                marginBottom: 0,
+                color: "#fecaca",
+                borderRadius: 12,
+                padding: "12px 14px",
+                background: "rgba(127,29,29,0.22)",
+                border: "1px solid rgba(248,113,113,0.24)",
+                lineHeight: 1.6,
+              }}
+            >
+              Companion could not finish that insight yet. Try narrowing the moment or try again in a second.
+            </p>
+          ) : null}
       </section>
       </section>
 
@@ -311,7 +346,12 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
 
       {insights.length > 0 ? (
         <section style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 20, padding: 18, background: "rgba(255,255,255,0.02)" }}>
-          <p style={{ marginTop: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Prior insights</p>
+          <div style={{ display: "grid", gap: 4, marginBottom: 12 }}>
+            <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Saved insight history</p>
+            <p style={{ margin: 0, color: "#a1a1aa", lineHeight: 1.6, fontSize: 13 }}>
+              Each thread keeps its earlier summaries close so you can reopen what changed without retelling the whole story.
+            </p>
+          </div>
           <div style={{ display: "grid", gap: 8 }}>
             {insights.map((insight) => (
               <button
@@ -351,7 +391,12 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
 
       {actions.length > 0 && latestInsightId ? (
         <section style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 20, padding: 18, background: "rgba(255,255,255,0.02)" }}>
-          <p style={{ marginTop: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Follow-up actions</p>
+          <div style={{ display: "grid", gap: 4, marginBottom: 12 }}>
+            <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Follow-up actions</p>
+            <p style={{ margin: 0, color: "#a1a1aa", lineHeight: 1.6, fontSize: 13 }}>
+              Use these when you want evidence, phrasing help, or a lighter practice pass before you send anything.
+            </p>
+          </div>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
             {actions.map((action) => (
               <button
