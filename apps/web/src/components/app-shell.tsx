@@ -32,6 +32,7 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
       }}
     >
       <div
+        className="app-shell-frame"
         style={{
           maxWidth: 1180,
           margin: "0 auto",
@@ -41,6 +42,7 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
         }}
       >
         <header
+          className="app-shell-header"
           style={{
             display: "grid",
             gap: 20,
@@ -49,6 +51,7 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
           }}
         >
           <div
+            className="app-shell-brand-row"
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -65,6 +68,7 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
             </div>
 
             <div
+              className="app-shell-status"
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -93,6 +97,7 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
           </div>
 
           <nav
+            className="app-shell-nav"
             style={{
               display: "flex",
               flexWrap: "wrap",
@@ -106,6 +111,8 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
                 <Link
                   key={item.href}
                   href={item.href}
+                  className="app-shell-nav-link"
+                  data-active={active ? "true" : "false"}
                   style={{
                     textDecoration: "none",
                     fontSize: 12,
@@ -171,6 +178,44 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
 
         {children}
       </div>
+      <style>{`
+        @media (max-width: 720px) {
+          .app-shell-frame {
+            padding: 20px 16px 48px !important;
+            gap: 22px !important;
+          }
+
+          .app-shell-header {
+            gap: 16px !important;
+          }
+
+          .app-shell-brand-row {
+            gap: 14px !important;
+          }
+
+          .app-shell-status {
+            width: 100%;
+            justify-content: center;
+          }
+
+          .app-shell-nav {
+            display: grid !important;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px !important;
+          }
+
+          .app-shell-nav-link {
+            text-align: center;
+            padding: 12px 10px !important;
+          }
+        }
+
+        @media (max-width: 520px) {
+          .app-shell-nav {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
     </main>
   );
 }

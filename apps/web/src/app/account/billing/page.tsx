@@ -39,8 +39,8 @@ export default async function BillingPage() {
       description={`Signed in as ${user.email}. Stripe-backed subscriptions, checkout, portal access, and entitlement sync are active on this branch.`}
       accent="#cbb8ff"
     >
-      <section style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 20 }}>
-        <section style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 22, padding: 22, display: "grid", gap: 16, background: "rgba(255,255,255,0.025)" }}>
+      <section className="billing-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
+        <section className="billing-card" style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 22, padding: 22, display: "grid", gap: 16, background: "rgba(255,255,255,0.025)" }}>
           <div style={{ display: "grid", gap: 10 }}>
             <div style={{ fontSize: 11, color: "#71717a", letterSpacing: "0.18em", textTransform: "uppercase" }}>Current state</div>
             <div style={{ display: "grid", gap: 10 }}>
@@ -62,7 +62,7 @@ export default async function BillingPage() {
           <BillingActions currentPlan={account.plan} hasCustomer={Boolean(account.customerId)} />
         </section>
 
-        <section style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 22, padding: 22, display: "grid", gap: 14 }}>
+        <section className="billing-card" style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 22, padding: 22, display: "grid", gap: 14 }}>
           <div style={{ fontSize: 11, color: "#71717a", letterSpacing: "0.18em", textTransform: "uppercase" }}>Included in this slice</div>
           {[
             "Checkout session creation from the app surface",
@@ -76,6 +76,18 @@ export default async function BillingPage() {
           ))}
         </section>
       </section>
+      <style>{`
+        @media (max-width: 720px) {
+          .billing-grid {
+            gap: 16px !important;
+          }
+
+          .billing-card {
+            border-radius: 18px !important;
+            padding: 18px !important;
+          }
+        }
+      `}</style>
     </AppShell>
   );
 }

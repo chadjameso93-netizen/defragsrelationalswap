@@ -9,9 +9,10 @@ export default function LandingPage() {
       description="DEFRAG turns charged exchanges into readable pattern, timing, and next-step guidance without slipping into diagnosis theater."
     >
       <section
+        className="landing-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: "1.1fr 0.9fr",
+          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
           gap: 24,
           alignItems: "end",
         }}
@@ -47,6 +48,7 @@ export default function LandingPage() {
         </div>
 
         <section
+          className="landing-visual"
           style={{
             minHeight: 420,
             borderRadius: 28,
@@ -57,9 +59,9 @@ export default function LandingPage() {
               "radial-gradient(circle at 20% 18%, rgba(255,240,205,0.38), transparent 24%), radial-gradient(circle at 70% 28%, rgba(130,155,219,0.28), transparent 26%), linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01))",
           }}
         >
-          <div style={{ position: "absolute", inset: 0, padding: 24, display: "grid", alignContent: "space-between" }}>
+          <div className="landing-visual-inner" style={{ position: "absolute", inset: 0, padding: 24, display: "grid", alignContent: "space-between" }}>
             <div style={{ display: "grid", gap: 12 }}>
-              <div style={{ display: "flex", gap: 10 }}>
+              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                 {["pressure", "timing", "repair"].map((token) => (
                   <span key={token} style={{ padding: "6px 10px", borderRadius: 999, background: "rgba(255,255,255,0.08)", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase" }}>
                     {token}
@@ -71,7 +73,7 @@ export default function LandingPage() {
               </p>
             </div>
             <div style={{ display: "grid", gap: 12 }}>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
+              <div className="landing-stat-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
                 {[
                   ["Highest charge", "Conflict"],
                   ["Repair window", "Narrow"],
@@ -87,6 +89,26 @@ export default function LandingPage() {
           </div>
         </section>
       </section>
+      <style>{`
+        @media (max-width: 720px) {
+          .landing-grid {
+            gap: 18px !important;
+          }
+
+          .landing-visual {
+            min-height: 360px !important;
+            border-radius: 22px !important;
+          }
+
+          .landing-visual-inner {
+            padding: 18px !important;
+          }
+
+          .landing-stat-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </AppShell>
   );
 }

@@ -157,8 +157,8 @@ export function WorldAlphaCanvas() {
             <p style={{ margin: 0 }}>{insight.stabilizationHint}</p>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 14 }}>
-            <section style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 14, padding: 14, display: "grid", gap: 10 }}>
+          <div className="world-insight-grid" style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 14 }}>
+            <section className="world-panel" style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 14, padding: 14, display: "grid", gap: 10 }}>
               <p style={{ margin: 0, fontSize: 10, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.18em" }}>Node readings</p>
               {insight.nodeReadings.map((node) => (
                 <div key={node.id} style={{ padding: 12, borderRadius: 12, background: "rgba(255,255,255,0.03)", display: "grid", gap: 4 }}>
@@ -171,7 +171,7 @@ export function WorldAlphaCanvas() {
               ))}
             </section>
 
-            <section style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 14, padding: 14, display: "grid", gap: 10 }}>
+            <section className="world-panel" style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 14, padding: 14, display: "grid", gap: 10 }}>
               <p style={{ margin: 0, fontSize: 10, color: "#71717a", textTransform: "uppercase", letterSpacing: "0.18em" }}>Next moves</p>
               <ul style={{ margin: 0, paddingLeft: 18, color: "#d4d4d8", lineHeight: 1.7 }}>
                 {insight.nextMoves.map((move) => (
@@ -193,6 +193,17 @@ export function WorldAlphaCanvas() {
           Generate interpretation to see field guidance.
         </section>
       )}
+      <style>{`
+        @media (max-width: 720px) {
+          .world-insight-grid {
+            grid-template-columns: 1fr !important;
+          }
+
+          .world-panel {
+            padding: 12px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
