@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getAuthenticatedUserOrNull } from "../../../server/auth";
-import { generateInsightResponse } from "../../../server/reasoning/insight-generator";
+import { generateInsightResponseWithProvider } from "../../../server/reasoning/insight-generator";
 
 export async function POST(request: Request) {
   const user = await getAuthenticatedUserOrNull();
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "request_too_short" }, { status: 400 });
     }
 
-    return NextResponse.json(generateInsightResponse(prompt));
+    return NextResponse.json(await generateInsightResponseWithProvider(prompt));
   } catch (error) {
     return NextResponse.json({ error: "insight_generation_failed", detail: String(error) }, { status: 400 });
   }

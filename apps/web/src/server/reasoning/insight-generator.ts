@@ -1,4 +1,6 @@
 import type { InsightApiResponse, SimulationApiResponse } from "../../types/contracts";
+import { OpenAIRefusalError, requestStructuredOutput } from "./openai-responses";
+import { insightResponseSchema, simulationResponseSchema } from "./openai-schemas";
 
 function normalize(input: string) {
   return input.trim().replace(/\s+/g, " ");
@@ -217,8 +219,153 @@ export function generateInsightResponse(request: string): InsightApiResponse {
   };
 }
 
-export function generateSimulationResponse(request: string): SimulationApiResponse {
+function fallbackInsightResponse(request: string) {
+  return generateInsightResponse(request);
+}
+
+function fallbackSimulationResponse(request: string) {
   return {
     branches: inferSimulationBranches(normalize(request)),
   };
+}
+
+function sanitizeLine(text: string) {
+  return text
+    .replace(/diagnosis|diagnostic|therapy|clinical|disorder|narcissist|avoidant/gi, "pattern")
+    .replace(/always/gi, "at times")
+    .replace(/never/gi, "rarely")
+    .replace(/proves/gi, "suggests")
+    .trim();
+}
+
+function sanitizeInsightResponse(response: InsightApiResponse): InsightApiResponse {
+  return {
+    insight: {
+      ...response.insight,
+      what_may_be_happening: sanitizeLine(response.insight.what_may_be_happening),
+      what_it_may_be_causing: sanitizeLine(response.insight.what_it_may_be_causing),
+      what_to_try_next: response.insight.what_to_try_next.slice(0, 3).map(sanitizeLine),
+      tone: response.insight.tone ?? "soft",
+    },
+    structured_synthesis: response.structured_synthesis
+      ? {
+          ...response.structured_synthesis,
+          user_experience: response.structured_synthesis.user_experience ? sanitizeLine(response.structured_synthesis.user_experience) : undefined,
+          other_experience: response.structured_synthesis.other_experience ? sanitizeLine(response.structured_synthesis.other_experience) : undefined,
+          dynamic_between: response.structured_synthesis.dynamic_between ? sanitizeLine(response.structured_synthesis.dynamic_between) : undefined,
+          timing_assessment: response.structured_synthesis.timing_assessment ? sanitizeLine(response.structured_synthesis.timing_assessment) : undefined,
+          help_needed: response.structured_synthesis.help_needed ? sanitizeLine(response.structured_synthesis.help_needed) : undefined,
+        }
+      : undefined,
+    proof: response.proof
+      ? {
+          ...response.proof,
+          evidence_used: response.proof.evidence_used?.map(sanitizeLine),
+          timing_notes: response.proof.timing_notes?.map(sanitizeLine),
+          uncertainty_notes: response.proof.uncertainty_notes?.map(sanitizeLine),
+          confidence_reason: response.proof.confidence_reason ? sanitizeLine(response.proof.confidence_reason) : undefined,
+        }
+      : undefined,
+  };
+}
+
+function sanitizeSimulationResponse(response: SimulationApiResponse): SimulationApiResponse {
+  return {
+    branches: response.branches.slice(0, 3).map(sanitizeLine),
+  };
+}
+
+function safeInsightRefusal(): InsightApiResponse {
+  return {
+    insight: {
+      what_may_be_happening: "There is not enough safe context here for a reliable insight yet.",
+      what_it_may_be_causing: "If the moment stays too broad or too sensitive, any summary may overreach.",
+      what_to_try_next: [
+        "Stay with one recent event instead of the whole pattern.",
+        "Name what was said or done before adding interpretation.",
+        "If the situation feels urgent or unsafe, pause and seek direct support first.",
+      ],
+      tone: "soft",
+    },
+    structured_synthesis: {
+      user_experience: "You may need a steadier, more specific starting point before a useful summary can be offered.",
+      other_experience: "The other person's experience is too unclear to describe responsibly from this input alone.",
+      dynamic_between: "The available details do not support a grounded picture of the interaction yet.",
+      timing_assessment: "This is better handled after narrowing the moment and confirming the basic facts.",
+      help_needed: "A smaller, more concrete description will help most.",
+      confidence_level: "low",
+    },
+    proof: {
+      evidence_used: ["The request did not provide enough safe or specific context for a grounded account."],
+      pattern_candidates: [{ name: "insufficient context", confidence: "low" }],
+      timing_notes: ["Pause before turning this into a larger interpretation."],
+      uncertainty_notes: [
+        "This response is intentionally limited.",
+        "Real events and direct clarification matter more than a guess here.",
+      ],
+      confidence_reason: "The request needs more concrete detail before a trustworthy summary can be offered.",
+    },
+  };
+}
+
+function safeSimulationRefusal(): SimulationApiResponse {
+  return {
+    branches: [
+      "A useful next step may be to narrow the moment before trying to predict how it will go.",
+      "If the event is still unclear, a brief fact-based reset may help more than a simulated reply.",
+      "If the situation feels urgent or unsafe, step out of simulation and seek direct support first.",
+    ],
+  };
+}
+
+export async function generateInsightResponseWithProvider(request: string): Promise<InsightApiResponse> {
+  const normalized = normalize(request);
+
+  try {
+    const providerResponse = await requestStructuredOutput<InsightApiResponse>({
+      name: "defrag_insight_response",
+      request: normalized,
+      schema: insightResponseSchema,
+      instructions:
+        "You generate calm relational insight for DEFRAG. Ground every response in the described event, not a fixed identity label. Do not diagnose, do not use therapy jargon, do not claim certainty, and treat symbolic or prior patterns only as weak context. Return short, human language. Keep exactly three next steps. Make uncertainty visible without sounding vague.",
+    });
+
+    if (providerResponse) {
+      return sanitizeInsightResponse(providerResponse);
+    }
+  } catch (error) {
+    if (error instanceof OpenAIRefusalError) {
+      return safeInsightRefusal();
+    }
+
+    // Fallback stays heuristic if the provider path fails.
+  }
+
+  return fallbackInsightResponse(normalized);
+}
+
+export async function generateSimulationResponse(request: string): Promise<SimulationApiResponse> {
+  const normalized = normalize(request);
+
+  try {
+    const providerResponse = await requestStructuredOutput<SimulationApiResponse>({
+      name: "defrag_simulation_response",
+      request: normalized,
+      schema: simulationResponseSchema,
+      instructions:
+        "You generate short relational simulation branches for DEFRAG. Stay grounded in the described moment. Do not diagnose, do not use identity labels, and do not claim certainty. Return exactly three brief branches that show how the next exchange may go and keep them emotionally safe.",
+    });
+
+    if (providerResponse) {
+      return sanitizeSimulationResponse(providerResponse);
+    }
+  } catch (error) {
+    if (error instanceof OpenAIRefusalError) {
+      return safeSimulationRefusal();
+    }
+
+    // Fallback stays heuristic if the provider path fails.
+  }
+
+  return fallbackSimulationResponse(normalized);
 }

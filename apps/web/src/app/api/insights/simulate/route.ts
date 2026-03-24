@@ -16,7 +16,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "request_too_short" }, { status: 400 });
     }
 
-    return NextResponse.json(generateSimulationResponse(prompt));
+    return NextResponse.json(await generateSimulationResponse(prompt));
   } catch (error) {
     return NextResponse.json({ error: "simulation_failed", detail: String(error) }, { status: 400 });
   }

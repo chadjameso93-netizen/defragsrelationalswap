@@ -1,6 +1,6 @@
 # DEFRAG
 
-DEFRAG is a relational reasoning system with two initial product surfaces:
+DEFRAG is a relationship clarity product with two initial surfaces:
 - **Companion** (`/companion`)
 - **World alpha** (`/world`)
 
@@ -77,7 +77,10 @@ NEXT_PUBLIC_APP_URL=http://localhost:3001
 - `STRIPE_WEBHOOK_SECRET`
 
 ### Optional now
-- `DEFRAG_ENABLE_MODEL_GENERATION` (`false` by default)
+- `DEFRAG_REASONING_PROVIDER` (`heuristic` by default, `openai` to enable provider-backed insight generation)
+- `OPENAI_API_KEY`
+- `DEFRAG_OPENAI_MODEL`
+- `DEFRAG_ENABLE_MODEL_GENERATION` (legacy compatibility flag)
 
 ### Future placeholders
 - `STRIPE_PRICE_PROFESSIONAL`

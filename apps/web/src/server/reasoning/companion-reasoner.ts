@@ -107,9 +107,9 @@ function buildEvidence(
   evidence.push(`Timing context: pressure ${context.timing.pressureLevel}, repair window ${context.timing.repairWindow}.`);
 
   if ((context.priorInsights?.length ?? 0) > 0) {
-    evidence.push(`Symbolic prior (weaker): prior thread summaries suggest this dynamic may repeat under stress.`);
+    evidence.push(`Lighter prior context: earlier thread summaries suggest this dynamic may repeat under stress.`);
   } else {
-    evidence.push("Symbolic prior (weaker): people often protect certainty when conversations feel loaded.");
+    evidence.push("Lighter prior context: people often protect certainty when conversations feel loaded.");
   }
 
   return evidence;
