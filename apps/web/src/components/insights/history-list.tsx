@@ -7,7 +7,7 @@ interface HistoryListProps {
 }
 
 function summarize(entry: InsightEntry): string {
-  return entry.response.insight.what_may_be_happening;
+  return entry.prompt || entry.response.insight.what_may_be_happening;
 }
 
 export default function HistoryList({ insights, activeId, onSelect }: HistoryListProps) {
@@ -45,7 +45,7 @@ export default function HistoryList({ insights, activeId, onSelect }: HistoryLis
             >
               <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
                 <span style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>
-                  Read {index + 1}
+                  {new Date(entry.createdAt).toLocaleDateString()}
                 </span>
                 {isActive ? <span style={{ fontSize: 11, color: "#d4d4d8" }}>Open</span> : null}
               </div>
