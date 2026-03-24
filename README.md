@@ -1,47 +1,167 @@
 # DEFRAG
 
-DEFRAG is a relational reasoning system.
+DEFRAG is a relational reasoning system with two initial product surfaces:
+- **Companion** (`/companion`)
+- **World alpha** (`/world`)
 
-It helps users understand:
-- what may be happening in a relationship
-- what may be increasing tension
-- what to try next
-
-The system is designed to be:
-- simple
-- grounded
-- non-diagnostic
-- structured
-- testable
+The repository preserves a shared architecture:
+- `packages/core` for shared contracts/types
+- `packages/billing` for plan/subscription/entitlement logic
+- server-side Stripe + Supabase integration in `apps/web/src/server` and API routes
 
 ---
 
-## Core Principle
+## 1) Local run commands (pnpm)
 
-DEFRAG does not generate answers from text alone.
+> Intended package manager: **pnpm**.
 
-It uses:
-- recent events
-- relationship context
-- timing
-- structured reasoning
-- explicit uncertainty
+```bash
+cd /Users/cjo/Documents/defragsrelationalswap
+cp apps/web/.env.local.example apps/web/.env.local
+pnpm install
+pnpm dev
+```
+
+The local app runs at:
+
+```bash
+http://localhost:3001
+```
+
+Build/start:
+
+```bash
+pnpm build
+pnpm start
+```
+
+Tests:
+
+```bash
+pnpm test
+```
 
 ---
 
-## What This Repo Builds
+## 2) Environment variables
 
-This repository builds the DEFRAG platform:
+For local development, `pnpm dev` runs Next from `apps/web`, so env vars must live in:
 
-- Next.js frontend (apps/web)
-- FastAPI backend (apps/api)
-- Supabase (auth + database)
-- Stripe (billing)
-- Vercel (deployment)
-- GitHub Actions (CI + automation)
+```bash
+apps/web/.env.local
+```
+
+The repo-root `.env.local` is not used for local run.
+
+Example:
+
+```env
+# apps/web/.env.local
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+SUPABASE_SERVICE_ROLE_KEY=...
+NEXT_PUBLIC_APP_URL=http://localhost:3001
+```
+
+### Required now for local page load + Stripe checkout/portal
+- `NEXT_PUBLIC_APP_URL`
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `STRIPE_SECRET_KEY`
+- `STRIPE_PRICE_CORE`
+- `STRIPE_PRICE_STUDIO`
+- `STRIPE_PRICE_REALTIME`
+
+### Required later for local webhook sync
+- `STRIPE_WEBHOOK_SECRET`
+
+### Optional now
+- `DEFRAG_ENABLE_MODEL_GENERATION` (`false` by default)
+
+### Future placeholders
+- `STRIPE_PRICE_PROFESSIONAL`
+- `STRIPE_PRICE_TEAM`
+- `STRIPE_PRICE_API`
+- `STRIPE_PRICE_ENTERPRISE`
+
+Protected routes (`/companion`, `/account/billing`, `/world`) require:
+1. valid Supabase env vars in `apps/web/.env.local`
+2. Supabase migrations applied
+3. a real Supabase auth user
 
 ---
 
-## First Working Feature
+## 3) Supabase migration/deploy commands
 
-Request → Insight → Proof
+Apply migrations locally (Supabase CLI):
+
+```bash
+supabase db push
+```
+
+Or reset local DB and reapply migrations:
+
+```bash
+supabase db reset
+```
+
+This app depends on these tables/flows:
+- `billing_accounts`
+- `subscriptions`
+- `processed_webhook_events`
+- `companion_threads`
+- `companion_insights`
+- `companion_follow_up_actions`
+
+---
+
+## 4) Stripe local webhook testing
+
+Webhook route:
+- `POST /api/stripe/webhook`
+
+Forward events to local app:
+
+```bash
+stripe listen --forward-to localhost:3001/api/stripe/webhook
+```
+
+Then copy the printed webhook signing secret into:
+- `STRIPE_WEBHOOK_SECRET`
+
+---
+
+## 5) Vercel deployment path
+
+1. Import repo into Vercel.
+2. Set **Root Directory** to `apps/web`.
+3. Configure env vars (Preview + Production):
+   - `NEXT_PUBLIC_APP_URL`
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `STRIPE_SECRET_KEY`
+   - `STRIPE_WEBHOOK_SECRET`
+   - `STRIPE_PRICE_CORE`
+   - `STRIPE_PRICE_STUDIO`
+   - `STRIPE_PRICE_REALTIME`
+   - optional: `DEFRAG_ENABLE_MODEL_GENERATION`
+4. Deploy.
+5. Configure Stripe webhook endpoint to:
+   - `https://<your-domain>/api/stripe/webhook`
+
+---
+
+## 6) Required routes
+
+- `/`
+- `/companion`
+- `/account/billing`
+- `/world`
+- `/api/stripe/checkout`
+- `/api/stripe/portal`
+- `/api/stripe/webhook`
+- `/api/companion/insights`
+- `/api/companion/actions`
+- `/api/world/interpret`

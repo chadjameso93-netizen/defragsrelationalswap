@@ -35,7 +35,12 @@ export default function InsightResult({ result, onReset }: InsightResultProps) {
           </div>
           <div>
             <h3 style={{ fontSize: 14, fontWeight: 500, marginBottom: 6, color: "#f4f4f5" }}>How this may land</h3>
-            <p style={{ fontSize: 14, lineHeight: 1.6, color: "#a1a1aa", margin: 0 }}>{guidancePhrasing.soften(structured_synthesis.other_experience)}</p>
+            <p style={{ fontSize: 14, lineHeight: 1.6, color: "#a1a1aa", margin: 0 }}>
+              {guidancePhrasing.soften(
+                structured_synthesis?.other_experience ??
+                  "The other person may be reacting to tone, timing, or pressure before they can respond to your intent.",
+              )}
+            </p>
           </div>
           <div>
             <h3 style={{ fontSize: 14, fontWeight: 500, marginBottom: 12, color: "#f4f4f5" }}>A gentler place to start</h3>

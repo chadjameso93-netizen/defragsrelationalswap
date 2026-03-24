@@ -6,6 +6,10 @@ import MapView from "@/components/field/map-view";
 import StateSummary from "@/components/field/state-summary";
 import TimingHints from "@/components/field/timing-hints";
 
+interface ProfileRow {
+  display_name: string | null;
+}
+
 export default async function AccountPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -18,11 +22,12 @@ export default async function AccountPage() {
     redirect("/onboarding");
   }
 
-  const { data: profile } = await supabase
+  const { data: profileData } = await supabase
     .from("profiles")
     .select("display_name")
     .eq("id", user.id)
     .single();
+  const profile = profileData as ProfileRow | null;
 
   const initialConnections = user.user_metadata?.initial_connections || [];
   const mockPeople = initialConnections.length > 0 

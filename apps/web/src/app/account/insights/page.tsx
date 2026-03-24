@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { AppShell } from "@/components/app-shell";
 import { createClient } from "@/utils/supabase/client";
 import { getSubscription, isSubscriptionActive } from "@/lib/subscription";
 import { getRecentInsights, type InsightEntry } from "@/lib/insights";
@@ -51,7 +52,7 @@ export default function InsightsPage() {
 
       const [{ data: profile }, insights] = await Promise.all([
         supabase.from("profiles").select("display_name").eq("id", user.id).single(),
-        getRecentInsights()
+        getRecentInsights(user.id)
       ]);
 
       setProfile(profile);
@@ -73,7 +74,7 @@ export default function InsightsPage() {
   }, [router, supabase]);
 
   const refreshHistory = async () => {
-    const insights = await getRecentInsights();
+    const insights = await getRecentInsights(user.id);
     setHistory(insights);
     setPatternSummary(derivePatternSummary(insights));
   };
@@ -81,6 +82,7 @@ export default function InsightsPage() {
   const handleHistorySelect = (entry: InsightEntry) => {
     setResult(entry.response);
     setActiveHistoryId(entry.id);
+    setSimulation(null);
     setDetailsOpen(false);
     setView("result");
   };
@@ -102,6 +104,8 @@ export default function InsightsPage() {
       const result = await fetchInsight(payload as any);
       await saveInsight(user.id, payload as any, result);
       setResult(result);
+      setActiveHistoryId(undefined);
+      setSimulation(null);
       setDetailsOpen(false);
       setView("result");
       refreshHistory();
@@ -131,7 +135,16 @@ export default function InsightsPage() {
   };
 
   if (loading || !user) {
-    return <div style={{ color: "#71717a", fontSize: 14 }}>Loading...</div>;
+    return (
+      <AppShell
+        eyebrow="Insight Studio"
+        title="Look a little closer."
+        description="Stored reads, simulations, and calmer reframes for one moment at a time."
+        accent="#d9c49f"
+      >
+        <div style={{ color: "#71717a", fontSize: 14 }}>Loading insight workspace…</div>
+      </AppShell>
+    );
   }
 
   // Awareness line variants
@@ -145,22 +158,33 @@ export default function InsightsPage() {
   const awarenessLine = awarenessVariants[variantIndex];
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: history.length > 0 ? "1fr 300px" : "1fr", gap: 48, alignItems: "start" }}>
-      <div style={{ display: "grid", gap: 32 }}>
+    <AppShell
+      eyebrow="Insight Studio"
+      title="Look a little closer."
+      description="Bring one moment into focus and keep the read grounded, specific, and usable when the real conversation begins."
+      accent="#d9c49f"
+    >
+    <div style={{ display: "grid", gridTemplateColumns: history.length > 0 ? "minmax(0, 1fr) 320px" : "minmax(0, 1fr)", gap: 32, alignItems: "start" }}>
+      <div style={{ display: "grid", gap: 28 }}>
         {(isPaid && (view === "result" || view === "form")) && (
-          <div style={{ marginBottom: 4 }}>
+          <div style={{ marginBottom: 2 }}>
             <div style={{ fontSize: 13, color: "#f5c98b", background: "rgba(255, 220, 120, 0.07)", borderRadius: 8, padding: "7px 14px", fontWeight: 500, maxWidth: 420, lineHeight: 1.5 }}>
               {awarenessLine}
             </div>
           </div>
         )}
-        <div style={{ display: "grid", gap: 10, maxWidth: 720 }}>
-          <h1 style={{ margin: 0, fontSize: 24, fontWeight: 600 }}>
-            Look a little closer
-          </h1>
-          <p style={{ margin: 0, color: "#a1a1aa", lineHeight: 1.7 }}>
-            Bring a situation into view and understand how it may be experienced from more than one side.
-          </p>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 12 }}>
+          {[
+            ["Access", isPaid ? "Paid reading enabled" : "Upgrade required for full reads"],
+            ["History", history.length > 0 ? `${history.length} saved reads` : "No saved reads yet"],
+            ["Mode", view === "result" ? "Result" : view === "form" ? "Drafting" : "Starter state"],
+          ].map(([label, value]) => (
+            <div key={label} style={{ borderRadius: 18, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)", padding: 16 }}>
+              <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>{label}</div>
+              <div style={{ marginTop: 8, color: "#f5f5f5", fontSize: 15 }}>{value}</div>
+            </div>
+          ))}
         </div>
 
         {view === "empty" && isPaid && (
@@ -175,7 +199,7 @@ export default function InsightsPage() {
         )}
 
         {!isPaid && (
-          <div style={{ display: "grid", gap: 10, maxWidth: 560 }}>
+          <div style={{ display: "grid", gap: 10, maxWidth: 720 }}>
             <UpgradePanel />
             <p style={{ margin: 0, fontSize: 13, color: "#71717a", lineHeight: 1.6 }}>
               Access helps you look at situations more clearly and from more than one perspective.
@@ -195,6 +219,8 @@ export default function InsightsPage() {
             userName={profile?.display_name || user.email}
             onSubmit={(res) => {
               setResult(res);
+              setActiveHistoryId(undefined);
+              setSimulation(null);
               setDetailsOpen(false);
               setView("result");
               refreshHistory();
@@ -296,6 +322,7 @@ export default function InsightsPage() {
                     if (isPaid) {
                       setResult(null);
                       setActiveHistoryId(undefined);
+                      setSimulation(null);
                       setDetailsOpen(false);
                       setView("form");
                     } else {
@@ -329,7 +356,7 @@ export default function InsightsPage() {
       </div>
 
       {history.length > 0 && (
-        <aside style={{ borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 48, height: "100%" }}>
+        <aside style={{ borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 28, height: "100%" }}>
           <HistoryList 
             insights={history} 
             onSelect={handleHistorySelect}
@@ -338,5 +365,6 @@ export default function InsightsPage() {
         </aside>
       )}
     </div>
+    </AppShell>
   );
 }

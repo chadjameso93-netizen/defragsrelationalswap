@@ -1,117 +1,92 @@
-export default function Page() {
+import Link from "next/link";
+import { AppShell } from "../components/app-shell";
+
+export default function LandingPage() {
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        background: "#050505",
-        color: "#f5f5f5",
-      }}
+    <AppShell
+      eyebrow="System"
+      title="Calm structure for moments that would otherwise stay tangled."
+      description="DEFRAG turns charged exchanges into readable pattern, timing, and next-step guidance without slipping into diagnosis theater."
     >
-      <div
+      <section
         style={{
-          maxWidth: 1200,
-          minHeight: "100vh",
-          margin: "0 auto",
-          padding: "32px 24px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          boxSizing: "border-box",
+          display: "grid",
+          gridTemplateColumns: "1.1fr 0.9fr",
+          gap: 24,
+          alignItems: "end",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            fontSize: 11,
-            letterSpacing: "0.28em",
-            textTransform: "uppercase",
-            color: "#71717a",
-          }}
-        >
-          <span>DEFRAG</span>
-          <span>Coming Soon</span>
+        <div style={{ display: "grid", gap: 18 }}>
+          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+            <Link
+              href="/companion"
+              style={{ padding: "12px 16px", borderRadius: 999, background: "#f5f5f5", color: "#050505", textDecoration: "none", fontWeight: 700 }}
+            >
+              Open Companion
+            </Link>
+            <Link
+              href="/world"
+              style={{ padding: "12px 16px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.18)", color: "#f5f5f5", textDecoration: "none" }}
+            >
+              Open World
+            </Link>
+          </div>
+
+          <div style={{ display: "grid", gap: 16 }}>
+            {[
+              ["Companion", "Structured reads of one moment, one thread, and one next move at a time."],
+              ["Billing", "Stripe-backed upgrade, portal access, and webhook-driven subscription state."],
+              ["World", "A visual field surface for charge, pressure, and stabilization guidance."],
+            ].map(([label, copy]) => (
+              <div key={label} style={{ padding: "14px 0", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+                <div style={{ fontSize: 14, color: "#f5f5f5", marginBottom: 6 }}>{label}</div>
+                <div style={{ color: "rgba(245,245,245,0.62)", lineHeight: 1.65 }}>{copy}</div>
+              </div>
+            ))}
+          </div>
         </div>
 
         <section
           style={{
-            flex: 1,
-            display: "flex",
-            alignItems: "center",
-            padding: "72px 0",
+            minHeight: 420,
+            borderRadius: 28,
+            overflow: "hidden",
+            position: "relative",
+            border: "1px solid rgba(255,255,255,0.08)",
+            background:
+              "radial-gradient(circle at 20% 18%, rgba(255,240,205,0.38), transparent 24%), radial-gradient(circle at 70% 28%, rgba(130,155,219,0.28), transparent 26%), linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01))",
           }}
         >
-          <div style={{ maxWidth: 760 }}>
-            <p
-              style={{
-                margin: "0 0 24px 0",
-                fontSize: 12,
-                letterSpacing: "0.32em",
-                textTransform: "uppercase",
-                color: "#71717a",
-              }}
-            >
-              Relational clarity
-            </p>
-
-            <h1
-              style={{
-                margin: 0,
-                fontSize: "clamp(3rem, 8vw, 6rem)",
-                lineHeight: 0.95,
-                fontWeight: 600,
-                letterSpacing: "-0.04em",
-                color: "#ffffff",
-              }}
-            >
-              A clearer way to understand relationship patterns.
-            </h1>
-
-            <div
-              style={{
-                marginTop: 32,
-                maxWidth: 680,
-                display: "grid",
-                gap: 20,
-                fontSize: 18,
-                lineHeight: 1.7,
-                color: "#a1a1aa",
-              }}
-            >
-              <p style={{ margin: 0 }}>
-                DEFRAG helps people make sense of tension, communication, and recurring dynamics without labels or stigma.
+          <div style={{ position: "absolute", inset: 0, padding: 24, display: "grid", alignContent: "space-between" }}>
+            <div style={{ display: "grid", gap: 12 }}>
+              <div style={{ display: "flex", gap: 10 }}>
+                {["pressure", "timing", "repair"].map((token) => (
+                  <span key={token} style={{ padding: "6px 10px", borderRadius: 999, background: "rgba(255,255,255,0.08)", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase" }}>
+                    {token}
+                  </span>
+                ))}
+              </div>
+              <p style={{ margin: 0, maxWidth: 340, fontSize: 24, lineHeight: 1.18 }}>
+                Reads that stay gentle in tone while still naming the actual pattern.
               </p>
-              <p style={{ margin: 0 }}>
-                We are building a calm, structured system for insight, timing, and next steps.
-              </p>
+            </div>
+            <div style={{ display: "grid", gap: 12 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
+                {[
+                  ["Highest charge", "Conflict"],
+                  ["Repair window", "Narrow"],
+                  ["Next move", "One small reset"],
+                ].map(([label, value]) => (
+                  <div key={label} style={{ padding: 12, borderRadius: 16, background: "rgba(0,0,0,0.22)", backdropFilter: "blur(10px)" }}>
+                    <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(245,245,245,0.54)" }}>{label}</div>
+                    <div style={{ marginTop: 8, fontSize: 14 }}>{value}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
-
-        <footer
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 12,
-            paddingTop: 24,
-            borderTop: "1px solid rgba(255,255,255,0.08)",
-            fontSize: 14,
-            color: "#71717a",
-          }}
-        >
-          <span>Built for clarity, not noise.</span>
-          <span
-            style={{
-              textTransform: "uppercase",
-              letterSpacing: "0.22em",
-              color: "#a1a1aa",
-            }}
-          >
-            defrag.app
-          </span>
-        </footer>
-      </div>
-    </main>
+      </section>
+    </AppShell>
   );
 }
