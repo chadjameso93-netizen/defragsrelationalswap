@@ -1,16 +1,25 @@
 import { createBrowserClient } from "@supabase/ssr";
 
-function required(name: "NEXT_PUBLIC_SUPABASE_URL" | "NEXT_PUBLIC_SUPABASE_ANON_KEY") {
-  const value = process.env[name];
-  if (!value) {
-    throw new Error(`Missing required Supabase env var: ${name}`);
+function getSupabaseBrowserEnv() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!url) {
+    throw new Error("Missing required Supabase env var: NEXT_PUBLIC_SUPABASE_URL");
   }
-  return value;
+
+  if (!anonKey) {
+    throw new Error("Missing required Supabase env var: NEXT_PUBLIC_SUPABASE_ANON_KEY");
+  }
+
+  return { url, anonKey };
 }
 
 export function createClient() {
+  const { url, anonKey } = getSupabaseBrowserEnv();
+
   return createBrowserClient(
-    required("NEXT_PUBLIC_SUPABASE_URL"),
-    required("NEXT_PUBLIC_SUPABASE_ANON_KEY"),
+    url,
+    anonKey,
   );
 }

@@ -61,7 +61,7 @@ export default function LoginPage() {
           </p>
           <h1 style={{ margin: 0, fontSize: 28 }}>Sign in</h1>
           <p style={{ margin: 0, color: "#a1a1aa", lineHeight: 1.6 }}>
-            Use an existing Supabase Auth user to access Companion, billing, and World locally.
+            Sign in to access Companion, billing, and World.
           </p>
         </div>
 
