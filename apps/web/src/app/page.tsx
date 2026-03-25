@@ -98,7 +98,7 @@ export default function LandingPage() {
 
         {/* 2. Headline */}
         <div style={{ textAlign: "center", maxWidth: 840, marginBottom: 48 }}>
-          <h1 className="premium-fade-up" data-delay="0" style={{ fontSize: "clamp(3rem, 10vw, 8rem)", fontWeight: 500, tracking: "-0.04em", marginBottom: 32, lineHeight: 0.9, color: "var(--color-text-primary)" }}>
+          <h1 className="premium-fade-up" data-delay="0" style={{ fontSize: "clamp(3rem, 10vw, 8rem)", fontWeight: 500, letterSpacing: "-0.04em", marginBottom: 32, lineHeight: 0.9, color: "var(--color-text-primary)" }}>
             Understand what’s happening in a conversation.
           </h1>
           
