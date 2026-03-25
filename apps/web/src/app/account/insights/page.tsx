@@ -145,7 +145,7 @@ export default function InsightsPage() {
   if (loading) {
     return (
       <AppShell
-        eyebrow="Insight Studio"
+        eyebrow="Insights"
         title="Look a little closer."
         description="Saved insights, simulations, and calmer reframes for one moment at a time."
         accent="#d9c49f"
@@ -158,14 +158,14 @@ export default function InsightsPage() {
   if (!user) {
     return (
       <AppShell
-        eyebrow="Insight Studio"
+        eyebrow="Insights"
         title="Look a little closer."
         description="Preview the studio flow, saved insight format, and analysis rhythm here. Sign in when you want your own saved insights, simulations, and billing-aware access."
         accent="#d9c49f"
       >
         <div style={{ display: "grid", gap: 22 }}>
           <PublicPreviewCta
-            title="Insight Studio can be explored before it starts saving."
+            title="Insights can be explored before they start saving."
             description="You can inspect the studio structure and insight quality here. Authentication turns the preview into your own archive, simulation history, and follow-up workspace."
             primaryLabel="Sign in for saved insights"
             secondaryLabel="Open billing"
@@ -286,7 +286,7 @@ export default function InsightsPage() {
 
   return (
     <AppShell
-      eyebrow="Insight Studio"
+      eyebrow="Insights"
       title="Look a little closer."
       description="Bring one moment into focus and keep the insight grounded, specific, and usable when the real conversation begins."
       accent="#d9c49f"
@@ -313,7 +313,7 @@ export default function InsightsPage() {
             Study the moment, keep the tone soft, and leave with one move you can actually make.
           </p>
           <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "rgba(245,245,245,0.68)", maxWidth: 520 }}>
-            Insight Studio is strongest when the slice is small: one exchange, one rupture, one confusing aftertaste.
+            Insights are strongest when the slice is small: one exchange, one rupture, one confusing aftertaste.
           </p>
         </div>
 

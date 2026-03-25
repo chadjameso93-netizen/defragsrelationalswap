@@ -90,7 +90,7 @@ export default async function AccountPage() {
           <section className="premium-fade-up" data-delay="2" style={{ padding: 24, borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "var(--color-surface)", display: "grid", gap: 12 }}>
             <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Best next step</div>
             <p style={{ margin: 0, color: "var(--color-text-primary)", fontSize: 18, lineHeight: 1.5 }}>
-              Take one relationship moment from this map and open it inside Insight Studio.
+              Take one relationship moment from this map and open it in Insights.
             </p>
             <p style={{ margin: 0, color: "var(--color-text-secondary)", fontSize: 14, lineHeight: 1.7 }}>
               The map keeps the wider field visible. Insights gives you the closer view.
@@ -111,7 +111,7 @@ export default async function AccountPage() {
                 fontWeight: 700,
               }}
             >
-              {user ? "Open Insight Studio" : "Sign in to open Insight Studio"}
+              {user ? "Open Insights" : "Sign in to open Insights"}
             </Link>
           </section>
 
