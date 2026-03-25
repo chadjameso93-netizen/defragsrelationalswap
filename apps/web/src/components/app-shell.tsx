@@ -10,9 +10,12 @@ interface AppShellProps {
   description: string;
   children: ReactNode;
   accent?: string;
+  hideHero?: boolean;
 }
 
-export function AppShell({ eyebrow, title, description, children, accent = "var(--color-accent)" }: AppShellProps) {
+export function AppShell({ 
+  eyebrow, title, description, children, accent = "var(--color-accent)", hideHero = false 
+}: AppShellProps) {
   const pathname = usePathname();
   const navItems = [
     { href: "/", label: "Home", match: (value: string) => value === "/" },
@@ -140,51 +143,53 @@ export function AppShell({ eyebrow, title, description, children, accent = "var(
           </nav>
         </header>
 
-        <section
-          className="premium-fade-up"
-          data-delay="1"
-          style={{
-            display: "grid",
-            gap: 12,
-            padding: "8px 0 4px",
-          }}
-        >
-          {eyebrow && (
+        {!hideHero && (
+          <section
+            className="premium-fade-up"
+            data-delay="1"
+            style={{
+              display: "grid",
+              gap: 12,
+              padding: "8px 0 4px",
+            }}
+          >
+            {eyebrow && (
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: 11,
+                  letterSpacing: "0.28em",
+                  textTransform: "uppercase",
+                  color: accent,
+                }}
+              >
+                {eyebrow}
+              </p>
+            )}
+            <h1
+              style={{
+                margin: 0,
+                maxWidth: 760,
+                fontSize: "clamp(2.6rem, 6vw, 5.2rem)",
+                lineHeight: 0.96,
+                letterSpacing: "-0.04em",
+              }}
+            >
+              {title}
+            </h1>
             <p
               style={{
                 margin: 0,
-                fontSize: 11,
-                letterSpacing: "0.28em",
-                textTransform: "uppercase",
-                color: accent,
+                maxWidth: 620,
+                fontSize: 16,
+                lineHeight: 1.75,
+                color: "var(--color-text-secondary)",
               }}
             >
-              {eyebrow}
+              {description}
             </p>
-          )}
-          <h1
-            style={{
-              margin: 0,
-              maxWidth: 760,
-              fontSize: "clamp(2.6rem, 6vw, 5.2rem)",
-              lineHeight: 0.96,
-              letterSpacing: "-0.04em",
-            }}
-          >
-            {title}
-          </h1>
-          <p
-            style={{
-              margin: 0,
-              maxWidth: 620,
-              fontSize: 16,
-              lineHeight: 1.75,
-              color: "var(--color-text-secondary)",
-            }}
-          >
-            {description}
-          </p>
-        </section>
+          </section>
+        )}
 
         {children}
 
