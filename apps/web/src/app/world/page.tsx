@@ -14,7 +14,7 @@ export default async function WorldPage() {
       <AppShell
         eyebrow="World Alpha"
         title="See the field, not just the transcript."
-        description="The public view keeps the visual field open so you can inspect the canvas language, mobile behavior, and interpretive frame before sign-in."
+        description="The public view keeps the visual field open so you can inspect the canvas language, mobile behavior, and interpretive frame before sign-in without turning the scene into a fixed story about anyone."
         accent="#9fbde8"
       >
         <div style={{ display: "grid", gap: 20 }}>
@@ -22,7 +22,7 @@ export default async function WorldPage() {
             title="World stays visible, while interpretation stays private."
             description="The field canvas is open here in preview mode. Sign in when you want a stored interpretation, billing-aware access, and a personal relational scene."
             primaryLabel="Sign in for field insights"
-            secondaryLabel="Open Companion preview"
+            secondaryLabel="Open Dynamics preview"
             secondaryHref="/companion"
           />
 

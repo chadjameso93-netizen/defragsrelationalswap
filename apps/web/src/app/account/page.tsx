@@ -119,7 +119,7 @@ export default async function AccountPage() {
             <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Orientation</div>
             <div style={{ color: "#d4d4d8", lineHeight: 1.75, fontSize: 14 }}>
               Use this page to notice where things feel charged or unfinished.
-              Then move to Companion for guided context or Insights for a more direct interpretation.
+              Then move to Dynamics for pattern clarity or Insights for a more direct read on what to try next.
             </div>
           </section>
         </aside>

@@ -12,15 +12,15 @@ export default async function CompanionPage() {
   if (!user) {
     return (
       <AppShell
-        eyebrow="Companion"
-        title="A steadier view of one moment before it becomes a whole story."
-        description="Preview the workspace layout, thread flow, and next-step guidance here. Sign in when you want private history and saved follow-up actions."
+        eyebrow="Dynamics"
+        title="See the relationship pattern before the whole moment hardens into a story."
+        description="Preview the dynamics workspace, thread flow, and next-step guidance here. Sign in when you want private history, saved follow-up actions, and account-linked access on DEFRAG."
         accent="#d8c49f"
       >
         <div style={{ display: "grid", gap: 22 }}>
           <PublicPreviewCta
-            title="Companion is visible in preview, private in use."
-            description="You can inspect the thread rail, guidance layout, and action flow without crossing the auth boundary. Sign in when you want to write, save, and keep an ongoing thread."
+            title="Dynamics is visible in preview, private in use."
+            description="You can inspect the thread rail, pattern summary, and next-step flow without crossing the auth boundary. Sign in when you want to write, save, and keep an ongoing thread on your DEFRAG account."
             primaryLabel="Sign in for your workspace"
             secondaryLabel="See billing"
             secondaryHref="/account/billing"
@@ -62,17 +62,17 @@ export default async function CompanionPage() {
                 <div style={{ display: "grid", gap: 12, padding: 20, borderRadius: 18, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)" }}>
                   <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#71717a" }}>Lead synthesis</p>
                   <p style={{ margin: 0, fontSize: 22, lineHeight: 1.4, color: "#f5f5f5" }}>
-                    The pressure looks less like total incompatibility and more like two repair attempts arriving while both people still feel exposed.
+                    The pressure may be less about total incompatibility and more about two repair attempts arriving while both people still feel exposed.
                   </p>
                   <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "#b4b8c1" }}>
-                    Companion keeps the tone gentle, names the likely pattern, and narrows the next move enough that you can try it without turning the whole relationship into a project.
+                    DEFRAG keeps the tone gentle, names the likely pattern, and narrows the next move enough that you can try it without turning the whole relationship into a diagnosis or fixed story.
                   </p>
                 </div>
 
                 <div className="companion-preview-columns" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 16 }}>
                   <div style={{ display: "grid", gap: 10, padding: 18, borderRadius: 18, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)" }}>
                     <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#d8c49f" }}>Likely pattern</p>
-                    <p style={{ margin: 0, color: "#f5f5f5", lineHeight: 1.7 }}>Protective pacing on one side, urgency on the other, and a loop where both read the other as pulling away.</p>
+                    <p style={{ margin: 0, color: "#f5f5f5", lineHeight: 1.7 }}>Protective pacing on one side, urgency on the other, and a loop where both people may read the other as pulling away.</p>
                   </div>
                   <div style={{ display: "grid", gap: 10, padding: 18, borderRadius: 18, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)" }}>
                     <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#d8c49f" }}>Next move</p>
@@ -114,10 +114,10 @@ export default async function CompanionPage() {
   const threads = await listThreadsForUser(user.userId);
 
   return (
-    <AppShell
-      eyebrow="Companion"
-        title="A steadier view of one moment before it becomes a whole story."
-        description="Thread-based guidance, saved insight history, follow-up actions, and evidence views now sit inside one calmer workspace."
+      <AppShell
+      eyebrow="Dynamics"
+        title="See the relationship pattern before the whole moment hardens into a story."
+        description="Thread-based guidance, saved insight history, follow-up actions, and evidence views now sit inside one calmer workspace on DEFRAG."
       accent="#d8c49f"
     >
       <CompanionWorkspace

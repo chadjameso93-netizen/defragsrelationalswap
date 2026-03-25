@@ -50,10 +50,14 @@ interface CompanionStoreAdapter {
 interface CompanionServiceDeps {
   store: CompanionStoreAdapter;
   runReasoning(input: CompanionIntakeInput): Promise<CompanionReasoningResult>;
+  resolveMetadataContext(userId: string): Promise<{
+    plan: "free" | "core" | "studio" | "realtime" | "professional" | "team" | "api" | "enterprise";
+    status: string;
+  }>;
   createMetadata(input: {
     toolName: "get_companion_guidance";
     userId: string;
-    plan: "core" | "studio" | "realtime";
+    plan: "free" | "core" | "studio" | "realtime" | "professional" | "team" | "api" | "enterprise";
     status: string;
     threadId: string;
     insightId: string;
@@ -105,6 +109,8 @@ export function createCompanionService(deps: CompanionServiceDeps) {
         reasoning.followUpActions,
       );
 
+      const metadataContext = await deps.resolveMetadataContext(input.userId);
+
       return {
         threadId: thread.id,
         insightId: insight.id,
@@ -112,8 +118,8 @@ export function createCompanionService(deps: CompanionServiceDeps) {
         metadata: deps.createMetadata({
           toolName: "get_companion_guidance",
           userId: input.userId,
-          plan: "core",
-          status: "active",
+          plan: metadataContext.plan,
+          status: metadataContext.status,
           threadId: thread.id,
           insightId: insight.id,
         }),

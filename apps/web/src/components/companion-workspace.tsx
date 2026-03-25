@@ -108,7 +108,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
         <div style={{ display: "grid", gap: 6 }}>
           <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#d8c49f" }}>Threads</p>
           <p style={{ margin: 0, fontSize: 13, color: "#b4b8c1", lineHeight: 1.7 }}>
-            Keep recurring moments together so Companion can track the shape, not just the latest sentence.
+            Keep recurring moments together so DEFRAG can track the shape, not just the latest sentence or the hottest emotion.
           </p>
         </div>
 
@@ -202,7 +202,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
               Keep it small enough for a real insight.
             </p>
             <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "#b4b8c1" }}>
-              Companion works best on one exchange, one rupture, or one shift in tone rather than a whole relationship summary.
+              Dynamics works best on one exchange, one rupture, or one shift in tone rather than a whole relationship summary or a label about who someone is.
             </p>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
               {[
@@ -252,7 +252,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
         <div style={{ display: "grid", gap: 6, marginBottom: 12 }}>
           <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Describe a moment</p>
           <p style={{ margin: 0, color: "#a1a1aa", fontSize: 13 }}>
-            Focus on one recent exchange. The tighter the moment, the clearer the insight.
+            Focus on one recent exchange. The tighter the moment, the clearer and safer the read.
           </p>
         </div>
         <textarea
@@ -312,7 +312,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
             }}
             style={{ borderRadius: 10, border: 0, padding: "10px 14px", cursor: "pointer", background: "#fafafa", color: "#0a0a0a", fontWeight: 600 }}
           >
-            {busy ? "Working…" : "Generate Companion insight"}
+            {busy ? "Working…" : "Generate dynamics insight"}
           </button>
 
           <div style={{ display: "flex", alignItems: "center", color: "#8d8d95", fontSize: 12 }}>
@@ -332,7 +332,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
                 lineHeight: 1.6,
               }}
             >
-              Companion could not finish that insight yet. Try narrowing the moment or try again in a second.
+              DEFRAG could not finish that insight yet. Try narrowing the moment or try again in a second.
             </p>
           ) : null}
       </section>
@@ -384,7 +384,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
         <section style={{ border: "1px dashed rgba(255,255,255,0.16)", borderRadius: 20, padding: 22, display: "grid", gap: 8 }}>
           <p style={{ margin: 0, fontSize: 12, color: "#f5f5f5", fontWeight: 600 }}>Nothing in focus yet</p>
           <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "#a1a1aa" }}>
-            Start a new thread or choose an existing one, then describe one exchange Companion should help you understand.
+            Start a new thread or choose an existing one, then describe one exchange DEFRAG should help you understand.
           </p>
         </section>
       ) : null}

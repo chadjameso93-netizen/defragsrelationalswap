@@ -5,6 +5,7 @@
 - `apps/web` is the only current consumer-facing product app.
 - It contains both the Next.js UI routes and the internal route-handler APIs used by that UI.
 - Shared product logic lives in `packages/*`.
+- It is the canonical owner of the public website, brand/trust pages, auth, account, and billing.
 
 ## Canonical deployment path now
 
@@ -13,6 +14,7 @@
 - Repo root is the canonical Vercel deploy root.
 - `vercel.json` defines the checked-in deployment contract.
 - `defrag.app` and `www.defrag.app` must resolve only to the canonical Vercel project.
+- The MCP / ChatGPT app is a separate Vercel project rooted at `apps/defrag-chatgpt-app` and should be aliased to `mcp.defrag.app`.
 
 ## Current platform layers
 
@@ -34,6 +36,7 @@
 - `packages/billing`
 - `packages/platform`
 - `packages/platform-server`
+- `packages/reasoning`
 - `packages/schemas`
 
 ### Platform dependencies
@@ -48,6 +51,7 @@
 - `packages/platform-server/src/insight-service.ts`
 - `packages/platform-server/src/world-service.ts`
 - `packages/platform-server/src/billing-service.ts`
+- `packages/reasoning/src/*`
 
 The web app now composes these through thin wrappers in `apps/web/src/server/services/*`.
 
@@ -58,6 +62,8 @@ The future ChatGPT/OpenAI-compatible integration must be a separate app surface.
 Suggested location:
 
 - `apps/defrag-chatgpt-app`
+
+That location now contains the MCP service app and inline widget resources for developer mode and private preview. It is not a second consumer website.
 
 That future app should reuse:
 
@@ -71,10 +77,13 @@ It should not:
 - replace `apps/web`
 - become a second consumer website
 - own the canonical billing or account shell
+- own legal/trust surfaces
+- own checkout or billing-portal flows
 
 ## What remains website-specific
 
 - marketing and product framing
+- about, terms, and privacy
 - auth/session handling tied to browser cookies
 - account, onboarding, and billing pages
 - Stripe checkout and portal handoff
@@ -111,3 +120,4 @@ What now exists for that future boundary:
 - authoritative tool registry in `packages/platform`
 - transport-neutral tool/session/auth/display contracts in `packages/platform`
 - reusable server-safe orchestration in `packages/platform-server`
+- shared reasoning engines in `packages/reasoning`

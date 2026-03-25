@@ -28,7 +28,7 @@ export const companionGuidanceOutputExample: CompanionGuidanceOutput = {
     synthesis: {
       userSideHypothesis: "You may be trying to regain steadiness after a missed point of contact.",
       otherSideHypothesis: "They may be hearing pressure first and delaying because they do not know how to repair quickly.",
-      betweenDynamic: "The exchange may be moving toward distance before either side has named the missed moment cleanly.",
+      betweenDynamic: "The exchange may be moving toward distance before either side has named the missed moment clearly.",
       timingSignal: "Timing seems workable for a short and grounded follow-up.",
       helpNeeded: "A short reset conversation focused on one event may help.",
       confidence: 0.71,
@@ -44,7 +44,7 @@ export const companionGuidanceOutputExample: CompanionGuidanceOutput = {
       whatHappened: "A missed callback has started to stand in for a larger question about reliability and care.",
       yourSide: "You seem to want clarity before the silence hardens into a bigger story.",
       theirSide: "They may be avoiding the follow-up because they are already behind and do not know how to re-enter cleanly.",
-      whatChanged: "The moment shifted from logistics into uncertainty about the relationship.",
+      whatChanged: "The moment shifted from logistics into uncertainty about what the missed contact means between you.",
       nextMove: "Ask for one concrete reset instead of reopening the whole pattern.",
       whatThisIsBasedOn: [
         "The sequence moved from a missed event into silence.",
@@ -90,12 +90,12 @@ export const companionGuidanceOutputExample: CompanionGuidanceOutput = {
     },
     linkBack: {
       path: "/companion",
-      label: "Open Companion",
+      label: "Open Dynamics",
       intent: "continue",
       mode: "website-redirect",
     },
     ctas: [
-      { id: "continue", label: "Continue in Companion", kind: "continue", target: { path: "/companion", label: "Open Companion", intent: "continue", mode: "website-redirect" } },
+      { id: "continue", label: "Continue in Dynamics", kind: "continue", target: { path: "/companion", label: "Open Dynamics", intent: "continue", mode: "website-redirect" } },
     ],
   },
 };

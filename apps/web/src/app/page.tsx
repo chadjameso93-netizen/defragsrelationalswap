@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { AppShell } from "../components/app-shell";
+import { getBaseAppEnv } from "../server/env";
 
 export default function LandingPage() {
+  const { DEFRAG_MCP_APP_URL } = getBaseAppEnv();
   return (
     <AppShell
       eyebrow="Relationship clarity"
-      title="Calm structure for moments that would otherwise stay tangled."
-      description="DEFRAG turns charged exchanges into readable pattern, timing, and next-step guidance without turning the moment into a label."
+      title="See the relationship dynamic more clearly before the moment turns into a story."
+      description="DEFRAG helps you read relationship dynamics, notice repeating patterns between people, and choose what to do next without diagnosing or labeling anyone. Account, billing, and trust stay canonical on defrag.app."
     >
       <section
         className="landing-grid"
@@ -25,7 +27,15 @@ export default function LandingPage() {
               data-delay="2"
               style={{ padding: "12px 16px", borderRadius: 999, background: "#f5f5f5", color: "#050505", textDecoration: "none", fontWeight: 700 }}
             >
-              Open Companion
+              Open Dynamics
+            </Link>
+            <Link
+              href="/about"
+              className="premium-panel premium-fade-up"
+              data-delay="2"
+              style={{ padding: "12px 16px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.18)", color: "#f5f5f5", textDecoration: "none" }}
+            >
+              About DEFRAG
             </Link>
             <Link
               href="/world"
@@ -39,9 +49,9 @@ export default function LandingPage() {
 
           <div style={{ display: "grid", gap: 16 }}>
             {[
-              ["Companion", "Structured insights for one moment, one thread, and one next move at a time."],
-              ["Billing", "Stripe-backed upgrade, portal access, and webhook-driven subscription state."],
-              ["World Alpha", "A visual field view for charge, pressure, and stabilization guidance."],
+              ["Dynamics", "Structured help for one moment, one thread, and one next move at a time."],
+              ["Account & Billing", "Canonical sign-in, upgrade, portal access, and Stripe-backed subscription state live on defrag.app."],
+              ["Integrations", "MCP and ChatGPT connect back to the DEFRAG account and billing shell instead of becoming a second product site."],
             ].map(([label, copy]) => (
               <div key={label} className="premium-fade-up" data-delay="2" style={{ padding: "14px 0", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
                 <div style={{ fontSize: 14, color: "#f5f5f5", marginBottom: 6 }}>{label}</div>
@@ -74,7 +84,7 @@ export default function LandingPage() {
                 ))}
               </div>
               <p style={{ margin: 0, maxWidth: 340, fontSize: 24, lineHeight: 1.18 }}>
-                Guidance that stays gentle in tone while still naming the actual pattern.
+                Guidance that stays grounded in timing, wording, and repetition while still naming the actual pattern.
               </p>
             </div>
             <div style={{ display: "grid", gap: 12 }}>
@@ -93,6 +103,39 @@ export default function LandingPage() {
             </div>
           </div>
         </section>
+      </section>
+      <section
+        className="premium-panel premium-fade-up"
+        data-delay="2"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          gap: 18,
+          padding: 22,
+          borderRadius: 26,
+          border: "1px solid rgba(255,255,255,0.08)",
+          background: "rgba(255,255,255,0.025)",
+        }}
+      >
+        {[
+          ["Trust and policy", "Terms, privacy, billing ownership, and account expectations stay on the main site."],
+          ["Canonical account", "Login, relink, upgrade, and billing handoff always return to defrag.app."],
+          ["Grounded framing", "DEFRAG offers pattern clarity and next-step guidance, not diagnosis or fixed personality labels."],
+        ].map(([title, copy]) => (
+          <div key={title} style={{ display: "grid", gap: 8 }}>
+            <div style={{ fontSize: 12, letterSpacing: "0.14em", textTransform: "uppercase", color: "#d6c3a1" }}>{title}</div>
+            <div style={{ color: "rgba(245,245,245,0.72)", lineHeight: 1.7 }}>{copy}</div>
+          </div>
+        ))}
+        {DEFRAG_MCP_APP_URL ? (
+          <div style={{ display: "grid", gap: 8 }}>
+            <div style={{ fontSize: 12, letterSpacing: "0.14em", textTransform: "uppercase", color: "#d6c3a1" }}>MCP host</div>
+            <div style={{ color: "rgba(245,245,245,0.72)", lineHeight: 1.7 }}>
+              The website can reference the dedicated MCP service host when operators enable private preview.
+            </div>
+            <code style={{ color: "#f5f5f5", fontSize: 13 }}>{DEFRAG_MCP_APP_URL}</code>
+          </div>
+        ) : null}
       </section>
       <style>{`
         @media (max-width: 720px) {

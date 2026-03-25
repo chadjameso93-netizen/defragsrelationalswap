@@ -33,15 +33,15 @@ export default async function BillingPage() {
       <AppShell
         eyebrow="Account"
         title="Billing that stays operational, not mysterious."
-        description="Preview the plan ladder, upgrade flow, and Stripe-backed account rhythm here. Sign in when you want checkout, portal, and live subscription state."
+        description="Preview the plan ladder, upgrade flow, and Stripe-backed account rhythm here. Sign in when you want checkout, portal access, and live subscription state on defrag.app."
         accent="#cbb8ff"
       >
         <div style={{ display: "grid", gap: 22 }}>
           <PublicPreviewCta
-            title="The billing page is visible before the account handoff."
-            description="You can inspect the plan architecture and account language without starting checkout. Sign in when you want a real Stripe session and a saved billing record."
+            title="Billing remains canonical on defrag.app."
+            description="You can inspect the plan architecture before signing in, but checkout, portal access, and account ownership stay on the main DEFRAG site."
             primaryLabel="Sign in for billing"
-            secondaryLabel="Open Companion preview"
+            secondaryLabel="Open Dynamics preview"
             secondaryHref="/companion"
           />
 
@@ -58,7 +58,7 @@ export default async function BillingPage() {
                     {plan.id === "core"
                       ? "Entry access for calmer insights and basic guided flow."
                       : plan.id === "studio"
-                        ? "Adds deeper support for ongoing reflection and heavier use."
+                        ? "Adds deeper support for ongoing reflection, insight review, and pattern clarity."
                         : "Designed for faster iteration and more active guidance tools."}
                   </p>
                 </div>
@@ -68,7 +68,7 @@ export default async function BillingPage() {
             <section style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 24, padding: 22, display: "grid", gap: 16, background: "linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015))" }}>
               <div style={{ fontSize: 11, color: "#71717a", letterSpacing: "0.18em", textTransform: "uppercase" }}>What happens after sign-in</div>
               {[
-                "Upgrade actions open Stripe Checkout in test or production mode.",
+                "Upgrade actions open Stripe Checkout on the canonical DEFRAG site.",
                 "Portal handoff appears once a customer record exists.",
                 "Webhook sync updates plan status back into the app.",
               ].map((item) => (

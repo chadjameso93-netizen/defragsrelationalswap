@@ -88,8 +88,8 @@ const billingPortalInputSchema = {
 export const DEFRAG_TOOL_REGISTRY = {
   get_companion_guidance: {
     name: "get_companion_guidance",
-    title: "Companion guidance",
-    description: "Generate grounded guidance for one relational moment.",
+    title: "Dynamics next-step guidance",
+    description: "Use this when the user needs grounded help with one current relational moment, what patterns may be active, and what to try next.",
     authPolicy: "required",
     entitlementPolicy: { requiredPlan: "core", requiresActiveSubscription: true },
     exposure: "user-facing",
@@ -123,8 +123,8 @@ export const DEFRAG_TOOL_REGISTRY = {
   } satisfies ToolRegistryEntry<CompanionGuidanceInput, CompanionGuidanceOutput>,
   generate_relationship_insight: {
     name: "generate_relationship_insight",
-    title: "Relationship insight",
-    description: "Generate a structured relationship insight and optional simulations.",
+    title: "Structured relationship insight",
+    description: "Use this when the user wants a structured relationship insight grounded in observable dynamics that they can review, save, or return to later.",
     authPolicy: "required",
     entitlementPolicy: { requiredPlan: "studio", requiresActiveSubscription: true },
     exposure: "user-facing",
@@ -156,8 +156,8 @@ export const DEFRAG_TOOL_REGISTRY = {
   } satisfies ToolRegistryEntry<RelationshipInsightInput, RelationshipInsightOutput>,
   interpret_world_signal: {
     name: "interpret_world_signal",
-    title: "World interpretation",
-    description: "Interpret a relational field scene and return charge, timing, and stabilization guidance.",
+    title: "World signal interpretation",
+    description: "Use this when the user already has a DEFRAG world scene and wants charge, timing, and stabilization guidance grounded in the current field.",
     authPolicy: "required",
     entitlementPolicy: { requiredPlan: "core", requiresActiveSubscription: true },
     exposure: "user-facing",
@@ -189,8 +189,8 @@ export const DEFRAG_TOOL_REGISTRY = {
   } satisfies ToolRegistryEntry<WorldSignalInput, WorldSignalOutput>,
   get_account_entitlements: {
     name: "get_account_entitlements",
-    title: "Account entitlements",
-    description: "Return current plan, billing state, and entitlement flags.",
+    title: "Account plan and entitlements",
+    description: "Use this when the user needs their current DEFRAG plan, billing status, or feature access before taking the next step.",
     authPolicy: "required",
     entitlementPolicy: { requiredPlan: null, requiresActiveSubscription: false },
     exposure: "user-facing",
@@ -225,8 +225,8 @@ export const DEFRAG_TOOL_REGISTRY = {
   } satisfies ToolRegistryEntry<{ userId: string }, AccountEntitlementsOutput>,
   begin_upgrade_checkout: {
     name: "begin_upgrade_checkout",
-    title: "Begin upgrade checkout",
-    description: "Start canonical upgrade flow on defrag.app.",
+    title: "Upgrade on defrag.app",
+    description: "Use this when the user clearly wants to upgrade and should be redirected to canonical checkout on defrag.app.",
     authPolicy: "required",
     entitlementPolicy: { requiredPlan: null, requiresActiveSubscription: false },
     exposure: "helper-only",
@@ -250,8 +250,8 @@ export const DEFRAG_TOOL_REGISTRY = {
   } satisfies ToolRegistryEntry<{ userId: string; email: string; plan: string }, CheckoutHandoffOutput>,
   open_billing_portal: {
     name: "open_billing_portal",
-    title: "Open billing portal",
-    description: "Open canonical billing management on defrag.app.",
+    title: "Open billing on defrag.app",
+    description: "Use this when the user clearly wants to manage billing and should be redirected to canonical billing on defrag.app.",
     authPolicy: "required",
     entitlementPolicy: { requiredPlan: null, requiresActiveSubscription: false },
     exposure: "helper-only",

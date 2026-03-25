@@ -54,11 +54,11 @@ export function CompanionV1Shell({ contract, entitlements, synthesis, evaluation
         >
           <div style={{ display: "grid", gap: 6 }}>
             <h3 style={{ margin: 0, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "#d8c49f" }}>
-              Companion view
+              Dynamics view
             </h3>
             <p style={{ margin: 0, color: "#f3f4f6", fontSize: 22, lineHeight: 1.45, maxWidth: 840 }}>{synthesis.betweenDynamic}</p>
             <p style={{ margin: 0, color: "rgba(245,245,245,0.62)", lineHeight: 1.7, maxWidth: 760 }}>
-              This is a grounded summary, not a fixed label. Use it to steady the next move, then return to the actual event.
+              This is a grounded summary, not a diagnosis or fixed label. Use it to steady the next move, then return to the actual event.
             </p>
           </div>
 
@@ -185,10 +185,10 @@ export function CompanionV1Shell({ contract, entitlements, synthesis, evaluation
       ) : (
         <section style={{ border: "1px dashed rgba(255,255,255,0.2)", borderRadius: 18, padding: 18 }}>
           <h3 style={{ marginTop: 0, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "#a1a1aa" }}>
-            Premium Companion View
+            Premium dynamics view
           </h3>
           <p style={{ marginBottom: 0, color: "#a1a1aa", lineHeight: 1.75 }}>
-            Upgrade to Core to unlock the "What This Is Based On" evidence breakdown.
+            Upgrade on DEFRAG to unlock the "What This Is Based On" evidence breakdown.
           </p>
         </section>
       )}

@@ -1,12 +1,13 @@
 "use client";
 
-import { FormEvent, useState } from "react";
-import { useRouter } from "next/navigation";
+import { FormEvent, Suspense, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "../../utils/supabase/client";
 
-export default function LoginPage() {
+function LoginPageContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const supabase = createClient();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,7 +30,8 @@ export default function LoginPage() {
       return;
     }
 
-    router.push("/companion");
+    const nextPath = searchParams.get("next");
+    router.push(nextPath && nextPath.startsWith("/") ? nextPath : "/companion");
     router.refresh();
   }
 
@@ -64,16 +66,16 @@ export default function LoginPage() {
               DEFRAG
             </Link>
             <p style={{ margin: 0, fontSize: "clamp(2.2rem, 5vw, 4.6rem)", lineHeight: 0.98, maxWidth: 520, fontFamily: "var(--font-display), serif" }}>
-              Sign in to re-enter the workspace with your threads, saved insights, and field state intact.
+              Sign in to return to your dynamics workspace, saved insights, and account state.
             </p>
             <p style={{ margin: 0, maxWidth: 480, color: "rgba(245,245,245,0.66)", lineHeight: 1.75 }}>
-              Companion, billing, insights, and World now live in one shared workspace. Authentication is the handoff between private guidance and stored history.
+              DEFRAG keeps dynamics, insights, world state, and billing in one canonical account flow. Authentication is the handoff between private guidance and stored history.
             </p>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
             {[
-              ["Companion", "Thread-based reasoning"],
+              ["Dynamics", "Thread-based guidance"],
               ["Insights", "Saved account insights"],
               ["World", "Field interpretation"],
             ].map(([label, value]) => (
@@ -162,6 +164,18 @@ export default function LoginPage() {
           >
             {loading ? "Signing in..." : "Continue"}
           </button>
+
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 12, color: "#a1a1aa", fontSize: 13 }}>
+            <Link href="/terms" style={{ color: "#d4d4d8", textDecoration: "none" }}>
+              Terms
+            </Link>
+            <Link href="/privacy" style={{ color: "#d4d4d8", textDecoration: "none" }}>
+              Privacy
+            </Link>
+            <Link href="/about" style={{ color: "#d4d4d8", textDecoration: "none" }}>
+              About DEFRAG
+            </Link>
+          </div>
         </form>
       </div>
       <style>{`
@@ -180,5 +194,13 @@ export default function LoginPage() {
         }
       `}</style>
     </main>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <LoginPageContent />
+    </Suspense>
   );
 }

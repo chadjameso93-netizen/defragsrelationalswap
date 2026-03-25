@@ -16,10 +16,18 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
   const pathname = usePathname();
   const navItems = [
     { href: "/", label: "Home", match: (value: string) => value === "/" },
-    { href: "/companion", label: "Companion", match: (value: string) => value.startsWith("/companion") },
+    { href: "/about", label: "About", match: (value: string) => value.startsWith("/about") },
+    { href: "/companion", label: "Dynamics", match: (value: string) => value.startsWith("/companion") },
     { href: "/account/insights", label: "Insights", match: (value: string) => value.startsWith("/account/insights") },
     { href: "/account/billing", label: "Billing", match: (value: string) => value.startsWith("/account/billing") },
     { href: "/world", label: "World", match: (value: string) => value.startsWith("/world") },
+  ];
+  const footerItems = [
+    { href: "/about", label: "About" },
+    { href: "/account/billing", label: "Pricing & Billing" },
+    { href: "/terms", label: "Terms" },
+    { href: "/privacy", label: "Privacy" },
+    { href: "/login", label: "Login" },
   ];
 
   return (
@@ -180,6 +188,45 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
         </section>
 
         {children}
+
+        <footer
+          style={{
+            marginTop: 16,
+            paddingTop: 22,
+            borderTop: "1px solid rgba(255,255,255,0.08)",
+            display: "grid",
+            gap: 12,
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 12,
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <div style={{ color: "rgba(245,245,245,0.54)", fontSize: 13 }}>
+              DEFRAG owns the website, account, billing, and legal surfaces. MCP and ChatGPT stay integration-side.
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+              {footerItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  style={{
+                    textDecoration: "none",
+                    color: "rgba(245,245,245,0.72)",
+                    fontSize: 13,
+                  }}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </footer>
       </div>
       <style>{`
         @media (max-width: 720px) {

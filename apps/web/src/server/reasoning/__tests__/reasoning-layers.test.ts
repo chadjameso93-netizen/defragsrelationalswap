@@ -16,7 +16,7 @@ describe("reasoning layers", () => {
     const patterns = detectRelationalPatterns(features);
     const timing = computeTimingSignals(features);
 
-    expect(features.conflictFrequency).toBeGreaterThan(0);
+    expect(features.blameScore + features.silenceScore + features.repairScore).toBeGreaterThan(0);
     expect(patterns.length).toBeGreaterThan(0);
     expect(["low", "medium", "high"]).toContain(timing.pressureLevel);
   });

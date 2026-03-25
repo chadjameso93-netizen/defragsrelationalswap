@@ -1,5 +1,8 @@
 import { createCompanionService } from "../../../../../packages/platform-server/src";
+import type { BillingPlan } from "../../../../../packages/core/src";
 import type { ToolResultMetadata } from "../../../../../packages/platform/src";
+import { runCompanionReasoning } from "../../../../../packages/reasoning/src";
+import { getBillingAccount } from "../billing-state-store";
 import {
   createInsightForThread,
   createThread,
@@ -10,12 +13,11 @@ import {
   listRecentInsightsForUser,
   listThreadsForUser,
 } from "../companion-store";
-import { runCompanionReasoning } from "../reasoning/companion-reasoner";
 
 function createMetadata(input: {
   toolName: "get_companion_guidance";
   userId: string;
-  plan: "core" | "studio" | "realtime";
+  plan: BillingPlan;
   status: string;
   threadId: string;
   insightId: string;
@@ -45,18 +47,18 @@ function createMetadata(input: {
     },
     linkBack: {
       path: "/companion",
-      label: "Open Companion",
+      label: "Open Dynamics",
       intent: "continue",
       mode: "website-redirect",
     },
     ctas: [
       {
         id: "continue-companion",
-        label: "Continue in Companion",
+        label: "Continue in Dynamics",
         kind: "continue",
         target: {
           path: "/companion",
-          label: "Open Companion",
+          label: "Open Dynamics",
           intent: "continue",
           mode: "website-redirect",
         },
@@ -77,6 +79,13 @@ const service = createCompanionService({
     listActionsForInsight,
   },
   runReasoning: runCompanionReasoning,
+  async resolveMetadataContext(userId) {
+    const account = await getBillingAccount(userId);
+    return {
+      plan: account.plan,
+      status: account.subscriptionState,
+    };
+  },
   createMetadata,
 });
 

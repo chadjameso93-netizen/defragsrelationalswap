@@ -7,6 +7,9 @@ This document defines what a future ChatGPT-compatible DEFRAG app should reuse, 
 ## What stays website-only now
 
 - marketing and homepage framing
+- about page
+- terms page
+- privacy page
 - onboarding flow
 - account shell
 - billing page
@@ -28,8 +31,9 @@ These are owned by `apps/web` and `defrag.app`.
   - `packages/platform-server/src/insight-service.ts`
   - `packages/platform-server/src/world-service.ts`
   - `packages/platform-server/src/billing-service.ts`
+- shared reasoning engines in `packages/reasoning/src/*`
 
-The website now composes these services through thin wrappers inside `apps/web`.
+The website now composes these services through thin wrappers inside `apps/web`, and the MCP app depends only on the shared packages.
 
 ## V1 ChatGPT MVP scope
 
@@ -148,6 +152,14 @@ Use fullscreen only for:
 
 Do not use fullscreen to recreate the whole website.
 
+The local MCP app skeleton stays inline-first:
+
+- companion summary card
+- insight summary card
+- world interpretation card
+- entitlement status card
+- redirect CTA card
+
 ## Auth and account-linking direction
 
 High-level expectation:
@@ -188,6 +200,8 @@ Even if a future ChatGPT app can initiate upgrade intent, the actual checkout ha
 - Do not import from `apps/web/src/app/*` or `apps/web/src/components/*` into any future ChatGPT app.
 - Do not make future tool code depend on `apps/web` as its home.
 - Do not treat redirect helpers as a substitute for the canonical website account shell.
+- Do not overstuff `structuredContent`; keep it concise and tool-shaped.
+- Do not ship a fake Apps SDK app without a real MCP server, real tools, and real widget resources.
 
 ## Optional future app location
 
@@ -195,4 +209,4 @@ If a future ChatGPT app is created, place it separately, for example:
 
 - `apps/defrag-chatgpt-app`
 
-That future app should be documentation- and contract-led first, not UI-clone-led.
+That app now exists as a local-only developer-mode target. It is intentionally non-production, non-Vercel, and non-canonical for billing or account ownership.

@@ -1,6 +1,6 @@
 # DEFRAG Overview
 
-DEFRAG is a relationship clarity product delivered through one web app.
+DEFRAG is a public website and account shell on `defrag.app` with integration-capable service layers behind it.
 
 It does not diagnose or label people.
 
@@ -55,7 +55,9 @@ Help users:
 
 ## Current delivery model
 
-- website and account shell on `defrag.app`
-- preview and authenticated views in the same app
-- Supabase-backed auth and storage
-- Stripe-backed billing
+- `defrag.app` is the canonical public product shell
+- the website owns brand, trust, legal, account, billing, and upgrade flows
+- preview and authenticated product views live in the same canonical website app
+- a separate MCP / ChatGPT service project can run behind the website for integrations
+- Supabase-backed auth and storage remain canonical
+- Stripe-backed billing remains canonical on `defrag.app`

@@ -5,6 +5,7 @@ export default defineConfig({
     include: [
       "packages/billing/src/__tests__/**/*.test.ts",
       "packages/platform/src/__tests__/**/*.test.ts",
+      "apps/defrag-chatgpt-app/server/src/__tests__/**/*.test.ts",
       "apps/web/src/server/__tests__/**/*.test.ts",
       "apps/web/src/server/reasoning/__tests__/**/*.test.ts"
     ],
