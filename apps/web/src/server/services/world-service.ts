@@ -58,7 +58,7 @@ function createMetadata(input: {
 const service = createWorldService({
   resolveWorldEntitlement: async (userId) => {
     const { entitlements } = await getBillingStateForUser(userId);
-    return { allowed: entitlements.canUseCompanion };
+    return { allowed: entitlements.canUseDynamics };
   },
   async resolveMetadataContext(userId) {
     const { account } = await getBillingStateForUser(userId);

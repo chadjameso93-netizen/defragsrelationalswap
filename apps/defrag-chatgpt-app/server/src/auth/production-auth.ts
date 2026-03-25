@@ -32,8 +32,8 @@ export interface ResolvedToolAccess {
 
 function getToolLinkBack(toolName: FutureToolName): ToolLinkBackTarget {
   switch (toolName) {
-    case "get_companion_guidance":
-      return { path: "/companion", label: "Open Dynamics", intent: "continue", mode: "website-redirect" };
+    case "get_dynamics_guidance":
+      return { path: "/dynamics", label: "Open Dynamics", intent: "continue", mode: "website-redirect" };
     case "generate_relationship_insight":
       return { path: "/account/insights", label: "Open Insights", intent: "review", mode: "website-redirect" };
     case "interpret_world_signal":

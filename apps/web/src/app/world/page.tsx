@@ -23,7 +23,7 @@ export default async function WorldPage() {
             description="The field canvas is open here in preview mode. Sign in when you want a stored interpretation, billing-aware access, and a personal relational scene."
             primaryLabel="Sign in for field insights"
             secondaryLabel="Open Dynamics preview"
-            secondaryHref="/companion"
+            secondaryHref="/dynamics"
           />
 
           <section style={{ display: "grid", gap: 16, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
@@ -71,7 +71,7 @@ export default async function WorldPage() {
 
   const { entitlements } = await getBillingStateForUser(user.userId);
 
-  if (!entitlements.canUseCompanion) {
+  if (!entitlements.canUseDynamics) {
     redirect("/account/billing");
   }
 

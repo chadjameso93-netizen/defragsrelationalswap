@@ -7,7 +7,7 @@ export function renderEntitlementStatusCard() {
     title: "Entitlement status",
     summary: `${accountEntitlementsOutputExample.plan} plan · ${accountEntitlementsOutputExample.status}`,
     bullets: [
-      `Dynamics: ${accountEntitlementsOutputExample.entitlements.canUseCompanion ? "available" : "unavailable"}`,
+      `Dynamics: ${accountEntitlementsOutputExample.entitlements.canUseDynamics ? "available" : "unavailable"}`,
       `Insights: ${accountEntitlementsOutputExample.entitlements.canUseStudio ? "available" : "upgrade required"}`,
     ],
     actions: [

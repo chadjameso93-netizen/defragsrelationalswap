@@ -21,7 +21,7 @@ Consumer routes in the canonical app:
 - `/about`
 - `/login`
 - `/onboarding`
-- `/companion`
+- `/dynamics`
 - `/world`
 - `/account`
 - `/account/insights`
@@ -31,8 +31,8 @@ Consumer routes in the canonical app:
 
 Internal product APIs in the same app:
 
-- `/api/companion/insights`
-- `/api/companion/actions`
+- `/api/dynamics/insights`
+- `/api/dynamics/actions`
 - `/api/insights`
 - `/api/insights/simulate`
 - `/api/world/interpret`
@@ -45,7 +45,7 @@ Route behavior today:
 - `/` and `/login` are public
 - `/about`, `/terms`, and `/privacy` are public trust/legal surfaces
 - `/onboarding` is part of the authenticated account flow
-- `/companion`, `/world`, `/account`, `/account/insights`, and `/account/billing` render public previews when signed out and private/account-linked behavior when signed in
+- `/dynamics`, `/world`, `/account`, `/account/insights`, and `/account/billing` render public previews when signed out and private/account-linked behavior when signed in
 
 ## Monorepo layout
 

@@ -1,7 +1,7 @@
-import { createCompanionService } from "../../../../../packages/platform-server/src";
+import { createDynamicsService } from "../../../../../packages/platform-server/src";
 import type { BillingPlan } from "../../../../../packages/core/src";
 import type { ToolResultMetadata } from "../../../../../packages/platform/src";
-import { runCompanionReasoning } from "../../../../../packages/reasoning/src";
+import { runDynamicsReasoning } from "../../../../../packages/reasoning/src";
 import { getBillingAccount } from "../billing-state-store";
 import {
   createInsightForThread,
@@ -12,10 +12,10 @@ import {
   listRecentActionsForUser,
   listRecentInsightsForUser,
   listThreadsForUser,
-} from "../companion-store";
+} from "../dynamics-store";
 
 function createMetadata(input: {
-  toolName: "get_companion_guidance";
+  toolName: "get_dynamics_guidance";
   userId: string;
   plan: BillingPlan;
   status: string;
@@ -46,18 +46,18 @@ function createMetadata(input: {
       omitFromInline: ["full evidence panel", "complete thread history"],
     },
     linkBack: {
-      path: "/companion",
+      path: "/dynamics",
       label: "Open Dynamics",
       intent: "continue",
       mode: "website-redirect",
     },
     ctas: [
       {
-        id: "continue-companion",
+        id: "continue-dynamics",
         label: "Continue in Dynamics",
         kind: "continue",
         target: {
-          path: "/companion",
+          path: "/dynamics",
           label: "Open Dynamics",
           intent: "continue",
           mode: "website-redirect",
@@ -67,7 +67,7 @@ function createMetadata(input: {
   };
 }
 
-const service = createCompanionService({
+const service = createDynamicsService({
   store: {
     listThreadsForUser,
     listRecentInsightsForUser,
@@ -78,7 +78,7 @@ const service = createCompanionService({
     getInsightById,
     listActionsForInsight,
   },
-  runReasoning: runCompanionReasoning,
+  runReasoning: runDynamicsReasoning,
   async resolveMetadataContext(userId) {
     const account = await getBillingAccount(userId);
     return {
@@ -89,7 +89,7 @@ const service = createCompanionService({
   createMetadata,
 });
 
-export const listCompanionThreads = service.listThreads;
-export const listCompanionInsights = service.listInsights;
-export const createCompanionGuidance = service.createGuidance;
-export const resolveCompanionAction = service.resolveAction;
+export const listDynamicsThreads = service.listThreads;
+export const listDynamicsInsights = service.listInsights;
+export const createDynamicsGuidance = service.createGuidance;
+export const resolveDynamicsAction = service.resolveAction;

@@ -7,7 +7,7 @@ import {
   DEFRAG_TOOL_REGISTRY,
   type BillingPortalHandoffInput,
   type CheckoutHandoffInput,
-  type CompanionGuidanceInput,
+  type DynamicsGuidanceInput,
   type FutureToolName,
   type RelationshipInsightInput,
   type WorldSignalInput,
@@ -30,16 +30,16 @@ import {
   createUpgradeRequiredResult,
   formatBillingPortalResult,
   formatCheckoutResult,
-  formatCompanionResult,
+  formatDynamicsResult,
   formatEntitlementsResult,
   formatInsightResult,
   formatWorldResult,
 } from "./result-shapes";
 
-const companionInputSchema = {
+const dynamicsInputSchema = {
   userId: z.string().describe("Canonical DEFRAG user ID used to resolve the linked account."),
-  threadId: z.string().describe("Existing DEFRAG companion thread ID when continuing a thread.").optional(),
-  threadTitle: z.string().describe("Short title for a new companion thread if one needs to be created.").optional(),
+  threadId: z.string().describe("Existing DEFRAG dynamics thread ID when continuing a thread.").optional(),
+  threadTitle: z.string().describe("Short title for a new dynamics thread if one needs to be created.").optional(),
   situation: z.string().describe("One grounded description of the current relational moment."),
   recentEvents: z.array(z.string().describe("A recent concrete event or cue.")).describe("Optional recent events that anchor the guidance in real context.").optional(),
   corrections: z.array(z.string().describe("A correction to a prior interpretation.")).describe("Optional user corrections that should lower certainty and change the guidance.").optional(),
@@ -72,7 +72,7 @@ const billingPortalInputSchema = {
   returnUrl: z.string().describe("Optional return URL on defrag.app after billing management.").optional(),
 };
 
-const companionOutputSchema = {
+const dynamicsOutputSchema = {
   threadId: z.string(),
   insightId: z.string(),
   reasoning: z.object({}).passthrough(),
@@ -109,8 +109,8 @@ export const MCP_TOOL_RUNTIME_CONFIG: Record<
     visibility: ["model", "app"];
   }
 > = {
-  get_companion_guidance: {
-    widgetUri: WIDGET_RESOURCE_URIS.companion,
+  get_dynamics_guidance: {
+    widgetUri: WIDGET_RESOURCE_URIS.dynamics,
     annotations: { readOnlyHint: false, openWorldHint: false, destructiveHint: false },
     visibility: ["model", "app"],
   },
@@ -181,10 +181,10 @@ function createToolDescriptor<TInputSchema, TOutputSchema>(
 }
 
 export const LOCAL_MCP_TOOL_DESCRIPTORS = {
-  get_companion_guidance: createToolDescriptor(
-    DEFRAG_TOOL_REGISTRY.get_companion_guidance,
-    companionInputSchema,
-    companionOutputSchema,
+  get_dynamics_guidance: createToolDescriptor(
+    DEFRAG_TOOL_REGISTRY.get_dynamics_guidance,
+    dynamicsInputSchema,
+    dynamicsOutputSchema,
   ),
   generate_relationship_insight: createToolDescriptor(
     DEFRAG_TOOL_REGISTRY.generate_relationship_insight,
@@ -236,9 +236,9 @@ export function createLocalToolInvokers(baseUrl: string) {
   }
 
   return {
-    async get_companion_guidance(args: CompanionGuidanceInput, extra: { authInfo?: AuthInfo } = {}): Promise<CallToolResult> {
+    async get_dynamics_guidance(args: DynamicsGuidanceInput, extra: { authInfo?: AuthInfo } = {}): Promise<CallToolResult> {
       const userId = resolvedUserId(args, extra.authInfo);
-      const access = await resolveAccess(DEFRAG_TOOL_REGISTRY.get_companion_guidance, args, extra.authInfo);
+      const access = await resolveAccess(DEFRAG_TOOL_REGISTRY.get_dynamics_guidance, args, extra.authInfo);
       if (access.requiresAuthChallenge) {
         return createAuthChallengeResult(access.auth.reason ?? "Sign in to continue.", baseUrl, access.auth);
       }
@@ -246,7 +246,7 @@ export function createLocalToolInvokers(baseUrl: string) {
         return createUpgradeRequiredResult(access.auth.reason ?? "Upgrade required.", access.auth);
       }
 
-      const result = await runtime.companionService.createGuidance({
+      const result = await runtime.dynamicsService.createGuidance({
         userId: userId!,
         threadId: typeof args.threadId === "string" ? args.threadId : undefined,
         threadTitle: typeof args.threadTitle === "string" ? args.threadTitle : undefined,
@@ -255,7 +255,7 @@ export function createLocalToolInvokers(baseUrl: string) {
         corrections: Array.isArray(args.corrections) ? args.corrections : undefined,
       });
 
-      return formatCompanionResult(result, DEFRAG_TOOL_REGISTRY.get_companion_guidance);
+      return formatDynamicsResult(result, DEFRAG_TOOL_REGISTRY.get_dynamics_guidance);
     },
 
     async generate_relationship_insight(args: RelationshipInsightInput, extra: { authInfo?: AuthInfo } = {}): Promise<CallToolResult> {
@@ -336,8 +336,8 @@ export function createLocalToolInvokers(baseUrl: string) {
 export function registerTools(server: McpServer, baseUrl: string) {
   const invokers = createLocalToolInvokers(baseUrl);
 
-  registerAppTool(server, "get_companion_guidance", LOCAL_MCP_TOOL_DESCRIPTORS.get_companion_guidance, (args, extra) =>
-    invokers.get_companion_guidance(args as CompanionGuidanceInput, extra),
+  registerAppTool(server, "get_dynamics_guidance", LOCAL_MCP_TOOL_DESCRIPTORS.get_dynamics_guidance, (args, extra) =>
+    invokers.get_dynamics_guidance(args as DynamicsGuidanceInput, extra),
   );
   registerAppTool(server, "generate_relationship_insight", LOCAL_MCP_TOOL_DESCRIPTORS.generate_relationship_insight, (args, extra) =>
     invokers.generate_relationship_insight(args as RelationshipInsightInput, extra),

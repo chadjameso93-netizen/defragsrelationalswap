@@ -2,7 +2,7 @@ import type {
   AccountEntitlementsOutput,
   BillingPortalHandoffOutput,
   CheckoutHandoffOutput,
-  CompanionGuidanceOutput,
+  DynamicsGuidanceOutput,
   RelationshipInsightOutput,
   ToolAuthBoundaryState,
   ToolLinkBackTarget,
@@ -67,7 +67,7 @@ export function createUpgradeRequiredResult(message: string, auth: ToolAuthBound
   };
 }
 
-export function formatCompanionResult(result: CompanionGuidanceOutput, entry: ToolRegistryEntry): CallToolResult {
+export function formatDynamicsResult(result: DynamicsGuidanceOutput, entry: ToolRegistryEntry): CallToolResult {
   return {
     structuredContent: {
       threadId: result.threadId,
@@ -79,7 +79,7 @@ export function formatCompanionResult(result: CompanionGuidanceOutput, entry: To
     content: [text(`Dynamics guidance is ready. ${result.reasoning.output.whatChanged}`)],
     _meta: {
       widget: {
-        kind: "companion-summary-card",
+        kind: "dynamics-summary-card",
         title: "Dynamics guidance",
         summary: result.reasoning.output.whatChanged,
         bullets: limitBullets([
@@ -174,7 +174,7 @@ export function formatEntitlementsResult(result: AccountEntitlementsOutput, entr
         title: "Account entitlements",
         summary: `${result.plan} plan · ${result.status}`,
         bullets: [
-          `Dynamics: ${result.entitlements.canUseCompanion ? "available" : "unavailable"}`,
+          `Dynamics: ${result.entitlements.canUseDynamics ? "available" : "unavailable"}`,
           `Insights: ${result.entitlements.canUseStudio ? "available" : "upgrade required"}`,
         ],
         actions: limitCtas(result.metadata.ctas, entry.display.maxInlineCtas),

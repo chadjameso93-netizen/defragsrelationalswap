@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import type { CompanionEvaluationRubric, CompanionOutputContract, CompanionStructuredSynthesis } from "../../../../../../../packages/core/src";
+import type { DynamicsEvaluationRubric, DynamicsOutputContract, DynamicsStructuredSynthesis } from "../../../../../../../packages/core/src";
 import { getAuthenticatedUserOrNull } from "../../../../server/auth";
-import { createCompanionGuidance, listCompanionInsights, listCompanionThreads } from "../../../../server/services/companion-service";
+import { createDynamicsGuidance, listDynamicsInsights, listDynamicsThreads } from "../../../../server/services/dynamics-service";
 
 interface CreateInsightPayload {
   threadId?: string;
@@ -13,10 +13,10 @@ interface CreateInsightPayload {
 
 interface InsightRecord {
   id: string;
-  contract: CompanionOutputContract;
+  contract: DynamicsOutputContract;
   createdAt: string;
-  synthesis?: CompanionStructuredSynthesis | null;
-  evaluation?: CompanionEvaluationRubric | null;
+  synthesis?: DynamicsStructuredSynthesis | null;
+  evaluation?: DynamicsEvaluationRubric | null;
 }
 
 export async function GET(request: Request) {
@@ -29,11 +29,11 @@ export async function GET(request: Request) {
   const threadId = url.searchParams.get("threadId");
 
   if (!threadId) {
-    const threads = await listCompanionThreads(user.userId);
+    const threads = await listDynamicsThreads(user.userId);
     return NextResponse.json({ threads });
   }
 
-  const insights = await listCompanionInsights(user.userId, threadId);
+  const insights = await listDynamicsInsights(user.userId, threadId);
   return NextResponse.json({ insights });
 }
 
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "situation_too_short" }, { status: 400 });
     }
 
-    const guidance = await createCompanionGuidance({
+    const guidance = await createDynamicsGuidance({
       userId: user.userId,
       threadId: payload.threadId,
       threadTitle: payload.threadTitle,

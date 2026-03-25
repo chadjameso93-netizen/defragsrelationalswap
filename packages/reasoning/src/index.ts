@@ -1,4 +1,4 @@
-export * from "./companion-reasoner";
+export * from "./dynamics-reasoner";
 export * from "./event-model";
 export * from "./feature-signals";
 export * from "./insight-generator";

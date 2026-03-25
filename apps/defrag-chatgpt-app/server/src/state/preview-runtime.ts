@@ -1,18 +1,18 @@
 import { createClient } from "@supabase/supabase-js";
 import {
-  createCompanionService,
+  createDynamicsService,
   createInsightService,
   createWorldService,
 } from "../../../../../packages/platform-server/src";
 import { resolveEntitlements } from "../../../../../packages/billing/src";
 import type {
   BillingPlan,
-  CompanionEvaluationRubric,
-  CompanionOutputContract,
-  CompanionStructuredSynthesis,
+  DynamicsEvaluationRubric,
+  DynamicsOutputContract,
+  DynamicsStructuredSynthesis,
 } from "../../../../../packages/core/src";
 import type {
-  CompanionActionType,
+  DynamicsActionType,
   ToolResultMetadata,
   WorldSignalInput,
 } from "../../../../../packages/platform/src";
@@ -20,7 +20,7 @@ import {
   generateInsightResponseWithProvider,
   generateSimulationResponse,
   interpretWorldScene,
-  runCompanionReasoning,
+  runDynamicsReasoning,
 } from "../../../../../packages/reasoning/src";
 import { getPreviewAuthEnv } from "../auth/env";
 
@@ -61,7 +61,7 @@ function asRecord(value: unknown): Record<string, unknown> {
   return value as Record<string, unknown>;
 }
 
-function asActionType(value: string): CompanionActionType {
+function asActionType(value: string): DynamicsActionType {
   if (value === "show_evidence" || value === "rephrase" || value === "practice_conversation") {
     return value;
   }
@@ -112,7 +112,7 @@ function createMetadata(input: {
             input.toolName === "begin_upgrade_checkout" ||
             input.toolName === "open_billing_portal"
           ? "/account/billing"
-          : "/companion";
+          : "/dynamics";
   const label =
     input.toolName === "generate_relationship_insight"
       ? "Open Insights"
@@ -148,12 +148,12 @@ function createMetadata(input: {
             : "inline-plus-fullscreen",
       inlineCardSufficient: input.toolName !== "begin_upgrade_checkout" && input.toolName !== "open_billing_portal",
       fullscreenJustifiedLater:
-        input.toolName === "get_companion_guidance" ||
+        input.toolName === "get_dynamics_guidance" ||
         input.toolName === "generate_relationship_insight" ||
         input.toolName === "interpret_world_signal",
       maxInlineCtas: input.toolName === "get_account_entitlements" ? 1 : 2,
       inlineFields:
-        input.toolName === "get_companion_guidance"
+        input.toolName === "get_dynamics_guidance"
           ? ["whatChanged", "nextMove", "timingSignal"]
           : input.toolName === "generate_relationship_insight"
             ? ["what_may_be_happening", "what_to_try_next"]
@@ -163,7 +163,7 @@ function createMetadata(input: {
                 ? ["plan", "status", "entitlements"]
                 : ["url"],
       omitFromInline:
-        input.toolName === "get_companion_guidance"
+        input.toolName === "get_dynamics_guidance"
           ? ["full evidence panel", "complete thread history"]
           : input.toolName === "generate_relationship_insight"
             ? ["full proof/context notes", "share studio"]
@@ -194,7 +194,7 @@ export function createPreviewPlatformRuntime() {
   const env = getPreviewAuthEnv();
   const baseUrl = env.canonicalAppUrl;
 
-  const companionService = createCompanionService({
+  const dynamicsService = createDynamicsService({
     store: {
       async listThreadsForUser(userId) {
         const supabase = createAdminClient();
@@ -363,8 +363,8 @@ export function createPreviewPlatformRuntime() {
           threadId: data.thread_id,
           createdAt: data.created_at,
           confidence: data.confidence ?? 0.5,
-          synthesis: data.synthesis as CompanionStructuredSynthesis | null,
-          evaluation: data.evaluation as CompanionEvaluationRubric | null,
+          synthesis: data.synthesis as DynamicsStructuredSynthesis | null,
+          evaluation: data.evaluation as DynamicsEvaluationRubric | null,
           contract: {
             whatHappened: data.what_happened,
             yourSide: data.your_side,
@@ -393,7 +393,7 @@ export function createPreviewPlatformRuntime() {
         }));
       },
     },
-    runReasoning: runCompanionReasoning,
+    runReasoning: runDynamicsReasoning,
     async resolveMetadataContext(userId) {
       const account = await getBillingAccount(userId);
       return {
@@ -461,7 +461,7 @@ export function createPreviewPlatformRuntime() {
         account.current_plan,
         account.subscription_state as "none" | "trialing" | "active" | "past_due" | "canceled" | "incomplete",
       );
-      return { allowed: entitlements.canUseCompanion };
+      return { allowed: entitlements.canUseDynamics };
     },
     async resolveMetadataContext(userId) {
       const account = await getBillingAccount(userId);
@@ -532,7 +532,7 @@ export function createPreviewPlatformRuntime() {
   };
 
   return {
-    companionService,
+    dynamicsService,
     insightService,
     worldService,
     billingService,

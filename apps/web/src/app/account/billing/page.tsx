@@ -42,7 +42,7 @@ export default async function BillingPage() {
             description="You can inspect the plan architecture before signing in, but checkout, portal access, and account ownership stay on the main DEFRAG site."
             primaryLabel="Sign in for billing"
             secondaryLabel="Open Dynamics preview"
-            secondaryHref="/companion"
+            secondaryHref="/dynamics"
           />
 
           <section className="billing-preview-grid premium-fade-up" data-delay="1" style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 24 }}>

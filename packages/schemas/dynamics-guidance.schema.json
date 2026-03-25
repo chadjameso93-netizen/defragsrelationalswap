@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "defrag.companion-guidance.schema.json",
-  "title": "CompanionGuidanceOutput",
+  "$id": "defrag.dynamics-guidance.schema.json",
+  "title": "DynamicsGuidanceOutput",
   "type": "object",
   "additionalProperties": false,
   "required": ["threadId", "insightId", "reasoning"],

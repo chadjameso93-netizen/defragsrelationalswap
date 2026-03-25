@@ -2,15 +2,15 @@ import type {
   AccountEntitlementsOutput,
   BillingPortalHandoffOutput,
   CheckoutHandoffOutput,
-  CompanionGuidanceInput,
-  CompanionGuidanceOutput,
+  DynamicsGuidanceInput,
+  DynamicsGuidanceOutput,
   RelationshipInsightInput,
   RelationshipInsightOutput,
   WorldSignalInput,
   WorldSignalOutput,
 } from "./contracts";
 
-export const companionGuidanceInputExample: CompanionGuidanceInput = {
+export const dynamicsGuidanceInputExample: DynamicsGuidanceInput = {
   userId: "user_123",
   threadTitle: "After the missed callback",
   situation: "They said they would call after work and never did. I sent a follow-up and now the silence feels heavier than the original miss.",
@@ -21,7 +21,7 @@ export const companionGuidanceInputExample: CompanionGuidanceInput = {
   ],
 };
 
-export const companionGuidanceOutputExample: CompanionGuidanceOutput = {
+export const dynamicsGuidanceOutputExample: DynamicsGuidanceOutput = {
   threadId: "thread_123",
   insightId: "insight_123",
   reasoning: {
@@ -66,7 +66,7 @@ export const companionGuidanceOutputExample: CompanionGuidanceOutput = {
     ],
   },
   metadata: {
-    toolName: "get_companion_guidance",
+    toolName: "get_dynamics_guidance",
     session: {
       sessionId: "session_123",
       threadId: "thread_123",
@@ -89,13 +89,13 @@ export const companionGuidanceOutputExample: CompanionGuidanceOutput = {
       omitFromInline: ["full evidence panel", "complete thread history"],
     },
     linkBack: {
-      path: "/companion",
+      path: "/dynamics",
       label: "Open Dynamics",
       intent: "continue",
       mode: "website-redirect",
     },
     ctas: [
-      { id: "continue", label: "Continue in Dynamics", kind: "continue", target: { path: "/companion", label: "Open Dynamics", intent: "continue", mode: "website-redirect" } },
+      { id: "continue", label: "Continue in Dynamics", kind: "continue", target: { path: "/dynamics", label: "Open Dynamics", intent: "continue", mode: "website-redirect" } },
     ],
   },
 };
@@ -243,8 +243,8 @@ export const accountEntitlementsOutputExample: AccountEntitlementsOutput = {
   status: "active",
   entitlements: {
     plan: "core",
-    canUseCompanion: true,
-    canUseCompanionPremiumView: true,
+    canUseDynamics: true,
+    canUseDynamicsPremiumView: true,
     canUseStudio: false,
     canUseRealtime: false,
     monthlySituationLimit: 100,

@@ -27,7 +27,7 @@ These are owned by `apps/web` and `defrag.app`.
 - structured schemas in `packages/schemas`
 - tool catalog and future tool IO contracts in `packages/platform`
 - server-side orchestration through reusable services in:
-  - `packages/platform-server/src/companion-service.ts`
+  - `packages/platform-server/src/dynamics-service.ts`
   - `packages/platform-server/src/insight-service.ts`
   - `packages/platform-server/src/world-service.ts`
   - `packages/platform-server/src/billing-service.ts`
@@ -39,7 +39,7 @@ The website now composes these services through thin wrappers inside `apps/web`,
 
 First-class user-facing tools:
 
-- `get_companion_guidance`
+- `get_dynamics_guidance`
 - `generate_relationship_insight`
 - `interpret_world_signal`
 - `get_account_entitlements`
@@ -59,7 +59,7 @@ Website-only capabilities for now:
 
 ## Likely future ChatGPT tools
 
-### `get_companion_guidance`
+### `get_dynamics_guidance`
 
 - purpose: generate grounded guidance for one relational moment
 - inputs: situation text, optional recent events, optional corrections, optional thread context
@@ -68,7 +68,7 @@ Website-only capabilities for now:
 - entitlement: `core`
 - primary display mode: inline card
 - deeper mode later: fullscreen
-- canonical website backlink: `/companion`
+- canonical website backlink: `/dynamics`
 
 ### `generate_relationship_insight`
 
@@ -154,7 +154,7 @@ Do not use fullscreen to recreate the whole website.
 
 The local MCP app skeleton stays inline-first:
 
-- companion summary card
+- dynamics summary card
 - insight summary card
 - world interpretation card
 - entitlement status card

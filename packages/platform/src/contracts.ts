@@ -1,9 +1,9 @@
 import type {
   BillingPlan,
-  CompanionEvaluationRubric,
-  CompanionOutputContract,
-  CompanionReasoningResult,
-  CompanionStructuredSynthesis,
+  DynamicsEvaluationRubric,
+  DynamicsOutputContract,
+  DynamicsReasoningResult,
+  DynamicsStructuredSynthesis,
   Entitlements,
   WorldScene,
 } from "../../core/src";
@@ -65,7 +65,7 @@ export interface WorldInterpretation {
 }
 
 export type FutureToolName =
-  | "get_companion_guidance"
+  | "get_dynamics_guidance"
   | "generate_relationship_insight"
   | "interpret_world_signal"
   | "get_account_entitlements"
@@ -156,24 +156,24 @@ export interface ToolRegistryEntry<Input = unknown, Output = unknown> {
   outputExample: Output;
 }
 
-export type CompanionActionType = "show_evidence" | "rephrase" | "practice_conversation";
+export type DynamicsActionType = "show_evidence" | "rephrase" | "practice_conversation";
 
-export interface CompanionActionResult {
+export interface DynamicsActionResult {
   title: string;
   lines: string[];
   confidence: number;
 }
 
-export interface CompanionActionResolution {
+export interface DynamicsActionResolution {
   action: {
-    type: CompanionActionType;
+    type: DynamicsActionType;
     label: string;
     payload?: Record<string, unknown>;
   };
-  result: CompanionActionResult;
+  result: DynamicsActionResult;
 }
 
-export interface CompanionGuidanceInput {
+export interface DynamicsGuidanceInput {
   userId: string;
   threadId?: string;
   threadTitle?: string;
@@ -182,10 +182,10 @@ export interface CompanionGuidanceInput {
   corrections?: string[];
 }
 
-export interface CompanionGuidanceOutput {
+export interface DynamicsGuidanceOutput {
   threadId: string;
   insightId: string;
-  reasoning: CompanionReasoningResult;
+  reasoning: DynamicsReasoningResult;
   metadata: ToolResultMetadata;
 }
 
@@ -246,10 +246,10 @@ export interface BillingPortalHandoffOutput {
   metadata: ToolResultMetadata;
 }
 
-export interface CompanionInsightListItem {
+export interface DynamicsInsightListItem {
   id: string;
-  contract: CompanionOutputContract;
+  contract: DynamicsOutputContract;
   createdAt: string;
-  synthesis?: CompanionStructuredSynthesis | null;
-  evaluation?: CompanionEvaluationRubric | null;
+  synthesis?: DynamicsStructuredSynthesis | null;
+  evaluation?: DynamicsEvaluationRubric | null;
 }

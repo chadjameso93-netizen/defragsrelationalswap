@@ -9,7 +9,7 @@
     "toolName": {
       "type": "string",
       "enum": [
-        "get_companion_guidance",
+        "get_dynamics_guidance",
         "generate_relationship_insight",
         "interpret_world_signal",
         "get_account_entitlements",

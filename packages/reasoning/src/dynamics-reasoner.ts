@@ -1,7 +1,7 @@
 import type {
-  CompanionIntakeInput,
-  CompanionReasoningResult,
-  CompanionStructuredSynthesis,
+  DynamicsIntakeInput,
+  DynamicsReasoningResult,
+  DynamicsStructuredSynthesis,
 } from "../../core/src";
 import { buildEventObservations } from "./event-model";
 import { computeRelationalFeatureSignals } from "./feature-signals";
@@ -15,14 +15,14 @@ interface ParsedSituation {
   correctionSignal: boolean;
 }
 
-function intake(input: CompanionIntakeInput): CompanionIntakeInput {
+function intake(input: DynamicsIntakeInput): DynamicsIntakeInput {
   return {
     ...input,
     situationText: input.situationText.trim(),
   };
 }
 
-function parseSituation(input: CompanionIntakeInput): ParsedSituation {
+function parseSituation(input: DynamicsIntakeInput): ParsedSituation {
   const keyEvent = input.recentEvents[0] ?? input.situationText;
 
   const inferredNeed = /ignored|dismissed|unheard/i.test(input.situationText)
@@ -34,7 +34,7 @@ function parseSituation(input: CompanionIntakeInput): ParsedSituation {
   return { keyEvent, inferredNeed, correctionSignal };
 }
 
-function retrieveContext(input: CompanionIntakeInput) {
+function retrieveContext(input: DynamicsIntakeInput) {
   const observations = buildEventObservations(input.recentEvents);
   const features = computeRelationalFeatureSignals(observations);
   const patterns = detectRelationalPatterns(features);
@@ -51,7 +51,7 @@ function retrieveContext(input: CompanionIntakeInput) {
   };
 }
 
-function synthesize(parsed: ParsedSituation, context: ReturnType<typeof retrieveContext>): CompanionStructuredSynthesis {
+function synthesize(parsed: ParsedSituation, context: ReturnType<typeof retrieveContext>): DynamicsStructuredSynthesis {
   const confidenceBase = 0.68;
   const correctionPenalty = parsed.correctionSignal || context.corrections.length > 0 ? 0.2 : 0;
   const confidence = Math.max(0.24, confidenceBase - correctionPenalty);
@@ -105,7 +105,7 @@ function buildEvidence(parsed: ParsedSituation, context: ReturnType<typeof retri
   return evidence;
 }
 
-function followUpActions(synthesis: CompanionStructuredSynthesis): CompanionReasoningResult["followUpActions"] {
+function followUpActions(synthesis: DynamicsStructuredSynthesis): DynamicsReasoningResult["followUpActions"] {
   return [
     { type: "show_evidence", label: "Show me what this is based on", payload: { mode: "evidence" } },
     { type: "rephrase", label: "Help me say it another way", payload: { style: "calm-clarity" } },
@@ -122,7 +122,7 @@ function followUpActions(synthesis: CompanionStructuredSynthesis): CompanionReas
   ];
 }
 
-function safetyCheck(result: CompanionReasoningResult): CompanionReasoningResult {
+function safetyCheck(result: DynamicsReasoningResult): DynamicsReasoningResult {
   const scrub = (text: string) =>
     text
       .replace(/always/gi, "sometimes")
@@ -145,7 +145,7 @@ function safetyCheck(result: CompanionReasoningResult): CompanionReasoningResult
   };
 }
 
-export async function runCompanionReasoning(input: CompanionIntakeInput): Promise<CompanionReasoningResult> {
+export async function runDynamicsReasoning(input: DynamicsIntakeInput): Promise<DynamicsReasoningResult> {
   const accepted = intake(input);
   const parsed = parseSituation(accepted);
   const context = retrieveContext(accepted);
@@ -163,7 +163,7 @@ export async function runCompanionReasoning(input: CompanionIntakeInput): Promis
     output,
     evaluation,
     followUpActions: followUpActions(synthesis),
-  } satisfies CompanionReasoningResult;
+  } satisfies DynamicsReasoningResult;
 
   return safetyCheck(response);
 }

@@ -3,7 +3,7 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { WidgetAsset } from "../../../web/src/index";
 
 export const WIDGET_RESOURCE_URIS = {
-  companion: "ui://defrag/companion-summary-card.html",
+  dynamics: "ui://defrag/dynamics-summary-card.html",
   insight: "ui://defrag/insight-summary-card.html",
   world: "ui://defrag/world-interpretation-card.html",
   entitlements: "ui://defrag/entitlement-status-card.html",
@@ -11,11 +11,11 @@ export const WIDGET_RESOURCE_URIS = {
 } as const;
 
 export const MCP_WIDGET_RESOURCE_CONFIG = {
-  companion: {
+  dynamics: {
     title: "Dynamics summary card",
-    uri: WIDGET_RESOURCE_URIS.companion,
+    uri: WIDGET_RESOURCE_URIS.dynamics,
     description: "Inline dynamics summary card for DEFRAG relationship guidance.",
-    assetKey: "companion",
+    assetKey: "dynamics",
   },
   insight: {
     title: "Insight summary card",

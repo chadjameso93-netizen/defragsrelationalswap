@@ -1,6 +1,6 @@
 import billingHandoffSchema from "../../schemas/billing-handoff.schema.json";
-import companionGuidanceSchema from "../../schemas/companion-guidance.schema.json";
-import companionInputSchema from "../../schemas/companion-input.schema.json";
+import dynamicsGuidanceSchema from "../../schemas/dynamics-guidance.schema.json";
+import dynamicsInputSchema from "../../schemas/dynamics-input.schema.json";
 import entitlementStatusSchema from "../../schemas/entitlement-status.schema.json";
 import insightResponseSchema from "../../schemas/insight-response.schema.json";
 import toolResponseMetadataSchema from "../../schemas/tool-response-metadata.schema.json";
@@ -10,8 +10,8 @@ import type {
   AccountEntitlementsOutput,
   BillingPortalHandoffOutput,
   CheckoutHandoffOutput,
-  CompanionGuidanceInput,
-  CompanionGuidanceOutput,
+  DynamicsGuidanceInput,
+  DynamicsGuidanceOutput,
   RelationshipInsightInput,
   RelationshipInsightOutput,
   ToolRegistryEntry,
@@ -22,8 +22,8 @@ import {
   accountEntitlementsOutputExample,
   billingPortalHandoffOutputExample,
   checkoutHandoffOutputExample,
-  companionGuidanceInputExample,
-  companionGuidanceOutputExample,
+  dynamicsGuidanceInputExample,
+  dynamicsGuidanceOutputExample,
   relationshipInsightInputExample,
   relationshipInsightOutputExample,
   worldSignalInputExample,
@@ -86,8 +86,8 @@ const billingPortalInputSchema = {
 } as const;
 
 export const DEFRAG_TOOL_REGISTRY = {
-  get_companion_guidance: {
-    name: "get_companion_guidance",
+  get_dynamics_guidance: {
+    name: "get_dynamics_guidance",
     title: "Dynamics next-step guidance",
     description: "Use this when the user needs grounded help with one current relational moment, what patterns may be active, and what to try next.",
     authPolicy: "required",
@@ -106,7 +106,7 @@ export const DEFRAG_TOOL_REGISTRY = {
       inlineFields: ["whatChanged", "nextMove", "timingSignal"],
       omitFromInline: ["full evidence panel", "complete thread history"],
     },
-    inputSchema: companionInputSchema,
+    inputSchema: dynamicsInputSchema,
     outputSchema: {
       type: "object",
       additionalProperties: false,
@@ -114,13 +114,13 @@ export const DEFRAG_TOOL_REGISTRY = {
       properties: {
         threadId: { type: "string" },
         insightId: { type: "string" },
-        reasoning: (companionGuidanceSchema as { properties: Record<string, unknown> }).properties.reasoning as Record<string, unknown>,
+        reasoning: (dynamicsGuidanceSchema as { properties: Record<string, unknown> }).properties.reasoning as Record<string, unknown>,
         metadata: toolResponseMetadataSchema,
       },
     },
-    inputExample: companionGuidanceInputExample,
-    outputExample: companionGuidanceOutputExample,
-  } satisfies ToolRegistryEntry<CompanionGuidanceInput, CompanionGuidanceOutput>,
+    inputExample: dynamicsGuidanceInputExample,
+    outputExample: dynamicsGuidanceOutputExample,
+  } satisfies ToolRegistryEntry<DynamicsGuidanceInput, DynamicsGuidanceOutput>,
   generate_relationship_insight: {
     name: "generate_relationship_insight",
     title: "Structured relationship insight",

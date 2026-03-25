@@ -2,13 +2,13 @@ import {
   accountEntitlementsOutputExample,
   billingPortalHandoffOutputExample,
   checkoutHandoffOutputExample,
-  companionGuidanceOutputExample,
+  dynamicsGuidanceOutputExample,
   relationshipInsightOutputExample,
   worldSignalOutputExample,
 } from "../../../../../packages/platform/src";
 
 export const WIDGET_EXAMPLE_PAYLOADS = {
-  companion: companionGuidanceOutputExample,
+  dynamics: dynamicsGuidanceOutputExample,
   insight: relationshipInsightOutputExample,
   world: worldSignalOutputExample,
   entitlements: accountEntitlementsOutputExample,

@@ -1,7 +1,7 @@
-import type { CompanionTimingSignals } from "../../core/src";
+import type { DynamicsTimingSignals } from "../../core/src";
 import type { RelationalFeatureSignals } from "./feature-signals";
 
-export function computeTimingSignals(features: RelationalFeatureSignals): CompanionTimingSignals {
+export function computeTimingSignals(features: RelationalFeatureSignals): DynamicsTimingSignals {
   const pressureScore = Math.max(features.blameScore, features.silenceScore * 0.8);
   const pressureLevel = pressureScore > 0.66 ? "high" : pressureScore > 0.33 ? "medium" : "low";
   const repairWindow = pressureLevel === "high" ? "closed" : pressureLevel === "medium" ? "narrow" : "open";

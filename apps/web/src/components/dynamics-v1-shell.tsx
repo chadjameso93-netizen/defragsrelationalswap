@@ -1,15 +1,15 @@
 import type {
-  CompanionEvaluationRubric,
-  CompanionOutputContract,
-  CompanionStructuredSynthesis,
+  DynamicsEvaluationRubric,
+  DynamicsOutputContract,
+  DynamicsStructuredSynthesis,
   Entitlements,
 } from "../../../../packages/core/src";
 
-interface CompanionV1ShellProps {
-  contract: CompanionOutputContract;
+interface DynamicsV1ShellProps {
+  contract: DynamicsOutputContract;
   entitlements: Entitlements;
-  synthesis?: CompanionStructuredSynthesis | null;
-  evaluation?: CompanionEvaluationRubric | null;
+  synthesis?: DynamicsStructuredSynthesis | null;
+  evaluation?: DynamicsEvaluationRubric | null;
 }
 
 function Section({ title, body, tone = "default" }: { title: string; body: string; tone?: "default" | "accent" }) {
@@ -30,7 +30,7 @@ function Section({ title, body, tone = "default" }: { title: string; body: strin
   );
 }
 
-export function CompanionV1Shell({ contract, entitlements, synthesis, evaluation }: CompanionV1ShellProps) {
+export function DynamicsV1Shell({ contract, entitlements, synthesis, evaluation }: DynamicsV1ShellProps) {
   const qualityChips = evaluation
     ? [
         ["Clarity", evaluation.clarity],
@@ -173,7 +173,7 @@ export function CompanionV1Shell({ contract, entitlements, synthesis, evaluation
       <Section title="Their Side" body={contract.theirSide} />
       <Section title="Next Move" body={contract.nextMove} tone="accent" />
 
-      {entitlements.canUseCompanionPremiumView ? (
+      {entitlements.canUseDynamicsPremiumView ? (
         <section className="premium-fade-up" data-delay="3" style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 22, background: "var(--color-surface)" }}>
           <h3 style={{ marginTop: 0, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--color-accent)" }}>
             What This Is Based On

@@ -31,7 +31,7 @@ function LoginPageContent() {
     }
 
     const nextPath = searchParams.get("next");
-    router.push(nextPath && nextPath.startsWith("/") ? nextPath : "/companion");
+    router.push(nextPath && nextPath.startsWith("/") ? nextPath : "/dynamics");
     router.refresh();
   }
 

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getAuthenticatedUserOrNull } from "../../../../server/auth";
-import { resolveCompanionAction } from "../../../../server/services/companion-service";
+import { resolveDynamicsAction } from "../../../../server/services/dynamics-service";
 
 interface ExecuteActionPayload {
   insightId: string;
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "invalid_payload" }, { status: 400 });
     }
 
-    const result = await resolveCompanionAction(user.userId, payload.insightId, payload.actionType);
+    const result = await resolveDynamicsAction(user.userId, payload.insightId, payload.actionType);
     if ("error" in result) {
       return NextResponse.json({ error: result.error }, { status: result.error === "insight_not_found" ? 404 : 404 });
     }

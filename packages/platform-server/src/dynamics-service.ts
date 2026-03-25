@@ -1,14 +1,14 @@
 import type {
-  CompanionActionResolution,
-  CompanionActionType,
-  CompanionGuidanceInput,
-  CompanionGuidanceOutput,
-  CompanionInsightListItem,
+  DynamicsActionResolution,
+  DynamicsActionType,
+  DynamicsGuidanceInput,
+  DynamicsGuidanceOutput,
+  DynamicsInsightListItem,
   ToolResultMetadata,
 } from "../../platform/src";
-import type { CompanionIntakeInput, CompanionReasoningResult } from "../../core/src";
+import type { DynamicsIntakeInput, DynamicsReasoningResult } from "../../core/src";
 
-interface CompanionThreadRecord {
+interface DynamicsThreadRecord {
   id: string;
   userId: string;
   title: string;
@@ -18,44 +18,44 @@ interface CompanionThreadRecord {
 interface FollowUpActionRecord {
   id: string;
   insightId: string;
-  type: CompanionActionType;
+  type: DynamicsActionType;
   label: string;
   payload?: Record<string, unknown>;
   createdAt: string;
 }
 
-interface CompanionInsightRecord extends CompanionInsightListItem {
+interface DynamicsInsightRecord extends DynamicsInsightListItem {
   threadId: string;
   confidence: number;
 }
 
-interface CompanionStoreAdapter {
-  listThreadsForUser(userId: string): Promise<CompanionThreadRecord[]>;
-  listRecentInsightsForUser(userId: string): Promise<CompanionInsightRecord[]>;
+interface DynamicsStoreAdapter {
+  listThreadsForUser(userId: string): Promise<DynamicsThreadRecord[]>;
+  listRecentInsightsForUser(userId: string): Promise<DynamicsInsightRecord[]>;
   listRecentActionsForUser(userId: string): Promise<FollowUpActionRecord[]>;
-  listInsightsForThread(userId: string, threadId: string): Promise<CompanionInsightRecord[]>;
-  createThread(userId: string, title: string): Promise<CompanionThreadRecord>;
+  listInsightsForThread(userId: string, threadId: string): Promise<DynamicsInsightRecord[]>;
+  createThread(userId: string, title: string): Promise<DynamicsThreadRecord>;
   createInsightForThread(
     userId: string,
     threadId: string,
-    output: CompanionReasoningResult["output"],
-    synthesis: CompanionReasoningResult["synthesis"],
-    evaluation: CompanionReasoningResult["evaluation"],
-    followUpActions: CompanionReasoningResult["followUpActions"],
+    output: DynamicsReasoningResult["output"],
+    synthesis: DynamicsReasoningResult["synthesis"],
+    evaluation: DynamicsReasoningResult["evaluation"],
+    followUpActions: DynamicsReasoningResult["followUpActions"],
   ): Promise<{ id: string }>;
-  getInsightById(userId: string, insightId: string): Promise<CompanionInsightRecord | null>;
+  getInsightById(userId: string, insightId: string): Promise<DynamicsInsightRecord | null>;
   listActionsForInsight(insightId: string): Promise<FollowUpActionRecord[]>;
 }
 
-interface CompanionServiceDeps {
-  store: CompanionStoreAdapter;
-  runReasoning(input: CompanionIntakeInput): Promise<CompanionReasoningResult>;
+interface DynamicsServiceDeps {
+  store: DynamicsStoreAdapter;
+  runReasoning(input: DynamicsIntakeInput): Promise<DynamicsReasoningResult>;
   resolveMetadataContext(userId: string): Promise<{
     plan: "free" | "core" | "studio" | "realtime" | "professional" | "team" | "api" | "enterprise";
     status: string;
   }>;
   createMetadata(input: {
-    toolName: "get_companion_guidance";
+    toolName: "get_dynamics_guidance";
     userId: string;
     plan: "free" | "core" | "studio" | "realtime" | "professional" | "team" | "api" | "enterprise";
     status: string;
@@ -64,7 +64,7 @@ interface CompanionServiceDeps {
   }): ToolResultMetadata;
 }
 
-export function createCompanionService(deps: CompanionServiceDeps) {
+export function createDynamicsService(deps: DynamicsServiceDeps) {
   return {
     async listThreads(userId: string) {
       return deps.store.listThreadsForUser(userId);
@@ -74,7 +74,7 @@ export function createCompanionService(deps: CompanionServiceDeps) {
       return deps.store.listInsightsForThread(userId, threadId);
     },
 
-    async createGuidance(input: CompanionGuidanceInput): Promise<CompanionGuidanceOutput> {
+    async createGuidance(input: DynamicsGuidanceInput): Promise<DynamicsGuidanceOutput> {
       const thread = input.threadId
         ? { id: input.threadId }
         : await deps.store.createThread(input.userId, input.threadTitle?.trim() || "Untitled thread");
@@ -116,7 +116,7 @@ export function createCompanionService(deps: CompanionServiceDeps) {
         insightId: insight.id,
         reasoning,
         metadata: deps.createMetadata({
-          toolName: "get_companion_guidance",
+          toolName: "get_dynamics_guidance",
           userId: input.userId,
           plan: metadataContext.plan,
           status: metadataContext.status,
@@ -126,7 +126,7 @@ export function createCompanionService(deps: CompanionServiceDeps) {
       };
     },
 
-    async resolveAction(userId: string, insightId: string, actionType: CompanionActionType): Promise<CompanionActionResolution | { error: "insight_not_found" | "action_not_available" }> {
+    async resolveAction(userId: string, insightId: string, actionType: DynamicsActionType): Promise<DynamicsActionResolution | { error: "insight_not_found" | "action_not_available" }> {
       const insight = await deps.store.getInsightById(userId, insightId);
       if (!insight) {
         return { error: "insight_not_found" };

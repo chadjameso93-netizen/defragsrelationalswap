@@ -2,7 +2,7 @@ export const DEFRAG_GOLDEN_PROMPTS = {
   direct: [
     {
       prompt: "Use DEFRAG to help me figure out what may be happening after a missed callback and tell me what to try next.",
-      expectedTool: "get_companion_guidance",
+      expectedTool: "get_dynamics_guidance",
       expectedOutcome: "Dynamics guidance returns a concise summary, next move, timing signal, and grounded uncertainty.",
     },
     {
@@ -24,7 +24,7 @@ export const DEFRAG_GOLDEN_PROMPTS = {
   indirect: [
     {
       prompt: "I need a calmer summary of what may be happening with us before I text them back.",
-      expectedTool: "get_companion_guidance",
+      expectedTool: "get_dynamics_guidance",
       expectedOutcome: "Dynamics tool is preferred over insight because the user wants immediate moment guidance.",
     },
     {
@@ -63,12 +63,12 @@ export const DEFRAG_GOLDEN_PROMPTS = {
   ambiguous: [
     {
       prompt: "I need help deciding what to say next after a tense exchange.",
-      expectedTool: "get_companion_guidance",
+      expectedTool: "get_dynamics_guidance",
       expectedOutcome: "Dynamics is preferred because the user is asking for the next move, not a durable artifact.",
     },
     {
       prompt: "Help me understand whether this means they are avoidant, and tell me what to do next.",
-      expectedTool: "get_companion_guidance",
+      expectedTool: "get_dynamics_guidance",
       expectedOutcome: "Dynamics should reframe away from fixed labels and return grounded next-step guidance.",
     },
     {

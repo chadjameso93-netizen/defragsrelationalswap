@@ -1,5 +1,5 @@
-import { createBillingService, createCompanionService, createInsightService, createWorldService } from "../../../../../packages/platform-server/src";
-import { type BillingPlan, type CompanionIntakeInput } from "../../../../../packages/core/src";
+import { createBillingService, createDynamicsService, createInsightService, createWorldService } from "../../../../../packages/platform-server/src";
+import { type BillingPlan, type DynamicsIntakeInput } from "../../../../../packages/core/src";
 import type {
   ToolResultMetadata,
   FutureToolName,
@@ -8,12 +8,12 @@ import {
   generateInsightResponseWithProvider,
   generateSimulationResponse,
   interpretWorldScene,
-  runCompanionReasoning,
+  runDynamicsReasoning,
 } from "../../../../../packages/reasoning/src";
 import { resolveEntitlements } from "../../../../../packages/billing/src";
 import { getDemoAccount, getToolLinkBack, type DemoAccount } from "../auth/runtime-auth";
 
-interface CompanionThreadRecord {
+interface DynamicsThreadRecord {
   id: string;
   userId: string;
   title: string;
@@ -35,12 +35,12 @@ interface StoredInsightRecord {
   threadId: string;
   createdAt: string;
   confidence: number;
-  contract: Awaited<ReturnType<typeof runCompanionReasoning>>["output"];
-  synthesis: Awaited<ReturnType<typeof runCompanionReasoning>>["synthesis"];
-  evaluation: Awaited<ReturnType<typeof runCompanionReasoning>>["evaluation"];
+  contract: Awaited<ReturnType<typeof runDynamicsReasoning>>["output"];
+  synthesis: Awaited<ReturnType<typeof runDynamicsReasoning>>["synthesis"];
+  evaluation: Awaited<ReturnType<typeof runDynamicsReasoning>>["evaluation"];
 }
 
-const threads: CompanionThreadRecord[] = [];
+const threads: DynamicsThreadRecord[] = [];
 const insights: StoredInsightRecord[] = [];
 const actions: FollowUpActionRecord[] = [];
 
@@ -98,12 +98,12 @@ function createMetadata(input: {
             : "inline-plus-fullscreen",
       inlineCardSufficient: input.toolName !== "begin_upgrade_checkout" && input.toolName !== "open_billing_portal",
       fullscreenJustifiedLater:
-        input.toolName === "get_companion_guidance" ||
+        input.toolName === "get_dynamics_guidance" ||
         input.toolName === "generate_relationship_insight" ||
         input.toolName === "interpret_world_signal",
       maxInlineCtas: input.toolName === "get_account_entitlements" ? 1 : 2,
       inlineFields:
-        input.toolName === "get_companion_guidance"
+        input.toolName === "get_dynamics_guidance"
           ? ["whatChanged", "nextMove", "timingSignal"]
           : input.toolName === "generate_relationship_insight"
             ? ["what_may_be_happening", "what_to_try_next"]
@@ -113,7 +113,7 @@ function createMetadata(input: {
                 ? ["plan", "status", "entitlements"]
                 : ["url"],
       omitFromInline:
-        input.toolName === "get_companion_guidance"
+        input.toolName === "get_dynamics_guidance"
           ? ["full evidence panel", "complete thread history"]
           : input.toolName === "generate_relationship_insight"
             ? ["full proof/context notes", "share studio"]
@@ -144,7 +144,7 @@ function accountOrThrow(userId: string): DemoAccount {
 }
 
 export function createDemoPlatformRuntime(baseUrl: string) {
-  const companionService = createCompanionService({
+  const dynamicsService = createDynamicsService({
     store: {
       async listThreadsForUser(userId) {
         return threads.filter((thread) => thread.userId === userId);
@@ -235,8 +235,8 @@ export function createDemoPlatformRuntime(baseUrl: string) {
         return actions.filter((action) => action.insightId === insightId);
       },
     },
-    async runReasoning(input: CompanionIntakeInput) {
-      return runCompanionReasoning(input);
+    async runReasoning(input: DynamicsIntakeInput) {
+      return runDynamicsReasoning(input);
     },
     async resolveMetadataContext(userId) {
       const account = accountOrThrow(userId);
@@ -294,7 +294,7 @@ export function createDemoPlatformRuntime(baseUrl: string) {
     async resolveWorldEntitlement(userId) {
       const account = accountOrThrow(userId);
       const entitlements = resolveEntitlements(account.plan, account.subscriptionState);
-      return { allowed: entitlements.canUseCompanion };
+      return { allowed: entitlements.canUseDynamics };
     },
     async resolveMetadataContext(userId) {
       const account = accountOrThrow(userId);
@@ -371,7 +371,7 @@ export function createDemoPlatformRuntime(baseUrl: string) {
   });
 
   return {
-    companionService,
+    dynamicsService,
     insightService,
     worldService,
     billingService,

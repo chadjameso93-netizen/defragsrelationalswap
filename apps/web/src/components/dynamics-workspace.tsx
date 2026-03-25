@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react";
 import type {
-  CompanionEvaluationRubric,
-  CompanionOutputContract,
-  CompanionStructuredSynthesis,
+  DynamicsEvaluationRubric,
+  DynamicsOutputContract,
+  DynamicsStructuredSynthesis,
   Entitlements,
 } from "../../../../packages/core/src";
-import { CompanionV1Shell } from "./companion-v1-shell";
+import { DynamicsV1Shell } from "./dynamics-v1-shell";
 
 interface ThreadRecord {
   id: string;
@@ -16,10 +16,10 @@ interface ThreadRecord {
 
 interface InsightRecord {
   id: string;
-  contract: CompanionOutputContract;
+  contract: DynamicsOutputContract;
   createdAt: string;
-  synthesis?: CompanionStructuredSynthesis | null;
-  evaluation?: CompanionEvaluationRubric | null;
+  synthesis?: DynamicsStructuredSynthesis | null;
+  evaluation?: DynamicsEvaluationRubric | null;
 }
 
 interface ActionRecord {
@@ -27,16 +27,16 @@ interface ActionRecord {
   label: string;
 }
 
-interface CompanionWorkspaceProps {
+interface DynamicsWorkspaceProps {
   initialThreads: ThreadRecord[];
   entitlements: Entitlements;
 }
 
-export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWorkspaceProps) {
+export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWorkspaceProps) {
   const [threads, setThreads] = useState(initialThreads);
   const [activeThreadId, setActiveThreadId] = useState<string | undefined>(initialThreads[0]?.id);
   const [situation, setSituation] = useState("");
-  const [result, setResult] = useState<CompanionOutputContract | null>(null);
+  const [result, setResult] = useState<DynamicsOutputContract | null>(null);
   const [latestInsightId, setLatestInsightId] = useState<string | null>(null);
   const [insights, setInsights] = useState<InsightRecord[]>([]);
   const [actions, setActions] = useState<ActionRecord[]>([]);
@@ -57,7 +57,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
       }
 
       setLoadingThread(true);
-      const response = await fetch(`/api/companion/insights?threadId=${activeThreadId}`);
+      const response = await fetch(`/api/dynamics/insights?threadId=${activeThreadId}`);
       const body = (await response.json()) as { insights?: InsightRecord[] };
       const loaded = body.insights ?? [];
       setInsights(loaded);
@@ -83,7 +83,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
 
   return (
     <div
-      className="companion-layout"
+      className="dynamics-layout"
       style={{
         display: "grid",
         gridTemplateColumns: "300px minmax(0, 1fr)",
@@ -92,7 +92,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
       }}
     >
       <aside
-        className="companion-rail premium-fade-up"
+        className="dynamics-rail premium-fade-up"
         data-delay="1"
         style={{
           border: "1px solid var(--color-border)",
@@ -190,7 +190,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
         }}
       >
         <div
-          className="companion-intro"
+          className="dynamics-intro"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
@@ -238,7 +238,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
           >
             {[
               ["Mode", result ? "Insight ready" : "Drafting"],
-              ["Premium", entitlements.canUseCompanionPremiumView ? "Unlocked" : "Locked"],
+              ["Premium", entitlements.canUseDynamicsPremiumView ? "Unlocked" : "Locked"],
               ["Thread", activeThreadId ? "Active" : "New"],
             ].map(([label, value]) => (
               <div key={label} style={{ padding: 14, borderRadius: "var(--radius-md)", background: "var(--color-surface-hover)", border: "1px solid var(--color-border)" }}>
@@ -272,7 +272,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
               setBusy(true);
               setError(null);
               try {
-                const response = await fetch("/api/companion/insights", {
+                const response = await fetch("/api/dynamics/insights", {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({
@@ -404,7 +404,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
                 key={action.type}
                 type="button"
                 onClick={async () => {
-                  const response = await fetch("/api/companion/actions", {
+                  const response = await fetch("/api/dynamics/actions", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ insightId: latestInsightId, actionType: action.type }),
@@ -437,7 +437,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
       ) : null}
 
       {result ? (
-        <CompanionV1Shell
+        <DynamicsV1Shell
           contract={result}
           entitlements={entitlements}
           synthesis={activeInsight?.synthesis ?? null}
@@ -447,17 +447,17 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
       </div>
       <style>{`
         @media (max-width: 980px) {
-          .companion-layout {
+          .dynamics-layout {
             grid-template-columns: 1fr !important;
           }
 
-          .companion-rail {
+          .dynamics-rail {
             position: static !important;
           }
         }
 
         @media (max-width: 720px) {
-          .companion-intro {
+          .dynamics-intro {
             grid-template-columns: 1fr !important;
           }
         }

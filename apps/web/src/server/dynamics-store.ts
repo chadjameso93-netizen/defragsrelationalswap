@@ -1,4 +1,4 @@
-import type { CompanionEvaluationRubric, CompanionOutputContract, CompanionStructuredSynthesis } from "../../../../packages/core/src";
+import type { DynamicsEvaluationRubric, DynamicsOutputContract, DynamicsStructuredSynthesis } from "../../../../packages/core/src";
 import { createAdminClient } from "../utils/supabase/admin";
 import type { Json } from "../types/supabase";
 
@@ -19,21 +19,21 @@ export interface FollowUpActionRecord extends FollowUpActionInput {
   createdAt: string;
 }
 
-export interface CompanionThreadRecord {
+export interface DynamicsThreadRecord {
   id: string;
   userId: string;
   title: string;
   createdAt: string;
 }
 
-export interface CompanionInsightRecord {
+export interface DynamicsInsightRecord {
   id: string;
   threadId: string;
   createdAt: string;
   confidence: number;
-  synthesis: CompanionStructuredSynthesis | null;
-  evaluation: CompanionEvaluationRubric | null;
-  contract: CompanionOutputContract;
+  synthesis: DynamicsStructuredSynthesis | null;
+  evaluation: DynamicsEvaluationRubric | null;
+  contract: DynamicsOutputContract;
 }
 
 const insightSelect =
@@ -63,7 +63,7 @@ function asFollowUpActionType(value: string): FollowUpActionType {
   return "show_evidence";
 }
 
-export async function listThreadsForUser(userId: string): Promise<CompanionThreadRecord[]> {
+export async function listThreadsForUser(userId: string): Promise<DynamicsThreadRecord[]> {
   const supabase = createAdminClient();
   const { data, error } = await supabase
     .from("companion_threads")
@@ -123,7 +123,7 @@ export async function listRecentActionsForUser(userId: string): Promise<FollowUp
   }));
 }
 
-export async function createThread(userId: string, title: string): Promise<CompanionThreadRecord> {
+export async function createThread(userId: string, title: string): Promise<DynamicsThreadRecord> {
   const supabase = createAdminClient();
   const { data, error } = await supabase
     .from("companion_threads")
@@ -146,7 +146,7 @@ export async function createThread(userId: string, title: string): Promise<Compa
   };
 }
 
-export async function listInsightsForThread(userId: string, threadId: string): Promise<CompanionInsightRecord[]> {
+export async function listInsightsForThread(userId: string, threadId: string): Promise<DynamicsInsightRecord[]> {
   const supabase = createAdminClient();
   const { data, error } = await supabase
     .from("companion_insights")
@@ -177,7 +177,7 @@ export async function listInsightsForThread(userId: string, threadId: string): P
   }));
 }
 
-export async function listRecentInsightsForUser(userId: string): Promise<CompanionInsightRecord[]> {
+export async function listRecentInsightsForUser(userId: string): Promise<DynamicsInsightRecord[]> {
   const supabase = createAdminClient();
   const { data, error } = await supabase
     .from("companion_insights")
@@ -208,7 +208,7 @@ export async function listRecentInsightsForUser(userId: string): Promise<Compani
   }));
 }
 
-export async function getInsightById(userId: string, insightId: string): Promise<CompanionInsightRecord | null> {
+export async function getInsightById(userId: string, insightId: string): Promise<DynamicsInsightRecord | null> {
   const supabase = createAdminClient();
   const { data, error } = await supabase
     .from("companion_insights")
@@ -268,11 +268,11 @@ export async function listActionsForInsight(insightId: string): Promise<FollowUp
 export async function createInsightForThread(
   userId: string,
   threadId: string,
-  contract: CompanionOutputContract,
-  synthesis: CompanionStructuredSynthesis,
-  evaluation: CompanionEvaluationRubric,
+  contract: DynamicsOutputContract,
+  synthesis: DynamicsStructuredSynthesis,
+  evaluation: DynamicsEvaluationRubric,
   actions: FollowUpActionInput[],
-): Promise<CompanionInsightRecord> {
+): Promise<DynamicsInsightRecord> {
   const supabase = createAdminClient();
 
   const { data: insightData, error: insightError } = await supabase

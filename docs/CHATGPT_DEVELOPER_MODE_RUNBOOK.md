@@ -94,7 +94,7 @@ DEFRAG_MCP_BASE_URL=https://<subdomain>.trycloudflare.com pnpm --dir apps/defrag
 
 The connector must expose exactly these tools:
 
-- `get_companion_guidance`
+- `get_dynamics_guidance`
 - `generate_relationship_insight`
 - `interpret_world_signal`
 - `get_account_entitlements`
@@ -141,7 +141,7 @@ Pass criteria:
 ### User-facing tools
 
 - `Use DEFRAG to help me figure out what may be happening after a missed callback and tell me what to try next.`
-  Expected tool: `get_companion_guidance`
+  Expected tool: `get_dynamics_guidance`
   Expected outcome: grounded dynamics guidance with explicit uncertainty
 - `Generate a DEFRAG relationship insight about a criticism-defensiveness loop.`
   Expected tool: `generate_relationship_insight`
@@ -182,7 +182,7 @@ For each successful user-facing tool:
 
 Expected widget bindings:
 
-- dynamics → `ui://defrag/companion-summary-card.html`
+- dynamics → `ui://defrag/dynamics-summary-card.html`
 - insight → `ui://defrag/insight-summary-card.html`
 - world → `ui://defrag/world-interpretation-card.html`
 - entitlements → `ui://defrag/entitlement-status-card.html`

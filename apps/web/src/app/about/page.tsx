@@ -69,7 +69,7 @@ export default function AboutPage() {
             Canonical entry points
           </div>
           {[
-            ["Dynamics", "/companion"],
+            ["Dynamics", "/dynamics"],
             ["Insights", "/account/insights"],
             ["World", "/world"],
             ["Billing", "/account/billing"],

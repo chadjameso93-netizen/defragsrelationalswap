@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { AppShell } from "../../components/app-shell";
-import { CompanionWorkspace } from "../../components/companion-workspace";
+import { DynamicsWorkspace } from "../../components/dynamics-workspace";
 import { PublicPreviewCta } from "../../components/public-preview-cta";
 import { getBillingStateForUser } from "../../lib/billing-server";
 import { getAuthenticatedUserOrNull } from "../../server/auth";
-import { listThreadsForUser } from "../../server/companion-store";
+import { listThreadsForUser } from "../../server/dynamics-store";
 
-export default async function CompanionPage() {
+export default async function DynamicsPage() {
   const user = await getAuthenticatedUserOrNull();
 
   if (!user) {
@@ -26,7 +26,7 @@ export default async function CompanionPage() {
             secondaryHref="/account/billing"
           />
 
-          <section className="companion-preview-grid premium-fade-up" data-delay="1" style={{ display: "grid", gridTemplateColumns: "300px minmax(0, 1fr)", gap: 24, alignItems: "start" }}>
+          <section className="dynamics-preview-grid premium-fade-up" data-delay="1" style={{ display: "grid", gridTemplateColumns: "300px minmax(0, 1fr)", gap: 24, alignItems: "start" }}>
             <aside style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: 22, background: "var(--color-surface)", display: "grid", gap: 18 }}>
               <div style={{ display: "grid", gap: 6 }}>
                 <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Sample threads</p>
@@ -46,7 +46,7 @@ export default async function CompanionPage() {
 
             <section style={{ display: "grid", gap: 20 }}>
               <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: 22, background: "linear-gradient(180deg, var(--color-surface), transparent)", display: "grid", gap: 20 }}>
-                <div className="companion-preview-metrics" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 12 }}>
+                <div className="dynamics-preview-metrics" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 12 }}>
                   {[
                     ["Mode", "Lead summary"],
                     ["Confidence", "Measured"],
@@ -69,7 +69,7 @@ export default async function CompanionPage() {
                   </p>
                 </div>
 
-                <div className="companion-preview-columns" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 16 }}>
+                <div className="dynamics-preview-columns" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 16 }}>
                   <div style={{ display: "grid", gap: 12, padding: 22, borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "var(--color-surface)" }}>
                     <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Likely pattern</p>
                     <p style={{ margin: 0, color: "var(--color-text-primary)", lineHeight: 1.7 }}>Protective pacing on one side, urgency on the other, and a loop where both people may read the other as pulling away.</p>
@@ -94,14 +94,14 @@ export default async function CompanionPage() {
         </div>
         <style>{`
           @media (max-width: 900px) {
-            .companion-preview-grid {
+            .dynamics-preview-grid {
               grid-template-columns: 1fr !important;
             }
           }
 
           @media (max-width: 720px) {
-            .companion-preview-metrics,
-            .companion-preview-columns {
+            .dynamics-preview-metrics,
+            .dynamics-preview-columns {
               grid-template-columns: 1fr !important;
             }
           }
@@ -120,7 +120,7 @@ export default async function CompanionPage() {
         description="Thread-based guidance, saved insight history, follow-up actions, and evidence views now sit inside one calmer workspace on DEFRAG."
       accent="#d8c49f"
     >
-      <CompanionWorkspace
+      <DynamicsWorkspace
         initialThreads={threads.map((thread) => ({ id: thread.id, title: thread.title }))}
         entitlements={entitlements}
       />

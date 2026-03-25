@@ -25,7 +25,7 @@
 
 ### Internal app APIs
 
-- `apps/web/src/app/api/companion/*`
+- `apps/web/src/app/api/dynamics/*`
 - `apps/web/src/app/api/insights/*`
 - `apps/web/src/app/api/world/*`
 - `apps/web/src/app/api/stripe/*`
@@ -47,7 +47,7 @@
 
 ### Reusable service seams for future tool surfaces
 
-- `packages/platform-server/src/companion-service.ts`
+- `packages/platform-server/src/dynamics-service.ts`
 - `packages/platform-server/src/insight-service.ts`
 - `packages/platform-server/src/world-service.ts`
 - `packages/platform-server/src/billing-service.ts`

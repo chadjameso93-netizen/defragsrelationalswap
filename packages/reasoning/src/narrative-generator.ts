@@ -1,11 +1,11 @@
 import type {
-  CompanionEvaluationRubric,
-  CompanionOutputContract,
-  CompanionStructuredSynthesis,
+  DynamicsEvaluationRubric,
+  DynamicsOutputContract,
+  DynamicsStructuredSynthesis,
 } from "../../core/src";
 
 interface NarrativeInput {
-  synthesis: CompanionStructuredSynthesis;
+  synthesis: DynamicsStructuredSynthesis;
   evidence: string[];
   correctionDetected: boolean;
 }
@@ -14,7 +14,7 @@ function clamp(value: number) {
   return Math.max(0, Math.min(1, value));
 }
 
-export async function generateNarrative(input: NarrativeInput): Promise<CompanionOutputContract> {
+export async function generateNarrative(input: NarrativeInput): Promise<DynamicsOutputContract> {
   const lead = input.correctionDetected
     ? "Given the correction, the safest move is to reset around the most concrete moment first."
     : "This moment may have felt heavier than it first looked.";
@@ -29,7 +29,7 @@ export async function generateNarrative(input: NarrativeInput): Promise<Companio
   };
 }
 
-export function evaluateNarrativeQuality(output: CompanionOutputContract): CompanionEvaluationRubric {
+export function evaluateNarrativeQuality(output: DynamicsOutputContract): DynamicsEvaluationRubric {
   const baseLength = Object.values(output).join(" ").length;
   const clarity = clamp(baseLength > 150 ? 0.88 : 0.72);
   return {

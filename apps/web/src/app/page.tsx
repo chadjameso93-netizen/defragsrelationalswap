@@ -22,7 +22,7 @@ export default function LandingPage() {
         <div style={{ display: "grid", gap: 18 }}>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
             <Link
-              href="/companion"
+              href="/dynamics"
               className="premium-panel premium-fade-up"
               data-delay="2"
               style={{ padding: "12px 18px", borderRadius: "var(--radius-pill)", background: "var(--color-text-primary)", color: "var(--color-bg)", textDecoration: "none", fontWeight: 700 }}

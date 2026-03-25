@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { renderCompanionSummaryCard } from "./widgets/companion-summary-card";
+import { renderDynamicsSummaryCard } from "./widgets/dynamics-summary-card";
 import { renderEntitlementStatusCard } from "./widgets/entitlement-status-card";
 import { renderInsightSummaryCard } from "./widgets/insight-summary-card";
 import { renderRedirectCtaCard } from "./widgets/redirect-cta-card";
@@ -14,7 +14,7 @@ export interface WidgetAsset {
 
 export function getWidgetAssets(): Record<string, WidgetAsset> {
   return {
-    companion: { filename: "companion-summary-card.html", html: renderCompanionSummaryCard() },
+    dynamics: { filename: "dynamics-summary-card.html", html: renderDynamicsSummaryCard() },
     insight: { filename: "insight-summary-card.html", html: renderInsightSummaryCard() },
     world: { filename: "world-interpretation-card.html", html: renderWorldInterpretationCard() },
     entitlements: { filename: "entitlement-status-card.html", html: renderEntitlementStatusCard() },

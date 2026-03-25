@@ -7,7 +7,7 @@ const files = [
   "apps/web/src/components/app-shell.tsx",
   "apps/web/src/app/layout.tsx",
   "apps/web/src/app/page.tsx",
-  "apps/web/src/app/companion/page.tsx",
+  "apps/web/src/app/dynamics/page.tsx",
   "apps/web/src/app/account/insights/page.tsx",
   "apps/web/src/components/insights/insight-share-studio.tsx",
   "apps/web/src/components/insights/insight-result.tsx",

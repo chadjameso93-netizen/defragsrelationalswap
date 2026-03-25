@@ -1,4 +1,4 @@
-export interface CompanionOutputContract {
+export interface DynamicsOutputContract {
   whatHappened: string;
   yourSide: string;
   theirSide: string;
@@ -7,14 +7,14 @@ export interface CompanionOutputContract {
   whatThisIsBasedOn: string[];
 }
 
-export interface CompanionTimingSignals {
+export interface DynamicsTimingSignals {
   pressureLevel: "low" | "medium" | "high";
   conversationFavorability: "low" | "medium" | "high";
   repairWindow: "closed" | "narrow" | "open";
   delayRecommended: boolean;
 }
 
-export interface CompanionEvaluationRubric {
+export interface DynamicsEvaluationRubric {
   clarity: number;
   groundedness: number;
   relationalAccuracy: number;
@@ -23,7 +23,7 @@ export interface CompanionEvaluationRubric {
   safety: number;
 }
 
-export interface CompanionStructuredSynthesis {
+export interface DynamicsStructuredSynthesis {
   userSideHypothesis: string;
   otherSideHypothesis: string;
   betweenDynamic: string;
@@ -31,10 +31,10 @@ export interface CompanionStructuredSynthesis {
   helpNeeded: string;
   confidence: number;
   detectedPatterns: string[];
-  timing: CompanionTimingSignals;
+  timing: DynamicsTimingSignals;
 }
 
-export interface CompanionIntakeInput {
+export interface DynamicsIntakeInput {
   userId: string;
   threadId?: string;
   situationText: string;
@@ -50,10 +50,10 @@ export interface CompanionIntakeInput {
   }>;
 }
 
-export interface CompanionReasoningResult {
-  synthesis: CompanionStructuredSynthesis;
-  output: CompanionOutputContract;
-  evaluation: CompanionEvaluationRubric;
+export interface DynamicsReasoningResult {
+  synthesis: DynamicsStructuredSynthesis;
+  output: DynamicsOutputContract;
+  evaluation: DynamicsEvaluationRubric;
   followUpActions: Array<{
     type: "show_evidence" | "rephrase" | "practice_conversation";
     label: string;

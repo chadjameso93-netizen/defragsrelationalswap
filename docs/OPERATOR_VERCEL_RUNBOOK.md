@@ -86,7 +86,7 @@ vercel inspect defrag.app
 
 - `/`
 - `/login`
-- `/companion`
+- `/dynamics`
 - `/world`
 - `/account`
 - `/account/insights`

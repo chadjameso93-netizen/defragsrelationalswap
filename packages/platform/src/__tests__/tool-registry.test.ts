@@ -73,7 +73,7 @@ describe("DEFRAG tool registry", () => {
       "begin_upgrade_checkout",
       "generate_relationship_insight",
       "get_account_entitlements",
-      "get_companion_guidance",
+      "get_dynamics_guidance",
       "interpret_world_signal",
       "open_billing_portal",
     ]);
@@ -97,7 +97,7 @@ describe("DEFRAG tool registry", () => {
     expect(userFacing).toEqual([
       "generate_relationship_insight",
       "get_account_entitlements",
-      "get_companion_guidance",
+      "get_dynamics_guidance",
       "interpret_world_signal",
     ]);
   });

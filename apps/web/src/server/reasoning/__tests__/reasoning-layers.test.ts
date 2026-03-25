@@ -3,7 +3,7 @@ import { buildEventObservations } from "../event-model";
 import { computeRelationalFeatureSignals } from "../feature-signals";
 import { detectRelationalPatterns } from "../pattern-detection";
 import { computeTimingSignals } from "../timing-layer";
-import { runCompanionReasoning } from "../companion-reasoner";
+import { runDynamicsReasoning } from "../dynamics-reasoner";
 
 describe("reasoning layers", () => {
   it("computes features and detects baseline patterns", () => {
@@ -22,13 +22,13 @@ describe("reasoning layers", () => {
   });
 
   it("lowers confidence when correction signals appear", async () => {
-    const baseline = await runCompanionReasoning({
+    const baseline = await runDynamicsReasoning({
       userId: "u1",
       situationText: "We had a hard conversation yesterday.",
       recentEvents: ["We had a hard conversation yesterday."],
     });
 
-    const corrected = await runCompanionReasoning({
+    const corrected = await runDynamicsReasoning({
       userId: "u1",
       situationText: "That is not accurate, this is not what happened.",
       recentEvents: ["That is not accurate, this is not what happened."],

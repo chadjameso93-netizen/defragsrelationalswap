@@ -4,7 +4,7 @@ import {
   accountEntitlementsOutputExample,
   billingPortalHandoffOutputExample,
   checkoutHandoffOutputExample,
-  companionGuidanceInputExample,
+  dynamicsGuidanceInputExample,
   relationshipInsightInputExample,
   worldSignalInputExample,
   type FutureToolName,
@@ -55,7 +55,7 @@ async function run() {
     assert(RESOURCE_MIME_TYPE === "text/html;profile=mcp-app", "Unexpected resource mime type");
   }
 
-  const companion = await invokers.get_companion_guidance(companionGuidanceInputExample);
+  const dynamics = await invokers.get_dynamics_guidance(dynamicsGuidanceInputExample);
   const insight = await invokers.generate_relationship_insight(relationshipInsightInputExample);
   const world = await invokers.interpret_world_signal(worldSignalInputExample);
   const entitlements = await invokers.get_account_entitlements({ userId: accountEntitlementsOutputExample.userId });
@@ -68,7 +68,7 @@ async function run() {
     userId: billingPortalHandoffOutputExample.metadata.auth.userId!,
   });
 
-  assert((companion.structuredContent as Record<string, unknown>).what_changed, "Companion structuredContent missing what_changed");
+  assert((dynamics.structuredContent as Record<string, unknown>).what_changed, "Dynamics structuredContent missing what_changed");
   assert((insight.structuredContent as Record<string, unknown>).what_may_be_happening, "Insight structuredContent missing what_may_be_happening");
   assert((world.structuredContent as Record<string, unknown>).dominant_pattern, "World structuredContent missing dominant_pattern");
   assert((entitlements.structuredContent as Record<string, unknown>).plan, "Entitlements structuredContent missing plan");

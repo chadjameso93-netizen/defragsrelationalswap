@@ -1,4 +1,4 @@
-import type { CompanionIntakeInput } from "../../../../../../packages/core/src";
+import type { DynamicsIntakeInput } from "../../../../../../packages/core/src";
 
 export interface EvaluationFixture {
   id:
@@ -9,7 +9,7 @@ export interface EvaluationFixture {
     | "correction_case"
     | "family_context";
   label: string;
-  input: CompanionIntakeInput;
+  input: DynamicsIntakeInput;
   expectedQualities: {
     minGroundedness: number;
     minSafety: number;

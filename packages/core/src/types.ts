@@ -84,8 +84,8 @@ export type SubscriptionState =
 
 export interface Entitlements {
   plan: BillingPlan;
-  canUseCompanion: boolean;
-  canUseCompanionPremiumView: boolean;
+  canUseDynamics: boolean;
+  canUseDynamicsPremiumView: boolean;
   canUseStudio: boolean;
   canUseRealtime: boolean;
   monthlySituationLimit: number;
@@ -102,7 +102,7 @@ export interface BillingAccount {
 }
 
 
-export interface CompanionThread {
+export interface DynamicsThread {
   id: EntityId;
   userId: EntityId;
   title: string;
@@ -110,18 +110,18 @@ export interface CompanionThread {
   updatedAt: string;
 }
 
-export type CompanionFollowUpActionType = "show_evidence" | "rephrase" | "practice_conversation";
+export type DynamicsFollowUpActionType = "show_evidence" | "rephrase" | "practice_conversation";
 
-export interface CompanionFollowUpAction {
+export interface DynamicsFollowUpAction {
   id: EntityId;
   insightId: EntityId;
-  type: CompanionFollowUpActionType;
+  type: DynamicsFollowUpActionType;
   label: string;
   payload?: Record<string, unknown>;
   createdAt: string;
 }
 
-export interface CompanionInsight {
+export interface DynamicsInsight {
   id: EntityId;
   userId: EntityId;
   threadId: EntityId;
