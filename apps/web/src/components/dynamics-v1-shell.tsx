@@ -12,206 +12,166 @@ interface DynamicsV1ShellProps {
   evaluation?: DynamicsEvaluationRubric | null;
 }
 
-function Section({ title, body, tone = "default" }: { title: string; body: string; tone?: "default" | "accent" }) {
+export function DynamicsV1Shell({ contract, entitlements, synthesis }: DynamicsV1ShellProps) {
+  // Editorial rendering over generic bordered cards
   return (
-    <section
-      className="premium-fade-up"
-      data-delay="2"
-      style={{
-        border: "1px solid var(--color-border)",
-        borderRadius: "var(--radius-md)",
-        padding: 20,
-        background: tone === "accent" ? "color-mix(in srgb, var(--color-accent) 15%, transparent)" : "var(--color-surface)",
-      }}
-    >
-      <h3 style={{ marginTop: 0, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: tone === "accent" ? "var(--color-accent)" : "var(--color-text-muted)" }}>{title}</h3>
-      <p style={{ marginBottom: 0, lineHeight: 1.75, color: "var(--color-text-primary)" }}>{body}</p>
-    </section>
-  );
-}
-
-export function DynamicsV1Shell({ contract, entitlements, synthesis, evaluation }: DynamicsV1ShellProps) {
-  const qualityChips = evaluation
-    ? [
-        ["Clarity", evaluation.clarity],
-        ["Grounded", evaluation.groundedness],
-        ["Safety", evaluation.safety],
-      ]
-    : [];
-
-  return (
-    <div style={{ display: "grid", gap: 18 }}>
+    <div style={{ display: "grid", gap: 32, paddingBottom: 16 }}>
+      
+      {/* PRIMARY INTERPRETATION */}
       {synthesis ? (
-        <section
-          className="premium-fade-up"
-          data-delay="1"
-          style={{
-            border: "1px solid var(--color-border)",
-            borderRadius: "var(--radius-lg)",
-            padding: 24,
-            background: "linear-gradient(180deg, var(--color-surface), transparent)",
-            display: "grid",
-            gap: 16,
-          }}
-        >
-          <div style={{ display: "grid", gap: 8 }}>
-            <h3 style={{ margin: 0, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--color-accent)" }}>
-              Dynamics view
-            </h3>
-            <p style={{ margin: 0, color: "var(--color-text-primary)", fontSize: 22, lineHeight: 1.45, maxWidth: 840 }}>{synthesis.betweenDynamic}</p>
-            <p style={{ margin: 0, color: "var(--color-text-secondary)", lineHeight: 1.7, maxWidth: 760 }}>
-              This is a grounded summary, not a diagnosis or fixed label. Use it to steady the next move, then return to the actual event.
-            </p>
+        <section className="premium-fade-up" data-delay="1" style={{ display: "grid", gap: 24 }}>
+          {/* Metadata Row / Confidence */}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--color-border-hover)", paddingBottom: 16 }}>
+            <span style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--color-accent)" }}>
+              Analysis
+            </span>
+            <span style={{ fontSize: 11, letterSpacing: "0.12em", color: "var(--color-text-muted)" }}>
+              CONFIDENCE {Math.round(synthesis.confidence * 100)}%
+            </span>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 14 }}>
-            <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 18, background: "var(--color-surface-hover)" }}>
-              <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--color-text-muted)" }}>Timing</div>
-              <p style={{ margin: "10px 0 0 0", color: "var(--color-text-primary)", lineHeight: 1.7 }}>{synthesis.timingSignal}</p>
-            </section>
-            <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 18, background: "var(--color-surface-hover)" }}>
-              <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--color-text-muted)" }}>What may help</div>
-              <p style={{ margin: "10px 0 0 0", color: "var(--color-text-primary)", lineHeight: 1.7 }}>{synthesis.helpNeeded}</p>
-            </section>
-            <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 18, background: "var(--color-surface-hover)" }}>
-              <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--color-text-muted)" }}>Confidence</div>
-              <p style={{ margin: "10px 0 0 0", color: "var(--color-text-primary)", lineHeight: 1.6, fontSize: 24, fontWeight: 600 }}>
-                {Math.round(synthesis.confidence * 100)}%
-              </p>
-            </section>
+          {/* Main Interpretation */}
+          <div>
+            <h2 style={{ 
+              margin: 0, 
+              color: "var(--color-text-primary)", 
+              fontSize: "clamp(24px, 4vw, 32px)", 
+              lineHeight: 1.35, 
+              fontWeight: 400,
+              letterSpacing: "-0.02em",
+              maxWidth: 840 
+            }}>
+              {synthesis.betweenDynamic}
+            </h2>
           </div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1.4fr) minmax(260px, 0.9fr)", gap: 16 }}>
-            <section
-              style={{
-                border: "1px solid var(--color-border)",
-                borderRadius: "var(--radius-md)",
-                padding: 20,
-                background: "var(--color-surface)",
-                display: "grid",
-                gap: 12,
-              }}
-            >
-              <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--color-text-muted)" }}>Current moment</div>
-              <p style={{ margin: 0, color: "var(--color-text-primary)", lineHeight: 1.7, fontSize: 18 }}>{contract.whatHappened}</p>
-            </section>
-
-            <section
-              style={{
-                border: "1px solid var(--color-border)",
-                borderRadius: "var(--radius-md)",
-                padding: 20,
-                background: "var(--color-surface-hover)",
-                display: "grid",
-                gap: 12,
-              }}
-            >
-              <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--color-text-muted)" }}>What to hold</div>
-              <div style={{ display: "grid", gap: 10 }}>
-                {[
-                  contract.nextMove,
-                  synthesis.userSideHypothesis,
-                  synthesis.otherSideHypothesis,
-                ].map((item, index) => (
-                  <div key={`${index}-${item}`} style={{ display: "grid", gridTemplateColumns: "20px 1fr", gap: 10, alignItems: "start" }}>
-                    <span style={{ color: "var(--color-accent)", fontSize: 11, paddingTop: 3 }}>0{index + 1}</span>
-                    <span style={{ color: "var(--color-text-primary)", lineHeight: 1.6 }}>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </section>
-          </div>
-
-          {synthesis.detectedPatterns.length > 0 ? (
-            <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-              {synthesis.detectedPatterns.map((pattern: string) => (
-                <span
-                  key={pattern}
-                  style={{
-                    padding: "10px 16px",
-                    borderRadius: "var(--radius-pill)",
-                    border: "1px solid var(--color-border)",
-                    color: "var(--color-text-secondary)",
-                    fontSize: 12,
-                    background: "var(--color-surface)",
-                  }}
-                >
-                  {pattern.replaceAll("_", " ")}
-                </span>
-              ))}
-            </div>
-          ) : null}
-
-          {qualityChips.length > 0 ? (
-            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 4 }}>
-              {qualityChips.map(([label, score]) => (
-                <span
-                  key={label}
-                  style={{
-                    padding: "10px 16px",
-                    borderRadius: "var(--radius-pill)",
-                    background: "var(--color-surface)",
-                    border: "1px solid var(--color-border)",
-                    color: "var(--color-text-secondary)",
-                    fontSize: 12,
-                  }}
-                >
-                  {label} · {Math.round(Number(score) * 100)}%
-                </span>
-              ))}
-            </div>
-          ) : null}
-        </section>
-      ) : null}
-
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 16 }}>
-        <Section title="What Happened" body={contract.whatHappened} tone="accent" />
-        <Section title="What Changed" body={contract.whatChanged} />
-      </div>
-
-      <Section title="Your Side" body={contract.yourSide} />
-      <Section title="Their Side" body={contract.theirSide} />
-      <Section title="Next Move" body={contract.nextMove} tone="accent" />
-
-      {entitlements.canUseDynamicsPremiumView ? (
-        <section className="premium-fade-up" data-delay="3" style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 22, background: "var(--color-surface)" }}>
-          <h3 style={{ marginTop: 0, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--color-accent)" }}>
-            What This Is Based On
-          </h3>
-          <ul style={{ margin: 0, paddingLeft: 20, lineHeight: 1.85, color: "var(--color-text-primary)" }}>
-            {contract.whatThisIsBasedOn.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
         </section>
       ) : (
-        <section className="premium-fade-up" data-delay="3" style={{ border: "1px dashed var(--color-border)", borderRadius: "var(--radius-md)", padding: 22 }}>
-          <h3 style={{ marginTop: 0, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--color-text-muted)" }}>
-            Premium dynamics view
-          </h3>
-          <p style={{ marginBottom: 0, color: "var(--color-text-secondary)", lineHeight: 1.75 }}>
-            Upgrade on DEFRAG to unlock the "What This Is Based On" evidence breakdown.
-          </p>
+        <section className="premium-fade-up" data-delay="1" style={{ display: "grid", gap: 24 }}>
+          <div style={{ borderBottom: "1px solid var(--color-border-hover)", paddingBottom: 16 }}>
+             <span style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--color-accent)" }}>
+              Analysis
+            </span>
+          </div>
+          <h2 style={{ margin: 0, color: "var(--color-text-primary)", fontSize: "clamp(24px, 4vw, 32px)", lineHeight: 1.35, fontWeight: 400, letterSpacing: "-0.02em", maxWidth: 840 }}>
+            {contract.whatHappened}
+          </h2>
         </section>
       )}
 
-      {evaluation ? (
-        <section className="premium-fade-up" data-delay="4" style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 22, background: "var(--color-surface)" }}>
-          <h3 style={{ marginTop: 0, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--color-text-muted)" }}>
-            Quality checks
-          </h3>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 14 }}>
-            {Object.entries(evaluation).map(([label, score]: [string, number]) => (
-              <div key={label} style={{ borderRadius: "var(--radius-md)", background: "var(--color-surface-hover)", padding: 16, border: "1px solid var(--color-border)" }}>
-                <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--color-text-muted)" }}>
-                  {label}
-                </div>
-                <div style={{ marginTop: 10, fontSize: 24, color: "var(--color-text-primary)", fontWeight: 600 }}>{score}/1</div>
+      {/* CLUSTER: TIMING, PRESSURE, NEXT MOVE */}
+      <section 
+        className="premium-fade-up" 
+        data-delay="2" 
+        style={{ 
+          background: "linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 100%)",
+          borderTop: "1px solid var(--color-border)",
+          borderBottom: "1px solid var(--color-border)",
+          padding: "32px 0",
+          display: "grid", 
+          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", 
+          gap: 40 
+        }}
+      >
+        <div style={{ display: "grid", gap: 10 }}>
+          <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--color-text-muted)" }}>Current Moment</div>
+          <div style={{ color: "var(--color-text-primary)", fontSize: 16, lineHeight: 1.6 }}>
+            {synthesis ? contract.whatHappened : contract.whatChanged}
+          </div>
+        </div>
+
+        {synthesis && (
+          <div style={{ display: "grid", gap: 10 }}>
+            <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--color-text-muted)" }}>Timing Window</div>
+            <div style={{ color: "var(--color-text-primary)", fontSize: 16, lineHeight: 1.6 }}>
+              {synthesis.timingSignal}
+            </div>
+          </div>
+        )}
+        
+        <div style={{ display: "grid", gap: 10 }}>
+          <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--color-accent)" }}>What to try next</div>
+          <div style={{ color: "var(--color-text-primary)", fontSize: 16, lineHeight: 1.6 }}>
+            {synthesis ? synthesis.helpNeeded : contract.nextMove}
+          </div>
+        </div>
+      </section>
+
+      {/* DETAILED STRUCTURAL LAYOUT */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 40, marginTop: 16 }}>
+        
+        {/* Sides */}
+        <div style={{ display: "grid", gap: 32 }}>
+          <div style={{ display: "grid", gap: 8 }}>
+            <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--color-text-muted)" }}>Your Side</div>
+            <p style={{ margin: 0, color: "var(--color-text-secondary)", lineHeight: 1.7, fontSize: 15 }}>{contract.yourSide}</p>
+          </div>
+          <div style={{ display: "grid", gap: 8 }}>
+            <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--color-text-muted)" }}>Their Side</div>
+            <p style={{ margin: 0, color: "var(--color-text-secondary)", lineHeight: 1.7, fontSize: 15 }}>{contract.theirSide}</p>
+          </div>
+        </div>
+
+        {/* What to Hold */}
+        <div style={{ display: "grid", gap: 20 }}>
+          <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--color-accent)" }}>Structuring the response</div>
+          <div style={{ display: "grid", gap: 16 }}>
+            {[
+              contract.nextMove,
+              ...(synthesis ? [synthesis.userSideHypothesis, synthesis.otherSideHypothesis] : [])
+            ].map((item, index) => (
+              <div key={`${index}-${item}`} style={{ display: "grid", gridTemplateColumns: "18px 1fr", gap: 12, alignItems: "start" }}>
+                <span style={{ color: "var(--color-text-muted)", fontSize: 11, paddingTop: 4, fontFamily: "var(--font-mono)", borderTop: "1px solid var(--color-border)", width: "100%" }}>
+                  0{index + 1}
+                </span>
+                <span style={{ color: "var(--color-text-primary)", lineHeight: 1.6, fontSize: 15, paddingTop: 1 }}>{item}</span>
               </div>
             ))}
           </div>
-        </section>
-      ) : null}
+        </div>
+
+      </div>
+
+      {/* PATTERNS & EVIDENCE */}
+      <div style={{ display: "grid", gap: 24, marginTop: 16, paddingTop: 32, borderTop: "1px solid var(--color-border)" }}>
+        
+        {synthesis && synthesis.detectedPatterns.length > 0 && (
+          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
+            <span style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--color-text-muted)", paddingRight: 8 }}>Patterns</span>
+            {synthesis.detectedPatterns.map((pattern: string) => (
+              <span
+                key={pattern}
+                style={{
+                  padding: "6px 14px",
+                  borderRadius: "var(--radius-pill)",
+                  background: "rgba(255,255,255,0.03)",
+                  border: "1px solid var(--color-border-hover)",
+                  color: "var(--color-text-secondary)",
+                  fontSize: 12,
+                }}
+              >
+                {pattern.replaceAll("_", " ")}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {entitlements.canUseDynamicsPremiumView ? (
+          <div style={{ display: "grid", gap: 12 }}>
+            <span style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--color-text-muted)" }}>Evidence</span>
+            <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.7, color: "var(--color-text-secondary)", fontSize: 14 }}>
+              {contract.whatThisIsBasedOn.map((item) => (
+                <li key={item} style={{ paddingBottom: 6 }}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: 16, background: "var(--color-surface)", borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)" }}>
+            <span style={{ fontSize: 12, color: "var(--color-text-secondary)" }}>Upgrade to DEFRAG Premium to view evidence breakdown.</span>
+            <a href="/account/billing" style={{ fontSize: 12, fontWeight: 500, color: "var(--color-accent)", textDecoration: "none" }}>View Pricing</a>
+          </div>
+        )}
+      </div>
+
     </div>
   );
 }

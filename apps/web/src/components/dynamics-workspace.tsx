@@ -310,21 +310,22 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
             <div 
               className="premium-fade-up"
               style={{ 
-                background: "rgba(6, 7, 10, 0.8)", 
+                background: "rgba(6, 7, 10, 0.6)", 
                 backdropFilter: "blur(24px)", 
                 WebkitBackdropFilter: "blur(24px)",
-                border: "1px solid var(--color-border-hover)",
+                border: "1px solid var(--color-border)",
                 borderRadius: "var(--radius-lg)",
-                padding: 24,
+                padding: 32,
                 display: "grid",
-                gap: 16
+                gap: 24
               }}
             >
               <div>
-                <span style={{ fontSize: 10, letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--color-accent)" }}>Simulations</span>
-                <p style={{ margin: "6px 0 0 0", fontSize: 13, color: "var(--color-text-secondary)" }}>Test your response or refine your approach before replying.</p>
+                <span style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Simulation Sandbox</span>
+                <h3 style={{ margin: "12px 0 0 0", fontSize: 20, fontWeight: 400, color: "var(--color-text-primary)", letterSpacing: "-0.01em" }}>Test your approach safely.</h3>
+                <p style={{ margin: "6px 0 0 0", fontSize: 14, color: "var(--color-text-secondary)", lineHeight: 1.6 }}>Refine what you might say before actually responding.</p>
               </div>
-              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                 {actions.map((act) => (
                   <button
                     key={act.type}
@@ -338,12 +339,12 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
                       if (data.result) setActionResult(data.result);
                     }}
                     style={{
-                      padding: "10px 16px",
+                      padding: "12px 20px",
                       borderRadius: "var(--radius-pill)",
-                      background: "var(--color-surface-hover)",
-                      border: "1px solid var(--color-border)",
+                      background: "rgba(255,255,255,0.04)",
+                      border: "1px solid var(--color-border-hover)",
                       color: "var(--color-text-primary)",
-                      fontSize: 12,
+                      fontSize: 13,
                       fontWeight: 500,
                       cursor: "pointer",
                       transition: "all 0.2s ease"
@@ -355,10 +356,15 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
               </div>
 
               {actionResult && (
-                <div style={{ margin: "16px 0 0 0", paddingTop: 16, borderTop: "1px solid var(--color-border)" }}>
-                  <h4 style={{ margin: "0 0 12px 0", fontSize: 14, fontWeight: 500, color: "var(--color-text-primary)" }}>{actionResult.title}</h4>
-                  <ul style={{ margin: 0, paddingLeft: 16, color: "var(--color-text-secondary)", fontSize: 14, lineHeight: 1.7, display: "grid", gap: 8 }}>
-                    {actionResult.lines.map((l, i) => <li key={i}>{l}</li>)}
+                <div style={{ marginTop: "16px", paddingTop: 32, borderTop: "1px solid var(--color-border)" }}>
+                  <h4 style={{ margin: "0 0 16px 0", fontSize: 16, fontWeight: 500, color: "var(--color-text-primary)" }}>{actionResult.title}</h4>
+                  <ul style={{ margin: 0, paddingLeft: 0, listStyle: "none", display: "grid", gap: 12 }}>
+                    {actionResult.lines.map((l, i) => (
+                      <li key={i} style={{ display: "grid", gridTemplateColumns: "16px 1fr", gap: 12, alignItems: "start" }}>
+                        <span style={{ color: "var(--color-accent)", fontSize: 14, lineHeight: 1.6 }}>—</span>
+                        <span style={{ color: "var(--color-text-secondary)", fontSize: 15, lineHeight: 1.6 }}>{l}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               )}
