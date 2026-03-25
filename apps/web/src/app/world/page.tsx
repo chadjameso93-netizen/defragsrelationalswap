@@ -26,15 +26,15 @@ export default async function WorldPage() {
             secondaryHref="/companion"
           />
 
-          <section style={{ display: "grid", gap: 14, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+          <section style={{ display: "grid", gap: 16, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
             {[
               ["Pressure", "Preview where intensity accumulates before the conversation can name it."],
               ["Edges", "See which connection is carrying strain, reach, or repair demand."],
               ["Repair", "Use the field as orientation before moving into a specific insight."],
             ].map(([label, copy]) => (
-              <div key={label} className="premium-panel premium-fade-up" data-delay="2" style={{ padding: 18, borderRadius: 20, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)" }}>
-                <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8ca5ca" }}>{label}</div>
-                <div style={{ marginTop: 10, color: "#d8e3f8", lineHeight: 1.7, fontSize: 14 }}>{copy}</div>
+              <div key={label} className="premium-panel premium-fade-up" data-delay="2" style={{ padding: 24, borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "var(--color-surface)" }}>
+                <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>{label}</div>
+                <div style={{ marginTop: 12, color: "var(--color-text-secondary)", lineHeight: 1.7, fontSize: 14 }}>{copy}</div>
               </div>
             ))}
           </section>
@@ -59,8 +59,8 @@ export default async function WorldPage() {
             }}
           />
 
-          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-            <Link href="/login" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "12px 18px", borderRadius: 999, background: "#f5f5f5", color: "#050505", textDecoration: "none", fontWeight: 700 }}>
+          <div className="premium-fade-up" data-delay="3" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+            <Link href="/login" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "14px 20px", borderRadius: "var(--radius-pill)", background: "var(--color-text-primary)", color: "var(--color-bg)", textDecoration: "none", fontWeight: 700 }}>
               Sign in for live interpretation
             </Link>
           </div>
@@ -88,7 +88,7 @@ export default async function WorldPage() {
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
           gap: 16,
-          marginBottom: 18,
+          marginBottom: 20,
         }}
       >
         {[
@@ -96,9 +96,9 @@ export default async function WorldPage() {
           ["Edges", "Watch which connection is carrying the most charge, distance, or repair demand."],
           ["Timing", "Use the field insight to slow down rushed repair and find the softer entry."],
         ].map(([label, copy]) => (
-          <div key={label} className="premium-panel premium-fade-up" data-delay="2" style={{ padding: 18, borderRadius: 20, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)" }}>
-            <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8ca5ca" }}>{label}</div>
-            <div style={{ marginTop: 10, color: "#d8e3f8", lineHeight: 1.7, fontSize: 14 }}>{copy}</div>
+          <div key={label} className="premium-panel premium-fade-up" data-delay="2" style={{ padding: 24, borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "var(--color-surface)" }}>
+            <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>{label}</div>
+            <div style={{ marginTop: 12, color: "var(--color-text-secondary)", lineHeight: 1.7, fontSize: 14 }}>{copy}</div>
           </div>
         ))}
       </section>

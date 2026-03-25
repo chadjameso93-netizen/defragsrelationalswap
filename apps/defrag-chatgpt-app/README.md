@@ -22,6 +22,7 @@ From the repo root:
 ```bash
 pnpm install
 pnpm --dir apps/defrag-chatgpt-app build:web
+pnpm --dir apps/defrag-chatgpt-app build:server
 pnpm --dir apps/defrag-chatgpt-app validate:tools
 pnpm --dir apps/defrag-chatgpt-app typecheck
 pnpm --dir apps/defrag-chatgpt-app dev
@@ -69,11 +70,13 @@ Build widget HTML assets:
 
 ```bash
 pnpm --dir apps/defrag-chatgpt-app build:web
+pnpm --dir apps/defrag-chatgpt-app build:server
 ```
 
 Generated files are written to:
 
 - `apps/defrag-chatgpt-app/web/dist/*`
+- `apps/defrag-chatgpt-app/dist/server/app.js`
 
 ## Developer-mode runbook
 

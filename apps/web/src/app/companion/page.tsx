@@ -26,65 +26,65 @@ export default async function CompanionPage() {
             secondaryHref="/account/billing"
           />
 
-          <section className="companion-preview-grid" style={{ display: "grid", gridTemplateColumns: "300px minmax(0, 1fr)", gap: 22, alignItems: "start" }}>
-            <aside style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 24, padding: 18, background: "radial-gradient(circle at top left, rgba(216,196,159,0.12), transparent 30%), linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02))", display: "grid", gap: 16 }}>
+          <section className="companion-preview-grid premium-fade-up" data-delay="1" style={{ display: "grid", gridTemplateColumns: "300px minmax(0, 1fr)", gap: 24, alignItems: "start" }}>
+            <aside style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: 22, background: "var(--color-surface)", display: "grid", gap: 18 }}>
               <div style={{ display: "grid", gap: 6 }}>
-                <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#d8c49f" }}>Sample threads</p>
-                <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "#b4b8c1" }}>Recurring themes stay grouped so the guidance tracks pattern, not only the latest sentence.</p>
+                <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Sample threads</p>
+                <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "var(--color-text-secondary)" }}>Recurring themes stay grouped so the guidance tracks pattern, not only the latest sentence.</p>
               </div>
               {[
                 "After dinner repair attempt",
                 "The message that changed the tone",
                 "Family gathering residue",
               ].map((thread, index) => (
-                <div key={thread} style={{ borderRadius: 18, border: index === 0 ? "1px solid #d8c49f" : "1px solid rgba(255,255,255,0.08)", background: index === 0 ? "rgba(216,196,159,0.08)" : "rgba(255,255,255,0.02)", padding: "14px 14px", display: "grid", gap: 6 }}>
-                  <span style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: index === 0 ? "#d8c49f" : "#7d8593" }}>Thread</span>
-                  <span style={{ lineHeight: 1.55, color: "#f5f5f5" }}>{thread}</span>
+                <div key={thread} style={{ borderRadius: "var(--radius-md)", border: index === 0 ? "1px solid var(--color-accent)" : "1px solid var(--color-border)", background: index === 0 ? "color-mix(in srgb, var(--color-accent) 10%, transparent)" : "var(--color-surface-hover)", padding: "16px 16px", display: "grid", gap: 8 }}>
+                  <span style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: index === 0 ? "var(--color-accent)" : "var(--color-text-muted)" }}>Thread</span>
+                  <span style={{ lineHeight: 1.55, color: "var(--color-text-primary)" }}>{thread}</span>
                 </div>
               ))}
             </aside>
 
-            <section style={{ display: "grid", gap: 18 }}>
-              <section style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 24, padding: 18, background: "radial-gradient(circle at top left, rgba(216,196,159,0.12), transparent 28%), linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015))", display: "grid", gap: 18 }}>
-                <div className="companion-preview-metrics" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 10 }}>
+            <section style={{ display: "grid", gap: 20 }}>
+              <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: 22, background: "linear-gradient(180deg, var(--color-surface), transparent)", display: "grid", gap: 20 }}>
+                <div className="companion-preview-metrics" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 12 }}>
                   {[
                     ["Mode", "Lead summary"],
                     ["Confidence", "Measured"],
                     ["Action", "One next move"],
                   ].map(([label, value]) => (
-                    <div key={label} style={{ padding: 12, borderRadius: 16, background: "rgba(0,0,0,0.18)", border: "1px solid rgba(255,255,255,0.06)" }}>
-                      <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "#8d8d95" }}>{label}</div>
-                      <div style={{ marginTop: 8, fontSize: 14, color: "#f5f5f5" }}>{value}</div>
+                    <div key={label} style={{ padding: 16, borderRadius: "var(--radius-md)", background: "var(--color-surface)", border: "1px solid var(--color-border)" }}>
+                      <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>{label}</div>
+                      <div style={{ marginTop: 8, fontSize: 14, color: "var(--color-text-primary)" }}>{value}</div>
                     </div>
                   ))}
                 </div>
 
-                <div style={{ display: "grid", gap: 12, padding: 20, borderRadius: 18, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)" }}>
-                  <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#71717a" }}>Lead synthesis</p>
-                  <p style={{ margin: 0, fontSize: 22, lineHeight: 1.4, color: "#f5f5f5" }}>
+                <div style={{ display: "grid", gap: 14, padding: 24, borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "var(--color-surface-hover)" }}>
+                  <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Lead synthesis</p>
+                  <p style={{ margin: 0, fontSize: 24, lineHeight: 1.4, color: "var(--color-text-primary)" }}>
                     The pressure may be less about total incompatibility and more about two repair attempts arriving while both people still feel exposed.
                   </p>
-                  <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "#b4b8c1" }}>
+                  <p style={{ margin: 0, fontSize: 15, lineHeight: 1.75, color: "var(--color-text-secondary)" }}>
                     DEFRAG keeps the tone gentle, names the likely pattern, and narrows the next move enough that you can try it without turning the whole relationship into a diagnosis or fixed story.
                   </p>
                 </div>
 
                 <div className="companion-preview-columns" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 16 }}>
-                  <div style={{ display: "grid", gap: 10, padding: 18, borderRadius: 18, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)" }}>
-                    <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#d8c49f" }}>Likely pattern</p>
-                    <p style={{ margin: 0, color: "#f5f5f5", lineHeight: 1.7 }}>Protective pacing on one side, urgency on the other, and a loop where both people may read the other as pulling away.</p>
+                  <div style={{ display: "grid", gap: 12, padding: 22, borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "var(--color-surface)" }}>
+                    <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Likely pattern</p>
+                    <p style={{ margin: 0, color: "var(--color-text-primary)", lineHeight: 1.7 }}>Protective pacing on one side, urgency on the other, and a loop where both people may read the other as pulling away.</p>
                   </div>
-                  <div style={{ display: "grid", gap: 10, padding: 18, borderRadius: 18, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)" }}>
-                    <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#d8c49f" }}>Next move</p>
-                    <p style={{ margin: 0, color: "#f5f5f5", lineHeight: 1.7 }}>Open with one observation about the moment itself before explaining impact or asking for repair.</p>
+                  <div style={{ display: "grid", gap: 12, padding: 22, borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "var(--color-surface)" }}>
+                    <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Next move</p>
+                    <p style={{ margin: 0, color: "var(--color-text-primary)", lineHeight: 1.7 }}>Open with one observation about the moment itself before explaining impact or asking for repair.</p>
                   </div>
                 </div>
 
-                <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                  <Link href="/login" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "12px 18px", borderRadius: 999, background: "#f5f5f5", color: "#050505", textDecoration: "none", fontWeight: 700 }}>
+                <div style={{ display: "flex", gap: 12, flexWrap: "wrap", paddingTop: 8 }}>
+                  <Link href="/login" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "14px 20px", borderRadius: "var(--radius-pill)", background: "var(--color-text-primary)", color: "var(--color-bg)", textDecoration: "none", fontWeight: 700 }}>
                     Sign in to start a thread
                   </Link>
-                  <Link href="/world" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "12px 18px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.14)", color: "#f5f5f5", textDecoration: "none" }}>
+                  <Link href="/world" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "14px 20px", borderRadius: "var(--radius-pill)", border: "1px solid var(--color-border)", color: "var(--color-text-primary)", textDecoration: "none" }}>
                     Open World preview
                   </Link>
                 </div>

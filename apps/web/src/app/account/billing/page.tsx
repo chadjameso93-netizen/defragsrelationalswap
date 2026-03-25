@@ -45,16 +45,16 @@ export default async function BillingPage() {
             secondaryHref="/companion"
           />
 
-          <section className="billing-preview-grid" style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 20 }}>
-            <section style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 24, padding: 22, display: "grid", gap: 16, background: "rgba(255,255,255,0.025)" }}>
-              <div style={{ fontSize: 11, color: "#8f7dd9", letterSpacing: "0.18em", textTransform: "uppercase" }}>Plan ladder</div>
+          <section className="billing-preview-grid premium-fade-up" data-delay="1" style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 24 }}>
+            <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: 24, display: "grid", gap: 16, background: "var(--color-surface)" }}>
+              <div style={{ fontSize: 11, color: "var(--color-accent)", letterSpacing: "0.18em", textTransform: "uppercase" }}>Plan ladder</div>
               {previewPlans.map((plan, index) => (
-                <div key={plan.id} style={{ display: "grid", gap: 8, padding: 16, borderRadius: 18, border: index === 1 ? "1px solid rgba(203,184,255,0.45)" : "1px solid rgba(255,255,255,0.08)", background: index === 1 ? "rgba(203,184,255,0.08)" : "rgba(255,255,255,0.02)" }}>
+                <div key={plan.id} style={{ display: "grid", gap: 8, padding: 18, borderRadius: "var(--radius-md)", border: index === 1 ? "1px solid var(--color-accent)" : "1px solid var(--color-border)", background: index === 1 ? "color-mix(in srgb, var(--color-accent) 15%, transparent)" : "var(--color-surface-hover)" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "baseline" }}>
-                    <strong style={{ fontSize: 18 }}>{plan.name}</strong>
-                    <span style={{ color: "#d4d4d8" }}>{plan.monthlyPriceUsd ? `$${plan.monthlyPriceUsd}/mo` : "Custom"}</span>
+                    <strong style={{ fontSize: 18, color: "var(--color-text-primary)" }}>{plan.name}</strong>
+                    <span style={{ color: "var(--color-text-secondary)" }}>{plan.monthlyPriceUsd ? `$${plan.monthlyPriceUsd}/mo` : "Custom"}</span>
                   </div>
-                  <p style={{ margin: 0, color: "#b8bac2", lineHeight: 1.7, fontSize: 14 }}>
+                  <p style={{ margin: 0, color: "var(--color-text-secondary)", lineHeight: 1.7, fontSize: 14 }}>
                     {plan.id === "core"
                       ? "Entry access for calmer insights and basic guided flow."
                       : plan.id === "studio"
@@ -65,22 +65,22 @@ export default async function BillingPage() {
               ))}
             </section>
 
-            <section style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 24, padding: 22, display: "grid", gap: 16, background: "linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015))" }}>
-              <div style={{ fontSize: 11, color: "#71717a", letterSpacing: "0.18em", textTransform: "uppercase" }}>What happens after sign-in</div>
+            <section className="premium-fade-up" data-delay="2" style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: 24, display: "grid", gap: 16, background: "linear-gradient(180deg, var(--color-surface), transparent)" }}>
+              <div style={{ fontSize: 11, color: "var(--color-text-muted)", letterSpacing: "0.18em", textTransform: "uppercase" }}>What happens after sign-in</div>
               {[
                 "Upgrade actions open Stripe Checkout on the canonical DEFRAG site.",
                 "Portal handoff appears once a customer record exists.",
                 "Webhook sync updates plan status back into the app.",
               ].map((item) => (
-                <div key={item} style={{ color: "rgba(245,245,245,0.74)", lineHeight: 1.7, paddingBottom: 10, borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+                <div key={item} style={{ color: "var(--color-text-secondary)", lineHeight: 1.7, paddingBottom: 10, borderBottom: "1px solid var(--color-border)" }}>
                   {item}
                 </div>
               ))}
-              <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 8 }}>
-                <Link href="/login" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "12px 18px", borderRadius: 999, background: "#f5f5f5", color: "#050505", textDecoration: "none", fontWeight: 700 }}>
+              <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 8 }}>
+                <Link href="/login" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "14px 20px", borderRadius: "var(--radius-pill)", background: "var(--color-text-primary)", color: "var(--color-bg)", textDecoration: "none", fontWeight: 700 }}>
                   Sign in for Checkout
                 </Link>
-                <Link href="/account/insights" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "12px 18px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.14)", color: "#f5f5f5", textDecoration: "none" }}>
+                <Link href="/account/insights" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "14px 20px", borderRadius: "var(--radius-pill)", border: "1px solid var(--color-border)", color: "var(--color-text-primary)", textDecoration: "none" }}>
                   Open Insights preview
                 </Link>
               </div>
@@ -108,22 +108,22 @@ export default async function BillingPage() {
       description={`Signed in as ${user.email}. Stripe-backed subscriptions, checkout, portal access, and entitlement sync are active on this branch.`}
       accent="#cbb8ff"
     >
-      <section className="billing-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
-        <section className="billing-card" style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 22, padding: 22, display: "grid", gap: 16, background: "rgba(255,255,255,0.025)" }}>
+      <section className="billing-grid premium-fade-up" data-delay="1" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }}>
+        <section className="billing-card" style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: 26, display: "grid", gap: 18, background: "var(--color-surface)" }}>
           <div style={{ display: "grid", gap: 10 }}>
-            <div style={{ fontSize: 11, color: "#71717a", letterSpacing: "0.18em", textTransform: "uppercase" }}>Current state</div>
+            <div style={{ fontSize: 11, color: "var(--color-text-muted)", letterSpacing: "0.18em", textTransform: "uppercase" }}>Current state</div>
             <div style={{ display: "grid", gap: 10 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", gap: 12, paddingBottom: 10, borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-                <span style={{ color: "rgba(245,245,245,0.58)" }}>Plan</span>
-                <strong>{currentPlan.name}</strong>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 12, paddingBottom: 12, borderBottom: "1px solid var(--color-border)" }}>
+                <span style={{ color: "var(--color-text-secondary)" }}>Plan</span>
+                <strong style={{ color: "var(--color-text-primary)" }}>{currentPlan.name}</strong>
               </div>
-              <div style={{ display: "flex", justifyContent: "space-between", gap: 12, paddingBottom: 10, borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-                <span style={{ color: "rgba(245,245,245,0.58)" }}>Billing status</span>
-                <strong>{account.subscriptionState}</strong>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 12, paddingBottom: 12, borderBottom: "1px solid var(--color-border)" }}>
+                <span style={{ color: "var(--color-text-secondary)" }}>Billing status</span>
+                <strong style={{ color: "var(--color-text-primary)" }}>{account.subscriptionState}</strong>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
-                <span style={{ color: "rgba(245,245,245,0.58)" }}>Current period end</span>
-                <strong>{formatPeriodEnd(account.currentPeriodEnd)}</strong>
+                <span style={{ color: "var(--color-text-secondary)" }}>Current period end</span>
+                <strong style={{ color: "var(--color-text-primary)" }}>{formatPeriodEnd(account.currentPeriodEnd)}</strong>
               </div>
             </div>
           </div>
@@ -131,15 +131,15 @@ export default async function BillingPage() {
           <BillingActions currentPlan={account.plan} hasCustomer={Boolean(account.customerId)} />
         </section>
 
-        <section className="billing-card" style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 22, padding: 22, display: "grid", gap: 14 }}>
-          <div style={{ fontSize: 11, color: "#71717a", letterSpacing: "0.18em", textTransform: "uppercase" }}>Included in this slice</div>
+        <section className="billing-card premium-fade-up" data-delay="2" style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: 26, display: "grid", gap: 16, background: "var(--color-surface-hover)" }}>
+          <div style={{ fontSize: 11, color: "var(--color-text-muted)", letterSpacing: "0.18em", textTransform: "uppercase" }}>Included in this slice</div>
           {[
             "Checkout session creation from the app",
             "Customer portal handoff for active billing accounts",
             "Webhook-driven subscription synchronization",
             "Plan-aware upgrade path across free, core, studio, and realtime",
           ].map((item) => (
-            <div key={item} style={{ color: "rgba(245,245,245,0.74)", lineHeight: 1.7, paddingBottom: 10, borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+            <div key={item} style={{ color: "var(--color-text-secondary)", lineHeight: 1.7, paddingBottom: 12, borderBottom: "1px solid var(--color-border)" }}>
               {item}
             </div>
           ))}

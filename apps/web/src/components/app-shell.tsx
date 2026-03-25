@@ -56,7 +56,7 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
             display: "grid",
             gap: 20,
             paddingBottom: 18,
-            borderBottom: "1px solid rgba(255,255,255,0.08)",
+            borderBottom: "1px solid var(--color-border)",
           }}
         >
           <div
@@ -83,10 +83,10 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
                 alignItems: "center",
                 gap: 10,
                 padding: "8px 12px",
-                borderRadius: 999,
-                border: "1px solid rgba(255,255,255,0.08)",
-                background: "rgba(255,255,255,0.03)",
-                color: "rgba(245,245,245,0.68)",
+                borderRadius: "var(--radius-pill)",
+                border: "1px solid var(--color-border)",
+                background: "var(--color-surface)",
+                color: "var(--color-text-secondary)",
                 fontSize: 11,
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
@@ -96,9 +96,9 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
                 style={{
                   width: 8,
                   height: 8,
-                  borderRadius: 999,
-                  background: accent,
-                  boxShadow: `0 0 18px ${accent}`,
+                  borderRadius: "var(--radius-pill)",
+                  background: "var(--color-accent)",
+                  boxShadow: "var(--shadow-glow)",
                 }}
               />
               Preview available
@@ -128,12 +128,11 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
                     letterSpacing: "0.08em",
                     textTransform: "uppercase",
                     padding: "10px 14px",
-                    borderRadius: 999,
-                    border: active ? `1px solid ${accent}` : "1px solid rgba(255,255,255,0.08)",
-                    color: active ? "#050505" : "rgba(245,245,245,0.72)",
-                    background: active ? accent : "rgba(255,255,255,0.03)",
-                    boxShadow: active ? `0 12px 30px color-mix(in srgb, ${accent} 28%, transparent)` : "none",
-                    transition: "background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms var(--motion-spring), box-shadow 180ms ease",
+                    borderRadius: "var(--radius-pill)",
+                    border: active ? "1px solid var(--color-accent)" : "1px solid var(--color-border)",
+                    color: active ? "var(--color-bg)" : "var(--color-text-secondary)",
+                    background: active ? "var(--color-accent)" : "transparent",
+                    boxShadow: active ? "var(--shadow-glow)" : "none",
                   }}
                 >
                   {item.label}
@@ -180,7 +179,7 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
               maxWidth: 620,
               fontSize: 16,
               lineHeight: 1.75,
-              color: "rgba(245,245,245,0.68)",
+              color: "var(--color-text-secondary)",
             }}
           >
             {description}

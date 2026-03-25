@@ -15,16 +15,17 @@ interface CompanionV1ShellProps {
 function Section({ title, body, tone = "default" }: { title: string; body: string; tone?: "default" | "accent" }) {
   return (
     <section
+      className="premium-fade-up"
+      data-delay="2"
       style={{
-        border: "1px solid rgba(255,255,255,0.1)",
-        borderRadius: 18,
-        padding: 18,
-        background: tone === "accent" ? "rgba(216,196,159,0.06)" : "rgba(255,255,255,0.025)",
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
+        border: "1px solid var(--color-border)",
+        borderRadius: "var(--radius-md)",
+        padding: 20,
+        background: tone === "accent" ? "color-mix(in srgb, var(--color-accent) 15%, transparent)" : "var(--color-surface)",
       }}
     >
-      <h3 style={{ marginTop: 0, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: tone === "accent" ? "#d8c49f" : "#a1a1aa" }}>{title}</h3>
-      <p style={{ marginBottom: 0, lineHeight: 1.75, color: "#e5e7eb" }}>{body}</p>
+      <h3 style={{ marginTop: 0, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: tone === "accent" ? "var(--color-accent)" : "var(--color-text-muted)" }}>{title}</h3>
+      <p style={{ marginBottom: 0, lineHeight: 1.75, color: "var(--color-text-primary)" }}>{body}</p>
     </section>
   );
 }
@@ -42,78 +43,79 @@ export function CompanionV1Shell({ contract, entitlements, synthesis, evaluation
     <div style={{ display: "grid", gap: 18 }}>
       {synthesis ? (
         <section
+          className="premium-fade-up"
+          data-delay="1"
           style={{
-            border: "1px solid rgba(255,255,255,0.12)",
-            borderRadius: 22,
-            padding: 20,
-            background:
-              "radial-gradient(circle at top left, rgba(216,196,159,0.12), transparent 28%), linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.018))",
+            border: "1px solid var(--color-border)",
+            borderRadius: "var(--radius-lg)",
+            padding: 24,
+            background: "linear-gradient(180deg, var(--color-surface), transparent)",
             display: "grid",
-            gap: 14,
+            gap: 16,
           }}
         >
-          <div style={{ display: "grid", gap: 6 }}>
-            <h3 style={{ margin: 0, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "#d8c49f" }}>
+          <div style={{ display: "grid", gap: 8 }}>
+            <h3 style={{ margin: 0, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--color-accent)" }}>
               Dynamics view
             </h3>
-            <p style={{ margin: 0, color: "#f3f4f6", fontSize: 22, lineHeight: 1.45, maxWidth: 840 }}>{synthesis.betweenDynamic}</p>
-            <p style={{ margin: 0, color: "rgba(245,245,245,0.62)", lineHeight: 1.7, maxWidth: 760 }}>
+            <p style={{ margin: 0, color: "var(--color-text-primary)", fontSize: 22, lineHeight: 1.45, maxWidth: 840 }}>{synthesis.betweenDynamic}</p>
+            <p style={{ margin: 0, color: "var(--color-text-secondary)", lineHeight: 1.7, maxWidth: 760 }}>
               This is a grounded summary, not a diagnosis or fixed label. Use it to steady the next move, then return to the actual event.
             </p>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 12 }}>
-            <section style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: 14, background: "rgba(0,0,0,0.14)" }}>
-              <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.15em", color: "#8e97a5" }}>Timing</div>
-              <p style={{ margin: "10px 0 0 0", color: "#f5f5f5", lineHeight: 1.7 }}>{synthesis.timingSignal}</p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 14 }}>
+            <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 18, background: "var(--color-surface-hover)" }}>
+              <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--color-text-muted)" }}>Timing</div>
+              <p style={{ margin: "10px 0 0 0", color: "var(--color-text-primary)", lineHeight: 1.7 }}>{synthesis.timingSignal}</p>
             </section>
-            <section style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: 14, background: "rgba(0,0,0,0.14)" }}>
-              <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.15em", color: "#8e97a5" }}>What may help</div>
-              <p style={{ margin: "10px 0 0 0", color: "#f5f5f5", lineHeight: 1.7 }}>{synthesis.helpNeeded}</p>
+            <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 18, background: "var(--color-surface-hover)" }}>
+              <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--color-text-muted)" }}>What may help</div>
+              <p style={{ margin: "10px 0 0 0", color: "var(--color-text-primary)", lineHeight: 1.7 }}>{synthesis.helpNeeded}</p>
             </section>
-            <section style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: 14, background: "rgba(0,0,0,0.14)" }}>
-              <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.15em", color: "#8e97a5" }}>Confidence</div>
-              <p style={{ margin: "10px 0 0 0", color: "#f5f5f5", lineHeight: 1.6, fontSize: 24, fontWeight: 600 }}>
+            <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 18, background: "var(--color-surface-hover)" }}>
+              <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--color-text-muted)" }}>Confidence</div>
+              <p style={{ margin: "10px 0 0 0", color: "var(--color-text-primary)", lineHeight: 1.6, fontSize: 24, fontWeight: 600 }}>
                 {Math.round(synthesis.confidence * 100)}%
               </p>
             </section>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1.4fr) minmax(260px, 0.9fr)", gap: 14 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1.4fr) minmax(260px, 0.9fr)", gap: 16 }}>
             <section
               style={{
-                border: "1px solid rgba(255,255,255,0.08)",
-                borderRadius: 18,
-                padding: 18,
-                background: "rgba(255,255,255,0.025)",
+                border: "1px solid var(--color-border)",
+                borderRadius: "var(--radius-md)",
+                padding: 20,
+                background: "var(--color-surface)",
                 display: "grid",
-                gap: 10,
+                gap: 12,
               }}
             >
-              <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.18em", color: "#8e97a5" }}>Current moment</div>
-              <p style={{ margin: 0, color: "#f5f5f5", lineHeight: 1.7, fontSize: 18 }}>{contract.whatHappened}</p>
+              <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--color-text-muted)" }}>Current moment</div>
+              <p style={{ margin: 0, color: "var(--color-text-primary)", lineHeight: 1.7, fontSize: 18 }}>{contract.whatHappened}</p>
             </section>
 
             <section
               style={{
-                border: "1px solid rgba(255,255,255,0.08)",
-                borderRadius: 18,
-                padding: 18,
-                background: "rgba(0,0,0,0.14)",
+                border: "1px solid var(--color-border)",
+                borderRadius: "var(--radius-md)",
+                padding: 20,
+                background: "var(--color-surface-hover)",
                 display: "grid",
-                gap: 10,
+                gap: 12,
               }}
             >
-              <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.18em", color: "#8e97a5" }}>What to hold</div>
-              <div style={{ display: "grid", gap: 8 }}>
+              <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--color-text-muted)" }}>What to hold</div>
+              <div style={{ display: "grid", gap: 10 }}>
                 {[
                   contract.nextMove,
                   synthesis.userSideHypothesis,
                   synthesis.otherSideHypothesis,
                 ].map((item, index) => (
-                  <div key={`${index}-${item}`} style={{ display: "grid", gridTemplateColumns: "20px 1fr", gap: 8, alignItems: "start" }}>
-                    <span style={{ color: "#d8c49f", fontSize: 11, paddingTop: 3 }}>0{index + 1}</span>
-                    <span style={{ color: "#e5e7eb", lineHeight: 1.6 }}>{item}</span>
+                  <div key={`${index}-${item}`} style={{ display: "grid", gridTemplateColumns: "20px 1fr", gap: 10, alignItems: "start" }}>
+                    <span style={{ color: "var(--color-accent)", fontSize: 11, paddingTop: 3 }}>0{index + 1}</span>
+                    <span style={{ color: "var(--color-text-primary)", lineHeight: 1.6 }}>{item}</span>
                   </div>
                 ))}
               </div>
@@ -121,17 +123,17 @@ export function CompanionV1Shell({ contract, entitlements, synthesis, evaluation
           </div>
 
           {synthesis.detectedPatterns.length > 0 ? (
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
               {synthesis.detectedPatterns.map((pattern: string) => (
                 <span
                   key={pattern}
                   style={{
-                    padding: "8px 12px",
-                    borderRadius: 999,
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    color: "#d4d4d8",
+                    padding: "10px 16px",
+                    borderRadius: "var(--radius-pill)",
+                    border: "1px solid var(--color-border)",
+                    color: "var(--color-text-secondary)",
                     fontSize: 12,
-                    background: "rgba(255,255,255,0.03)",
+                    background: "var(--color-surface)",
                   }}
                 >
                   {pattern.replaceAll("_", " ")}
@@ -141,16 +143,16 @@ export function CompanionV1Shell({ contract, entitlements, synthesis, evaluation
           ) : null}
 
           {qualityChips.length > 0 ? (
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 4 }}>
               {qualityChips.map(([label, score]) => (
                 <span
                   key={label}
                   style={{
-                    padding: "8px 12px",
-                    borderRadius: 999,
-                    background: "rgba(255,255,255,0.035)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    color: "#d4d4d8",
+                    padding: "10px 16px",
+                    borderRadius: "var(--radius-pill)",
+                    background: "var(--color-surface)",
+                    border: "1px solid var(--color-border)",
+                    color: "var(--color-text-secondary)",
                     fontSize: 12,
                   }}
                 >
@@ -162,7 +164,7 @@ export function CompanionV1Shell({ contract, entitlements, synthesis, evaluation
         </section>
       ) : null}
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 14 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 16 }}>
         <Section title="What Happened" body={contract.whatHappened} tone="accent" />
         <Section title="What Changed" body={contract.whatChanged} />
       </div>
@@ -172,39 +174,39 @@ export function CompanionV1Shell({ contract, entitlements, synthesis, evaluation
       <Section title="Next Move" body={contract.nextMove} tone="accent" />
 
       {entitlements.canUseCompanionPremiumView ? (
-        <section style={{ border: "1px solid rgba(255,255,255,0.2)", borderRadius: 18, padding: 18, background: "rgba(255,255,255,0.04)" }}>
-          <h3 style={{ marginTop: 0, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "#d8c49f" }}>
+        <section className="premium-fade-up" data-delay="3" style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 22, background: "var(--color-surface)" }}>
+          <h3 style={{ marginTop: 0, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--color-accent)" }}>
             What This Is Based On
           </h3>
-          <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.85, color: "#e5e7eb" }}>
+          <ul style={{ margin: 0, paddingLeft: 20, lineHeight: 1.85, color: "var(--color-text-primary)" }}>
             {contract.whatThisIsBasedOn.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
         </section>
       ) : (
-        <section style={{ border: "1px dashed rgba(255,255,255,0.2)", borderRadius: 18, padding: 18 }}>
-          <h3 style={{ marginTop: 0, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "#a1a1aa" }}>
+        <section className="premium-fade-up" data-delay="3" style={{ border: "1px dashed var(--color-border)", borderRadius: "var(--radius-md)", padding: 22 }}>
+          <h3 style={{ marginTop: 0, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--color-text-muted)" }}>
             Premium dynamics view
           </h3>
-          <p style={{ marginBottom: 0, color: "#a1a1aa", lineHeight: 1.75 }}>
+          <p style={{ marginBottom: 0, color: "var(--color-text-secondary)", lineHeight: 1.75 }}>
             Upgrade on DEFRAG to unlock the "What This Is Based On" evidence breakdown.
           </p>
         </section>
       )}
 
       {evaluation ? (
-        <section style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 18, padding: 18, background: "rgba(255,255,255,0.02)" }}>
-          <h3 style={{ marginTop: 0, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "#a1a1aa" }}>
+        <section className="premium-fade-up" data-delay="4" style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 22, background: "var(--color-surface)" }}>
+          <h3 style={{ marginTop: 0, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--color-text-muted)" }}>
             Quality checks
           </h3>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 10 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 14 }}>
             {Object.entries(evaluation).map(([label, score]: [string, number]) => (
-              <div key={label} style={{ borderRadius: 14, background: "rgba(255,255,255,0.03)", padding: 14, border: "1px solid rgba(255,255,255,0.05)" }}>
-                <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.12em", color: "#71717a" }}>
+              <div key={label} style={{ borderRadius: "var(--radius-md)", background: "var(--color-surface-hover)", padding: 16, border: "1px solid var(--color-border)" }}>
+                <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--color-text-muted)" }}>
                   {label}
                 </div>
-                <div style={{ marginTop: 8, fontSize: 22, color: "#f5f5f5", fontWeight: 600 }}>{score}/1</div>
+                <div style={{ marginTop: 10, fontSize: 24, color: "var(--color-text-primary)", fontWeight: 600 }}>{score}/1</div>
               </div>
             ))}
           </div>

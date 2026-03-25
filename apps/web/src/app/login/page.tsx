@@ -37,13 +37,13 @@ function LoginPageContent() {
 
   return (
     <main
+      className="premium-fade-up"
       style={{
         minHeight: "100vh",
         display: "grid",
         placeItems: "center",
-        background:
-          "radial-gradient(circle at top left, rgba(214,195,161,0.16), transparent 28%), radial-gradient(circle at 80% 20%, rgba(111,145,201,0.14), transparent 24%), linear-gradient(180deg, #06070a 0%, #090b11 45%, #050505 100%)",
-        color: "#f5f5f5",
+        background: "var(--color-bg)",
+        color: "var(--color-text-primary)",
         padding: 24,
       }}
     >
@@ -51,53 +51,52 @@ function LoginPageContent() {
         <section
           className="login-story"
           style={{
-            borderRadius: 28,
-            border: "1px solid rgba(255,255,255,0.08)",
-            padding: 28,
-            background:
-              "linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015))",
+            borderRadius: "var(--radius-lg)",
+            border: "1px solid var(--color-border)",
+            padding: 32,
+            background: "linear-gradient(180deg, var(--color-surface), transparent)",
             display: "grid",
             alignContent: "space-between",
             minHeight: 560,
           }}
         >
           <div style={{ display: "grid", gap: 14 }}>
-            <Link href="/" style={{ textDecoration: "none", color: "#f5f5f5", fontSize: 18, letterSpacing: "0.28em", textTransform: "uppercase" }}>
+            <Link href="/" style={{ textDecoration: "none", color: "var(--color-text-primary)", fontSize: 18, letterSpacing: "0.28em", textTransform: "uppercase" }}>
               DEFRAG
             </Link>
-            <p style={{ margin: 0, fontSize: "clamp(2.2rem, 5vw, 4.6rem)", lineHeight: 0.98, maxWidth: 520, fontFamily: "var(--font-display), serif" }}>
+            <p className="premium-fade-up" data-delay="1" style={{ margin: 0, fontSize: "clamp(2.2rem, 5vw, 4.6rem)", lineHeight: 0.98, maxWidth: 520, fontFamily: "var(--font-display), serif" }}>
               Sign in to return to your dynamics workspace, saved insights, and account state.
             </p>
-            <p style={{ margin: 0, maxWidth: 480, color: "rgba(245,245,245,0.66)", lineHeight: 1.75 }}>
+            <p className="premium-fade-up" data-delay="2" style={{ margin: 0, maxWidth: 480, color: "var(--color-text-secondary)", lineHeight: 1.75 }}>
               DEFRAG keeps dynamics, insights, world state, and billing in one canonical account flow. Authentication is the handoff between private guidance and stored history.
             </p>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
+          <div className="premium-fade-up" data-delay="3" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
             {[
               ["Dynamics", "Thread-based guidance"],
               ["Insights", "Saved account insights"],
               ["World", "Field interpretation"],
             ].map(([label, value]) => (
-              <div key={label} style={{ padding: 12, borderRadius: 16, background: "rgba(0,0,0,0.22)", backdropFilter: "blur(10px)" }}>
-                <div style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(245,245,245,0.52)" }}>{label}</div>
-                <div style={{ marginTop: 8, fontSize: 13, lineHeight: 1.5 }}>{value}</div>
+              <div key={label} style={{ padding: 16, borderRadius: "var(--radius-md)", background: "var(--color-surface)", border: "1px solid var(--color-border)", backdropFilter: "blur(12px)" }}>
+                <div style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>{label}</div>
+                <div style={{ marginTop: 8, fontSize: 13, lineHeight: 1.5, color: "var(--color-text-primary)" }}>{value}</div>
               </div>
             ))}
           </div>
         </section>
 
         <form
-          className="login-form"
+          className="login-form premium-fade-up" data-delay="1"
           onSubmit={handleSubmit}
           style={{
             width: "100%",
             display: "grid",
-            gap: 18,
-            padding: 28,
-            borderRadius: 24,
-            border: "1px solid rgba(255,255,255,0.1)",
-            background: "rgba(255,255,255,0.035)",
+            gap: 20,
+            padding: 32,
+            borderRadius: "var(--radius-lg)",
+            border: "1px solid var(--color-border)",
+            background: "var(--color-surface)",
             alignSelf: "center",
           }}
         >
@@ -112,7 +111,7 @@ function LoginPageContent() {
           </div>
 
           <label style={{ display: "grid", gap: 8 }}>
-            <span style={{ fontSize: 13, color: "#d4d4d8" }}>Email</span>
+            <span style={{ fontSize: 13, color: "var(--color-text-secondary)" }}>Email</span>
             <input
               type="email"
               value={email}
@@ -120,17 +119,17 @@ function LoginPageContent() {
               autoComplete="email"
               required
               style={{
-                borderRadius: 14,
-                border: "1px solid rgba(255,255,255,0.14)",
-                background: "rgba(0,0,0,0.22)",
-                color: "#f5f5f5",
-                padding: "14px 16px",
+                borderRadius: "var(--radius-md)",
+                border: "1px solid var(--color-border-hover)",
+                background: "var(--color-bg)",
+                color: "var(--color-text-primary)",
+                padding: "16px 18px",
               }}
             />
           </label>
 
           <label style={{ display: "grid", gap: 8 }}>
-            <span style={{ fontSize: 13, color: "#d4d4d8" }}>Password</span>
+            <span style={{ fontSize: 13, color: "var(--color-text-secondary)" }}>Password</span>
             <input
               type="password"
               value={password}
@@ -138,11 +137,11 @@ function LoginPageContent() {
               autoComplete="current-password"
               required
               style={{
-                borderRadius: 14,
-                border: "1px solid rgba(255,255,255,0.14)",
-                background: "rgba(0,0,0,0.22)",
-                color: "#f5f5f5",
-                padding: "14px 16px",
+                borderRadius: "var(--radius-md)",
+                border: "1px solid var(--color-border-hover)",
+                background: "var(--color-bg)",
+                color: "var(--color-text-primary)",
+                padding: "16px 18px",
               }}
             />
           </label>
@@ -154,10 +153,10 @@ function LoginPageContent() {
             disabled={loading}
             style={{
               border: 0,
-              borderRadius: 999,
-              padding: "14px 18px",
-              background: "#f5f5f5",
-              color: "#050505",
+              borderRadius: "var(--radius-pill)",
+              padding: "16px 20px",
+              background: "var(--color-text-primary)",
+              color: "var(--color-bg)",
               fontWeight: 700,
               cursor: loading ? "progress" : "pointer",
             }}
@@ -165,14 +164,14 @@ function LoginPageContent() {
             {loading ? "Signing in..." : "Continue"}
           </button>
 
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 12, color: "#a1a1aa", fontSize: 13 }}>
-            <Link href="/terms" style={{ color: "#d4d4d8", textDecoration: "none" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 14, color: "var(--color-text-muted)", fontSize: 13 }}>
+            <Link href="/terms" style={{ color: "var(--color-text-secondary)", textDecoration: "none" }}>
               Terms
             </Link>
-            <Link href="/privacy" style={{ color: "#d4d4d8", textDecoration: "none" }}>
+            <Link href="/privacy" style={{ color: "var(--color-text-secondary)", textDecoration: "none" }}>
               Privacy
             </Link>
-            <Link href="/about" style={{ color: "#d4d4d8", textDecoration: "none" }}>
+            <Link href="/about" style={{ color: "var(--color-text-secondary)", textDecoration: "none" }}>
               About DEFRAG
             </Link>
           </div>

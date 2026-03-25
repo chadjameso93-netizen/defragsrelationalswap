@@ -92,13 +92,13 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
       }}
     >
       <aside
-        className="companion-rail"
+        className="companion-rail premium-fade-up"
+        data-delay="1"
         style={{
-          border: "1px solid rgba(255,255,255,0.1)",
-          borderRadius: 24,
-          padding: 18,
-          background:
-            "radial-gradient(circle at top left, rgba(216,196,159,0.12), transparent 30%), linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02))",
+          border: "1px solid var(--color-border)",
+          borderRadius: "var(--radius-lg)",
+          padding: 24,
+          background: "var(--color-surface)",
           display: "grid",
           gap: 16,
           position: "sticky",
@@ -106,8 +106,8 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
         }}
       >
         <div style={{ display: "grid", gap: 6 }}>
-          <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#d8c49f" }}>Threads</p>
-          <p style={{ margin: 0, fontSize: 13, color: "#b4b8c1", lineHeight: 1.7 }}>
+          <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Threads</p>
+          <p style={{ margin: 0, fontSize: 13, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
             Keep recurring moments together so DEFRAG can track the shape, not just the latest sentence or the hottest emotion.
           </p>
         </div>
@@ -123,9 +123,9 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
             ["Threads", String(threads.length)],
             ["Insights", String(insights.length)],
           ].map(([label, value]) => (
-            <div key={label} style={{ padding: 12, borderRadius: 16, background: "rgba(0,0,0,0.18)", border: "1px solid rgba(255,255,255,0.06)" }}>
-              <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "#8d8d95" }}>{label}</div>
-              <div style={{ marginTop: 8, fontSize: 18, color: "#f5f5f5" }}>{value}</div>
+            <div key={label} style={{ padding: 14, borderRadius: "var(--radius-md)", background: "var(--color-surface-hover)", border: "1px solid var(--color-border)" }}>
+              <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>{label}</div>
+              <div style={{ marginTop: 8, fontSize: 18, color: "var(--color-text-primary)" }}>{value}</div>
             </div>
           ))}
         </div>
@@ -142,7 +142,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
             setActionResult(null);
             setError(null);
           }}
-          style={{ borderRadius: 999, border: "1px solid rgba(255,255,255,0.15)", background: "rgba(255,255,255,0.04)", color: "#f5f5f5", padding: "10px 14px", cursor: "pointer", whiteSpace: "nowrap" }}
+          style={{ borderRadius: "var(--radius-pill)", border: "1px solid var(--color-border)", background: "var(--color-surface)", color: "var(--color-text-primary)", padding: "12px 16px", cursor: "pointer", whiteSpace: "nowrap" }}
         >
           Start a new thread
         </button>
@@ -154,36 +154,37 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
               type="button"
               onClick={() => setActiveThreadId(thread.id)}
               style={{
-                borderRadius: 18,
-                border: thread.id === activeThreadId ? "1px solid #d8c49f" : "1px solid rgba(255,255,255,0.08)",
-                background: thread.id === activeThreadId ? "rgba(216,196,159,0.08)" : "rgba(255,255,255,0.02)",
-                color: "#f5f5f5",
+                borderRadius: "var(--radius-md)",
+                border: thread.id === activeThreadId ? "1px solid var(--color-accent)" : "1px solid var(--color-border)",
+                background: thread.id === activeThreadId ? "color-mix(in srgb, var(--color-accent) 15%, transparent)" : "var(--color-surface)",
+                color: "var(--color-text-primary)",
                 fontSize: 13,
-                padding: "14px 14px",
+                padding: "16px",
                 cursor: "pointer",
                 textAlign: "left",
                 display: "grid",
                 gap: 6,
               }}
             >
-              <span style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: thread.id === activeThreadId ? "#d8c49f" : "#7d8593" }}>
+              <span style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: thread.id === activeThreadId ? "var(--color-accent)" : "var(--color-text-muted)" }}>
                 Thread
               </span>
               <span style={{ lineHeight: 1.55 }}>{thread.title}</span>
             </button>
           ))}
-          {threads.length === 0 ? <span style={{ color: "#71717a", fontSize: 13 }}>No threads yet. Start with one moment below.</span> : null}
+          {threads.length === 0 ? <span style={{ color: "var(--color-text-secondary)", fontSize: 13 }}>No threads yet. Start with one moment below.</span> : null}
         </div>
       </aside>
 
       <div style={{ display: "grid", gap: 18 }}>
       <section
+        className="premium-fade-up"
+        data-delay="2"
         style={{
-          border: "1px solid rgba(255,255,255,0.1)",
-          borderRadius: 24,
-          padding: 18,
-          background:
-            "radial-gradient(circle at top left, rgba(216,196,159,0.12), transparent 28%), linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015))",
+          border: "1px solid var(--color-border)",
+          borderRadius: "var(--radius-lg)",
+          padding: 24,
+          background: "linear-gradient(180deg, var(--color-surface), transparent)",
           display: "grid",
           gap: 18,
         }}
@@ -193,18 +194,18 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-            gap: 14,
+            gap: 16,
           }}
         >
           <div style={{ display: "grid", gap: 8 }}>
-            <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#d8c49f" }}>Compose the moment</p>
-            <p style={{ margin: 0, fontSize: 24, lineHeight: 1.2, color: "#f5f5f5" }}>
+            <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-accent)" }}>Compose the moment</p>
+            <p style={{ margin: 0, fontSize: 24, lineHeight: 1.2, color: "var(--color-text-primary)" }}>
               Keep it small enough for a real insight.
             </p>
-            <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "#b4b8c1" }}>
+            <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "var(--color-text-secondary)" }}>
               Dynamics works best on one exchange, one rupture, or one shift in tone rather than a whole relationship summary or a label about who someone is.
             </p>
-            <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 4 }}>
               {[
                 "Recent exchange",
                 "One unclear turn",
@@ -213,11 +214,11 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
                 <span
                   key={chip}
                   style={{
-                    padding: "8px 12px",
-                    borderRadius: 999,
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    background: "rgba(255,255,255,0.03)",
-                    color: "#d4d4d8",
+                    padding: "8px 14px",
+                    borderRadius: "var(--radius-pill)",
+                    border: "1px solid var(--color-border)",
+                    background: "var(--color-surface)",
+                    color: "var(--color-text-secondary)",
                     fontSize: 12,
                   }}
                 >
@@ -240,18 +241,18 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
               ["Premium", entitlements.canUseCompanionPremiumView ? "Unlocked" : "Locked"],
               ["Thread", activeThreadId ? "Active" : "New"],
             ].map(([label, value]) => (
-              <div key={label} style={{ padding: 12, borderRadius: 16, background: "rgba(0,0,0,0.18)", border: "1px solid rgba(255,255,255,0.06)" }}>
-                <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "#8d8d95" }}>{label}</div>
-                <div style={{ marginTop: 8, fontSize: 14, color: "#f5f5f5" }}>{value}</div>
+              <div key={label} style={{ padding: 14, borderRadius: "var(--radius-md)", background: "var(--color-surface-hover)", border: "1px solid var(--color-border)" }}>
+                <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>{label}</div>
+                <div style={{ marginTop: 8, fontSize: 14, color: "var(--color-text-primary)" }}>{value}</div>
               </div>
             ))}
           </div>
         </div>
 
-      <section style={{ border: "1px solid rgba(255,255,255,0.1)", borderRadius: 20, padding: 16, background: "rgba(0,0,0,0.12)" }}>
-        <div style={{ display: "grid", gap: 6, marginBottom: 12 }}>
-          <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Describe a moment</p>
-          <p style={{ margin: 0, color: "#a1a1aa", fontSize: 13 }}>
+      <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 20, background: "var(--color-surface-hover)" }}>
+        <div style={{ display: "grid", gap: 6, marginBottom: 16 }}>
+          <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Describe a moment</p>
+          <p style={{ margin: 0, color: "var(--color-text-secondary)", fontSize: 13 }}>
             Focus on one recent exchange. The tighter the moment, the clearer and safer the read.
           </p>
         </div>
@@ -260,7 +261,7 @@ export function CompanionWorkspace({ initialThreads, entitlements }: CompanionWo
           onChange={(event) => setSituation(event.target.value)}
           rows={5}
           placeholder="Describe one recent relationship moment you want help understanding."
-          style={{ width: "100%", borderRadius: 12, padding: 12, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.1)", color: "#fff", boxSizing: "border-box" }}
+          style={{ width: "100%", borderRadius: 14, padding: 16, background: "var(--color-surface)", border: "1px solid var(--color-border)", color: "var(--color-text-primary)", boxSizing: "border-box", fontFamily: "inherit" }}
         />
 
         <div style={{ marginTop: 12, display: "flex", gap: 10, flexWrap: "wrap" }}>

@@ -25,7 +25,7 @@ export default function LandingPage() {
               href="/companion"
               className="premium-panel premium-fade-up"
               data-delay="2"
-              style={{ padding: "12px 16px", borderRadius: 999, background: "#f5f5f5", color: "#050505", textDecoration: "none", fontWeight: 700 }}
+              style={{ padding: "12px 18px", borderRadius: "var(--radius-pill)", background: "var(--color-text-primary)", color: "var(--color-bg)", textDecoration: "none", fontWeight: 700 }}
             >
               Open Dynamics
             </Link>
@@ -33,7 +33,7 @@ export default function LandingPage() {
               href="/about"
               className="premium-panel premium-fade-up"
               data-delay="2"
-              style={{ padding: "12px 16px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.18)", color: "#f5f5f5", textDecoration: "none" }}
+              style={{ padding: "12px 18px", borderRadius: "var(--radius-pill)", border: "1px solid var(--color-border)", color: "var(--color-text-primary)", textDecoration: "none" }}
             >
               About DEFRAG
             </Link>
@@ -41,7 +41,7 @@ export default function LandingPage() {
               href="/world"
               className="premium-panel premium-fade-up"
               data-delay="3"
-              style={{ padding: "12px 16px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.18)", color: "#f5f5f5", textDecoration: "none" }}
+              style={{ padding: "12px 18px", borderRadius: "var(--radius-pill)", border: "1px solid var(--color-border)", color: "var(--color-text-primary)", textDecoration: "none" }}
             >
               Open World
             </Link>
@@ -53,9 +53,9 @@ export default function LandingPage() {
               ["Account & Billing", "Canonical sign-in, upgrade, portal access, and Stripe-backed subscription state live on defrag.app."],
               ["Integrations", "MCP and ChatGPT connect back to the DEFRAG account and billing shell instead of becoming a second product site."],
             ].map(([label, copy]) => (
-              <div key={label} className="premium-fade-up" data-delay="2" style={{ padding: "14px 0", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
-                <div style={{ fontSize: 14, color: "#f5f5f5", marginBottom: 6 }}>{label}</div>
-                <div style={{ color: "rgba(245,245,245,0.62)", lineHeight: 1.65 }}>{copy}</div>
+              <div key={label} className="premium-fade-up" data-delay="2" style={{ padding: "14px 0", borderTop: "1px solid var(--color-border)" }}>
+                <div style={{ fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent)", marginBottom: 8 }}>{label}</div>
+                <div style={{ color: "var(--color-text-secondary)", lineHeight: 1.65 }}>{copy}</div>
               </div>
             ))}
           </div>
@@ -65,13 +65,13 @@ export default function LandingPage() {
           className="landing-visual premium-panel premium-fade-up"
           data-delay="2"
           style={{
-            minHeight: 420,
-            borderRadius: 28,
+            minHeight: 460,
+            borderRadius: "var(--radius-lg)",
             overflow: "hidden",
             position: "relative",
-            border: "1px solid rgba(255,255,255,0.08)",
+            border: "1px solid var(--color-border-hover)",
             background:
-              "radial-gradient(circle at 20% 18%, rgba(255,240,205,0.38), transparent 24%), radial-gradient(circle at 70% 28%, rgba(130,155,219,0.28), transparent 26%), linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01))",
+              "radial-gradient(circle at 20% 18%, rgba(214,195,161,0.08), transparent 28%), radial-gradient(circle at 70% 32%, rgba(111,145,201,0.05), transparent 32%), var(--color-surface)",
           }}
         >
           <div className="landing-visual-inner" style={{ position: "absolute", inset: 0, padding: 24, display: "grid", alignContent: "space-between" }}>
@@ -94,9 +94,9 @@ export default function LandingPage() {
                   ["Repair window", "Narrow"],
                   ["Next move", "One small reset"],
                 ].map(([label, value]) => (
-                  <div key={label} style={{ padding: 12, borderRadius: 16, background: "rgba(0,0,0,0.22)", backdropFilter: "blur(10px)" }}>
-                    <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(245,245,245,0.54)" }}>{label}</div>
-                    <div style={{ marginTop: 8, fontSize: 14 }}>{value}</div>
+                  <div key={label} style={{ padding: 16, borderRadius: "var(--radius-md)", background: "rgba(255,255,255,0.01)", border: "1px solid var(--color-border)", backdropFilter: "blur(12px)" }}>
+                    <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>{label}</div>
+                    <div style={{ marginTop: 8, fontSize: 14, color: "var(--color-text-primary)" }}>{value}</div>
                   </div>
                 ))}
               </div>

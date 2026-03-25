@@ -61,9 +61,9 @@ export default async function AccountPage() {
           ["Profile", profileLabel],
           ["Next move", user ? "Open Insights" : "Sign in to save"],
         ].map(([label, value]) => (
-          <div key={label} style={{ padding: 18, borderRadius: 20, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)" }}>
-            <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8ab7a7" }}>{label}</div>
-            <div style={{ marginTop: 10, color: "#f5f5f5", fontSize: 18, lineHeight: 1.5 }}>{value}</div>
+          <div key={label} className="premium-fade-up" data-delay="1" style={{ padding: 24, borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "var(--color-surface)" }}>
+            <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>{label}</div>
+            <div style={{ marginTop: 10, color: "var(--color-text-primary)", fontSize: 18, lineHeight: 1.5 }}>{value}</div>
           </div>
         ))}
       </section>
@@ -87,12 +87,12 @@ export default async function AccountPage() {
         </div>
 
         <aside style={{ display: "grid", gap: 16 }}>
-          <section style={{ padding: 20, borderRadius: 22, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)", display: "grid", gap: 10 }}>
-            <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8ab7a7" }}>Best next step</div>
-            <p style={{ margin: 0, color: "#f5f5f5", fontSize: 18, lineHeight: 1.5 }}>
+          <section className="premium-fade-up" data-delay="2" style={{ padding: 24, borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "var(--color-surface)", display: "grid", gap: 12 }}>
+            <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Best next step</div>
+            <p style={{ margin: 0, color: "var(--color-text-primary)", fontSize: 18, lineHeight: 1.5 }}>
               Take one relationship moment from this map and open it inside Insight Studio.
             </p>
-            <p style={{ margin: 0, color: "#a1a1aa", fontSize: 14, lineHeight: 1.7 }}>
+            <p style={{ margin: 0, color: "var(--color-text-secondary)", fontSize: 14, lineHeight: 1.7 }}>
               The map keeps the wider field visible. Insights gives you the closer view.
             </p>
             <Link
@@ -103,10 +103,10 @@ export default async function AccountPage() {
                 alignItems: "center",
                 justifyContent: "center",
                 gap: 8,
-                padding: "12px 16px",
-                borderRadius: 999,
-                background: "#f5f5f5",
-                color: "#050505",
+                padding: "14px 20px",
+                borderRadius: "var(--radius-pill)",
+                background: "var(--color-text-primary)",
+                color: "var(--color-bg)",
                 textDecoration: "none",
                 fontWeight: 700,
               }}
@@ -115,9 +115,9 @@ export default async function AccountPage() {
             </Link>
           </section>
 
-          <section style={{ padding: 20, borderRadius: 22, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)", display: "grid", gap: 10 }}>
-            <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Orientation</div>
-            <div style={{ color: "#d4d4d8", lineHeight: 1.75, fontSize: 14 }}>
+          <section className="premium-fade-up" data-delay="3" style={{ padding: 24, borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "var(--color-surface)", display: "grid", gap: 12 }}>
+            <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Orientation</div>
+            <div style={{ color: "var(--color-text-secondary)", lineHeight: 1.75, fontSize: 14 }}>
               Use this page to notice where things feel charged or unfinished.
               Then move to Dynamics for pattern clarity or Insights for a more direct read on what to try next.
             </div>

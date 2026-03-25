@@ -37,7 +37,28 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <style>{`
           :root {
             color-scheme: dark;
-            --motion-spring: cubic-bezier(0.22, 1, 0.36, 1);
+            --color-bg: #030303;
+            --color-surface: rgba(255, 255, 255, 0.02);
+            --color-surface-hover: rgba(255, 255, 255, 0.04);
+            --color-border: rgba(255, 255, 255, 0.06);
+            --color-border-hover: rgba(255, 255, 255, 0.12);
+            --color-text-primary: #f8f8f8;
+            --color-text-secondary: rgba(248, 248, 248, 0.65);
+            --color-text-muted: rgba(248, 248, 248, 0.40);
+            --color-accent: #d6c3a1;
+            
+            --motion-spring: cubic-bezier(0.19, 1, 0.22, 1);
+            --motion-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+            --motion-duration-fast: 150ms;
+            --motion-duration-normal: 300ms;
+            --motion-duration-slow: 600ms;
+            
+            --shadow-subtle: 0 8px 30px rgba(0,0,0,0.4);
+            --shadow-glow: 0 0 24px color-mix(in srgb, var(--color-accent) 20%, transparent);
+
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-pill: 9999px;
           }
           * {
             box-sizing: border-box;
@@ -47,55 +68,54 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           }
           body {
             min-width: 320px;
+            background-color: var(--color-bg) !important;
+            color: var(--color-text-primary) !important;
           }
           h1, h2, h3, h4 {
             font-family: var(--font-display), serif;
             font-weight: 500;
           }
-          a {
-            transition: transform 180ms var(--motion-spring), opacity 180ms ease, border-color 180ms ease, background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+          a, button {
+            transition: transform var(--motion-duration-normal) var(--motion-spring), 
+                        opacity var(--motion-duration-fast) var(--motion-ease), 
+                        border-color var(--motion-duration-fast) var(--motion-ease), 
+                        background-color var(--motion-duration-fast) var(--motion-ease), 
+                        box-shadow var(--motion-duration-normal) var(--motion-spring),
+                        color var(--motion-duration-fast) var(--motion-ease);
           }
-          button, input, textarea, select {
-            font: inherit;
-          }
-          button {
-            transition: transform 180ms var(--motion-spring), opacity 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
-          }
-          a:hover,
-          button:hover {
+          a:hover, button:hover {
             transform: translateY(-1px);
           }
-          textarea:focus,
-          input:focus,
-          select:focus,
-          button:focus {
-            outline: 2px solid rgba(214,195,161,0.45);
+          textarea:focus, input:focus, select:focus, button:focus {
+            outline: 2px solid color-mix(in srgb, var(--color-accent) 45%, transparent);
             outline-offset: 2px;
           }
+          
+          /* Reveal Motion Elements */
           .premium-fade-up {
-            animation: premiumFadeUp 700ms var(--motion-spring) both;
+            opacity: 0;
+            animation: premiumFadeUp var(--motion-duration-slow) var(--motion-spring) forwards;
           }
-          .premium-fade-up[data-delay="1"] {
-            animation-delay: 70ms;
-          }
-          .premium-fade-up[data-delay="2"] {
-            animation-delay: 140ms;
-          }
-          .premium-fade-up[data-delay="3"] {
-            animation-delay: 210ms;
-          }
+          .premium-fade-up[data-delay="1"] { animation-delay: 80ms; }
+          .premium-fade-up[data-delay="2"] { animation-delay: 160ms; }
+          .premium-fade-up[data-delay="3"] { animation-delay: 240ms; }
+          
           .premium-panel {
-            transition: transform 220ms var(--motion-spring), border-color 220ms ease, background-color 220ms ease, box-shadow 220ms ease;
+            transition: transform var(--motion-duration-normal) var(--motion-spring), 
+                        border-color var(--motion-duration-normal) var(--motion-ease), 
+                        background-color var(--motion-duration-normal) var(--motion-ease), 
+                        box-shadow var(--motion-duration-normal) var(--motion-spring);
           }
           .premium-panel:hover {
             transform: translateY(-3px);
-            border-color: rgba(255,255,255,0.14) !important;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.24);
+            border-color: var(--color-border-hover) !important;
+            box-shadow: var(--shadow-subtle);
           }
+          
           @keyframes premiumFadeUp {
             from {
               opacity: 0;
-              transform: translateY(18px);
+              transform: translateY(16px);
             }
             to {
               opacity: 1;
@@ -103,12 +123,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             }
           }
           @media (prefers-reduced-motion: reduce) {
-            html {
-              scroll-behavior: auto;
-            }
-            *,
-            *::before,
-            *::after {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
               animation-duration: 0.01ms !important;
               animation-iteration-count: 1 !important;
               transition-duration: 0.01ms !important;

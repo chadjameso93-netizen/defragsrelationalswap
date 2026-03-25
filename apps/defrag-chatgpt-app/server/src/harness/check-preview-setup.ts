@@ -50,9 +50,26 @@ async function main() {
   }
 
   await run("pnpm --dir apps/defrag-chatgpt-app build:web");
+  await run("pnpm --dir apps/defrag-chatgpt-app build:server");
   await run("pnpm --dir apps/defrag-chatgpt-app validate:tools");
   await run("pnpm --dir apps/defrag-chatgpt-app typecheck");
   await run("pnpm --dir apps/web typecheck");
+
+  const builtServerEntry = resolve(repoRoot, "apps/defrag-chatgpt-app/dist/server/app.js");
+  if (!existsSync(builtServerEntry)) {
+    console.error(
+      JSON.stringify(
+        {
+          ok: false,
+          stage: "server-bundle",
+          errors: [`Missing built Vercel server bundle: ${builtServerEntry}`],
+        },
+        null,
+        2,
+      ),
+    );
+    process.exit(1);
+  }
 
   console.log(
     JSON.stringify(
@@ -62,6 +79,7 @@ async function main() {
           "env-validation",
           "vercel-config",
           "widget-build",
+          "server-bundle",
           "tool-harness",
           "chatgpt-app-typecheck",
           "website-typecheck",

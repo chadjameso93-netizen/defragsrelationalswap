@@ -1,7 +1,7 @@
 import serverless from "serverless-http";
-import { createDefragMcpApp } from "../server/src/app";
+import { createDefragMcpApp } from "../server/src/app.js";
 
-const appPromise = createDefragMcpApp().then(({ app }) => app);
+const appPromise = createDefragMcpApp().then(({ app }: any) => app);
 
 export default async function handler(req: any, res: any) {
   const app = await appPromise;

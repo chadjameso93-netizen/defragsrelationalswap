@@ -21,10 +21,10 @@ export default function AboutPage() {
           style={{
             display: "grid",
             gap: 18,
-            padding: 22,
-            borderRadius: 24,
-            border: "1px solid rgba(255,255,255,0.08)",
-            background: "rgba(255,255,255,0.025)",
+            padding: 24,
+            borderRadius: "var(--radius-lg)",
+            border: "1px solid var(--color-border)",
+            background: "var(--color-surface)",
           }}
         >
           {[
@@ -45,9 +45,9 @@ export default function AboutPage() {
               body: "DEFRAG does not diagnose people, assign fixed personality labels, or pretend to know more than the actual events support. It stays with observable dynamics, timing, and pattern clarity.",
             },
           ].map((section) => (
-            <div key={section.title} style={{ display: "grid", gap: 8 }}>
-              <h2 style={{ margin: 0, fontSize: 26 }}>{section.title}</h2>
-              <p style={{ margin: 0, color: "rgba(245,245,245,0.72)", lineHeight: 1.8 }}>
+            <div key={section.title} className="premium-fade-up" data-delay="1" style={{ display: "grid", gap: 10 }}>
+              <h2 style={{ margin: 0, fontSize: 26, color: "var(--color-text-primary)" }}>{section.title}</h2>
+              <p style={{ margin: 0, color: "var(--color-text-secondary)", lineHeight: 1.8 }}>
                 {section.body}
               </p>
             </div>
@@ -55,13 +55,14 @@ export default function AboutPage() {
         </section>
 
         <aside
+          className="premium-fade-up" data-delay="2"
           style={{
             display: "grid",
             gap: 16,
-            padding: 22,
-            borderRadius: 24,
-            border: "1px solid rgba(255,255,255,0.08)",
-            background: "linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015))",
+            padding: 24,
+            borderRadius: "var(--radius-lg)",
+            border: "1px solid var(--color-border)",
+            background: "linear-gradient(180deg, var(--color-surface), transparent)",
           }}
         >
           <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#c8d8a2" }}>
@@ -80,13 +81,13 @@ export default function AboutPage() {
                 display: "inline-flex",
                 justifyContent: "space-between",
                 textDecoration: "none",
-                color: "#f5f5f5",
+                color: "var(--color-text-primary)",
                 paddingBottom: 10,
-                borderBottom: "1px solid rgba(255,255,255,0.06)",
+                borderBottom: "1px solid var(--color-border)",
               }}
             >
               <span>{label}</span>
-              <span style={{ color: "rgba(245,245,245,0.5)" }}>Open</span>
+              <span style={{ color: "var(--color-text-muted)" }}>Open</span>
             </Link>
           ))}
           <div style={{ display: "grid", gap: 10, marginTop: 6 }}>
@@ -96,10 +97,10 @@ export default function AboutPage() {
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
-                padding: "12px 16px",
-                borderRadius: 999,
-                background: "#f5f5f5",
-                color: "#050505",
+                padding: "12px 18px",
+                borderRadius: "var(--radius-pill)",
+                background: "var(--color-text-primary)",
+                color: "var(--color-bg)",
                 textDecoration: "none",
                 fontWeight: 700,
               }}
@@ -112,10 +113,10 @@ export default function AboutPage() {
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
-                padding: "12px 16px",
-                borderRadius: 999,
-                border: "1px solid rgba(255,255,255,0.14)",
-                color: "#f5f5f5",
+                padding: "12px 18px",
+                borderRadius: "var(--radius-pill)",
+                border: "1px solid var(--color-border)",
+                color: "var(--color-text-primary)",
                 textDecoration: "none",
               }}
             >
