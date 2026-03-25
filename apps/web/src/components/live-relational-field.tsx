@@ -37,12 +37,12 @@ function nodeAccent(type: WorldNode["type"]) {
   return "var(--color-text-secondary)";
 }
 
-interface WorldAlphaCanvasProps {
+interface LiveRelationalFieldProps {
   preview?: boolean;
   previewInsight?: WorldInterpretation | null;
 }
 
-export function WorldAlphaCanvas({ preview = false, previewInsight = null }: WorldAlphaCanvasProps) {
+export function LiveRelationalField({ preview = false, previewInsight = null }: LiveRelationalFieldProps) {
   const [nodes, setNodes] = useState(defaultNodes);
   const [edges, setEdges] = useState(defaultEdges);
   const [insight, setInsight] = useState<WorldInterpretation | null>(previewInsight);
@@ -63,7 +63,7 @@ export function WorldAlphaCanvas({ preview = false, previewInsight = null }: Wor
         }}
       >
         <div
-          className="world-canvas-meta"
+          className="relational-field-meta"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
@@ -152,7 +152,7 @@ export function WorldAlphaCanvas({ preview = false, previewInsight = null }: Wor
       </section>
 
       <section
-        className="world-controls"
+        className="relational-field-controls"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
@@ -211,7 +211,7 @@ export function WorldAlphaCanvas({ preview = false, previewInsight = null }: Wor
             }
 
             setLoading(true);
-            const response = await fetch("/api/world/interpret", {
+            const response = await fetch("/api/relational-field/interpret", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
@@ -274,8 +274,8 @@ export function WorldAlphaCanvas({ preview = false, previewInsight = null }: Wor
             <p style={{ margin: 0 }}>{insight.stabilizationHint}</p>
           </div>
 
-          <div className="world-insight-grid premium-fade-up" data-delay="2" style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 16 }}>
-            <section className="world-panel" style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 20, display: "grid", gap: 10, background: "var(--color-surface)" }}>
+          <div className="relational-insight-grid premium-fade-up" data-delay="2" style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 16 }}>
+            <section className="relational-panel" style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 20, display: "grid", gap: 10, background: "var(--color-surface)" }}>
               <p style={{ margin: 0, fontSize: 10, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.18em" }}>Node readings</p>
               {insight.nodeReadings.map((node) => (
                 <div key={node.id} style={{ padding: 14, borderRadius: "var(--radius-md)", background: "var(--color-surface-hover)", display: "grid", gap: 6, border: "1px solid var(--color-border)" }}>
@@ -288,7 +288,7 @@ export function WorldAlphaCanvas({ preview = false, previewInsight = null }: Wor
               ))}
             </section>
 
-            <section className="world-panel premium-fade-up" data-delay="3" style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 20, display: "grid", gap: 10, background: "var(--color-surface)" }}>
+            <section className="relational-panel premium-fade-up" data-delay="3" style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 20, display: "grid", gap: 10, background: "var(--color-surface)" }}>
               <p style={{ margin: 0, fontSize: 10, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.18em" }}>Next moves</p>
               <ul style={{ margin: 0, paddingLeft: 18, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
                 {insight.nextMoves.map((move) => (
@@ -312,15 +312,15 @@ export function WorldAlphaCanvas({ preview = false, previewInsight = null }: Wor
       )}
       <style>{`
         @media (max-width: 720px) {
-          .world-canvas-meta {
+          .relational-field-meta {
             grid-template-columns: 1fr !important;
           }
 
-          .world-insight-grid {
+          .relational-insight-grid {
             grid-template-columns: 1fr !important;
           }
 
-          .world-panel {
+          .relational-panel {
             padding: 12px !important;
           }
         }

@@ -16,7 +16,7 @@ export function AppShell({ eyebrow, title, description, children, accent = "var(
   const pathname = usePathname();
   const navItems = [
     { href: "/", label: "Home", match: (value: string) => value === "/" },
-    { href: "/dynamics", label: "Dynamics", match: (value: string) => value.startsWith("/dynamics") },
+    { href: "/dynamics", label: "DEFRAG AI", match: (value: string) => value.startsWith("/dynamics") },
     { href: "/about", label: "About", match: (value: string) => value.startsWith("/about") },
     { href: "/account/billing", label: "Billing", match: (value: string) => value.startsWith("/account/billing") },
   ];

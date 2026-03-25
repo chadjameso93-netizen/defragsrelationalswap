@@ -8,6 +8,7 @@ import type {
   Entitlements,
 } from "../../../../packages/core/src";
 import { DynamicsV1Shell } from "./dynamics-v1-shell";
+import { LiveRelationalField } from "./live-relational-field";
 
 interface ThreadRecord {
   id: string;
@@ -83,188 +84,74 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
 
   return (
     <div
-      className="dynamics-layout"
+      className="dynamics-layout premium-fade-up"
+      data-delay="2"
       style={{
         display: "grid",
-        gridTemplateColumns: "300px minmax(0, 1fr)",
+        gridTemplateColumns: "minmax(0, 1.3fr) 360px",
         gap: 22,
         alignItems: "start",
       }}
     >
+      <div style={{ display: "grid", gap: 18 }}>
+        {/* Live Relational Field injected into DEFRAG AI layout */}
+        <LiveRelationalField preview={false} />
+
+        {result ? (
+          <div>
+            <div style={{ padding: "12px 0", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.2em", color: "var(--color-text-muted)" }}>Insight Overlay</div>
+            <DynamicsV1Shell
+              contract={result}
+              entitlements={entitlements}
+              synthesis={activeInsight?.synthesis ?? null}
+              evaluation={activeInsight?.evaluation ?? null}
+            />
+          </div>
+        ) : null}
+        
+        {actionResult ? (
+          <section style={{ border: "1px solid var(--color-border-hover)", borderRadius: "var(--radius-md)", padding: 16, background: "var(--color-surface)" }}>
+            <p style={{ margin: "0 0 10px 0", fontWeight: 600, color: "var(--color-text-primary)" }}>{actionResult.title}</p>
+            <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.8, color: "var(--color-text-secondary)" }}>
+              {actionResult.lines.map((line) => (
+                <li key={line}>{line}</li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+      </div>
+
+
+      {/* Main DEFRAG AI Right Hand Interaction Component */}
       <aside
-        className="dynamics-rail premium-fade-up"
-        data-delay="1"
+        className="dynamics-rail"
         style={{
           border: "1px solid var(--color-border)",
           borderRadius: "var(--radius-lg)",
-          padding: 24,
           background: "var(--color-surface)",
           display: "grid",
-          gap: 16,
           position: "sticky",
           top: 24,
+          maxHeight: "calc(100vh - 48px)",
+          overflowY: "auto",
         }}
       >
-        <div style={{ display: "grid", gap: 6 }}>
-          <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Threads</p>
-          <p style={{ margin: 0, fontSize: 13, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
-            Keep recurring moments together so DEFRAG can track the shape, not just the latest sentence or the hottest emotion.
-          </p>
-        </div>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-            gap: 10,
-          }}
-        >
-          {[
-            ["Threads", String(threads.length)],
-            ["Insights", String(insights.length)],
-          ].map(([label, value]) => (
-            <div key={label} style={{ padding: 14, borderRadius: "var(--radius-md)", background: "var(--color-surface-hover)", border: "1px solid var(--color-border)" }}>
-              <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>{label}</div>
-              <div style={{ marginTop: 8, fontSize: 18, color: "var(--color-text-primary)" }}>{value}</div>
-            </div>
-          ))}
-        </div>
-
-        <button
-          type="button"
-          onClick={() => {
-            setActiveThreadId(undefined);
-            setSituation("");
-            setInsights([]);
-            setResult(null);
-            setLatestInsightId(null);
-            setActions([]);
-            setActionResult(null);
-            setError(null);
-          }}
-          style={{ borderRadius: "var(--radius-pill)", border: "1px solid var(--color-border)", background: "var(--color-surface)", color: "var(--color-text-primary)", padding: "12px 16px", cursor: "pointer", whiteSpace: "nowrap" }}
-        >
-          Start a new thread
-        </button>
-
-        <div style={{ display: "grid", gap: 10 }}>
-          {threads.map((thread) => (
-            <button
-              key={thread.id}
-              type="button"
-              onClick={() => setActiveThreadId(thread.id)}
-              style={{
-                borderRadius: "var(--radius-md)",
-                border: thread.id === activeThreadId ? "1px solid var(--color-accent)" : "1px solid var(--color-border)",
-                background: thread.id === activeThreadId ? "color-mix(in srgb, var(--color-accent) 15%, transparent)" : "var(--color-surface)",
-                color: "var(--color-text-primary)",
-                fontSize: 13,
-                padding: "16px",
-                cursor: "pointer",
-                textAlign: "left",
-                display: "grid",
-                gap: 6,
-              }}
-            >
-              <span style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: thread.id === activeThreadId ? "var(--color-accent)" : "var(--color-text-muted)" }}>
-                Thread
-              </span>
-              <span style={{ lineHeight: 1.55 }}>{thread.title}</span>
-            </button>
-          ))}
-          {threads.length === 0 ? <span style={{ color: "var(--color-text-secondary)", fontSize: 13 }}>No threads yet. Start with one moment below.</span> : null}
-        </div>
-      </aside>
-
-      <div style={{ display: "grid", gap: 18 }}>
-      <section
-        className="premium-fade-up"
-        data-delay="2"
-        style={{
-          border: "1px solid var(--color-border)",
-          borderRadius: "var(--radius-lg)",
-          padding: 24,
-          background: "linear-gradient(180deg, var(--color-surface), transparent)",
-          display: "grid",
-          gap: 18,
-        }}
-      >
-        <div
-          className="dynamics-intro"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-            gap: 16,
-          }}
-        >
-          <div style={{ display: "grid", gap: 8 }}>
-            <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-accent)" }}>Compose the moment</p>
-            <p style={{ margin: 0, fontSize: 24, lineHeight: 1.2, color: "var(--color-text-primary)" }}>
-              Keep it small enough for a real insight.
+        <div style={{ padding: 24, borderBottom: "1px solid var(--color-border)", display: "grid", gap: 18 }}>
+          <div style={{ display: "grid", gap: 6 }}>
+            <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Interaction Input</p>
+            <p style={{ margin: 0, fontSize: 13, color: "var(--color-text-secondary)", lineHeight: 1.6 }}>
+              Provide the context of the recent exchange to update the relational field.
             </p>
-            <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "var(--color-text-secondary)" }}>
-              Dynamics works best on one exchange, one rupture, or one shift in tone rather than a whole relationship summary or a label about who someone is.
-            </p>
-            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 4 }}>
-              {[
-                "Recent exchange",
-                "One unclear turn",
-                "Next move",
-              ].map((chip) => (
-                <span
-                  key={chip}
-                  style={{
-                    padding: "8px 14px",
-                    borderRadius: "var(--radius-pill)",
-                    border: "1px solid var(--color-border)",
-                    background: "var(--color-surface)",
-                    color: "var(--color-text-secondary)",
-                    fontSize: 12,
-                  }}
-                >
-                  {chip}
-                </span>
-              ))}
-            </div>
           </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-              gap: 10,
-              alignSelf: "end",
-            }}
-          >
-            {[
-              ["Mode", result ? "Insight ready" : "Drafting"],
-              ["Premium", entitlements.canUseDynamicsPremiumView ? "Unlocked" : "Locked"],
-              ["Thread", activeThreadId ? "Active" : "New"],
-            ].map(([label, value]) => (
-              <div key={label} style={{ padding: 14, borderRadius: "var(--radius-md)", background: "var(--color-surface-hover)", border: "1px solid var(--color-border)" }}>
-                <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>{label}</div>
-                <div style={{ marginTop: 8, fontSize: 14, color: "var(--color-text-primary)" }}>{value}</div>
-              </div>
-            ))}
-          </div>
-        </div>
+          <textarea
+            value={situation}
+            onChange={(event) => setSituation(event.target.value)}
+            rows={4}
+            placeholder="Describe one specific moment or rupture you want to trace."
+            style={{ width: "100%", borderRadius: "var(--radius-md)", padding: 16, background: "var(--color-surface)", border: "1px solid var(--color-border)", color: "var(--color-text-primary)", boxSizing: "border-box", fontFamily: "inherit" }}
+          />
 
-      <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 20, background: "var(--color-surface-hover)" }}>
-        <div style={{ display: "grid", gap: 6, marginBottom: 16 }}>
-          <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Describe a moment</p>
-          <p style={{ margin: 0, color: "var(--color-text-secondary)", fontSize: 13 }}>
-            Focus on one recent exchange. The tighter the moment, the clearer and safer the read.
-          </p>
-        </div>
-        <textarea
-          value={situation}
-          onChange={(event) => setSituation(event.target.value)}
-          rows={5}
-          placeholder="Describe one recent relationship moment you want help understanding."
-          style={{ width: "100%", borderRadius: "var(--radius-md)", padding: 16, background: "var(--color-surface)", border: "1px solid var(--color-border)", color: "var(--color-text-primary)", boxSizing: "border-box", fontFamily: "inherit" }}
-        />
-
-        <div style={{ marginTop: 12, display: "flex", gap: 10, flexWrap: "wrap" }}>
           <button
             type="button"
             disabled={busy}
@@ -311,140 +198,112 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
                 setBusy(false);
               }
             }}
-            style={{ borderRadius: 10, border: 0, padding: "10px 14px", cursor: "pointer", background: "var(--color-text-primary)", color: "var(--color-bg)", fontWeight: 600 }}
+            style={{ borderRadius: 10, border: 0, padding: "10px 14px", cursor: "pointer", background: "var(--color-text-primary)", color: "var(--color-bg)", fontWeight: 600, width: "100%" }}
           >
-            {busy ? "Working…" : "Generate dynamics insight"}
+            {busy ? "Applying context..." : "Submit to DEFRAG AI"}
           </button>
 
-          <div style={{ display: "flex", alignItems: "center", color: "var(--color-text-muted)", fontSize: 12 }}>
-            Best input: one recent exchange, one unclear turn, one felt shift.
-          </div>
+          {error ? (
+              <p
+                style={{
+                  margin: 0,
+                  color: "#fecaca",
+                  borderRadius: 8,
+                  padding: "10px 12px",
+                  background: "rgba(127,29,29,0.22)",
+                  border: "1px solid rgba(248,113,113,0.24)",
+                  lineHeight: 1.6,
+                  fontSize: 13
+                }}
+              >
+                Failed to process. Try narrowing the moment.
+              </p>
+            ) : null}
         </div>
 
-          {error ? (
-            <p
-              style={{
-                marginBottom: 0,
-                color: "#fecaca",
-                borderRadius: 12,
-                padding: "12px 14px",
-                background: "rgba(127,29,29,0.22)",
-                border: "1px solid rgba(248,113,113,0.24)",
-                lineHeight: 1.6,
+        {actions.length > 0 && latestInsightId ? (
+          <div style={{ borderBottom: "1px solid var(--color-border)", padding: 24 }}>
+            <p style={{ margin: "0 0 12px 0", fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Simulations</p>
+            <div style={{ display: "grid", gap: 10 }}>
+              {actions.map((action) => (
+                <button
+                  key={action.type}
+                  type="button"
+                  onClick={async () => {
+                    const response = await fetch("/api/dynamics/actions", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ insightId: latestInsightId, actionType: action.type }),
+                    });
+                    const body = (await response.json()) as { result?: { title: string; lines: string[] }; error?: string };
+                    if (!response.ok || !body.result) {
+                      setError(body.error ?? "Simulation failed");
+                      return;
+                    }
+                    setActionResult(body.result);
+                  }}
+                  style={{ textAlign: "left", borderRadius: "var(--radius-md)", border: "1px solid var(--color-border-hover)", background: "var(--color-surface-hover)", color: "var(--color-text-secondary)", padding: "12px 14px", cursor: "pointer", fontSize: 13 }}
+                >
+                  {action.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : null}
+
+
+        {threads.length > 0 && (
+          <div style={{ padding: 24, display: "grid", gap: 14 }}>
+            <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>History / Sessions</p>
+            
+            <button
+              type="button"
+              onClick={() => {
+                setActiveThreadId(undefined);
+                setSituation("");
+                setInsights([]);
+                setResult(null);
+                setLatestInsightId(null);
+                setActions([]);
+                setActionResult(null);
+                setError(null);
               }}
+              style={{ borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "transparent", color: "var(--color-text-primary)", padding: "10px", cursor: "pointer", fontSize: 13 }}
             >
-              DEFRAG could not finish that insight yet. Try narrowing the moment or try again in a second.
-            </p>
-          ) : null}
-      </section>
-      </section>
+              + Initialize New Session
+            </button>
 
-      {loadingThread ? (
-        <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 18, color: "var(--color-text-secondary)", background: "var(--color-surface)" }}>
-          Loading thread history…
-        </section>
-      ) : null}
-
-      {insights.length > 0 ? (
-        <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 18, background: "var(--color-surface)" }}>
-          <div style={{ display: "grid", gap: 4, marginBottom: 12 }}>
-            <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Saved insight history</p>
-            <p style={{ margin: 0, color: "var(--color-text-secondary)", lineHeight: 1.6, fontSize: 13 }}>
-              Each thread keeps its earlier summaries close so you can reopen what changed without retelling the whole story.
-            </p>
+            <div style={{ display: "grid", gap: 8 }}>
+              {threads.map((thread) => (
+                <button
+                  key={thread.id}
+                  type="button"
+                  onClick={() => setActiveThreadId(thread.id)}
+                  style={{
+                    borderRadius: "var(--radius-md)",
+                    border: thread.id === activeThreadId ? "1px solid var(--color-accent)" : "1px solid var(--color-border)",
+                    background: thread.id === activeThreadId ? "color-mix(in srgb, var(--color-accent) 15%, transparent)" : "var(--color-surface)",
+                    color: "var(--color-text-primary)",
+                    fontSize: 13,
+                    padding: "16px",
+                    cursor: "pointer",
+                    textAlign: "left",
+                    display: "grid",
+                    gap: 6,
+                  }}
+                >
+                  <span style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: thread.id === activeThreadId ? "var(--color-accent)" : "var(--color-text-muted)" }}>
+                    {thread.id === activeThreadId ? "Active Thread" : "Thread"}
+                  </span>
+                  <span style={{ lineHeight: 1.55 }}>{thread.title}</span>
+                </button>
+              ))}
+            </div>
           </div>
-          <div style={{ display: "grid", gap: 8 }}>
-            {insights.map((insight) => (
-              <button
-                key={insight.id}
-                type="button"
-                onClick={() => {
-                  setLatestInsightId(insight.id);
-                  setResult(insight.contract);
-                  setActionResult(null);
-                }}
-                style={{
-                  textAlign: "left",
-                  border: insight.id === latestInsightId ? "1px solid rgba(216,196,159,0.4)" : "1px solid var(--color-border)",
-                  borderRadius: "var(--radius-md)",
-                  background: insight.id === latestInsightId ? "rgba(216,196,159,0.06)" : "transparent",
-                  color: "var(--color-text-secondary)",
-                  padding: 12,
-                  cursor: "pointer",
-                }}
-              >
-                <div style={{ fontSize: 12, color: "var(--color-text-muted)" }}>{new Date(insight.createdAt).toLocaleString()}</div>
-                <div style={{ marginTop: 6, lineHeight: 1.65 }}>{insight.contract.whatChanged}</div>
-              </button>
-            ))}
-          </div>
-        </section>
-      ) : null}
+        )}
 
-      {!loadingThread && !result && !busy ? (
-        <section style={{ border: "1px dashed var(--color-border-hover)", borderRadius: "var(--radius-md)", padding: 22, display: "grid", gap: 8 }}>
-          <p style={{ margin: 0, fontSize: 12, color: "var(--color-text-primary)", fontWeight: 600 }}>Nothing in focus yet</p>
-          <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "var(--color-text-secondary)" }}>
-            Start a new thread or choose an existing one, then describe one exchange DEFRAG should help you understand.
-          </p>
-        </section>
-      ) : null}
+      </aside>
 
-      {actions.length > 0 && latestInsightId ? (
-        <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 18, background: "var(--color-surface)" }}>
-          <div style={{ display: "grid", gap: 4, marginBottom: 12 }}>
-            <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Follow-up actions</p>
-            <p style={{ margin: 0, color: "var(--color-text-secondary)", lineHeight: 1.6, fontSize: 13 }}>
-              Use these when you want evidence, phrasing help, or a lighter practice pass before you send anything.
-            </p>
-          </div>
-          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-            {actions.map((action) => (
-              <button
-                key={action.type}
-                type="button"
-                onClick={async () => {
-                  const response = await fetch("/api/dynamics/actions", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ insightId: latestInsightId, actionType: action.type }),
-                  });
-                  const body = (await response.json()) as { result?: { title: string; lines: string[] }; error?: string };
-                  if (!response.ok || !body.result) {
-                    setError(body.error ?? "Action failed");
-                    return;
-                  }
-                  setActionResult(body.result);
-                }}
-                style={{ borderRadius: "var(--radius-pill)", border: "1px solid var(--color-border-hover)", background: "var(--color-surface)", color: "var(--color-text-primary)", padding: "10px 14px", cursor: "pointer" }}
-              >
-                {action.label}
-              </button>
-            ))}
-          </div>
-        </section>
-      ) : null}
-
-      {actionResult ? (
-        <section style={{ border: "1px solid var(--color-border-hover)", borderRadius: "var(--radius-md)", padding: 16, background: "var(--color-surface)" }}>
-          <p style={{ marginTop: 0, marginBottom: 10, fontWeight: 600, color: "var(--color-text-primary)" }}>{actionResult.title}</p>
-          <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.8, color: "var(--color-text-secondary)" }}>
-            {actionResult.lines.map((line) => (
-              <li key={line}>{line}</li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
-
-      {result ? (
-        <DynamicsV1Shell
-          contract={result}
-          entitlements={entitlements}
-          synthesis={activeInsight?.synthesis ?? null}
-          evaluation={activeInsight?.evaluation ?? null}
-        />
-      ) : null}
-      </div>
       <style>{`
         @media (max-width: 980px) {
           .dynamics-layout {
@@ -453,12 +312,6 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
 
           .dynamics-rail {
             position: static !important;
-          }
-        }
-
-        @media (max-width: 720px) {
-          .dynamics-intro {
-            grid-template-columns: 1fr !important;
           }
         }
       `}</style>

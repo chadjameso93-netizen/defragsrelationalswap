@@ -34,8 +34,8 @@ export default function OnboardingPage() {
           <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-accent)" }}>
             Perspective
           </p>
-          <p style={{ margin: 0, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
-            We map dynamics relative to the observer. Enter your name below to anchor the workspace context.
+          <p style={{ margin: 0, fontSize: 14, color: "var(--color-text-secondary)", lineHeight: 1.75 }}>
+            We map interactions relative to the observer. Enter your name below to anchor the DEFRAG AI context.
           </p>
         </div>
 

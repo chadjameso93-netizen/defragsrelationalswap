@@ -11,9 +11,9 @@ export default async function PreviewHub() {
   const routes = [
     { path: "/", label: "Homepage" },
     { path: "/login", label: "Login" },
-    { path: "/onboarding", label: "Onboarding" },
-    { path: "/account", label: "Account" },
-    { path: "/world", label: "World" },
+    { path: "/account/billing", label: "Intelligence Tiers (Billing)" },
+    { path: "/dynamics", label: "DEFRAG AI Workspace" },
+    { path: "/about", label: "About DEFRAG" },
     { path: "/dynamics", label: "Dynamics" },
     { path: "/account/insights", label: "Insight Generation" },
     { path: "/account/billing", label: "Billing & Subscriptions" },

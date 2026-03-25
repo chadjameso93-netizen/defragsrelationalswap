@@ -69,7 +69,7 @@ export default function AboutPage() {
             The System
           </div>
           {[
-            ["Dynamics Workspace", "/dynamics"],
+            ["DEFRAG AI", "/dynamics"],
             ["Intelligence Architecture", "/account/billing"],
           ].map(([label, href]) => (
             <Link

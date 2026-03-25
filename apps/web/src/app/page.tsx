@@ -4,9 +4,9 @@ import { AppShell } from "../components/app-shell";
 export default function LandingPage() {
   return (
     <AppShell
-      eyebrow="Relational Insight"
+      eyebrow="Relational Intelligence Platform"
       title="See the pattern before it becomes the story."
-      description="DEFRAG is a reasoning environment that helps you untangle complex relationships, identify repeating cycles, and change how you respond—without relying on fixed labels or diagnostic blame."
+      description="DEFRAG is a relational intelligence platform that helps you untangle complex interactions, visualize the live relational field, and access insight overlays that steady the moment."
     >
       <section
         className="landing-grid"

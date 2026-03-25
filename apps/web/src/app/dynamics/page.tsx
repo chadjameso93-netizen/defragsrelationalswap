@@ -12,25 +12,59 @@ export default async function DynamicsPage() {
   if (!user) {
     return (
       <AppShell
-        eyebrow="Dynamics"
-        title="See the relationship pattern before the moment hardens."
-        description="Explore the reasoning environment, pattern extraction, and next-step alignment. Access requires an initialized workspace."
+        eyebrow="DEFRAG AI"
+        title="See the pattern before the moment hardens."
+        description="The primary intelligence environment mapping live relational states, insight overlays, and precise structural action."
         accent="#d8c49f"
       >
         <div style={{ display: "grid", gap: 22 }}>
           <PublicPreviewCta
-            title="Analysis requires a connected workspace."
-            description="The system must track events over time to build reliable interaction mapping. Initiate your environment to process and trace ongoing conversations."
-            primaryLabel="Initialize workspace"
+            title="Analysis requires a connected DEFRAG AI session."
+            description="The system must track events over time to build a reliable live relational field. Initialize your environment to begin processing."
+            primaryLabel="Initialize DEFRAG AI"
             secondaryLabel="View intelligence tiers"
             secondaryHref="/account/billing"
           />
 
-          <section className="dynamics-preview-grid premium-fade-up" data-delay="1" style={{ display: "grid", gridTemplateColumns: "300px minmax(0, 1fr)", gap: 24, alignItems: "start" }}>
+          <section className="dynamics-preview-grid premium-fade-up" data-delay="1" style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 300px", gap: 24, alignItems: "start" }}>
+
+            <section style={{ display: "grid", gap: 20 }}>
+              <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: 22, background: "linear-gradient(180deg, var(--color-surface), transparent)", display: "grid", gap: 20 }}>
+                <div className="dynamics-preview-metrics" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 12 }}>
+                  {[
+                    ["Field Mapping", "Live Relational Node Extractor"],
+                    ["Analysis", "Structured Interaction Pattern"],
+                    ["Scenario", "Next-Move Simulation"],
+                  ].map(([label, value]) => (
+                    <div key={label} style={{ padding: 16, borderRadius: "var(--radius-md)", background: "var(--color-surface)", border: "1px solid var(--color-border)" }}>
+                      <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>{label}</div>
+                      <div style={{ marginTop: 8, fontSize: 14, color: "var(--color-text-primary)" }}>{value}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div style={{ display: "grid", gap: 14, padding: 24, borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "var(--color-surface-hover)" }}>
+                  <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Insight Overlay</p>
+                  <p style={{ margin: 0, fontSize: 24, lineHeight: 1.4, color: "var(--color-text-primary)" }}>
+                    The tension stems less from foundational incompatibility, and more from parallel repair attempts intersecting while both parties remain highly defensive.
+                  </p>
+                  <p style={{ margin: 0, fontSize: 15, lineHeight: 1.75, color: "var(--color-text-secondary)" }}>
+                    DEFRAG AI distills the precise architectural pattern causing friction without assigning character flaws or leaning into permanent diagnosis.
+                  </p>
+                </div>
+                
+                <div style={{ display: "flex", gap: 12, flexWrap: "wrap", paddingTop: 8 }}>
+                  <Link href="/login" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "14px 20px", borderRadius: "var(--radius-pill)", background: "var(--color-text-primary)", color: "var(--color-bg)", textDecoration: "none", fontWeight: 700 }}>
+                    Enter DEFRAG AI
+                  </Link>
+                </div>
+              </section>
+            </section>
+
             <aside style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: 22, background: "var(--color-surface)", display: "grid", gap: 18 }}>
               <div style={{ display: "grid", gap: 6 }}>
                 <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Structural Tracing</p>
-                <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "var(--color-text-secondary)" }}>Recurring themes are mapped continuously to ensure guidance reflects the holistic pattern, not a singular reaction.</p>
+                <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "var(--color-text-secondary)" }}>Recurring themes are mapped continuously in the live relational field to ensure guidance reflects the holistic pattern, not a singular reaction.</p>
               </div>
               {[
                 "Conflict de-escalation mapping",
@@ -43,50 +77,6 @@ export default async function DynamicsPage() {
                 </div>
               ))}
             </aside>
-
-            <section style={{ display: "grid", gap: 20 }}>
-              <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: 22, background: "linear-gradient(180deg, var(--color-surface), transparent)", display: "grid", gap: 20 }}>
-                <div className="dynamics-preview-metrics" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 12 }}>
-                  {[
-                    ["Mapping", "Pattern Extraction"],
-                    ["Certainty", "Grounded"],
-                    ["Resolution", "Actionable Step"],
-                  ].map(([label, value]) => (
-                    <div key={label} style={{ padding: 16, borderRadius: "var(--radius-md)", background: "var(--color-surface)", border: "1px solid var(--color-border)" }}>
-                      <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>{label}</div>
-                      <div style={{ marginTop: 8, fontSize: 14, color: "var(--color-text-primary)" }}>{value}</div>
-                    </div>
-                  ))}
-                </div>
-
-                <div style={{ display: "grid", gap: 14, padding: 24, borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "var(--color-surface-hover)" }}>
-                  <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Pattern extraction</p>
-                  <p style={{ margin: 0, fontSize: 24, lineHeight: 1.4, color: "var(--color-text-primary)" }}>
-                    The tension stems less from foundational incompatibility, and more from parallel repair attempts intersecting while both parties remain highly defensive.
-                  </p>
-                  <p style={{ margin: 0, fontSize: 15, lineHeight: 1.75, color: "var(--color-text-secondary)" }}>
-                    DEFRAG names the architectural pattern causing friction and distills the next move without assigning character flaws or leaning into permanent diagnosis.
-                  </p>
-                </div>
-
-                <div className="dynamics-preview-columns" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 16 }}>
-                  <div style={{ display: "grid", gap: 12, padding: 22, borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "var(--color-surface)" }}>
-                    <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Observed cycle</p>
-                    <p style={{ margin: 0, color: "var(--color-text-primary)", lineHeight: 1.7 }}>Protective pacing on one side meets vocal urgency on the other, creating a feedback cycle that makes both feel abandoned.</p>
-                  </div>
-                  <div style={{ display: "grid", gap: 12, padding: 22, borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "var(--color-surface)" }}>
-                    <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Immediate action</p>
-                    <p style={{ margin: 0, color: "var(--color-text-primary)", lineHeight: 1.7 }}>Acknowledge the physical environment or timeline before directly responding to the emotional content.</p>
-                  </div>
-                </div>
-
-                <div style={{ display: "flex", gap: 12, flexWrap: "wrap", paddingTop: 8 }}>
-                  <Link href="/login" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "14px 20px", borderRadius: "var(--radius-pill)", background: "var(--color-text-primary)", color: "var(--color-bg)", textDecoration: "none", fontWeight: 700 }}>
-                    Access Workspace
-                  </Link>
-                </div>
-              </section>
-            </section>
           </section>
         </div>
         <style>{`
@@ -95,10 +85,8 @@ export default async function DynamicsPage() {
               grid-template-columns: 1fr !important;
             }
           }
-
           @media (max-width: 720px) {
-            .dynamics-preview-metrics,
-            .dynamics-preview-columns {
+            .dynamics-preview-metrics {
               grid-template-columns: 1fr !important;
             }
           }
@@ -112,9 +100,9 @@ export default async function DynamicsPage() {
 
   return (
       <AppShell
-      eyebrow="Dynamics"
-        title="Map the relationship pattern."
-        description="Analyze exchanges, trace historical evidence, and surface next-step alignment."
+      eyebrow="DEFRAG AI"
+      title="Live Relational Field"
+      description="The primary intelligence environment. Observe real-time relational state, insight overlays, and conversation simulations."
       accent="#d8c49f"
     >
       <DynamicsWorkspace

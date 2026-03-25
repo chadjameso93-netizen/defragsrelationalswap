@@ -57,7 +57,7 @@ export default async function AccountPage() {
         {[
           ["Nodes in Frame", String(mockPeople.length)],
           ["Observer", profileLabel],
-          ["Next move", user ? "Open Dynamics Workspace" : "Authenticate to save view"],
+          ["Next move", user ? "Open DEFRAG AI Workspace" : "Authenticate to save view"],
         ].map(([label, value]) => (
           <div key={label} className="premium-fade-up" data-delay="1" style={{ padding: 24, borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "var(--color-surface)" }}>
             <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>{label}</div>
@@ -88,10 +88,10 @@ export default async function AccountPage() {
           <section className="premium-fade-up" data-delay="2" style={{ padding: 24, borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "var(--color-surface)", display: "grid", gap: 12 }}>
             <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Best next step</div>
             <p style={{ margin: 0, color: "var(--color-text-primary)", fontSize: 18, lineHeight: 1.5 }}>
-              Take one relationship moment from this map and isolate it in Dynamics.
+              Take one relationship moment from this map and isolate it in DEFRAG AI.
             </p>
             <p style={{ margin: 0, color: "var(--color-text-secondary)", fontSize: 14, lineHeight: 1.7 }}>
-              The map keeps the wider field visible. Dynamics provides the closer mechanism for extraction.
+              The map keeps the wider field visible. DEFRAG AI provides the closer mechanism for extraction.
             </p>
             <Link
               href={user ? "/dynamics" : "/login"}
@@ -109,14 +109,14 @@ export default async function AccountPage() {
                 fontWeight: 700,
               }}
             >
-              {user ? "Open Dynamics" : "Authenticate to Proceed"}
+              {user ? "Open DEFRAG AI" : "Authenticate to Proceed"}
             </Link>
           </section>
 
           <section className="premium-fade-up" data-delay="3" style={{ padding: 24, borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "var(--color-surface)", display: "grid", gap: 12 }}>
             <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Orientation</div>
             <div style={{ color: "var(--color-text-secondary)", lineHeight: 1.75, fontSize: 14 }}>
-              Use this page to notice where things feel charged or unfinished. Then move to Dynamics for pattern clarity and a direct read on what to try next.
+              Use this page to notice where things feel charged or unfinished. Then move to DEFRAG AI for pattern clarity and a direct read on what to try next.
             </div>
           </section>
         </aside>
