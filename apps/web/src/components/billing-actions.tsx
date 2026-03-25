@@ -72,7 +72,7 @@ export function BillingActions({ currentPlan, hasCustomer }: BillingActionsProps
             }
           }}
           className="premium-panel"
-          style={{ padding: "12px 16px", borderRadius: 999, border: 0, cursor: "pointer", background: "#f5f5f5", color: "#050505", fontWeight: 700 }}
+          style={{ padding: "12px 16px", borderRadius: "var(--radius-pill)", border: 0, cursor: "pointer", background: "var(--color-text-primary)", color: "var(--color-bg)", fontWeight: 700 }}
           disabled={busy !== null || !upgradePlan}
         >
           {busy === "upgrade" ? "Loading…" : upgradeLabel}
@@ -95,7 +95,7 @@ export function BillingActions({ currentPlan, hasCustomer }: BillingActionsProps
             }
           }}
           className="premium-panel"
-          style={{ padding: "12px 16px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.18)", background: "transparent", color: "#f5f5f5", cursor: "pointer" }}
+          style={{ padding: "12px 16px", borderRadius: "var(--radius-pill)", border: "1px solid rgba(255,255,255,0.18)", background: "transparent", color: "var(--color-text-primary)", cursor: "pointer" }}
           disabled={busy !== null || !hasCustomer}
         >
           {busy === "manage" ? "Loading…" : hasCustomer ? "Manage billing" : "Manage billing unavailable"}
@@ -103,7 +103,7 @@ export function BillingActions({ currentPlan, hasCustomer }: BillingActionsProps
       </div>
 
       {!hasCustomer ? (
-        <p style={{ margin: 0, color: "#a1a1aa" }}>
+        <p style={{ margin: 0, color: "var(--color-text-secondary)" }}>
           A Stripe customer record will be created the first time you start checkout.
         </p>
       ) : null}

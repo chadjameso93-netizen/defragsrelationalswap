@@ -12,7 +12,7 @@ interface AppShellProps {
   accent?: string;
 }
 
-export function AppShell({ eyebrow, title, description, children, accent = "#d6c3a1" }: AppShellProps) {
+export function AppShell({ eyebrow, title, description, children, accent = "var(--color-accent)" }: AppShellProps) {
   const pathname = usePathname();
   const navItems = [
     { href: "/", label: "Home", match: (value: string) => value === "/" },
@@ -35,9 +35,9 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
       className="premium-fade-up"
       style={{
         minHeight: "100vh",
-        color: "#f5f5f5",
+        color: "var(--color-text-primary)",
         background:
-          "radial-gradient(circle at top left, rgba(214,195,161,0.16), transparent 28%), radial-gradient(circle at 80% 20%, rgba(111,145,201,0.14), transparent 24%), linear-gradient(180deg, #06070a 0%, #090b11 45%, #050505 100%)",
+          "radial-gradient(circle at top left, rgba(214,195,161,0.16), transparent 28%), radial-gradient(circle at 80% 20%, rgba(111,145,201,0.14), transparent 24%), linear-gradient(180deg, #06070a 0%, #090b11 45%, var(--color-bg) 100%)",
       }}
     >
       <div
@@ -70,10 +70,10 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
             }}
           >
             <div style={{ display: "grid", gap: 4 }}>
-              <Link href="/" style={{ textDecoration: "none", color: "#f5f5f5", fontSize: 18, letterSpacing: "0.28em", textTransform: "uppercase" }}>
+              <Link href="/" style={{ textDecoration: "none", color: "var(--color-text-primary)", fontSize: 18, letterSpacing: "0.28em", textTransform: "uppercase" }}>
                 DEFRAG
               </Link>
-              <span style={{ color: "rgba(245,245,245,0.44)", fontSize: 12 }}>Clarity for real conversations</span>
+              <span style={{ color: "var(--color-text-muted)", fontSize: 12 }}>Clarity for real conversations</span>
             </div>
 
             <div
@@ -192,7 +192,7 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
           style={{
             marginTop: 16,
             paddingTop: 22,
-            borderTop: "1px solid rgba(255,255,255,0.08)",
+            borderTop: "1px solid var(--color-border)",
             display: "grid",
             gap: 12,
           }}
@@ -206,7 +206,7 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
               alignItems: "center",
             }}
           >
-            <div style={{ color: "rgba(245,245,245,0.54)", fontSize: 13 }}>
+            <div style={{ color: "var(--color-text-muted)", fontSize: 13 }}>
               DEFRAG owns the website, account, billing, and legal surfaces. MCP and ChatGPT stay integration-side.
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
@@ -216,7 +216,7 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
                   href={item.href}
                   style={{
                     textDecoration: "none",
-                    color: "rgba(245,245,245,0.72)",
+                    color: "var(--color-text-secondary)",
                     fontSize: 13,
                   }}
                 >

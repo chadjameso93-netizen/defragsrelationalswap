@@ -101,11 +101,11 @@ function LoginPageContent() {
           }}
         >
           <div style={{ display: "grid", gap: 8 }}>
-            <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: "#d9c49f" }}>
+            <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--color-accent)" }}>
               Access
             </p>
             <h1 style={{ margin: 0, fontSize: 34 }}>Sign in</h1>
-            <p style={{ margin: 0, color: "#a1a1aa", lineHeight: 1.7 }}>
+            <p style={{ margin: 0, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
               Use your DEFRAG account to reopen private threads, saved insights, and billing state.
             </p>
           </div>

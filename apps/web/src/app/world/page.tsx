@@ -15,7 +15,7 @@ export default async function WorldPage() {
         eyebrow="World Alpha"
         title="See the field, not just the transcript."
         description="The public view keeps the visual field open so you can inspect the canvas language, mobile behavior, and interpretive frame before sign-in without turning the scene into a fixed story about anyone."
-        accent="#9fbde8"
+        accent="var(--color-accent)"
       >
         <div style={{ display: "grid", gap: 20 }}>
           <PublicPreviewCta
@@ -80,7 +80,7 @@ export default async function WorldPage() {
       eyebrow="World Alpha"
       title="See the field, not just the transcript."
       description="World maps charge, edge strength, repair timing, and likely stabilization moves across a shared relational scene."
-      accent="#9fbde8"
+      accent="var(--color-accent)"
     >
       <section
         className="world-intro"

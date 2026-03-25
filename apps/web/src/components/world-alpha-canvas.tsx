@@ -34,7 +34,7 @@ function nodeAccent(type: WorldNode["type"]) {
   if (type === "self_part") return "#93c5fd";
   if (type === "conflict") return "#fda4af";
   if (type === "future") return "#86efac";
-  return "#d4d4d8";
+  return "var(--color-text-secondary)";
 }
 
 interface WorldAlphaCanvasProps {
@@ -88,7 +88,7 @@ export function WorldAlphaCanvas({ preview = false, previewInsight = null }: Wor
               <radialGradient key={`gradient-${node.id}`} id={`node-gradient-${node.id}`} cx="50%" cy="50%" r="65%">
                 <stop offset="0%" stopColor={nodeAccent(node.type)} stopOpacity="0.95" />
                 <stop offset="65%" stopColor={nodeAccent(node.type)} stopOpacity="0.18" />
-                <stop offset="100%" stopColor="#050505" stopOpacity="0.08" />
+                <stop offset="100%" stopColor="var(--color-bg)" stopOpacity="0.08" />
               </radialGradient>
             ))}
           </defs>

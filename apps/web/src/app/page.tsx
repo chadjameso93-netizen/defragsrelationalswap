@@ -78,7 +78,7 @@ export default function LandingPage() {
             <div style={{ display: "grid", gap: 12 }}>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                 {["pressure", "timing", "repair"].map((token) => (
-                  <span key={token} style={{ padding: "6px 10px", borderRadius: 999, background: "rgba(255,255,255,0.08)", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase" }}>
+                  <span key={token} style={{ padding: "6px 10px", borderRadius: "var(--radius-pill)", background: "var(--color-border)", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase" }}>
                     {token}
                   </span>
                 ))}
@@ -112,9 +112,9 @@ export default function LandingPage() {
           gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
           gap: 18,
           padding: 22,
-          borderRadius: 26,
-          border: "1px solid rgba(255,255,255,0.08)",
-          background: "rgba(255,255,255,0.025)",
+          borderRadius: "var(--radius-lg)",
+          border: "1px solid var(--color-border)",
+          background: "var(--color-surface)",
         }}
       >
         {[
@@ -123,17 +123,17 @@ export default function LandingPage() {
           ["Grounded framing", "DEFRAG offers pattern clarity and next-step guidance, not diagnosis or fixed personality labels."],
         ].map(([title, copy]) => (
           <div key={title} style={{ display: "grid", gap: 8 }}>
-            <div style={{ fontSize: 12, letterSpacing: "0.14em", textTransform: "uppercase", color: "#d6c3a1" }}>{title}</div>
-            <div style={{ color: "rgba(245,245,245,0.72)", lineHeight: 1.7 }}>{copy}</div>
+            <div style={{ fontSize: 12, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-accent)" }}>{title}</div>
+            <div style={{ color: "var(--color-text-secondary)", lineHeight: 1.7 }}>{copy}</div>
           </div>
         ))}
         {DEFRAG_MCP_APP_URL ? (
           <div style={{ display: "grid", gap: 8 }}>
-            <div style={{ fontSize: 12, letterSpacing: "0.14em", textTransform: "uppercase", color: "#d6c3a1" }}>MCP host</div>
-            <div style={{ color: "rgba(245,245,245,0.72)", lineHeight: 1.7 }}>
+            <div style={{ fontSize: 12, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-accent)" }}>MCP host</div>
+            <div style={{ color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
               The website can reference the dedicated MCP service host when operators enable private preview.
             </div>
-            <code style={{ color: "#f5f5f5", fontSize: 13 }}>{DEFRAG_MCP_APP_URL}</code>
+            <code style={{ color: "var(--color-text-primary)", fontSize: 13 }}>{DEFRAG_MCP_APP_URL}</code>
           </div>
         ) : null}
       </section>

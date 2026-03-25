@@ -7,17 +7,17 @@ export default function UpgradePanel() {
         display: "grid",
         gap: 12,
         padding: 20,
-        borderRadius: 16,
-        border: "1px solid rgba(255,255,255,0.08)",
+        borderRadius: "var(--radius-md)",
+        border: "1px solid var(--color-border)",
         background:
-          "linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.015) 100%)",
+          "linear-gradient(180deg, var(--color-surface-hover) 0%, rgba(255,255,255,0.015) 100%)",
       }}
     >
       <div style={{ display: "grid", gap: 6 }}>
-        <p style={{ margin: 0, fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#71717a" }}>
+        <p style={{ margin: 0, fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>
           Upgrade for deeper insights
         </p>
-        <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: "#f5f5f5" }}>
+        <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: "var(--color-text-primary)" }}>
           Paid access unlocks stored insight history, multi-angle guidance, and the fuller reflection flow.
         </p>
       </div>
@@ -26,9 +26,9 @@ export default function UpgradePanel() {
         style={{
           width: "fit-content",
           textDecoration: "none",
-          color: "#050505",
+          color: "var(--color-bg)",
           background: "#f4f4f5",
-          borderRadius: 999,
+          borderRadius: "var(--radius-pill)",
           padding: "10px 16px",
           fontSize: 13,
           fontWeight: 600,

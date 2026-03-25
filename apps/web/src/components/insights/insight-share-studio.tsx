@@ -97,31 +97,31 @@ function makeSvgCard(copy: ReturnType<typeof buildCardCopy>, result: InsightApiR
       <rect width="1200" height="1500" fill="#04050a"/>
       <rect width="1200" height="1500" fill="url(#glowA)"/>
       <rect width="1200" height="1500" fill="url(#glowB)"/>
-      <rect x="56" y="56" rx="44" ry="44" width="1088" height="1388" fill="url(#panel)" stroke="rgba(255,255,255,0.08)" />
-      <text x="108" y="150" fill="#d9c49f" font-size="30" font-family="Georgia, serif" letter-spacing="10">DEFRAG</text>
-      <text x="108" y="218" fill="rgba(245,245,245,0.58)" font-size="24" font-family="Arial, sans-serif" letter-spacing="4">${safe(copy.title.toUpperCase())}</text>
+      <rect x="56" y="56" rx="44" ry="44" width="1088" height="1388" fill="url(#panel)" stroke="var(--color-border)" />
+      <text x="108" y="150" fill="var(--color-accent)" font-size="30" font-family="Georgia, serif" letter-spacing="10">DEFRAG</text>
+      <text x="108" y="218" fill="var(--color-text-muted)" font-size="24" font-family="Arial, sans-serif" letter-spacing="4">${safe(copy.title.toUpperCase())}</text>
       ${headlineLines
         .map(
           (line, index) =>
-            `<text x="108" y="${332 + index * 74}" fill="#f5f5f5" font-size="56" font-family="Georgia, serif">${safe(line)}</text>`,
+            `<text x="108" y="${332 + index * 74}" fill="var(--color-text-primary)" font-size="56" font-family="Georgia, serif">${safe(line)}</text>`,
         )
         .join("")}
       ${bodyLines
         .map(
           (line, index) =>
-            `<text x="108" y="${730 + index * 44}" fill="rgba(245,245,245,0.72)" font-size="30" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif">${safe(line)}</text>`,
+            `<text x="108" y="${730 + index * 44}" fill="var(--color-text-secondary)" font-size="30" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif">${safe(line)}</text>`,
         )
         .join("")}
-      <rect x="108" y="930" rx="24" ry="24" width="984" height="300" fill="rgba(255,255,255,0.035)" stroke="rgba(255,255,255,0.06)" />
-      <text x="146" y="1002" fill="rgba(245,245,245,0.58)" font-size="22" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" letter-spacing="4">WHAT TO HOLD</text>
+      <rect x="108" y="930" rx="24" ry="24" width="984" height="300" fill="var(--color-surface)" stroke="var(--color-border)" />
+      <text x="146" y="1002" fill="var(--color-text-muted)" font-size="22" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" letter-spacing="4">WHAT TO HOLD</text>
       ${result.insight.what_to_try_next
         .slice(0, 3)
         .map(
           (item, index) =>
-            `<text x="146" y="${1074 + index * 60}" fill="#f5f5f5" font-size="28" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif">0${index + 1}  ${safe(item)}</text>`,
+            `<text x="146" y="${1074 + index * 60}" fill="var(--color-text-primary)" font-size="28" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif">0${index + 1}  ${safe(item)}</text>`,
         )
         .join("")}
-      <text x="108" y="1344" fill="rgba(245,245,245,0.48)" font-size="24" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif">${safe(copy.footer)}</text>
+      <text x="108" y="1344" fill="var(--color-text-muted)" font-size="24" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif">${safe(copy.footer)}</text>
     </svg>
   `;
 }
@@ -248,18 +248,18 @@ export default function InsightShareStudio({ result, request }: InsightShareStud
         display: "grid",
         gap: 18,
         padding: 24,
-        borderRadius: 24,
-        border: "1px solid rgba(255,255,255,0.08)",
+        borderRadius: "var(--radius-lg)",
+        border: "1px solid var(--color-border)",
         background:
-          "radial-gradient(circle at top left, rgba(217,196,159,0.14), transparent 28%), radial-gradient(circle at 82% 18%, rgba(123,164,224,0.14), transparent 24%), linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02))",
+          "radial-gradient(circle at top left, rgba(217,196,159,0.14), transparent 28%), radial-gradient(circle at 82% 18%, rgba(123,164,224,0.14), transparent 24%), linear-gradient(180deg, var(--color-surface-hover), var(--color-surface))",
       }}
     >
       <div style={{ display: "grid", gap: 8 }}>
-        <p style={{ margin: 0, fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#d9c49f" }}>Share studio</p>
-        <p style={{ margin: 0, fontSize: 18, lineHeight: 1.45, color: "#f5f5f5" }}>
+        <p style={{ margin: 0, fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-accent)" }}>Share studio</p>
+        <p style={{ margin: 0, fontSize: 18, lineHeight: 1.45, color: "var(--color-text-primary)" }}>
           Turn this insight into a message-sized card that stays gentle, specific, and safe to share.
         </p>
-        <p style={{ margin: 0, fontSize: 13, lineHeight: 1.65, color: "rgba(245,245,245,0.6)" }}>{modeHint}</p>
+        <p style={{ margin: 0, fontSize: 13, lineHeight: 1.65, color: "var(--color-text-secondary)" }}>{modeHint}</p>
       </div>
 
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
@@ -277,10 +277,10 @@ export default function InsightShareStudio({ result, request }: InsightShareStud
               onClick={() => setMode(value as ShareCardMode)}
               style={{
                 padding: "10px 14px",
-                borderRadius: 999,
+                borderRadius: "var(--radius-pill)",
                 border: active ? "1px solid rgba(217,196,159,0.45)" : "1px solid rgba(255,255,255,0.1)",
-                background: active ? "rgba(217,196,159,0.08)" : "rgba(255,255,255,0.02)",
-                color: active ? "#f8ecd4" : "#d4d4d8",
+                background: active ? "rgba(217,196,159,0.08)" : "var(--color-surface)",
+                color: active ? "#f8ecd4" : "var(--color-text-secondary)",
                 cursor: "pointer",
                 fontSize: 12,
               }}
@@ -297,10 +297,10 @@ export default function InsightShareStudio({ result, request }: InsightShareStud
           alignItems: "center",
           gap: 10,
           padding: "12px 14px",
-          borderRadius: 16,
-          border: "1px solid rgba(255,255,255,0.08)",
-          background: "rgba(255,255,255,0.025)",
-          color: "#d4d4d8",
+          borderRadius: "var(--radius-md)",
+          border: "1px solid var(--color-border)",
+          background: "var(--color-surface)",
+          color: "var(--color-text-secondary)",
           fontSize: 13,
         }}
       >
@@ -311,8 +311,8 @@ export default function InsightShareStudio({ result, request }: InsightShareStud
       <div
         style={{
           padding: 22,
-          borderRadius: 22,
-          border: "1px solid rgba(255,255,255,0.08)",
+          borderRadius: "var(--radius-lg)",
+          border: "1px solid var(--color-border)",
           background:
             "radial-gradient(circle at top left, rgba(217,196,159,0.16), transparent 34%), linear-gradient(180deg, rgba(8,10,15,0.98), rgba(7,8,12,0.96))",
           display: "grid",
@@ -337,19 +337,19 @@ export default function InsightShareStudio({ result, request }: InsightShareStud
           }}
         />
         <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center" }}>
-          <div style={{ fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", color: "#d9c49f" }}>DEFRAG</div>
-          <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245,245,245,0.48)" }}>{copy.title}</div>
+          <div style={{ fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>DEFRAG</div>
+          <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>{copy.title}</div>
         </div>
         <div style={{ display: "grid", gap: 12, position: "relative" }}>
-          <p style={{ margin: 0, fontSize: 28, lineHeight: 1.18, color: "#f5f5f5", fontFamily: "var(--font-display), serif" }}>{copy.headline}</p>
-          <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, color: "rgba(245,245,245,0.7)" }}>{copy.body}</p>
+          <p style={{ margin: 0, fontSize: 28, lineHeight: 1.18, color: "var(--color-text-primary)", fontFamily: "var(--font-display), serif" }}>{copy.headline}</p>
+          <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, color: "var(--color-text-secondary)" }}>{copy.body}</p>
         </div>
-        <div style={{ display: "grid", gap: 8, padding: 16, borderRadius: 18, border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.03)" }}>
-          <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8d8d95" }}>What to hold</div>
+        <div style={{ display: "grid", gap: 8, padding: 16, borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "var(--color-surface)" }}>
+          <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>What to hold</div>
           {result.insight.what_to_try_next.slice(0, 3).map((item, index) => (
             <div key={item} style={{ display: "grid", gridTemplateColumns: "24px 1fr", gap: 10, alignItems: "start" }}>
-              <span style={{ color: "#d9c49f", fontSize: 11, paddingTop: 3 }}>0{index + 1}</span>
-              <span style={{ color: "#f5f5f5", lineHeight: 1.6, fontSize: 14 }}>{item}</span>
+              <span style={{ color: "var(--color-accent)", fontSize: 11, paddingTop: 3 }}>0{index + 1}</span>
+              <span style={{ color: "var(--color-text-primary)", lineHeight: 1.6, fontSize: 14 }}>{item}</span>
             </div>
           ))}
         </div>
@@ -362,10 +362,10 @@ export default function InsightShareStudio({ result, request }: InsightShareStud
               key={tag}
               style={{
                 padding: "8px 12px",
-                borderRadius: 999,
-                border: "1px solid rgba(255,255,255,0.08)",
-                background: "rgba(255,255,255,0.03)",
-                color: "#d4d4d8",
+                borderRadius: "var(--radius-pill)",
+                border: "1px solid var(--color-border)",
+                background: "var(--color-surface)",
+                color: "var(--color-text-secondary)",
                 fontSize: 12,
               }}
             >
@@ -373,7 +373,7 @@ export default function InsightShareStudio({ result, request }: InsightShareStud
             </span>
           ))}
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "end", color: "rgba(245,245,245,0.45)", fontSize: 12 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "end", color: "var(--color-text-muted)", fontSize: 12 }}>
           <span>{copy.footer}</span>
           <span>defrag.app</span>
         </div>
@@ -383,35 +383,35 @@ export default function InsightShareStudio({ result, request }: InsightShareStud
         <button
           type="button"
           onClick={shareImage}
-          style={{ minHeight: 44, padding: "12px 16px", borderRadius: 999, border: 0, background: "#f5f5f5", color: "#050505", fontWeight: 700, cursor: "pointer" }}
+          style={{ minHeight: 44, padding: "12px 16px", borderRadius: "var(--radius-pill)", border: 0, background: "var(--color-text-primary)", color: "var(--color-bg)", fontWeight: 700, cursor: "pointer" }}
         >
           Share image
         </button>
         <button
           type="button"
           onClick={copyCard}
-          style={{ minHeight: 44, padding: "12px 16px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.14)", background: "transparent", color: "#f5f5f5", cursor: "pointer" }}
+          style={{ minHeight: 44, padding: "12px 16px", borderRadius: "var(--radius-pill)", border: "1px solid var(--color-border-hover)", background: "transparent", color: "var(--color-text-primary)", cursor: "pointer" }}
         >
           Copy text
         </button>
         <button
           type="button"
           onClick={shareTextOnly}
-          style={{ minHeight: 44, padding: "12px 16px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.14)", background: "transparent", color: "#f5f5f5", cursor: "pointer" }}
+          style={{ minHeight: 44, padding: "12px 16px", borderRadius: "var(--radius-pill)", border: "1px solid var(--color-border-hover)", background: "transparent", color: "var(--color-text-primary)", cursor: "pointer" }}
         >
           Share text
         </button>
         <button
           type="button"
           onClick={downloadPngCard}
-          style={{ minHeight: 44, padding: "12px 16px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.14)", background: "transparent", color: "#f5f5f5", cursor: "pointer" }}
+          style={{ minHeight: 44, padding: "12px 16px", borderRadius: "var(--radius-pill)", border: "1px solid var(--color-border-hover)", background: "transparent", color: "var(--color-text-primary)", cursor: "pointer" }}
         >
           Download PNG
         </button>
       </div>
 
       <div style={{ display: "grid", gap: 6 }}>
-        <p style={{ margin: 0, color: "#a1a1aa", fontSize: 13 }}>
+        <p style={{ margin: 0, color: "var(--color-text-secondary)", fontSize: 13 }}>
           Default export keeps the original situation out of the card. Turn the footer on only when you want that context included.
         </p>
         {status ? <p style={{ margin: 0, color: "#cbd5e1", fontSize: 13 }}>{status}</p> : null}

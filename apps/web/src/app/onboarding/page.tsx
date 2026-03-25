@@ -17,7 +17,7 @@ export default function OnboardingPage() {
       eyebrow="Onboarding"
       title="Set the workspace once, then move freely."
       description="This is a minimal handoff that marks the account ready for private pages. You can refine everything else later."
-      accent="#9dd0be"
+      accent="var(--color-accent)"
     >
       <section
         style={{
@@ -25,31 +25,31 @@ export default function OnboardingPage() {
           display: "grid",
           gap: 18,
           padding: 24,
-          borderRadius: 24,
-          border: "1px solid rgba(255,255,255,0.08)",
-          background: "rgba(255,255,255,0.025)",
+          borderRadius: "var(--radius-lg)",
+          border: "1px solid var(--color-border)",
+          background: "var(--color-surface)",
         }}
       >
         <div style={{ display: "grid", gap: 8 }}>
-          <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#9dd0be" }}>
+          <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-accent)" }}>
             Workspace setup
           </p>
-          <p style={{ margin: 0, color: "rgba(245,245,245,0.74)", lineHeight: 1.7 }}>
+          <p style={{ margin: 0, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
             Add the name you want the product to use, then continue into your account. This avoids the dead-end redirect and gives the private routes a stable profile label.
           </p>
         </div>
 
         <label style={{ display: "grid", gap: 8 }}>
-          <span style={{ fontSize: 13, color: "#f5f5f5" }}>Display name</span>
+          <span style={{ fontSize: 13, color: "var(--color-text-primary)" }}>Display name</span>
           <input
             value={displayName}
             onChange={(event) => setDisplayName(event.target.value)}
             placeholder="Your name"
             style={{
-              borderRadius: 14,
-              border: "1px solid rgba(255,255,255,0.08)",
-              background: "rgba(255,255,255,0.02)",
-              color: "#f5f5f5",
+              borderRadius: "var(--radius-md)",
+              border: "1px solid var(--color-border)",
+              background: "var(--color-surface)",
+              color: "var(--color-text-primary)",
               padding: "14px 16px",
             }}
           />
@@ -93,10 +93,10 @@ export default function OnboardingPage() {
             disabled={busy}
             style={{
               padding: "12px 18px",
-              borderRadius: 999,
+              borderRadius: "var(--radius-pill)",
               border: 0,
-              background: "#f5f5f5",
-              color: "#050505",
+              background: "var(--color-text-primary)",
+              color: "var(--color-bg)",
               fontWeight: 700,
               cursor: busy ? "default" : "pointer",
             }}

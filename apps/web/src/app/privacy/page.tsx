@@ -25,22 +25,22 @@ export default function PrivacyPage() {
       eyebrow="Privacy"
       title="Privacy stays attached to the canonical DEFRAG account."
       description="The website on defrag.app remains the trust and policy surface for account access, billing, and integration-linked usage."
-      accent="#9dd0be"
+      accent="var(--color-accent)"
     >
       <section
         style={{
           display: "grid",
           gap: 18,
           padding: 22,
-          borderRadius: 24,
-          border: "1px solid rgba(255,255,255,0.08)",
-          background: "rgba(255,255,255,0.025)",
+          borderRadius: "var(--radius-lg)",
+          border: "1px solid var(--color-border)",
+          background: "var(--color-surface)",
         }}
       >
         {sections.map((section) => (
           <div key={section.title} style={{ display: "grid", gap: 8 }}>
             <h2 style={{ margin: 0, fontSize: 24 }}>{section.title}</h2>
-            <p style={{ margin: 0, color: "rgba(245,245,245,0.72)", lineHeight: 1.8 }}>
+            <p style={{ margin: 0, color: "var(--color-text-secondary)", lineHeight: 1.8 }}>
               {section.body}
             </p>
           </div>

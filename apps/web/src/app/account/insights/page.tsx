@@ -148,9 +148,9 @@ export default function InsightsPage() {
         eyebrow="Insights"
         title="Look a little closer."
         description="Saved insights, simulations, and calmer reframes for one moment at a time."
-        accent="#d9c49f"
+        accent="var(--color-accent)"
       >
-        <div style={{ color: "#71717a", fontSize: 14 }}>Loading insight workspace…</div>
+        <div style={{ color: "var(--color-text-muted)", fontSize: 14 }}>Loading insight workspace…</div>
       </AppShell>
     );
   }
@@ -161,7 +161,7 @@ export default function InsightsPage() {
         eyebrow="Insights"
         title="Look a little closer."
         description="Preview the studio flow, saved insight format, and analysis rhythm here. Sign in when you want your own saved insights, simulations, and billing-aware access."
-        accent="#d9c49f"
+        accent="var(--color-accent)"
       >
         <div style={{ display: "grid", gap: 22 }}>
           <PublicPreviewCta
@@ -172,13 +172,13 @@ export default function InsightsPage() {
             secondaryHref="/account/billing"
           />
 
-          <section className="insight-preview-hero" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 18, padding: 22, borderRadius: 26, border: "1px solid rgba(255,255,255,0.08)", background: "radial-gradient(circle at top left, rgba(217,196,159,0.16), transparent 30%), linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015))" }}>
+          <section className="insight-preview-hero" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 18, padding: 22, borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "radial-gradient(circle at top left, rgba(217,196,159,0.16), transparent 30%), linear-gradient(180deg, var(--color-surface-hover), rgba(255,255,255,0.015))" }}>
             <div style={{ display: "grid", gap: 14, alignContent: "start" }}>
-              <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#d9c49f" }}>Studio view</p>
-              <p style={{ margin: 0, fontSize: 26, lineHeight: 1.18, color: "#f5f5f5", maxWidth: 520 }}>
+              <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-accent)" }}>Studio view</p>
+              <p style={{ margin: 0, fontSize: 26, lineHeight: 1.18, color: "var(--color-text-primary)", maxWidth: 520 }}>
                 One moment, one closer insight, one move that feels human-sized.
               </p>
-              <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "rgba(245,245,245,0.68)", maxWidth: 520 }}>
+              <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "var(--color-text-secondary)", maxWidth: 520 }}>
                 The layout stays spare on purpose: enough structure to steady the moment, not enough to turn it into performance.
               </p>
             </div>
@@ -189,9 +189,9 @@ export default function InsightsPage() {
                 ["Access", "Upgrade aware"],
                 ["Current mode", "Archive view"],
               ].map(([label, value]) => (
-                <div key={label} style={{ padding: 14, borderRadius: 16, background: "rgba(0,0,0,0.18)", border: "1px solid rgba(255,255,255,0.06)" }}>
-                  <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8d8d95" }}>{label}</div>
-                  <div style={{ marginTop: 8, color: "#f5f5f5", fontSize: 16 }}>{value}</div>
+                <div key={label} style={{ padding: 14, borderRadius: "var(--radius-md)", background: "rgba(0,0,0,0.18)", border: "1px solid var(--color-border)" }}>
+                  <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>{label}</div>
+                  <div style={{ marginTop: 8, color: "var(--color-text-primary)", fontSize: 16 }}>{value}</div>
                 </div>
               ))}
             </div>
@@ -199,12 +199,12 @@ export default function InsightsPage() {
 
           <div className="insight-preview-grid" style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 320px", gap: 28, alignItems: "start" }}>
             <div style={{ display: "grid", gap: 18 }}>
-              <div style={{ display: "grid", gap: 12, padding: 20, borderRadius: 18, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)" }}>
-                <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#71717a" }}>Lead insight</p>
-                <p style={{ margin: 0, fontSize: 20, lineHeight: 1.45, color: "#f5f5f5", fontWeight: 500 }}>
+              <div style={{ display: "grid", gap: 12, padding: 20, borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "var(--color-surface)" }}>
+                <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Lead insight</p>
+                <p style={{ margin: 0, fontSize: 20, lineHeight: 1.45, color: "var(--color-text-primary)", fontWeight: 500 }}>
                   This looks less like a lack of care and more like two people trying to repair while still protecting themselves from a repeat of the last rupture.
                 </p>
-                <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "#71717a" }}>
+                <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "var(--color-text-muted)" }}>
                   Studio keeps the interpretation specific, softens the phrasing, and narrows the next step so the guidance stays usable.
                 </p>
               </div>
@@ -217,11 +217,11 @@ export default function InsightsPage() {
                   "If repair already happened once, acknowledge that before adding new content.",
                   "A ten-minute container may work better than trying to resolve the whole pattern.",
                 ].map((item, index) => (
-                  <div key={item} style={{ display: "grid", gap: 4, padding: "12px 14px", borderRadius: 12, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.04)" }}>
-                    <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>
+                  <div key={item} style={{ display: "grid", gap: 4, padding: "12px 14px", borderRadius: 12, background: "var(--color-surface)", border: "1px solid var(--color-surface-hover)" }}>
+                    <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>
                       Option {index + 1}
                     </p>
-                    <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "#d4d4d8" }}>
+                    <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "var(--color-text-secondary)" }}>
                       {item}
                     </p>
                   </div>
@@ -229,22 +229,22 @@ export default function InsightsPage() {
               </div>
 
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                <Link href="/login" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "12px 18px", borderRadius: 999, background: "#f5f5f5", color: "#050505", textDecoration: "none", fontWeight: 700 }}>
+                <Link href="/login" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "12px 18px", borderRadius: "var(--radius-pill)", background: "var(--color-text-primary)", color: "var(--color-bg)", textDecoration: "none", fontWeight: 700 }}>
                   Sign in to save insights
                 </Link>
               </div>
             </div>
 
-            <aside className="insight-preview-rail" style={{ borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 28, display: "grid", gap: 12 }}>
-              <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Archive preview</p>
+            <aside className="insight-preview-rail" style={{ borderLeft: "1px solid var(--color-border)", paddingLeft: 28, display: "grid", gap: 12 }}>
+              <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Archive preview</p>
               {[
                 "The text that stayed with me after the call",
                 "What made the family dinner feel heavier than it sounded",
                 "Why the apology did not land as repair",
               ].map((title, index) => (
-                <div key={title} style={{ padding: 14, borderRadius: 16, border: index === 0 ? "1px solid rgba(217,196,159,0.42)" : "1px solid rgba(255,255,255,0.06)", background: index === 0 ? "rgba(217,196,159,0.08)" : "rgba(255,255,255,0.02)", display: "grid", gap: 6 }}>
-                  <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: index === 0 ? "#d9c49f" : "#71717a" }}>Saved insight</div>
-                  <div style={{ color: "#f5f5f5", lineHeight: 1.55, fontSize: 14 }}>{title}</div>
+                <div key={title} style={{ padding: 14, borderRadius: "var(--radius-md)", border: index === 0 ? "1px solid rgba(217,196,159,0.42)" : "1px solid var(--color-border)", background: index === 0 ? "rgba(217,196,159,0.08)" : "var(--color-surface)", display: "grid", gap: 6 }}>
+                  <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: index === 0 ? "var(--color-accent)" : "var(--color-text-muted)" }}>Saved insight</div>
+                  <div style={{ color: "var(--color-text-primary)", lineHeight: 1.55, fontSize: 14 }}>{title}</div>
                 </div>
               ))}
             </aside>
@@ -258,7 +258,7 @@ export default function InsightsPage() {
 
             .insight-preview-rail {
               border-left: 0 !important;
-              border-top: 1px solid rgba(255,255,255,0.08);
+              border-top: 1px solid var(--color-border);
               padding-left: 0 !important;
               padding-top: 20px;
             }
@@ -289,7 +289,7 @@ export default function InsightsPage() {
       eyebrow="Insights"
       title="Look a little closer."
       description="Bring one moment into focus and keep the insight grounded, specific, and usable when the real conversation begins."
-      accent="#d9c49f"
+      accent="var(--color-accent)"
     >
     <div style={{ display: "grid", gap: 22 }}>
       <section
@@ -299,20 +299,20 @@ export default function InsightsPage() {
           gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
           gap: 18,
           padding: 22,
-          borderRadius: 26,
-          border: "1px solid rgba(255,255,255,0.08)",
+          borderRadius: "var(--radius-lg)",
+          border: "1px solid var(--color-border)",
           background:
-            "radial-gradient(circle at top left, rgba(217,196,159,0.16), transparent 30%), linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015))",
+            "radial-gradient(circle at top left, rgba(217,196,159,0.16), transparent 30%), linear-gradient(180deg, var(--color-surface-hover), rgba(255,255,255,0.015))",
         }}
       >
         <div style={{ display: "grid", gap: 14, alignContent: "start" }}>
-          <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "#d9c49f" }}>
+          <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-accent)" }}>
             Studio view
           </p>
-          <p style={{ margin: 0, fontSize: 26, lineHeight: 1.18, color: "#f5f5f5", maxWidth: 520 }}>
+          <p style={{ margin: 0, fontSize: 26, lineHeight: 1.18, color: "var(--color-text-primary)", maxWidth: 520 }}>
             Study the moment, keep the tone soft, and leave with one move you can actually make.
           </p>
-          <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "rgba(245,245,245,0.68)", maxWidth: 520 }}>
+          <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "var(--color-text-secondary)", maxWidth: 520 }}>
             Insights are strongest when the slice is small: one exchange, one rupture, one confusing aftertaste.
           </p>
         </div>
@@ -331,9 +331,9 @@ export default function InsightsPage() {
             ["Access", isPaid ? "Enabled" : "Upgrade"],
             ["Current mode", view === "result" ? "Result" : view === "form" ? "Drafting" : "Starter"],
           ].map(([label, value]) => (
-            <div key={label} style={{ padding: 14, borderRadius: 16, background: "rgba(0,0,0,0.18)", border: "1px solid rgba(255,255,255,0.06)" }}>
-              <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8d8d95" }}>{label}</div>
-              <div style={{ marginTop: 8, color: "#f5f5f5", fontSize: 16 }}>{value}</div>
+            <div key={label} style={{ padding: 14, borderRadius: "var(--radius-md)", background: "rgba(0,0,0,0.18)", border: "1px solid var(--color-border)" }}>
+              <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>{label}</div>
+              <div style={{ marginTop: 8, color: "var(--color-text-primary)", fontSize: 16 }}>{value}</div>
             </div>
           ))}
         </div>
@@ -343,7 +343,7 @@ export default function InsightsPage() {
       <div style={{ display: "grid", gap: 28 }}>
         {(isPaid && (view === "result" || view === "form")) && (
           <div style={{ marginBottom: 2 }}>
-            <div style={{ fontSize: 13, color: "#f5c98b", background: "rgba(255, 220, 120, 0.07)", borderRadius: 8, padding: "7px 14px", fontWeight: 500, maxWidth: 420, lineHeight: 1.5 }}>
+            <div style={{ fontSize: 13, color: "var(--color-accent)", background: "rgba(255, 220, 120, 0.07)", borderRadius: 8, padding: "7px 14px", fontWeight: 500, maxWidth: 420, lineHeight: 1.5 }}>
               {awarenessLine}
             </div>
           </div>
@@ -355,19 +355,19 @@ export default function InsightsPage() {
             ["History", history.length > 0 ? `${history.length} saved insights` : "No saved insights yet"],
             ["Mode", view === "result" ? "Result" : view === "form" ? "Drafting" : "Starter state"],
           ].map(([label, value]) => (
-            <div key={label} style={{ borderRadius: 18, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.025)", padding: 16 }}>
-              <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>{label}</div>
-              <div style={{ marginTop: 8, color: "#f5f5f5", fontSize: 15 }}>{value}</div>
+            <div key={label} style={{ borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "var(--color-surface)", padding: 16 }}>
+              <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>{label}</div>
+              <div style={{ marginTop: 8, color: "var(--color-text-primary)", fontSize: 15 }}>{value}</div>
             </div>
           ))}
         </div>
 
         {view === "empty" && isPaid && (
-          <div style={{ padding: 20, borderRadius: 14, border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.02)", maxWidth: 560 }}>
-            <p style={{ margin: 0, fontSize: 14, color: "#f5f5f5", fontWeight: 500 }}>
+          <div style={{ padding: 20, borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "var(--color-surface)", maxWidth: 560 }}>
+            <p style={{ margin: 0, fontSize: 14, color: "var(--color-text-primary)", fontWeight: 500 }}>
               A good place to begin
             </p>
-            <p style={{ margin: 0, marginTop: 6, fontSize: 14, color: "#71717a", lineHeight: 1.7 }}>
+            <p style={{ margin: 0, marginTop: 6, fontSize: 14, color: "var(--color-text-muted)", lineHeight: 1.7 }}>
               Start with a recent moment that felt unclear, tense, or unfinished. You can keep it simple.
             </p>
           </div>
@@ -376,7 +376,7 @@ export default function InsightsPage() {
         {!isPaid && (
           <div style={{ display: "grid", gap: 10, maxWidth: 720 }}>
             <UpgradePanel />
-            <p style={{ margin: 0, fontSize: 13, color: "#71717a", lineHeight: 1.6 }}>
+            <p style={{ margin: 0, fontSize: 13, color: "var(--color-text-muted)", lineHeight: 1.6 }}>
               Access helps you look at situations more clearly and from more than one perspective.
             </p>
           </div>
@@ -410,29 +410,29 @@ export default function InsightsPage() {
         {view === "result" && result && (
           <>
             <div style={{ display: "grid", gap: 18 }}>
-              <div style={{ display: "grid", gap: 12, padding: 20, borderRadius: 16, border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.02)" }}>
-                <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: "#71717a" }}>
+              <div style={{ display: "grid", gap: 12, padding: 20, borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "var(--color-surface)" }}>
+                <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>
                   Lead insight
                 </p>
-                <p style={{ margin: 0, fontSize: 20, lineHeight: 1.45, color: "#f5f5f5", fontWeight: 500 }}>
+                <p style={{ margin: 0, fontSize: 20, lineHeight: 1.45, color: "var(--color-text-primary)", fontWeight: 500 }}>
                   {guidancePhrasing.soften(result.insight.what_may_be_happening)}
                 </p>
-                <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "#71717a" }}>
+                <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "var(--color-text-muted)" }}>
                   {guidancePhrasing.soften(result.insight.what_it_may_be_causing)}
                 </p>
               </div>
 
-              <div style={{ display: "grid", gap: 12, padding: 20, borderRadius: 16, border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.02)" }}>
-                <p style={{ margin: 0, fontSize: 14, color: "#f5f5f5", fontWeight: 500 }}>
+              <div style={{ display: "grid", gap: 12, padding: 20, borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "var(--color-surface)" }}>
+                <p style={{ margin: 0, fontSize: 14, color: "var(--color-text-primary)", fontWeight: 500 }}>
                   This may be easier if…
                 </p>
                 <div style={{ display: "grid", gap: 10 }}>
                   {result.insight.what_to_try_next.slice(0, 3).map((item, index) => (
-                    <div key={index} style={{ display: "grid", gap: 4, padding: "12px 14px", borderRadius: 12, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.04)" }}>
-                      <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>
+                    <div key={index} style={{ display: "grid", gap: 4, padding: "12px 14px", borderRadius: 12, background: "var(--color-surface)", border: "1px solid var(--color-surface-hover)" }}>
+                      <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>
                         Option {index + 1}
                       </p>
-                      <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "#d4d4d8" }}>
+                      <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "var(--color-text-secondary)" }}>
                         {item}
                       </p>
                     </div>
@@ -455,22 +455,22 @@ export default function InsightsPage() {
                     <button
                       type="button"
                       onClick={() => setDetailsOpen((value) => !value)}
-                      style={{ border: "1px solid rgba(255,255,255,0.1)", background: "transparent", color: "#e4e4e7", borderRadius: 999, padding: "10px 18px", fontSize: 13, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
+                      style={{ border: "1px solid rgba(255,255,255,0.1)", background: "transparent", color: "var(--color-text-primary)", borderRadius: "var(--radius-pill)", padding: "10px 18px", fontSize: 13, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
                     >
                       {detailsOpen ? "Close fuller view" : "Open fuller view"}
                       <span style={{ opacity: 0.5 }}>{detailsOpen ? "↑" : "↓"}</span>
                     </button>
 
                     <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                      <span style={{ fontSize: 12, color: "#71717a" }}>Helpful?</span>
+                      <span style={{ fontSize: 12, color: "var(--color-text-muted)" }}>Helpful?</span>
                       <button 
-                        style={{ background: "transparent", border: "none", color: "#a1a1aa", fontSize: 12, cursor: "pointer", padding: "4px 8px" }}
+                        style={{ background: "transparent", border: "none", color: "var(--color-text-secondary)", fontSize: 12, cursor: "pointer", padding: "4px 8px" }}
                         onClick={() => {}}
                       >
                         Yes
                       </button>
                       <button 
-                        style={{ background: "transparent", border: "none", color: "#a1a1aa", fontSize: 12, cursor: "pointer", padding: "4px 8px" }}
+                        style={{ background: "transparent", border: "none", color: "var(--color-text-secondary)", fontSize: 12, cursor: "pointer", padding: "4px 8px" }}
                         onClick={() => {}}
                       >
                         Not yet
@@ -485,7 +485,7 @@ export default function InsightsPage() {
                   <button
                     type="button"
                     onClick={() => setDetailsOpen((value) => !value)}
-                    style={{ border: "1px solid rgba(255,255,255,0.1)", background: "transparent", color: "#e4e4e7", borderRadius: 999, padding: "10px 18px", fontSize: 13, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
+                    style={{ border: "1px solid rgba(255,255,255,0.1)", background: "transparent", color: "var(--color-text-primary)", borderRadius: "var(--radius-pill)", padding: "10px 18px", fontSize: 13, cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
                   >
                     {detailsOpen ? "Close fuller view" : "Open fuller view"}
                     <span style={{ opacity: 0.5 }}>{detailsOpen ? "↑" : "↓"}</span>
@@ -516,10 +516,10 @@ export default function InsightsPage() {
               style={{
                 margin: "16px 0 0 0",
                 padding: "10px 18px",
-                borderRadius: 999,
+                borderRadius: "var(--radius-pill)",
                 border: "1px solid rgba(255,255,255,0.1)",
-                background: loading ? "rgba(255,255,255,0.04)" : "transparent",
-                color: "#e4e4e7",
+                background: loading ? "var(--color-surface-hover)" : "transparent",
+                color: "var(--color-text-primary)",
                 fontSize: 13,
                 cursor: loading ? "default" : "pointer",
                 opacity: loading ? 0.6 : 1
@@ -535,7 +535,7 @@ export default function InsightsPage() {
       </div>
 
       {history.length > 0 && (
-        <aside className="insight-history-rail" style={{ borderLeft: "1px solid rgba(255,255,255,0.08)", paddingLeft: 28, height: "100%" }}>
+        <aside className="insight-history-rail" style={{ borderLeft: "1px solid var(--color-border)", paddingLeft: 28, height: "100%" }}>
           <HistoryList 
             insights={history} 
             onSelect={handleHistorySelect}
@@ -554,7 +554,7 @@ export default function InsightsPage() {
 
         .insight-history-rail {
           border-left: 0 !important;
-          border-top: 1px solid rgba(255,255,255,0.08);
+          border-top: 1px solid var(--color-border);
           padding-left: 0 !important;
           padding-top: 20px;
         }

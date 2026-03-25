@@ -261,7 +261,7 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
           onChange={(event) => setSituation(event.target.value)}
           rows={5}
           placeholder="Describe one recent relationship moment you want help understanding."
-          style={{ width: "100%", borderRadius: 14, padding: 16, background: "var(--color-surface)", border: "1px solid var(--color-border)", color: "var(--color-text-primary)", boxSizing: "border-box", fontFamily: "inherit" }}
+          style={{ width: "100%", borderRadius: "var(--radius-md)", padding: 16, background: "var(--color-surface)", border: "1px solid var(--color-border)", color: "var(--color-text-primary)", boxSizing: "border-box", fontFamily: "inherit" }}
         />
 
         <div style={{ marginTop: 12, display: "flex", gap: 10, flexWrap: "wrap" }}>
@@ -311,12 +311,12 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
                 setBusy(false);
               }
             }}
-            style={{ borderRadius: 10, border: 0, padding: "10px 14px", cursor: "pointer", background: "#fafafa", color: "#0a0a0a", fontWeight: 600 }}
+            style={{ borderRadius: 10, border: 0, padding: "10px 14px", cursor: "pointer", background: "var(--color-text-primary)", color: "var(--color-bg)", fontWeight: 600 }}
           >
             {busy ? "Working…" : "Generate dynamics insight"}
           </button>
 
-          <div style={{ display: "flex", alignItems: "center", color: "#8d8d95", fontSize: 12 }}>
+          <div style={{ display: "flex", alignItems: "center", color: "var(--color-text-muted)", fontSize: 12 }}>
             Best input: one recent exchange, one unclear turn, one felt shift.
           </div>
         </div>
@@ -340,16 +340,16 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
       </section>
 
       {loadingThread ? (
-        <section style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 20, padding: 18, color: "#a1a1aa", background: "rgba(255,255,255,0.02)" }}>
+        <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 18, color: "var(--color-text-secondary)", background: "var(--color-surface)" }}>
           Loading thread history…
         </section>
       ) : null}
 
       {insights.length > 0 ? (
-        <section style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 20, padding: 18, background: "rgba(255,255,255,0.02)" }}>
+        <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 18, background: "var(--color-surface)" }}>
           <div style={{ display: "grid", gap: 4, marginBottom: 12 }}>
-            <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Saved insight history</p>
-            <p style={{ margin: 0, color: "#a1a1aa", lineHeight: 1.6, fontSize: 13 }}>
+            <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Saved insight history</p>
+            <p style={{ margin: 0, color: "var(--color-text-secondary)", lineHeight: 1.6, fontSize: 13 }}>
               Each thread keeps its earlier summaries close so you can reopen what changed without retelling the whole story.
             </p>
           </div>
@@ -365,15 +365,15 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
                 }}
                 style={{
                   textAlign: "left",
-                  border: insight.id === latestInsightId ? "1px solid rgba(216,196,159,0.4)" : "1px solid rgba(255,255,255,0.08)",
-                  borderRadius: 14,
+                  border: insight.id === latestInsightId ? "1px solid rgba(216,196,159,0.4)" : "1px solid var(--color-border)",
+                  borderRadius: "var(--radius-md)",
                   background: insight.id === latestInsightId ? "rgba(216,196,159,0.06)" : "transparent",
-                  color: "#d4d4d8",
+                  color: "var(--color-text-secondary)",
                   padding: 12,
                   cursor: "pointer",
                 }}
               >
-                <div style={{ fontSize: 12, color: "#71717a" }}>{new Date(insight.createdAt).toLocaleString()}</div>
+                <div style={{ fontSize: 12, color: "var(--color-text-muted)" }}>{new Date(insight.createdAt).toLocaleString()}</div>
                 <div style={{ marginTop: 6, lineHeight: 1.65 }}>{insight.contract.whatChanged}</div>
               </button>
             ))}
@@ -382,19 +382,19 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
       ) : null}
 
       {!loadingThread && !result && !busy ? (
-        <section style={{ border: "1px dashed rgba(255,255,255,0.16)", borderRadius: 20, padding: 22, display: "grid", gap: 8 }}>
-          <p style={{ margin: 0, fontSize: 12, color: "#f5f5f5", fontWeight: 600 }}>Nothing in focus yet</p>
-          <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "#a1a1aa" }}>
+        <section style={{ border: "1px dashed var(--color-border-hover)", borderRadius: "var(--radius-md)", padding: 22, display: "grid", gap: 8 }}>
+          <p style={{ margin: 0, fontSize: 12, color: "var(--color-text-primary)", fontWeight: 600 }}>Nothing in focus yet</p>
+          <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "var(--color-text-secondary)" }}>
             Start a new thread or choose an existing one, then describe one exchange DEFRAG should help you understand.
           </p>
         </section>
       ) : null}
 
       {actions.length > 0 && latestInsightId ? (
-        <section style={{ border: "1px solid rgba(255,255,255,0.08)", borderRadius: 20, padding: 18, background: "rgba(255,255,255,0.02)" }}>
+        <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: 18, background: "var(--color-surface)" }}>
           <div style={{ display: "grid", gap: 4, marginBottom: 12 }}>
-            <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#71717a" }}>Follow-up actions</p>
-            <p style={{ margin: 0, color: "#a1a1aa", lineHeight: 1.6, fontSize: 13 }}>
+            <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Follow-up actions</p>
+            <p style={{ margin: 0, color: "var(--color-text-secondary)", lineHeight: 1.6, fontSize: 13 }}>
               Use these when you want evidence, phrasing help, or a lighter practice pass before you send anything.
             </p>
           </div>
@@ -416,7 +416,7 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
                   }
                   setActionResult(body.result);
                 }}
-                style={{ borderRadius: 999, border: "1px solid rgba(255,255,255,0.14)", background: "rgba(255,255,255,0.03)", color: "#f5f5f5", padding: "10px 14px", cursor: "pointer" }}
+                style={{ borderRadius: "var(--radius-pill)", border: "1px solid var(--color-border-hover)", background: "var(--color-surface)", color: "var(--color-text-primary)", padding: "10px 14px", cursor: "pointer" }}
               >
                 {action.label}
               </button>
@@ -426,9 +426,9 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
       ) : null}
 
       {actionResult ? (
-        <section style={{ border: "1px solid rgba(255,255,255,0.14)", borderRadius: 18, padding: 16, background: "rgba(255,255,255,0.03)" }}>
-          <p style={{ marginTop: 0, marginBottom: 10, fontWeight: 600, color: "#f5f5f5" }}>{actionResult.title}</p>
-          <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.8, color: "#d4d4d8" }}>
+        <section style={{ border: "1px solid var(--color-border-hover)", borderRadius: "var(--radius-md)", padding: 16, background: "var(--color-surface)" }}>
+          <p style={{ marginTop: 0, marginBottom: 10, fontWeight: 600, color: "var(--color-text-primary)" }}>{actionResult.title}</p>
+          <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.8, color: "var(--color-text-secondary)" }}>
             {actionResult.lines.map((line) => (
               <li key={line}>{line}</li>
             ))}
