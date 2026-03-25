@@ -9,23 +9,24 @@ export default async function BillingPage() {
   if (!user) {
     return (
       <AppShell
-        eyebrow="Access Structure"
-        title="Intelligence Tiers"
-        description="DEFRAG AI operates on a tiered capability model. The architecture is designed to support deep interaction tracing without artificial seat constraints."
+        eyebrow="Plans"
+        title="Pricing"
+        description="DEFRAG AI operates on a tiered capability model capable of supporting deep interaction tracing."
       >
         <UnauthenticatedTiers />
       </AppShell>
     );
   }
 
-  const { customer, subscription, entitlements } = await getBillingStateForUser(user.userId);
-  const activePlanKey = subscription ? subscription.items.data[0]?.price.id : "free";
+  const { account, entitlements } = await getBillingStateForUser(user.userId);
+  const activePlanKey = account.plan;
+  const isSubscribed = account.subscriptionState === "active" || account.subscriptionState === "trialing";
 
   return (
     <AppShell
-      eyebrow="Access Structure"
-      title="Intelligence Tiers"
-      description="Select the architectural envelope required for your current relational mapping scope."
+      eyebrow="Plans"
+      title="Pricing"
+      description="Choose the right plan for your current needs."
     >
       <div style={{ display: "grid", gap: 32, marginTop: 12 }}>
         
@@ -43,18 +44,18 @@ export default async function BillingPage() {
           }}
         >
           <div>
-            <div style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-text-muted)", marginBottom: 6 }}>Current Status</div>
-            <div style={{ fontSize: 16, color: subscription ? "var(--color-accent)" : "var(--color-text-primary)", fontWeight: 500 }}>
-              {activePlanKey === process.env.STRIPE_PRICE_REALTIME ? "Real-time Field Network" :
-               activePlanKey === process.env.STRIPE_PRICE_STUDIO ? "Relational Studio" : 
-               activePlanKey === process.env.STRIPE_PRICE_CORE ? "Core Extraction" : "Base Capacity"}
+            <div style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-text-muted)", marginBottom: 6 }}>Current Plan</div>
+            <div style={{ fontSize: 16, color: isSubscribed ? "var(--color-accent)" : "var(--color-text-primary)", fontWeight: 500 }}>
+              {activePlanKey === "realtime" ? "Real-time Field Network" :
+               activePlanKey === "studio" ? "Studio" : 
+               activePlanKey === "core" ? "Core" : "Base"}
             </div>
           </div>
           <div>
-            <div style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-text-muted)", marginBottom: 6 }}>Account Authority</div>
+            <div style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-text-muted)", marginBottom: 6 }}>Account</div>
             <div style={{ fontSize: 14, color: "var(--color-text-secondary)" }}>{user.email}</div>
           </div>
-          {subscription && (
+          {isSubscribed && (
             <div>
               <div style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-text-muted)", marginBottom: 6 }}>Renewal Cycle</div>
               <div style={{ fontSize: 14, color: "var(--color-text-secondary)" }}>Active / Monitored</div>
@@ -65,42 +66,36 @@ export default async function BillingPage() {
         {/* The Tiers (Editorial Style instead of Card Comparison) */}
         <div style={{ display: "grid", gap: 20 }}>
           <TierRow 
-            title="Base Capacity"
-            description="Essential structural readouts and standard DEFRAG AI trace limits. Valid for single-perspective orientation."
+            title="Base"
+            description="Essential structural readouts and standard DEFRAG AI tracing. Valid for single-perspective orientation."
             price="Included"
-            isActive={!subscription}
+            isActive={activePlanKey === "free" || !isSubscribed}
           >
-             {!subscription && <div style={{ color: "var(--color-text-muted)", fontSize: 13 }}>Current Level</div>}
+             {!isSubscribed && <div style={{ color: "var(--color-text-muted)", fontSize: 13 }}>Current Level</div>}
           </TierRow>
 
           <TierRow 
-            title="Core Extraction"
-            description="Removes structural limitations on insight processing. Gain fluid access to interpretation panels and simulation pathways."
+            title="Core"
+            description="Unlimited insight processing. Access to interpretation panels and simulation pathways."
             price="$15 / mo"
-            isActive={activePlanKey === process.env.STRIPE_PRICE_CORE}
+            isActive={activePlanKey === "core"}
           >
             <BillingActions
-              planName="Core Extraction"
-              priceId={process.env.STRIPE_PRICE_CORE!}
-              isCurrentPlan={activePlanKey === process.env.STRIPE_PRICE_CORE}
-              hasSubscription={!!subscription}
-              stripeCustomerId={customer?.id}
+              currentPlan={account.plan}
+              hasCustomer={!!account.stripeCustomerId}
             />
           </TierRow>
 
           <TierRow 
-            title="Relational Studio"
-            description="Deep temporal analysis. Retains extended interaction timelines to spot generational and systemic architecture. Export structural artifacts."
+            title="Studio"
+            description="Deep temporal analysis. Export structural artifacts and retain extended interaction history to spot patterns."
             price="$45 / mo"
-            isActive={activePlanKey === process.env.STRIPE_PRICE_STUDIO}
+            isActive={activePlanKey === "studio"}
             isPremium
           >
              <BillingActions
-              planName="Relational Studio"
-              priceId={process.env.STRIPE_PRICE_STUDIO!}
-              isCurrentPlan={activePlanKey === process.env.STRIPE_PRICE_STUDIO}
-              hasSubscription={!!subscription}
-              stripeCustomerId={customer?.id}
+              currentPlan={account.plan}
+              hasCustomer={isSubscribed}
             />
           </TierRow>
 
@@ -114,20 +109,20 @@ function UnauthenticatedTiers() {
   return (
     <div className="premium-fade-up" data-delay="1" style={{ display: "grid", gap: 20, marginTop: 12 }}>
       <TierRow 
-        title="Base Capacity"
-        description="Standard DEFRAG AI tracing bounds. Functional mapping for acute disconnects. Available automatically."
+        title="Base"
+        description="Standard DEFRAG AI tracking. Available automatically."
         price="Included"
         isActive={false}
       />
       <TierRow 
-        title="Core Extraction"
-        description="Unhindered processing volume. Simulation pathways and granular insight overlays for continuous interaction monitoring."
+        title="Core"
+        description="Unlimited processing. Access to simulation pathways and granular insight overlays."
         price="$15 / mo"
         isActive={false}
       />
       <TierRow 
-        title="Relational Studio"
-        description="Temporal field projection. Deep-time capability, architectural artifact creation, and multi-perspective field locking."
+        title="Studio"
+        description="Deep temporal analysis and multi-perspective pattern tracking. Export artifacts."
         price="$45 / mo"
         isActive={false}
         isPremium
@@ -141,8 +136,8 @@ function UnauthenticatedTiers() {
         justifyContent: "space-between",
         alignItems: "center"
       }}>
-        <div style={{ color: "var(--color-text-secondary)", fontSize: 14 }}>Identify your requirements internally. Access requires authentication.</div>
-        <a href="/login" style={{ padding: "12px 24px", borderRadius: "100px", background: "var(--color-text-primary)", color: "var(--color-bg)", textDecoration: "none", fontSize: 14, fontWeight: 600 }}>Authenticate Access</a>
+        <div style={{ color: "var(--color-text-secondary)", fontSize: 14 }}>Choose a plan. Access requires an account.</div>
+        <a href="/login" style={{ padding: "12px 24px", borderRadius: "100px", background: "var(--color-text-primary)", color: "var(--color-bg)", textDecoration: "none", fontSize: 14, fontWeight: 600 }}>Sign in</a>
       </div>
     </div>
   );
@@ -163,7 +158,7 @@ function TierRow({ title, description, price, isActive, isPremium, children }: a
       <div style={{ display: "grid", gap: 8 }}>
         <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
           <span style={{ fontSize: 18, fontWeight: 400, color: "var(--color-text-primary)", letterSpacing: "-0.01em" }}>{title}</span>
-          {isPremium && <span style={{ padding: "4px 8px", borderRadius: 4, background: "rgba(216,196,159,0.15)", color: "var(--color-accent)", fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase" }}>High Capacity</span>}
+          {isPremium && <span style={{ padding: "4px 8px", borderRadius: 4, background: "rgba(216,196,159,0.15)", color: "var(--color-accent)", fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase" }}>Premium</span>}
         </div>
         <p style={{ margin: 0, fontSize: 14, color: "var(--color-text-secondary)", lineHeight: 1.6 }}>{description}</p>
       </div>

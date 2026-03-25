@@ -132,9 +132,9 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
             }}
           >
             <div>
-              <p style={{ margin: "0 0 6px 0", fontSize: 10, letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--color-accent)" }}>Sequence Interface</p>
-              <h2 style={{ margin: 0, fontSize: 18, fontWeight: 400, color: "var(--color-text-primary)", letterSpacing: "-0.01em" }}>Trace a relational sequence</h2>
-              <p style={{ margin: "6px 0 0 0", fontSize: 13, lineHeight: 1.6, color: "var(--color-text-secondary)" }}>Submit the exchange. DEFRAG AI will extract the architectural pattern and update the live field.</p>
+              <p style={{ margin: "0 0 6px 0", fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Add context</p>
+              <h2 style={{ margin: 0, fontSize: 18, fontWeight: 400, color: "var(--color-text-primary)", letterSpacing: "-0.01em" }}>What may be happening</h2>
+              <p style={{ margin: "6px 0 0 0", fontSize: 13, lineHeight: 1.6, color: "var(--color-text-secondary)" }}>Describe a specific moment or shift. DEFRAG AI will map the interaction.</p>
             </div>
 
             <textarea
@@ -212,7 +212,7 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
                 transition: "all 0.2s ease"
               }}
             >
-              {busy ? "Synthesizing Field State..." : "Compute Field State"}
+              {busy ? "Analyzing..." : "Ask DEFRAG"}
             </button>
 
             {error && (
@@ -233,7 +233,7 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
             }}
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-              <span style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Session History</span>
+              <span style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>History</span>
               <button 
                 onClick={() => setViewHistory(!viewHistory)}
                 style={{ fontSize: 11, background: "none", border: 0, color: "var(--color-accent)", cursor: "pointer", letterSpacing: "0.1em" }}
@@ -252,7 +252,7 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
               }}
               style={{ width: "100%", textAlign: "left", padding: "12px 14px", borderRadius: "var(--radius-md)", border: "1px dashed var(--color-border)", background: "transparent", color: "var(--color-text-secondary)", fontSize: 13, cursor: "pointer", marginBottom: 12 }}
             >
-              + Initialize New Trace
+              + New Trace
             </button>
 
             {viewHistory && (
@@ -320,7 +320,7 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
             >
               <div>
                 <span style={{ fontSize: 10, letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--color-accent)" }}>Simulations</span>
-                <p style={{ margin: "6px 0 0 0", fontSize: 13, color: "var(--color-text-secondary)" }}>Stress-test responses or refine structural phasing before returning to the live dynamic.</p>
+                <p style={{ margin: "6px 0 0 0", fontSize: 13, color: "var(--color-text-secondary)" }}>Test your response or refine your approach before replying.</p>
               </div>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                 {actions.map((act) => (
@@ -375,7 +375,7 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
             }}>
               <div style={{ width: 1, height: 40, background: "var(--color-border-hover)" }} />
               <div style={{ fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-text-muted)", textAlign: "center" }}>
-                Live Field Standing By<br/>Awaiting Interaction Data
+                Live relational field awaiting context.
               </div>
             </div>
           )}

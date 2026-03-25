@@ -57,10 +57,10 @@ export default function LoginPage() {
             DEFRAG
           </div>
           <h1 style={{ margin: 0, fontSize: "2.4rem", letterSpacing: "-0.02em", color: "var(--color-text-primary)", fontWeight: 400 }}>
-            System Access
+            Sign In
           </h1>
           <p style={{ margin: 0, fontSize: 14, color: "var(--color-text-secondary)", lineHeight: 1.6 }}>
-            Authenticate to access the live relational field.
+            Enter your email to continue.
           </p>
         </div>
 
@@ -82,13 +82,13 @@ export default function LoginPage() {
             <>
               <div style={{ display: "grid", gap: 8 }}>
                 <label style={{ fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--color-text-muted)", marginLeft: 4 }}>
-                  Identity (Email)
+                  Email
                 </label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your transmission address"
+                  placeholder="name@example.com"
                   disabled={status === "sending"}
                   style={{
                     width: "100%",
@@ -130,7 +130,7 @@ export default function LoginPage() {
                   marginTop: 8
                 }}
               >
-                {status === "sending" ? "Confirming Handshake..." : "Initialize Link"}
+                {status === "sending" ? "Sending link..." : "Continue with email"}
               </button>
             </>
           ) : (
@@ -139,9 +139,9 @@ export default function LoginPage() {
                 ✓
               </div>
               <div>
-                <h3 style={{ margin: "0 0 8px 0", fontSize: 18, fontWeight: 400 }}>Transmission Sent</h3>
+                <h3 style={{ margin: "0 0 8px 0", fontSize: 18, fontWeight: 400 }}>Check your inbox</h3>
                 <p style={{ margin: 0, fontSize: 14, color: "var(--color-text-secondary)", lineHeight: 1.6 }}>
-                  A secure access link has been routed to <strong>{email}</strong>. Acknowledge it to enter the system.
+                  We sent a secure sign-in link to <strong>{email}</strong>. Click it to sign in.
                 </p>
               </div>
               <button
