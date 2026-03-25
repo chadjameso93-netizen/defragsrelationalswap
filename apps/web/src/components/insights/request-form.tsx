@@ -12,6 +12,7 @@ interface RequestFormProps {
 export default function RequestForm({ userId, userName, onSubmit, onCancel }: RequestFormProps) {
   const [request, setRequest] = useState("");
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   return (
     <div style={{ display: "grid", gap: 14, maxWidth: 640 }}>
@@ -39,9 +40,12 @@ export default function RequestForm({ userId, userName, onSubmit, onCancel }: Re
           type="button"
           onClick={async () => {
             setBusy(true);
+            setError(null);
             try {
               const response = await fetchInsight({ userId, userName, request });
               onSubmit(response, request);
+            } catch (err) {
+              setError("Network interruption or server failure. Please try again.");
             } finally {
               setBusy(false);
             }
@@ -74,6 +78,11 @@ export default function RequestForm({ userId, userName, onSubmit, onCancel }: Re
           Cancel
         </button>
       </div>
+      {error && (
+        <div style={{ color: "var(--color-accent)", fontSize: 13, marginTop: 4 }}>
+          {error}
+        </div>
+      )}
     </div>
   );
 }
