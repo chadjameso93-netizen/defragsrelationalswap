@@ -5,6 +5,7 @@ import { PublicPreviewCta } from "../../components/public-preview-cta";
 import { getBillingStateForUser } from "../../lib/billing-server";
 import { getAuthenticatedUserOrNull } from "../../server/auth";
 import { listThreadsForUser } from "../../server/dynamics-store";
+import DefragAISurface from "../../components/defrag-ai-surface";
 
 export default async function DynamicsPage() {
   const user = await getAuthenticatedUserOrNull();
@@ -97,18 +98,5 @@ export default async function DynamicsPage() {
 
   const { entitlements } = await getBillingStateForUser(user.userId);
   const threads = await listThreadsForUser(user.userId);
-
-  return (
-      <AppShell
-      eyebrow="DEFRAG AI"
-      title="Live Relational Field"
-      description="The primary intelligence environment. Observe real-time relational state, insight overlays, and conversation simulations."
-      accent="#d8c49f"
-    >
-      <DynamicsWorkspace
-        initialThreads={threads.map((thread) => ({ id: thread.id, title: thread.title }))}
-        entitlements={entitlements}
-      />
-    </AppShell>
-  );
+  return <DefragAISurface />;
 }

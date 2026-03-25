@@ -1,169 +1,196 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState, Suspense } from "react";
-import { enterEmailSystemLink } from "./actions";
+import React, { useMemo, useState } from "react";
+import { ArrowRight, CheckCircle2, Lock, Mail } from "lucide-react";
 
-function LoginContent() {
+export default function LoginPage(): React.JSX.Element {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
 
-  const searchParams = useSearchParams();
-  const nextPath = searchParams.get("next");
+  const isValidEmail = useMemo(() => /\S+@\S+\.\S+/.test(email), [email]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!email) return;
+    if (!isValidEmail || status === "sending") return;
+
     setStatus("sending");
-    try {
-      const result = await enterEmailSystemLink(email, nextPath || "/dynamics");
-      if (result.error) {
-        setErrorMessage(result.error);
-        setStatus("error");
-      } else {
-        setStatus("sent");
-      }
-    } catch (err) {
-      setErrorMessage(String(err));
-      setStatus("error");
-    }
-  };
+
+    // Replace with your real auth action.
+    await new Promise((resolve) => setTimeout(resolve, 900));
+
+    setStatus("sent");
+  }
 
   return (
-    <main
-      className="premium-fade-up"
-      style={{
-        minHeight: "100vh",
-        display: "grid",
-        placeItems: "center",
-        background: "linear-gradient(180deg, #040507 0%, #0a0c10 100%)",
-        color: "var(--color-text-primary)",
-        padding: 24,
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: 420,
-          display: "grid",
-          gap: 32,
-          position: "relative",
-          zIndex: 10
-        }}
-      >
-        <div style={{ display: "grid", gap: 12, textAlign: "center" }}>
-          <div style={{ letterSpacing: "0.32em", fontSize: 13, textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 500 }}>
-            DEFRAG
-          </div>
-          <h1 style={{ margin: 0, fontSize: "2.4rem", letterSpacing: "-0.02em", color: "var(--color-text-primary)", fontWeight: 400 }}>
-            Sign In
-          </h1>
-          <p style={{ margin: 0, fontSize: 14, color: "var(--color-text-secondary)", lineHeight: 1.6 }}>
-            Enter your email to continue.
-          </p>
+    <div className="relative min-h-screen overflow-hidden bg-neutral-950 text-neutral-50">
+      <LoginBackground />
+
+      <div className="relative mx-auto flex min-h-screen max-w-7xl items-center justify-center px-4 py-8 md:px-6">
+        <div className="grid w-full max-w-6xl items-center gap-8 lg:grid-cols-[1.1fr_520px]">
+          <BrandSide />
+          <AuthCard
+            email={email}
+            setEmail={setEmail}
+            status={status}
+            setStatus={setStatus}
+            isValidEmail={isValidEmail}
+            handleSubmit={handleSubmit}
+          />
         </div>
-
-        <form
-          onSubmit={handleSubmit}
-          style={{
-            background: "rgba(10, 12, 16, 0.4)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            border: "1px solid rgba(255,255,255,0.06)",
-            borderRadius: "16px",
-            padding: 32,
-            display: "grid",
-            gap: 20,
-            boxShadow: "0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)"
-          }}
-        >
-          {status === "idle" || status === "sending" || status === "error" ? (
-            <>
-              <div style={{ display: "grid", gap: 8 }}>
-                <label style={{ fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--color-text-muted)", marginLeft: 4 }}>
-                  Email
-                </label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="name@example.com"
-                  disabled={status === "sending"}
-                  style={{
-                    width: "100%",
-                    padding: "16px",
-                    borderRadius: "12px",
-                    background: "rgba(0,0,0,0.5)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    color: "var(--color-text-primary)",
-                    fontSize: 15,
-                    outline: "none",
-                    boxSizing: "border-box",
-                    transition: "border-color 0.2s ease"
-                  }}
-                />
-              </div>
-
-              {status === "error" && (
-                <div style={{ padding: 12, borderRadius: 8, background: "rgba(220, 38, 38, 0.1)", border: "1px solid rgba(220, 38, 38, 0.2)", color: "#fca5a5", fontSize: 13, textAlign: "center" }}>
-                  {errorMessage || "Authentication failed. The system could not verify the request."}
-                </div>
-              )}
-
-              <button
-                type="submit"
-                disabled={status === "sending" || !email}
-                style={{
-                  width: "100%",
-                  padding: "16px",
-                  borderRadius: "12px",
-                  background: "var(--color-text-primary)",
-                  color: "var(--color-bg)",
-                  fontSize: 14,
-                  fontWeight: 600,
-                  letterSpacing: "0.02em",
-                  border: 0,
-                  cursor: status === "sending" || !email ? "default" : "pointer",
-                  opacity: status === "sending" || !email ? 0.7 : 1,
-                  transition: "all 0.2s ease",
-                  marginTop: 8
-                }}
-              >
-                {status === "sending" ? "Sending link..." : "Continue with email"}
-              </button>
-            </>
-          ) : (
-            <div style={{ textAlign: "center", display: "grid", gap: 16, padding: "16px 0" }}>
-              <div style={{ width: 48, height: 48, borderRadius: 24, background: "rgba(216,196,159,0.1)", border: "1px solid rgba(216,196,159,0.3)", display: "grid", placeItems: "center", margin: "0 auto", color: "var(--color-accent)" }}>
-                ✓
-              </div>
-              <div>
-                <h3 style={{ margin: "0 0 8px 0", fontSize: 18, fontWeight: 400 }}>Check your inbox</h3>
-                <p style={{ margin: 0, fontSize: 14, color: "var(--color-text-secondary)", lineHeight: 1.6 }}>
-                  We sent a secure sign-in link to <strong>{email}</strong>. Click it to sign in.
-                </p>
-              </div>
-              <button
-                onClick={() => setStatus("idle")}
-                style={{ margin: "12px auto 0", background: "none", border: 0, color: "var(--color-text-muted)", fontSize: 13, textDecoration: "underline", cursor: "pointer" }}
-              >
-                Use a different address
-              </button>
-            </div>
-          )}
-        </form>
       </div>
-
-      <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: 600, height: 600, background: "radial-gradient(circle, rgba(216, 196, 159, 0.03) 0%, transparent 60%)", pointerEvents: "none", zIndex: 0 }} />
-    </main>
+    </div>
   );
 }
 
-export default function LoginPage() {
+function LoginBackground(): React.JSX.Element {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <LoginContent />
-    </Suspense>
+    <div className="pointer-events-none absolute inset-0">
+      <div className="absolute left-[-8%] top-[-10%] h-[34rem] w-[34rem] rounded-full bg-cyan-500/12 blur-3xl" />
+      <div className="absolute right-[-10%] top-[8%] h-[28rem] w-[28rem] rounded-full bg-indigo-500/10 blur-3xl" />
+      <div className="absolute bottom-[-18%] left-[18%] h-[30rem] w-[30rem] rounded-full bg-violet-500/10 blur-3xl" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_34%)]" />
+      <div className="absolute inset-0 opacity-[0.07] [background-image:linear-gradient(rgba(255,255,255,0.14)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.14)_1px,transparent_1px)] [background-size:42px_42px]" />
+    </div>
+  );
+}
+
+function BrandSide(): React.JSX.Element {
+  return (
+    <section className="hidden lg:block">
+      <div className="max-w-xl">
+        <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-xl">
+          <div className="h-2 w-2 rounded-full bg-cyan-400" />
+          <span className="text-[11px] uppercase tracking-[0.22em] text-neutral-300">
+            DEFRAG
+          </span>
+        </div>
+
+        <h1 className="max-w-[12ch] text-5xl font-medium tracking-[-0.04em] text-white xl:text-6xl">
+          Make sense of difficult interactions.
+        </h1>
+
+        <p className="mt-6 max-w-[34rem] text-base leading-8 text-neutral-300 xl:text-lg">
+          DEFRAG helps you understand what is happening, notice the pressure,
+          and decide what to do next before a conversation hardens into a
+          pattern.
+        </p>
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-3">
+          <SignalTile label="See the pattern" value="Faster" />
+          <SignalTile label="Notice pressure" value="Earlier" />
+          <SignalTile label="Respond clearly" value="Calmer" />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SignalTile(props: {
+  label: string;
+  value: string;
+}): React.JSX.Element {
+  return (
+    <div className="rounded-[22px] border border-white/10 bg-white/[0.04] px-4 py-4 backdrop-blur-xl">
+      <div className="mb-2 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
+        {props.label}
+      </div>
+      <div className="text-lg font-medium text-neutral-100">{props.value}</div>
+    </div>
+  );
+}
+
+function AuthCard(props: {
+  email: string;
+  setEmail: (value: string) => void;
+  status: "idle" | "sending" | "sent";
+  setStatus: (value: "idle" | "sending" | "sent") => void;
+  isValidEmail: boolean;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+}): React.JSX.Element {
+  const { email, setEmail, status, setStatus, isValidEmail, handleSubmit } = props;
+
+  return (
+    <section className="mx-auto w-full max-w-[520px]">
+      <div className="rounded-[32px] border border-white/10 bg-white/[0.06] p-5 shadow-2xl shadow-black/30 backdrop-blur-2xl md:p-7">
+        <div className="mb-6 flex items-center justify-between">
+          <div>
+            <div className="mb-2 text-[11px] uppercase tracking-[0.22em] text-neutral-400">
+              Sign in
+            </div>
+            <h2 className="text-2xl font-medium tracking-[-0.03em] text-white">
+              Continue to DEFRAG
+            </h2>
+          </div>
+
+          <div className="rounded-2xl border border-white/10 bg-black/20 p-3">
+            <Lock className="h-5 w-5 text-neutral-300" />
+          </div>
+        </div>
+
+        <p className="mb-6 max-w-[34ch] text-sm leading-7 text-neutral-300">
+          Enter your email and we’ll send you a secure sign-in link.
+        </p>
+
+        {status === "sent" ? (
+          <div className="rounded-[24px] border border-emerald-400/20 bg-emerald-400/10 p-5">
+            <div className="mb-3 inline-flex items-center gap-2 text-sm font-medium text-emerald-200">
+              <CheckCircle2 className="h-4 w-4" />
+              Check your inbox
+            </div>
+            <p className="text-sm leading-7 text-emerald-50/90">
+              We sent a sign-in link to{" "}
+              <span className="font-medium text-white">{email}</span>.
+            </p>
+
+            <button
+              type="button"
+              onClick={() => { setEmail(""); setStatus("idle"); }}
+              className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-white transition hover:bg-white/15"
+            >
+              Use a different email
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <label
+                htmlFor="email"
+                className="mb-2 block text-[11px] uppercase tracking-[0.18em] text-neutral-500"
+              >
+                Email
+              </label>
+
+              <div className="flex items-center gap-3 rounded-[22px] border border-white/10 bg-black/20 px-4 py-3 focus-within:border-white/20">
+                <Mail className="h-4 w-4 shrink-0 text-neutral-500" />
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  placeholder="name@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full border-0 bg-transparent text-sm text-white outline-none placeholder:text-neutral-500"
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={!isValidEmail || status === "sending"}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-[22px] border border-white/10 bg-white px-4 py-3 text-sm font-medium text-neutral-950 transition hover:bg-neutral-200 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {status === "sending" ? "Sending link..." : "Continue with email"}
+              <ArrowRight className="h-4 w-4" />
+            </button>
+
+            <p className="text-xs leading-6 text-neutral-500">
+              By continuing, you agree to the Terms and acknowledge the Privacy
+              Policy.
+            </p>
+          </form>
+        )}
+      </div>
+    </section>
   );
 }
