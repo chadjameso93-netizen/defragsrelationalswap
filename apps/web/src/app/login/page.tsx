@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
-import { enterEmailSystemLink } from "../server/auth";
+import { enterEmailSystemLink } from "./actions";
 
 function LoginContent() {
   const [email, setEmail] = useState("");

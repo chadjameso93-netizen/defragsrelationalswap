@@ -3,7 +3,9 @@ import { AppShell } from "../../../components/app-shell";
 
 export const dynamic = "force-dynamic";
 
-export default async function SharedInsightLandingPage({ params }: { params: { insightId: string } }) {
+export default async function SharedInsightLandingPage(props: { params: Promise<{ insightId: string }> }) {
+  const { insightId } = await props.params;
+
   // In a full DB implementation, this would look up the insight summary. 
   // For the current infrastructure bounds, we render the secure landing shell.
   
@@ -49,7 +51,7 @@ export default async function SharedInsightLandingPage({ params }: { params: { i
           </div>
 
           <Link 
-            href={`/login?next=/share/${params.insightId}`}
+            href={`/login?next=/share/${insightId}`}
             style={{
               marginTop: 8,
               padding: "14px 24px",
