@@ -175,7 +175,7 @@ export function formatEntitlementsResult(result: AccountEntitlementsOutput, entr
         summary: `${result.plan} plan · ${result.status}`,
         bullets: [
           `Dynamics: ${result.entitlements.canUseDynamics ? "available" : "unavailable"}`,
-          `Insights: ${result.entitlements.canUseStudio ? "available" : "upgrade required"}`,
+          `Insights: ${result.entitlements.canUseInsights ? "available" : "upgrade required"}`,
         ],
         actions: limitCtas(result.metadata.ctas, entry.display.maxInlineCtas),
       },

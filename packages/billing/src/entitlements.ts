@@ -22,7 +22,7 @@ export function resolveEntitlements(plan: BillingPlan, subscriptionState: Subscr
     plan,
     canUseDynamics: true,
     canUseDynamicsPremiumView: active && hasAtLeastPlan(plan, "core"),
-    canUseStudio: active && hasAtLeastPlan(plan, "studio"),
+    canUseInsights: active && hasAtLeastPlan(plan, "studio"),
     canUseRealtime: active && hasAtLeastPlan(plan, "realtime"),
     monthlySituationLimit: hasAtLeastPlan(plan, "core") && active ? 100 : 5,
   };

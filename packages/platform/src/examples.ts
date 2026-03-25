@@ -245,7 +245,7 @@ export const accountEntitlementsOutputExample: AccountEntitlementsOutput = {
     plan: "core",
     canUseDynamics: true,
     canUseDynamicsPremiumView: true,
-    canUseStudio: false,
+    canUseInsights: false,
     canUseRealtime: false,
     monthlySituationLimit: 100,
   },

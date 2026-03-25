@@ -86,7 +86,7 @@ export interface Entitlements {
   plan: BillingPlan;
   canUseDynamics: boolean;
   canUseDynamicsPremiumView: boolean;
-  canUseStudio: boolean;
+  canUseInsights: boolean;
   canUseRealtime: boolean;
   monthlySituationLimit: number;
 }

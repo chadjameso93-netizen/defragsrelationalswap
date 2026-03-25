@@ -12,12 +12,12 @@
     "entitlements": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["plan", "canUseDynamics", "canUseDynamicsPremiumView", "canUseStudio", "canUseRealtime", "monthlySituationLimit"],
+      "required": ["plan", "canUseDynamics", "canUseDynamicsPremiumView", "canUseInsights", "canUseRealtime", "monthlySituationLimit"],
       "properties": {
         "plan": { "type": "string" },
         "canUseDynamics": { "type": "boolean" },
         "canUseDynamicsPremiumView": { "type": "boolean" },
-        "canUseStudio": { "type": "boolean" },
+        "canUseInsights": { "type": "boolean" },
         "canUseRealtime": { "type": "boolean" },
         "monthlySituationLimit": { "type": "number" }
       }

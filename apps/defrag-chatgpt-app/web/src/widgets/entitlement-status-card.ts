@@ -8,7 +8,7 @@ export function renderEntitlementStatusCard() {
     summary: `${accountEntitlementsOutputExample.plan} plan · ${accountEntitlementsOutputExample.status}`,
     bullets: [
       `Dynamics: ${accountEntitlementsOutputExample.entitlements.canUseDynamics ? "available" : "unavailable"}`,
-      `Insights: ${accountEntitlementsOutputExample.entitlements.canUseStudio ? "available" : "upgrade required"}`,
+      `Insights: ${accountEntitlementsOutputExample.entitlements.canUseInsights ? "available" : "upgrade required"}`,
     ],
     actions: [
       { label: "Open Billing", url: "https://defrag.app/account/billing" },
