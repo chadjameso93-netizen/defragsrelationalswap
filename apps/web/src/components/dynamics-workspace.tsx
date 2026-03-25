@@ -9,6 +9,7 @@ import type {
 } from "../../../../packages/core/src";
 import { DynamicsV1Shell } from "./dynamics-v1-shell";
 import { LiveRelationalField } from "./live-relational-field";
+import { SharePanel } from "./share-panel";
 
 interface ThreadRecord {
   id: string;
@@ -294,13 +295,14 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
           )}
 
           {!loadingThread && result && (
-            <div className="premium-fade-up">
+            <div className="premium-fade-up" style={{ display: "grid", gap: 16 }}>
               <DynamicsV1Shell
                 contract={result}
                 entitlements={entitlements}
                 synthesis={activeInsight?.synthesis ?? null}
                 evaluation={activeInsight?.evaluation ?? null}
               />
+              {latestInsightId && <SharePanel insightId={latestInsightId} />}
             </div>
           )}
 
