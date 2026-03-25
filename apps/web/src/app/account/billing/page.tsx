@@ -82,7 +82,7 @@ export default async function BillingPage() {
           >
             <BillingActions
               currentPlan={account.plan}
-              hasCustomer={!!account.stripeCustomerId}
+              hasCustomer={isSubscribed}
             />
           </TierRow>
 

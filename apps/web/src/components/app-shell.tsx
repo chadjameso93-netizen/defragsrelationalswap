@@ -149,17 +149,19 @@ export function AppShell({ eyebrow, title, description, children, accent = "var(
             padding: "8px 0 4px",
           }}
         >
-          <p
-            style={{
-              margin: 0,
-              fontSize: 11,
-              letterSpacing: "0.28em",
-              textTransform: "uppercase",
-              color: accent,
-            }}
-          >
-            {eyebrow}
-          </p>
+          {eyebrow && (
+            <p
+              style={{
+                margin: 0,
+                fontSize: 11,
+                letterSpacing: "0.28em",
+                textTransform: "uppercase",
+                color: accent,
+              }}
+            >
+              {eyebrow}
+            </p>
+          )}
           <h1
             style={{
               margin: 0,
