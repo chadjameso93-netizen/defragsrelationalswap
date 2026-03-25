@@ -33,8 +33,8 @@ export default async function DynamicsPage() {
               <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: 22, background: "linear-gradient(180deg, var(--color-surface), transparent)", display: "grid", gap: 20 }}>
                 <div className="dynamics-preview-metrics" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 12 }}>
                   {[
-                    ["Field Mapping", "Live Relational Node Extractor"],
-                    ["Analysis", "Structured Interaction Pattern"],
+                    ["Session", "Live Transcript Analysis"],
+                    ["Analysis", "Interaction Modeling"],
                     ["Scenario", "Next-Move Simulation"],
                   ].map(([label, value]) => (
                     <div key={label} style={{ padding: 16, borderRadius: "var(--radius-md)", background: "var(--color-surface)", border: "1px solid var(--color-border)" }}>
@@ -64,8 +64,8 @@ export default async function DynamicsPage() {
 
             <aside style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: 22, background: "var(--color-surface)", display: "grid", gap: 18 }}>
               <div style={{ display: "grid", gap: 6 }}>
-                <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Structural Tracing</p>
-                <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "var(--color-text-secondary)" }}>Recurring themes are mapped continuously in the live relational field to ensure guidance reflects the holistic pattern, not a singular reaction.</p>
+                <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Context Tracing</p>
+                <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "var(--color-text-secondary)" }}>Recurring themes are mapped continuously in the active session to ensure guidance reflects the holistic context, not a singular reaction.</p>
               </div>
               {[
                 "Conflict de-escalation mapping",
