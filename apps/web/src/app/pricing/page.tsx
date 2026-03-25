@@ -5,8 +5,8 @@ export default function PublicPricingPage() {
   return (
     <AppShell
       eyebrow=""
-      title="Intelligence capacity."
-      description="DEFRAG AI operates on a tiered framework to support deep interaction tracing and history."
+      title="Pricing & Tiers."
+      description="Select the level of analysis that fits your situation."
     >
       <div 
         className="premium-fade-up" 
@@ -71,9 +71,9 @@ export default function PublicPricingPage() {
           }}
         >
           <div>
-            <h3 style={{ margin: 0, fontSize: 18, fontWeight: 400, color: "var(--color-text-primary)" }}>Begin mapping interactions</h3>
+            <h3 style={{ margin: 0, fontSize: 18, fontWeight: 400, color: "var(--color-text-primary)" }}>Start a session</h3>
             <p style={{ margin: "6px 0 0 0", fontSize: 14, color: "var(--color-text-secondary)", lineHeight: 1.6, maxWidth: 500 }}>
-              Access to DEFRAG requires an account. Create your workspace to view the live relational field and select a capacity tier.
+              Access to DEFRAG requires an account. Create your workspace to see your conversations and select a tier.
             </p>
           </div>
           <Link 

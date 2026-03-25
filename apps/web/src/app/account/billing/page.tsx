@@ -15,7 +15,7 @@ export default async function BillingPage() {
       >
          <div style={{ marginTop: 24, padding: 32, border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", background: "rgba(6, 7, 10, 0.4)", backdropFilter: "blur(20px)" }}>
            <h3 style={{ margin: 0, fontSize: 18, fontWeight: 400, color: "var(--color-text-primary)" }}>Begin mapping interactions</h3>
-           <p style={{ margin: "6px 0 16px 0", fontSize: 14, color: "var(--color-text-secondary)", lineHeight: 1.6 }}>Access to DEFRAG requires an account. Create your workspace to view the live relational field and select a capacity tier.</p>
+           <p style={{ margin: "6px 0 16px 0", fontSize: 14, color: "var(--color-text-secondary)", lineHeight: 1.6 }}>Access to DEFRAG requires an account. Create your workspace to see your conversations and select a capacity tier.</p>
            <a href="/login" style={{ display: "inline-block", padding: "14px 28px", borderRadius: "100px", background: "var(--color-text-primary)", color: "var(--color-bg)", textDecoration: "none", fontWeight: 600 }}>Sign in</a>
          </div>
       </AppShell>
