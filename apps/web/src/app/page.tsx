@@ -12,72 +12,81 @@ export default function LandingPage() {
       description=""
       hideHero={true}
     >
-      <div className="flex flex-col items-center pt-8 md:pt-16 pb-24 px-4 sm:px-6">
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: 64, paddingBottom: 96, paddingLeft: 16, paddingRight: 16 }}>
         
         {/* 1. Product output (Center Stage) */}
-        <div className="w-full max-w-5xl mb-20 premium-fade-up" data-delay="1">
-          <div className="rounded-[28px] border border-white/10 bg-neutral-900/50 p-1 md:p-2 backdrop-blur-2xl shadow-[0_32px_128px_-32px_rgba(0,0,0,0.8)] relative overflow-hidden group">
+        <div className="premium-fade-up" data-delay="1" style={{ width: "100%", maxWidth: 1000, marginBottom: 80 }}>
+          <div style={{ 
+            borderRadius: 28, 
+            border: "1px solid var(--color-border)", 
+            background: "rgba(255, 255, 255, 0.03)", 
+            padding: 8, 
+            backdropFilter: "blur(24px)", 
+            boxShadow: "0 32px 128px -32px rgba(0,0,0,0.8)", 
+            position: "relative", 
+            overflow: "hidden" 
+          }}>
             {/* Top Bar */}
-            <div className="flex items-center justify-between px-6 py-4 border-bottom border-white/5">
-               <div className="flex items-center gap-2">
-                 <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-                 <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-                 <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 24px", borderBottom: "1px solid rgba(255, 255, 255, 0.05)" }}>
+               <div style={{ display: "flex", gap: 8 }}>
+                 <div style={{ width: 10, height: 10, borderRadius: "50%", background: "rgba(239, 68, 68, 0.8)" }} />
+                 <div style={{ width: 10, height: 10, borderRadius: "50%", background: "rgba(245, 158, 11, 0.8)" }} />
+                 <div style={{ width: 10, height: 10, borderRadius: "50%", background: "rgba(16, 185, 129, 0.8)" }} />
                </div>
-               <div className="text-[10px] tracking-[0.24em] uppercase text-white/30 font-medium">Session Analysis #0421</div>
+               <div style={{ fontSize: 10, letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--color-text-muted)", fontWeight: 500 }}>Session Analysis #0421</div>
             </div>
 
             {/* Content Area */}
-            <div className="grid grid-cols-1 md:grid-cols-[1fr_320px] gap-6 p-6">
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: 24, padding: 24 }}>
               {/* Left Column: Input Simulation */}
-              <div className="space-y-6">
-                <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/5">
-                  <div className="text-[10px] tracking-widest uppercase text-white/40 mb-3 font-semibold">Incoming Message</div>
-                  <p className="text-white/80 leading-relaxed text-sm">
+              <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+                <div style={{ padding: 24, borderRadius: 20, background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.04)" }}>
+                  <div style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255, 255, 255, 0.4)", marginBottom: 12, fontWeight: 600 }}>Incoming Message</div>
+                  <p style={{ color: "var(--color-text-secondary)", lineHeight: 1.6, fontSize: 14 }}>
                     "I don't think you're listening. Every time I bring this up, you just pivot back to what you want to talk about. It feels like my perspective doesn't actually matter."
                   </p>
                 </div>
 
-                <div className="space-y-[1px] rounded-2xl overflow-hidden border border-white/5">
-                   <div className="bg-white/[0.04] p-5">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Zap className="w-3.5 h-3.5 text-cyan-400" />
-                        <span className="text-[10px] tracking-widest uppercase text-cyan-400 font-bold">Suggested Response</span>
+                <div style={{ borderRadius: 20, overflow: "hidden", border: "1px solid rgba(255, 255, 255, 0.04)" }}>
+                   <div style={{ background: "rgba(255, 255, 255, 0.04)", padding: 20 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                        <Zap style={{ width: 14, height: 14, color: "var(--color-accent)" }} />
+                        <span style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--color-accent)", fontWeight: 700 }}>Suggested Action</span>
                       </div>
-                      <p className="text-white text-base font-medium">
+                      <p style={{ color: "var(--color-text-primary)", fontSize: 16, fontWeight: 500 }}>
                         "I can see why it feels like I'm pivoting. I want to slow down and make sure I'm actually hearing you before I say anything else."
                       </p>
-                      <div className="mt-4 flex gap-2">
-                         <span className="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-[10px] text-cyan-400">Lowers Pressure</span>
-                         <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] text-white/60">Acknowledge</span>
+                      <div style={{ marginTop: 16, display: "flex", gap: 8 }}>
+                         <span style={{ padding: "4px 12px", borderRadius: 99, background: "rgba(34, 211, 238, 0.1)", border: "1px solid rgba(34, 211, 238, 0.2)", fontSize: 10, color: "var(--color-accent)" }}>Lowers Pressure</span>
+                         <span style={{ padding: "4px 12px", borderRadius: 99, background: "rgba(255, 255, 255, 0.05)", border: "1px solid rgba(255, 255, 255, 0.1)", fontSize: 10, color: "var(--color-text-secondary)" }}>Acknowledge</span>
                       </div>
                    </div>
                 </div>
               </div>
 
               {/* Right Column: Insight Simulation */}
-              <div className="space-y-4">
-                 <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/5 h-full">
-                    <div className="text-[10px] tracking-widest uppercase text-white/40 mb-4 font-semibold">What's going on</div>
-                    <div className="space-y-4">
-                       <div className="flex gap-3">
-                          <div className="mt-1 w-1.5 h-1.5 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)]" />
+              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                 <div style={{ padding: 20, borderRadius: 20, background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.04)", height: "100%" }}>
+                    <div style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255, 255, 255, 0.4)", marginBottom: 16, fontWeight: 600 }}>What's happening</div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+                       <div style={{ display: "flex", gap: 12 }}>
+                          <div style={{ marginTop: 4, width: 6, height: 6, borderRadius: "50%", background: "#f59e0b", boxShadow: "0 0 8px rgba(245, 158, 11, 0.5)" }} />
                           <div>
-                             <div className="text-sm font-medium text-white/90">High Pressure</div>
-                             <p className="text-xs text-white/50 leading-relaxed mt-1">Their message indicates a loss of agency and felt invisibility.</p>
+                             <div style={{ fontSize: 14, fontWeight: 500, color: "var(--color-text-primary)" }}>High Pressure</div>
+                             <p style={{ fontSize: 12, color: "var(--color-text-muted)", lineHeight: 1.5, marginTop: 4 }}>The message indicates a loss of agency and felt invisibility.</p>
                           </div>
                        </div>
-                       <div className="flex gap-3">
-                          <div className="mt-1 w-1.5 h-1.5 rounded-full bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,0.5)]" />
+                       <div style={{ display: "flex", gap: 12 }}>
+                          <div style={{ marginTop: 4, width: 6, height: 6, borderRadius: "50%", background: "#06b6d4", boxShadow: "0 0 8px rgba(6, 182, 212, 0.5)" }} />
                           <div>
-                             <div className="text-sm font-medium text-white/90">Repair window</div>
-                             <p className="text-xs text-white/50 leading-relaxed mt-1">Slowing down now prevents the escalation from turning into a story.</p>
+                             <div style={{ fontSize: 14, fontWeight: 500, color: "var(--color-text-primary)" }}>Repair window</div>
+                             <p style={{ fontSize: 12, color: "var(--color-text-muted)", lineHeight: 1.5, marginTop: 4 }}>Slowing down now prevents the escalation from turning into a story.</p>
                           </div>
                        </div>
                     </div>
-                    <div className="mt-8 pt-6 border-t border-white/5">
-                        <div className="text-[10px] tracking-widest uppercase text-white/30 mb-3 font-semibold">What to do</div>
-                        <div className="text-xs text-white/70 leading-relaxed">
+                    <div style={{ marginTop: 32, paddingTop: 24, borderTop: "1px solid rgba(255, 255, 255, 0.05)" }}>
+                        <div style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255, 255, 255, 0.3)", marginBottom: 12, fontWeight: 600 }}>Guidance</div>
+                        <div style={{ fontSize: 12, color: "rgba(255, 255, 255, 0.7)", lineHeight: 1.6 }}>
                            Don't defend your intent. Validate their perception of the pivot. 
                         </div>
                     </div>
@@ -88,60 +97,85 @@ export default function LandingPage() {
         </div>
 
         {/* 2. Headline */}
-        <div className="text-center max-w-4xl mb-12 premium-fade-up" data-delay="0">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight mb-8 leading-[0.9] text-white">
+        <div style={{ textAlign: "center", maxWidth: 840, marginBottom: 48 }}>
+          <h1 className="premium-fade-up" data-delay="0" style={{ fontSize: "clamp(3rem, 10vw, 8rem)", fontWeight: 500, tracking: "-0.04em", marginBottom: 32, lineHeight: 0.9, color: "var(--color-text-primary)" }}>
             Understand what’s happening in a conversation.
           </h1>
           
-          <p className="text-lg md:text-xl text-neutral-400 mb-12 leading-relaxed max-w-2xl mx-auto font-light">
+          <p className="premium-fade-up" data-delay="1" style={{ fontSize: "clamp(1rem, 2vw, 1.25rem)", color: "var(--color-text-secondary)", marginBottom: 48, lineHeight: 1.6, maxWidth: 640, marginLeft: "auto", marginRight: "auto", fontWeight: 300 }}>
             Paste what was said. DEFRAG shows you what's actually going on, where the pressure is, and what to do next.
           </p>
 
           {/* 3. CTA */}
-          <div className="flex flex-wrap justify-center gap-5">
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 20 }}>
             <Link 
               href="/login" 
-              className="flex items-center gap-3 bg-white text-black px-10 py-5 rounded-full font-semibold text-lg transition-transform hover:scale-105 active:scale-95 shadow-[0_20px_40px_rgba(255,255,255,0.15)]"
+              className="premium-panel"
+              style={{ 
+                display: "flex", 
+                alignItems: "center", 
+                gap: 12, 
+                background: "var(--color-text-primary)", 
+                color: "var(--color-bg)", 
+                padding: "20px 48px", 
+                borderRadius: "var(--radius-pill)", 
+                fontWeight: 600, 
+                fontSize: 18, 
+                textDecoration: "none",
+                boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
+              }}
             >
               Try it
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight style={{ width: 20, height: 20 }} />
             </Link>
             <Link 
               href="#example" 
-              className="flex items-center gap-3 bg-white/5 text-white border border-white/10 px-10 py-5 rounded-full font-medium text-lg transition-all hover:bg-white/10"
+              style={{ 
+                display: "flex", 
+                alignItems: "center", 
+                gap: 12, 
+                background: "rgba(255, 255, 255, 0.05)", 
+                color: "var(--color-text-primary)", 
+                border: "1px solid var(--color-border)",
+                padding: "20px 48px", 
+                borderRadius: "var(--radius-pill)", 
+                fontWeight: 500, 
+                fontSize: 18, 
+                textDecoration: "none"
+              }}
             >
-              <PlayCircle className="w-5 h-5" />
+              <PlayCircle style={{ width: 20, height: 20 }} />
               See example
             </Link>
           </div>
         </div>
 
         {/* 4. Supporting copy (Minimal) */}
-        <div className="mt-32 w-full max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-12 premium-fade-up" data-delay="2">
-           <div className="space-y-4 text-center md:text-left">
-              <div className="inline-flex p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 mb-2">
-                 <Zap className="w-6 h-6 text-cyan-400" />
+        <div className="premium-fade-up" data-delay="2" style={{ marginTop: 120, width: "100%", maxWidth: 1000, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 48 }}>
+           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <div style={{ padding: 12, borderRadius: 16, background: "rgba(34, 211, 238, 0.1)", border: "1px solid rgba(34, 211, 238, 0.2)", width: "fit-content" }}>
+                 <Zap style={{ width: 24, height: 24, color: "var(--color-accent)" }} />
               </div>
-              <h3 className="text-lg font-medium text-white">Immediate Clarity</h3>
-              <p className="text-sm text-neutral-400 leading-relaxed">
+              <h3 style={{ fontSize: 18, fontWeight: 500, color: "var(--color-text-primary)", margin: 0 }}>Immediate Clarity</h3>
+              <p style={{ fontSize: 14, color: "var(--color-text-muted)", lineHeight: 1.6, margin: 0 }}>
                 Understand the mismatch between what was said and what was heard, instantly.
               </p>
            </div>
-           <div className="space-y-4 text-center md:text-left">
-              <div className="inline-flex p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 mb-2">
-                 <Shield className="w-6 h-6 text-amber-500" />
+           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <div style={{ padding: 12, borderRadius: 16, background: "rgba(245, 158, 11, 0.1)", border: "1px solid rgba(245, 158, 11, 0.2)", width: "fit-content" }}>
+                 <Shield style={{ width: 24, height: 24, color: "#f59e0b" }} />
               </div>
-              <h3 className="text-lg font-medium text-white">Lower Pressure</h3>
-              <p className="text-sm text-neutral-400 leading-relaxed">
+              <h3 style={{ fontSize: 18, fontWeight: 500, color: "var(--color-text-primary)", margin: 0 }}>Lower Pressure</h3>
+              <p style={{ fontSize: 14, color: "var(--color-text-muted)", lineHeight: 1.6, margin: 0 }}>
                 Identify tension points before they escalate into long-term conflict.
               </p>
            </div>
-           <div className="space-y-4 text-center md:text-left">
-              <div className="inline-flex p-3 rounded-2xl bg-white/5 border border-white/10 mb-2">
-                 <MessageSquare className="w-6 h-6 text-white/50" />
+           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <div style={{ padding: 12, borderRadius: 16, background: "rgba(255,255,255,0.05)", border: "1px solid var(--color-border)", width: "fit-content" }}>
+                 <MessageSquare style={{ width: 24, height: 24, color: "rgba(255,255,255,0.5)" }} />
               </div>
-              <h3 className="text-lg font-medium text-white">What To Say</h3>
-              <p className="text-sm text-neutral-400 leading-relaxed">
+              <h3 style={{ fontSize: 18, fontWeight: 500, color: "var(--color-text-primary)", margin: 0 }}>What To Do</h3>
+              <p style={{ fontSize: 14, color: "var(--color-text-muted)", lineHeight: 1.6, margin: 0 }}>
                 Get specific language suggestions that preserve the relationship and move forward.
               </p>
            </div>
@@ -149,22 +183,13 @@ export default function LandingPage() {
 
       </div>
 
-      <style jsx>{`
-        .premium-fade-up {
-          opacity: 0;
-          animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .premium-fade-up[data-delay="1"] { animation-delay: 0.1s; }
-        .premium-fade-up[data-delay="2"] { animation-delay: 0.2s; }
-        
-        @keyframes fadeUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
+      <style>{`
+        @media (max-width: 800px) {
+          div[style*="grid-template-columns: 1fr 340px"] {
+            grid-template-columns: 1fr !important;
           }
-          to {
-            opacity: 1;
-            transform: translateY(0);
+          h1[style*="clamp(3rem, 10vw, 8rem)"] {
+            font-size: 3.5rem !important;
           }
         }
       `}</style>

@@ -31,17 +31,17 @@ export default async function AccountPage() {
 
   return (
     <AppShell
-      eyebrow="Landscape"
-      title="See where care, distance, and timing are clustering."
-      description="This topology keeps the wider relational field in view, so you can notice where attention may help before diving into single events."
+      eyebrow="My Conversations"
+      title="Understand where your energy is clustering."
+      description="This view helps you step back from single events and notice which interactions need the most attention."
       accent="var(--color-accent)"
     >
       {!user ? (
         <PublicPreviewCta
-          title="The landscape must be anchored to an observer."
-          description="In order to map dynamics accurately, the system must orient around a central perspective. Link your identity to initialize a true relational map."
-          primaryLabel="Anchor Perspective"
-          secondaryLabel="Open Dynamics"
+          title="Sign in to see your overview."
+          description="In order to help you track conversations, we need to anchor the data to your perspective. Sign in to begin."
+          primaryLabel="Try it"
+          secondaryLabel="Console"
           secondaryHref="/dynamics"
         />
       ) : null}
@@ -55,9 +55,9 @@ export default async function AccountPage() {
         }}
       >
         {[
-          ["Nodes in Frame", String(mockPeople.length)],
-          ["Observer", profileLabel],
-          ["Next move", user ? "Open DEFRAG AI Workspace" : "Authenticate to save view"],
+          ["Active Threads", String(mockPeople.length)],
+          ["Status", user ? "Authenticated" : "Guest"],
+          ["Next move", user ? "Open Console" : "Start a session"],
         ].map(([label, value]) => (
           <div key={label} className="premium-fade-up" data-delay="1" style={{ padding: 24, borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "var(--color-surface)" }}>
             <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>{label}</div>
@@ -86,12 +86,12 @@ export default async function AccountPage() {
 
         <aside style={{ display: "grid", gap: 16 }}>
           <section className="premium-fade-up" data-delay="2" style={{ padding: 24, borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "var(--color-surface)", display: "grid", gap: 12 }}>
-            <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Best next step</div>
+            <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Next step</div>
             <p style={{ margin: 0, color: "var(--color-text-primary)", fontSize: 18, lineHeight: 1.5 }}>
-              Take one relationship moment from this map and isolate it in DEFRAG AI.
+              Focus on one specific interaction in the Console.
             </p>
             <p style={{ margin: 0, color: "var(--color-text-secondary)", fontSize: 14, lineHeight: 1.7 }}>
-              The map keeps the wider field visible. DEFRAG AI provides the closer mechanism for extraction.
+              The overview helps you pick the target. The Console gives you the specific actions to take.
             </p>
             <Link
               href={user ? "/dynamics" : "/login"}
@@ -109,7 +109,7 @@ export default async function AccountPage() {
                 fontWeight: 700,
               }}
             >
-              {user ? "Open DEFRAG AI" : "Authenticate to Proceed"}
+              {user ? "Open Console" : "Try it"}
             </Link>
           </section>
 

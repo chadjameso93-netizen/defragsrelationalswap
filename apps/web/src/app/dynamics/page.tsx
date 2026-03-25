@@ -13,17 +13,17 @@ export default async function DynamicsPage() {
   if (!user) {
     return (
       <AppShell
-        eyebrow="DEFRAG AI"
-        title="See the pattern before the moment hardens."
-        description="The primary intelligence environment mapping live relational states, insight overlays, and precise structural action."
-        accent="#d8c49f"
+        eyebrow="Console"
+        title="See what's happening."
+        description="The primary intelligence environment for mapping conversations, identifying pressure, and taking structural action."
+        accent="#22d3ee"
       >
         <div style={{ display: "grid", gap: 22 }}>
           <PublicPreviewCta
-            title="Analysis requires a connected DEFRAG AI session."
-            description="The system must track events over time to build a reliable live relational field. Initialize your environment to begin processing."
-            primaryLabel="Initialize DEFRAG AI"
-            secondaryLabel="View intelligence tiers"
+            title="Analysis requires a connected session."
+            description="The console tracks exchanges over time to help you identify what to do next. Start a session to begin."
+            primaryLabel="Try it"
+            secondaryLabel="Pricing"
             secondaryHref="/account/billing"
           />
 
@@ -56,7 +56,7 @@ export default async function DynamicsPage() {
                 
                 <div style={{ display: "flex", gap: 12, flexWrap: "wrap", paddingTop: 8 }}>
                   <Link href="/login" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "14px 20px", borderRadius: "var(--radius-pill)", background: "var(--color-text-primary)", color: "var(--color-bg)", textDecoration: "none", fontWeight: 700 }}>
-                    Enter DEFRAG AI
+                    Try it
                   </Link>
                 </div>
               </section>

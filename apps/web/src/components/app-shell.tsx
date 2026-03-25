@@ -19,9 +19,9 @@ export function AppShell({
   const pathname = usePathname();
   const navItems = [
     { href: "/", label: "Home", match: (value: string) => value === "/" },
-    { href: "/dynamics", label: "DEFRAG AI", match: (value: string) => value.startsWith("/dynamics") },
-    { href: "/about", label: "About", match: (value: string) => value.startsWith("/about") },
-    { href: "/account/billing", label: "Billing", match: (value: string) => value.startsWith("/account/billing") },
+    { href: "/dynamics", label: "Console", match: (value: string) => value.startsWith("/dynamics") },
+    { href: "/about", label: "Approach", match: (value: string) => value.startsWith("/about") },
+    { href: "/account/billing", label: "Tiers", match: (value: string) => value.startsWith("/account/billing") },
   ];
   const footerItems = [
     { href: "/about", label: "About" },
@@ -212,7 +212,7 @@ export function AppShell({
             }}
           >
             <div style={{ color: "var(--color-text-muted)", fontSize: 13, maxWidth: 400 }}>
-              DEFRAG helps you identify repeating patterns and change what happens next.
+              DEFRAG helps you understand what's happening and change what happens next.
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
               {footerItems.map((item) => (

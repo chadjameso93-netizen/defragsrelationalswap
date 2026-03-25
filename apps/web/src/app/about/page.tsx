@@ -4,9 +4,9 @@ import { AppShell } from "../../components/app-shell";
 export default function AboutPage() {
   return (
     <AppShell
-      eyebrow="Worldview"
-      title="DEFRAG provides structural clarity for charged interactions."
-      description="We believe that misunderstandings escalate when people react to the moment instead of recognizing the historical pattern. DEFRAG maps these dynamics to help you see what is actually happening."
+      eyebrow="Approach"
+      title="Guidance for difficult interactions."
+      description="We believe that misunderstandings escalate when people react to the moment instead of the history. DEFRAG helps you see what is actually happening."
       accent="#c8d8a2"
     >
       <section
@@ -30,15 +30,15 @@ export default function AboutPage() {
           {[
             {
               title: "What DEFRAG is for",
-              body: "DEFRAG helps people slow down charged exchanges, understand what patterns may be active between people, and choose one next move that creates more room for repair.",
+              body: "DEFRAG helps people slow down charged exchanges, understand what is happening, and choose one next move that creates more room for repair.",
             },
             {
-              title: "How relational patterns form",
-              body: "When an event occurs, our initial response is often based on an accumulation of past, unresolved tension. The specific details matter less than the recurring structure of the conflict. By documenting this structure, we can observe the pattern instead of getting caught in it.",
+              title: "How patterns form",
+              body: "When an event occurs, our initial response is often based on an accumulation of past, unresolved tension. The specific details matter less than the recurring timeline of the conflict. By documenting this, we can observe the event instead of getting caught in it.",
             },
             {
               title: "What DEFRAG does not do",
-              body: "DEFRAG does not diagnose people, assign fixed personality labels, or pretend to know more than the actual events support. It stays with observable dynamics, timing, and pattern clarity. Birth-based symbolic attributes are treated as weaker information compared to actual repeated behavior.",
+              body: "DEFRAG does not diagnose people, assign labels, or pretend to know more than the actual event supports. It stays with observable events and clarity.",
             },
             {
               title: "Changing what happens next",
@@ -65,12 +65,12 @@ export default function AboutPage() {
             background: "linear-gradient(180deg, var(--color-surface), transparent)",
           }}
         >
-          <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#c8d8a2" }}>
-            The System
+          <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>
+            The Approach
           </div>
           {[
-            ["DEFRAG AI", "/dynamics"],
-            ["Intelligence Architecture", "/account/billing"],
+            ["Console", "/dynamics"],
+            ["Pricing", "/account/billing"],
           ].map(([label, href]) => (
             <Link
               key={href}

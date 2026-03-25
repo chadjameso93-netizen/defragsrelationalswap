@@ -10,8 +10,8 @@ export default async function BillingPage() {
     return (
       <AppShell
         eyebrow=""
-        title="Intelligence capacity."
-        description="Access to DEFRAG AI operates on a tiered capability model."
+        title="Upgrade your account."
+        description="Select a tier to unlock more analysis and deeper guidance."
       >
          <div style={{ marginTop: 24, padding: 32, border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", background: "rgba(6, 7, 10, 0.4)", backdropFilter: "blur(20px)" }}>
            <h3 style={{ margin: 0, fontSize: 18, fontWeight: 400, color: "var(--color-text-primary)" }}>Begin mapping interactions</h3>
@@ -29,8 +29,8 @@ export default async function BillingPage() {
   return (
     <AppShell
       eyebrow=""
-      title="Intelligence capacity."
-      description="Manage your current plan or extend your structural analysis."
+      title="Manage your plan."
+      description="Select the level of analysis that fits your situation."
     >
       <div className="premium-fade-up" data-delay="1" style={{ display: "grid", gap: 48, marginTop: 24 }}>
         
