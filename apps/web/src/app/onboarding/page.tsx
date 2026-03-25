@@ -1,70 +1,77 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { AppShell } from "@/components/app-shell";
 import { createClient } from "@/utils/supabase/client";
 
-export default function OnboardingPage() {
+function OnboardingContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const supabase = createClient();
+  
   const [displayName, setDisplayName] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const nextPath = searchParams.get("next");
+  const isInviteFlow = nextPath?.includes("/share/");
+
+  const eyebrow = isInviteFlow ? "Almost there" : "Welcome";
+  const title = "What should we call you?";
+  const description = isInviteFlow 
+    ? "Before you view the shared summary, enter your name. Your response stays private until you choose to share it back."
+    : "Enter your name to personalize your private workspace.";
+
   return (
     <AppShell
-      eyebrow="Setup"
-      title="Establish your baseline identity."
-      description="Tell the system what to call you. This frames your perspective within the relational map."
+      eyebrow={eyebrow}
+      title={title}
+      description={description}
       accent="var(--color-accent)"
     >
       <section
+        className="premium-fade-up"
         style={{
-          maxWidth: 720,
+          maxWidth: 640,
+          marginTop: 24,
           display: "grid",
-          gap: 18,
-          padding: 24,
+          gap: 24,
+          padding: 32,
           borderRadius: "var(--radius-lg)",
+          background: "rgba(6, 7, 10, 0.4)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
           border: "1px solid var(--color-border)",
-          background: "var(--color-surface)",
         }}
       >
-        <div style={{ display: "grid", gap: 8 }}>
-          <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-accent)" }}>
-            Perspective
-          </p>
-          <p style={{ margin: 0, fontSize: 14, color: "var(--color-text-secondary)", lineHeight: 1.75 }}>
-            We map interactions relative to the observer. Enter your name below to anchor the DEFRAG AI context.
-          </p>
-        </div>
-
-        <label style={{ display: "grid", gap: 8 }}>
-          <span style={{ fontSize: 13, color: "var(--color-text-primary)" }}>Display name</span>
+        <div style={{ display: "grid", gap: 12 }}>
+          <label style={{ fontSize: 13, fontWeight: 500, color: "var(--color-text-primary)" }}>Your name</label>
           <input
             value={displayName}
             onChange={(event) => setDisplayName(event.target.value)}
-            placeholder="Your name"
+            placeholder="Jane Doe"
             style={{
+              width: "100%",
               borderRadius: "var(--radius-md)",
               border: "1px solid var(--color-border)",
-              background: "var(--color-surface)",
+              background: "rgba(0,0,0,0.5)",
               color: "var(--color-text-primary)",
-              padding: "14px 16px",
+              padding: "16px",
+              fontSize: 16,
+              outline: "none",
+              boxSizing: "border-box"
             }}
           />
-        </label>
+        </div>
 
-        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-          <button
-            type="button"
-            onClick={async () => {
-              setBusy(true);
-              setError(null);
-              try {
-                const {
-                  data: { user },
-                } = await supabase.auth.getUser();
+        <button
+          type="button"
+          onClick={async () => {
+             setBusy(true);
+             setError(null);
+             try {
+                const { data: { user } } = await supabase.auth.getUser();
 
                 if (!user) {
                   router.push("/login");
@@ -82,31 +89,46 @@ export default function OnboardingPage() {
                   throw updateResult.error;
                 }
 
-                router.push("/dynamics");
+                router.push(nextPath && nextPath.startsWith("/") ? nextPath : "/dynamics");
                 router.refresh();
-              } catch (err) {
-                setError(err instanceof Error ? err.message : "Unable to complete onboarding");
-              } finally {
+             } catch (err) {
+                setError(err instanceof Error ? err.message : "Unable to complete setup");
+             } finally {
                 setBusy(false);
-              }
-            }}
-            disabled={busy}
-            style={{
-              padding: "12px 18px",
-              borderRadius: "var(--radius-pill)",
-              border: 0,
-              background: "var(--color-text-primary)",
-              color: "var(--color-bg)",
-              fontWeight: 700,
-              cursor: busy ? "default" : "pointer",
-            }}
-          >
-            {busy ? "Saving…" : "Set Perspective"}
-          </button>
-        </div>
+             }
+          }}
+          disabled={busy || !displayName.trim()}
+          style={{
+            width: "100%",
+            padding: "16px",
+            borderRadius: "var(--radius-pill)",
+            border: 0,
+            background: "var(--color-text-primary)",
+            color: "var(--color-bg)",
+            fontWeight: 600,
+            fontSize: 15,
+            cursor: busy || !displayName.trim() ? "default" : "pointer",
+            opacity: busy || !displayName.trim() ? 0.7 : 1,
+            transition: "all 0.2s ease"
+          }}
+        >
+          {busy ? "Saving..." : isInviteFlow ? "View summary" : "Continue to DEFRAG"}
+        </button>
 
-        {error ? <p style={{ margin: 0, color: "#fca5a5" }}>{error}</p> : null}
+        {error ? (
+          <div style={{ padding: 12, borderRadius: 8, background: "rgba(220, 38, 38, 0.1)", border: "1px solid rgba(220, 38, 38, 0.2)", color: "#fca5a5", fontSize: 13, textAlign: "center" }}>
+            {error}
+          </div>
+        ) : null}
       </section>
     </AppShell>
+  );
+}
+
+export default function OnboardingPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <OnboardingContent />
+    </Suspense>
   );
 }

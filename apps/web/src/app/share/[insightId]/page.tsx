@@ -9,9 +9,9 @@ export default async function SharedInsightLandingPage({ params }: { params: { i
   
   return (
     <AppShell
-      eyebrow="Shared Summary"
+      eyebrow=""
       title="Someone asked for your perspective."
-      description="You have been invited to review a relational summary and safely add your own context. Your response is kept private and bounded to this interaction sequence."
+      description="You've been invited to view a short summary of a recent conversation and add your own context. Your response is kept private."
     >
       <div 
         className="premium-fade-up" 
@@ -35,21 +35,21 @@ export default async function SharedInsightLandingPage({ params }: { params: { i
           }}
         >
           <div>
-            <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--color-text-muted)" }}>Interaction Extract</span>
+            <span style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-text-muted)" }}>What you'll do</span>
             <p style={{ margin: "8px 0 0 0", color: "var(--color-text-secondary)", lineHeight: 1.6 }}>
-              A structural summary of a recent interaction has been mapped. DEFRAG AI uses these summaries to identify repeating patterns and diffuse pressure.
+              You will see a neutral summary of what happened. You can review it and decide if you want to share your side of the story.
             </p>
           </div>
 
           <div style={{ padding: 16, background: "rgba(0,0,0,0.3)", borderRadius: "var(--radius-md)", border: "1px solid var(--color-border-hover)" }}>
-            <span style={{ fontSize: 11, color: "var(--color-accent)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Status</span>
-            <p style={{ margin: "6px 0 0 0", color: "var(--color-text-primary)", fontSize: 15 }}>
-              The record is locked. To view the summary and add your side of the interaction, authenticate below.
+            <span style={{ fontSize: 11, color: "var(--color-accent)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Secure Link</span>
+            <p style={{ margin: "6px 0 0 0", color: "var(--color-text-primary)", fontSize: 15, lineHeight: 1.5 }}>
+              This summary is private. Enter your email below to verify your identity and view the context safely.
             </p>
           </div>
 
           <Link 
-            href={`/login?next=/dynamics`}
+            href={`/login?next=/share/${params.insightId}`}
             style={{
               marginTop: 8,
               padding: "14px 24px",
@@ -63,14 +63,14 @@ export default async function SharedInsightLandingPage({ params }: { params: { i
               display: "inline-block"
             }}
           >
-            Authenticate to view summary
+            Sign in to view
           </Link>
         </section>
 
         <section style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
           {[
-            ["Private by default", "Your intake remains fully isolated from the sender's account until you explicitly choose to merge timelines."],
-            ["Objective translation", "DEFRAG maps the architecture of the conversation, it does not assign blame or fixed personality models."],
+            ["Private by default", "You control what you share. Your response is fully isolated until you explicitly decide to send it back."],
+            ["A clearer picture", "DEFRAG helps people untangle misunderstandings without assigning blame. Your perspective makes the picture complete."],
           ].map(([title, copy]) => (
             <div key={title} style={{ padding: 20, border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)" }}>
               <div style={{ fontSize: 13, fontWeight: 500, color: "var(--color-text-primary)" }}>{title}</div>
