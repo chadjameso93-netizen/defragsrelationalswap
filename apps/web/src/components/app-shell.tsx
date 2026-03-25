@@ -74,7 +74,7 @@ export function AppShell({
               <Link href="/" style={{ textDecoration: "none", color: "var(--color-text-primary)", fontSize: 18, letterSpacing: "0.28em", textTransform: "uppercase" }}>
                 DEFRAG
               </Link>
-              <span style={{ color: "var(--color-text-muted)", fontSize: 12 }}>Clarity for real conversations</span>
+              <span style={{ color: "var(--color-text-muted)", fontSize: 12 }}>Understand what happened. Change what happens next.</span>
             </div>
 
             <div
@@ -102,7 +102,7 @@ export function AppShell({
                   boxShadow: "var(--shadow-glow)",
                 }}
               />
-              System Active
+              Active
             </div>
           </div>
 
@@ -212,7 +212,7 @@ export function AppShell({
             }}
           >
             <div style={{ color: "var(--color-text-muted)", fontSize: 13, maxWidth: 400 }}>
-              DEFRAG helps you understand what's happening and change what happens next.
+              DEFRAG helps you understand what happened, see the pattern, and know what to do next.
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
               {footerItems.map((item) => (

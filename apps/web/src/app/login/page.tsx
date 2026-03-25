@@ -66,19 +66,17 @@ function BrandSide(): React.JSX.Element {
         </div>
 
         <h1 className="max-w-[12ch] text-5xl font-medium tracking-[-0.04em] text-white xl:text-6xl">
-          Make sense of difficult interactions.
+          See the pattern. Change what happens next.
         </h1>
 
         <p className="mt-6 max-w-[34rem] text-base leading-8 text-neutral-300 xl:text-lg">
-          DEFRAG helps you understand what is happening, notice the pressure,
-          and decide what to do next before a conversation hardens into a
-          pattern.
+          DEFRAG helps you understand what happened, notice pressure, and know what to do next.
         </p>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-3">
-          <SignalTile label="See the pattern" value="Faster" />
-          <SignalTile label="Notice pressure" value="Earlier" />
-          <SignalTile label="Respond clearly" value="Calmer" />
+          <SignalTile label="Understand" value="What happened" />
+          <SignalTile label="Notice" value="What changed" />
+          <SignalTile label="Decide" value="The next move" />
         </div>
       </div>
     </section>

@@ -33,7 +33,7 @@ export default function LandingPage() {
                  <div style={{ width: 10, height: 10, borderRadius: "50%", background: "rgba(245, 158, 11, 0.8)" }} />
                  <div style={{ width: 10, height: 10, borderRadius: "50%", background: "rgba(16, 185, 129, 0.8)" }} />
                </div>
-               <div style={{ fontSize: 10, letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--color-text-muted)", fontWeight: 500 }}>Session Analysis #0421</div>
+               <div style={{ fontSize: 10, letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--color-text-muted)", fontWeight: 500 }}>Analysis</div>
             </div>
 
             {/* Content Area */}
@@ -41,9 +41,9 @@ export default function LandingPage() {
               {/* Left Column: Input Simulation */}
               <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
                 <div style={{ padding: 24, borderRadius: 20, background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.04)" }}>
-                  <div style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255, 255, 255, 0.4)", marginBottom: 12, fontWeight: 600 }}>Incoming Message</div>
+                  <div style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255, 255, 255, 0.4)", marginBottom: 12, fontWeight: 600 }}>Their Side</div>
                   <p style={{ color: "var(--color-text-secondary)", lineHeight: 1.6, fontSize: 14 }}>
-                    "I don't think you're listening. Every time I bring this up, you just pivot back to what you want to talk about. It feels like my perspective doesn't actually matter."
+                    "Every time I bring this up, you just pivot back to what you want to talk about. It feels like my perspective doesn't actually matter."
                   </p>
                 </div>
 
@@ -51,7 +51,7 @@ export default function LandingPage() {
                    <div style={{ background: "rgba(255, 255, 255, 0.04)", padding: 20 }}>
                       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
                         <Zap style={{ width: 14, height: 14, color: "var(--color-accent)" }} />
-                        <span style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--color-accent)", fontWeight: 700 }}>Suggested Action</span>
+                        <span style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--color-accent)", fontWeight: 700 }}>Next Move</span>
                       </div>
                       <p style={{ color: "var(--color-text-primary)", fontSize: 16, fontWeight: 500 }}>
                         "I can see why it feels like I'm pivoting. I want to slow down and make sure I'm actually hearing you before I say anything else."
@@ -67,27 +67,27 @@ export default function LandingPage() {
               {/* Right Column: Insight Simulation */}
               <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                  <div style={{ padding: 20, borderRadius: 20, background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.04)", height: "100%" }}>
-                    <div style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255, 255, 255, 0.4)", marginBottom: 16, fontWeight: 600 }}>What's happening</div>
+                    <div style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255, 255, 255, 0.4)", marginBottom: 16, fontWeight: 600 }}>What Happened</div>
                     <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                        <div style={{ display: "flex", gap: 12 }}>
                           <div style={{ marginTop: 4, width: 6, height: 6, borderRadius: "50%", background: "#f59e0b", boxShadow: "0 0 8px rgba(245, 158, 11, 0.5)" }} />
                           <div>
                              <div style={{ fontSize: 14, fontWeight: 500, color: "var(--color-text-primary)" }}>High Pressure</div>
-                             <p style={{ fontSize: 12, color: "var(--color-text-muted)", lineHeight: 1.5, marginTop: 4 }}>The message indicates a loss of agency and felt invisibility.</p>
+                             <p style={{ fontSize: 12, color: "var(--color-text-muted)", lineHeight: 1.5, marginTop: 4 }}>Noticeable loss of agency and felt invisibility in the latest interaction.</p>
                           </div>
                        </div>
                        <div style={{ display: "flex", gap: 12 }}>
                           <div style={{ marginTop: 4, width: 6, height: 6, borderRadius: "50%", background: "#06b6d4", boxShadow: "0 0 8px rgba(6, 182, 212, 0.5)" }} />
                           <div>
-                             <div style={{ fontSize: 14, fontWeight: 500, color: "var(--color-text-primary)" }}>Repair window</div>
-                             <p style={{ fontSize: 12, color: "var(--color-text-muted)", lineHeight: 1.5, marginTop: 4 }}>Slowing down now prevents the escalation from turning into a story.</p>
+                             <div style={{ fontSize: 14, fontWeight: 500, color: "var(--color-text-primary)" }}>What Changed</div>
+                             <p style={{ fontSize: 12, color: "var(--color-text-muted)", lineHeight: 1.5, marginTop: 4 }}>Slowing down now prevents the moment from turning into a story.</p>
                           </div>
                        </div>
                     </div>
                     <div style={{ marginTop: 32, paddingTop: 24, borderTop: "1px solid rgba(255, 255, 255, 0.05)" }}>
-                        <div style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255, 255, 255, 0.3)", marginBottom: 12, fontWeight: 600 }}>Guidance</div>
+                        <div style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255, 255, 255, 0.3)", marginBottom: 12, fontWeight: 600 }}>Next Move</div>
                         <div style={{ fontSize: 12, color: "rgba(255, 255, 255, 0.7)", lineHeight: 1.6 }}>
-                           Don't defend your intent. Validate their perception of the pivot. 
+                           Try validating their perception of the pivot before introducing your intent. 
                         </div>
                     </div>
                  </div>
@@ -99,11 +99,11 @@ export default function LandingPage() {
         {/* 2. Headline */}
         <div style={{ textAlign: "center", maxWidth: 840, marginBottom: 48 }}>
           <h1 className="premium-fade-up" data-delay="0" style={{ fontSize: "clamp(3rem, 10vw, 8rem)", fontWeight: 500, letterSpacing: "-0.04em", marginBottom: 32, lineHeight: 0.9, color: "var(--color-text-primary)" }}>
-            Understand what’s happening in a conversation.
+            See the pattern.<br/>Change what happens next.
           </h1>
           
-          <p className="premium-fade-up" data-delay="1" style={{ fontSize: "clamp(1rem, 2vw, 1.25rem)", color: "var(--color-text-secondary)", marginBottom: 48, lineHeight: 1.6, maxWidth: 640, marginLeft: "auto", marginRight: "auto", fontWeight: 300 }}>
-            Paste what was said. DEFRAG shows you what's actually going on, where the pressure is, and what to do next.
+          <p className="premium-fade-up" data-delay="1" style={{ fontSize: "clamp(1.1rem, 2vw, 1.35rem)", color: "var(--color-text-secondary)", marginBottom: 48, lineHeight: 1.6, maxWidth: 640, marginLeft: "auto", marginRight: "auto", fontWeight: 300 }}>
+            DEFRAG helps you understand what’s happening, notice pressure, and know what to do next.
           </p>
 
           {/* 3. CTA */}
@@ -125,11 +125,11 @@ export default function LandingPage() {
                 boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
               }}
             >
-              Try it
+              Try DEFRAG
               <ArrowRight style={{ width: 20, height: 20 }} />
             </Link>
             <Link 
-              href="#example" 
+              href="/login" 
               style={{ 
                 display: "flex", 
                 alignItems: "center", 
@@ -145,7 +145,7 @@ export default function LandingPage() {
               }}
             >
               <PlayCircle style={{ width: 20, height: 20 }} />
-              See example
+              See how it works
             </Link>
           </div>
         </div>
@@ -154,29 +154,29 @@ export default function LandingPage() {
         <div className="premium-fade-up" data-delay="2" style={{ marginTop: 120, width: "100%", maxWidth: 1000, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 48 }}>
            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               <div style={{ padding: 12, borderRadius: 16, background: "rgba(34, 211, 238, 0.1)", border: "1px solid rgba(34, 211, 238, 0.2)", width: "fit-content" }}>
-                 <Zap style={{ width: 24, height: 24, color: "var(--color-accent)" }} />
+                 <MessageSquare style={{ width: 24, height: 24, color: "var(--color-accent)" }} />
               </div>
-              <h3 style={{ fontSize: 18, fontWeight: 500, color: "var(--color-text-primary)", margin: 0 }}>Immediate Clarity</h3>
+              <h3 style={{ fontSize: 18, fontWeight: 500, color: "var(--color-text-primary)", margin: 0 }}>Understand what happened</h3>
               <p style={{ fontSize: 14, color: "var(--color-text-muted)", lineHeight: 1.6, margin: 0 }}>
-                Understand the mismatch between what was said and what was heard, instantly.
+                Paste a conversation, message, or tense moment. DEFRAG shows both sides and what was actually meant.
               </p>
            </div>
            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               <div style={{ padding: 12, borderRadius: 16, background: "rgba(245, 158, 11, 0.1)", border: "1px solid rgba(245, 158, 11, 0.2)", width: "fit-content" }}>
                  <Shield style={{ width: 24, height: 24, color: "#f59e0b" }} />
               </div>
-              <h3 style={{ fontSize: 18, fontWeight: 500, color: "var(--color-text-primary)", margin: 0 }}>Lower Pressure</h3>
+              <h3 style={{ fontSize: 18, fontWeight: 500, color: "var(--color-text-primary)", margin: 0 }}>Notice what changed</h3>
               <p style={{ fontSize: 14, color: "var(--color-text-muted)", lineHeight: 1.6, margin: 0 }}>
-                Identify tension points before they escalate into long-term conflict.
+                Identify the exact moment the pressure shifted, before the interaction turns into a story.
               </p>
            </div>
            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               <div style={{ padding: 12, borderRadius: 16, background: "rgba(255,255,255,0.05)", border: "1px solid var(--color-border)", width: "fit-content" }}>
-                 <MessageSquare style={{ width: 24, height: 24, color: "rgba(255,255,255,0.5)" }} />
+                 <Zap style={{ width: 24, height: 24, color: "rgba(255,255,255,0.5)" }} />
               </div>
-              <h3 style={{ fontSize: 18, fontWeight: 500, color: "var(--color-text-primary)", margin: 0 }}>What To Do</h3>
+              <h3 style={{ fontSize: 18, fontWeight: 500, color: "var(--color-text-primary)", margin: 0 }}>Know the next move</h3>
               <p style={{ fontSize: 14, color: "var(--color-text-muted)", lineHeight: 1.6, margin: 0 }}>
-                Get specific language suggestions that preserve the relationship and move forward.
+                Get practical wording and timing suggestions that help you respond clearly.
               </p>
            </div>
         </div>

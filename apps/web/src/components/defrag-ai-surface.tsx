@@ -33,7 +33,7 @@ const starterMessages: Message[] = [
     id: "m1",
     role: "assistant",
     content:
-      "Tell me what happened. I’ll help you sort out the pressure, the pattern, and what to do next.",
+      "Tell me what happened. I’ll help you understand the pressure, the pattern, and what to do next.",
   },
   {
     id: "m2",
@@ -45,17 +45,17 @@ const starterMessages: Message[] = [
 
 const starterInsights: InsightCard[] = [
   {
-    title: "What may be happening",
+    title: "What happened",
     body:
       "This looks less like rejection and more like overload. The silence may be a pause under pressure, not a final answer.",
   },
   {
-    title: "Where the pressure is",
+    title: "What changed",
     body:
-      "The interaction may have moved faster than the other person could process. Pace is more important here than force.",
+      "The interaction moved faster than the other person could process. Slowing down now prevents the moment from turning into a story.",
   },
   {
-    title: "What to try next",
+    title: "Next move",
     body:
       "Acknowledge the tension first. Then make the next step small, specific, and easy to respond to.",
   },
@@ -63,11 +63,11 @@ const starterInsights: InsightCard[] = [
 
 const starterSimulation: SimulationStep[] = [
   {
-    label: "Option A",
+    label: "Next move",
     text: "I know that last message may have landed with more pressure than I meant. No need to respond quickly.",
   },
   {
-    label: "Option B",
+    label: "Alternative",
     text: "I want to slow this down. If you’re open, we can come back to it when there’s more room.",
   },
 ];
@@ -99,7 +99,7 @@ export default function DefragAISurface(): React.JSX.Element {
     <div className="relative min-h-screen overflow-hidden bg-neutral-950 text-neutral-50">
       <AmbientBackground />
 
-      <div className="relative mx-auto flex min-h-screen max-w-[1600px] flex-col px-4 py-4 md:px-6 md:py-6">
+      <div className="relative mx-auto flex min-h-screen max-[1600px] flex-col px-4 py-4 md:px-6 md:py-6">
         <header className="mb-4 flex items-center justify-between border-b border-white/10 pb-4">
           <div className="flex items-center gap-3">
             <div className="h-9 w-9 rounded-xl border border-white/10 bg-white/5 backdrop-blur-md" />
@@ -108,17 +108,17 @@ export default function DefragAISurface(): React.JSX.Element {
                 DEFRAG
               </div>
               <h1 className="text-sm font-medium text-neutral-100 md:text-base">
-                DEFRAG AI
+                Console
               </h1>
             </div>
           </div>
 
           <div className="hidden items-center gap-2 md:flex">
             <button className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-neutral-200 transition hover:bg-white/10">
-              Share summary
+              Share
             </button>
             <button className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-neutral-200 transition hover:bg-white/10">
-              Invite someone
+              Invite
             </button>
           </div>
         </header>
@@ -176,18 +176,18 @@ function FieldRail(props: {
     <div className="h-full rounded-[28px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-2xl">
       <div className="mb-6 flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-neutral-400">
         <Waves className="h-4 w-4" />
-        Live relational state
+        Session Status
       </div>
 
       <div className="space-y-4">
-        <MetricBlock label="Current pressure" value={pressureLevel} />
+        <MetricBlock label="Pressure" value={pressureLevel} />
         <MetricBlock label="Timing" value={timingWindow} />
         <MetricBlock label="Next move" value={nextMove} />
       </div>
 
       <div className="mt-8">
         <div className="mb-3 text-xs uppercase tracking-[0.18em] text-neutral-500">
-          Signal field
+          Activity
         </div>
         <div className="relative h-[340px] overflow-hidden rounded-[24px] border border-white/10 bg-black/30">
           <div className="absolute left-[18%] top-[18%] h-24 w-24 rounded-full border border-cyan-400/20 bg-cyan-400/10 blur-[1px]" />
@@ -232,10 +232,10 @@ function ConversationHeader(): React.JSX.Element {
     <div className="flex items-center justify-between border-b border-white/10 px-4 py-4 md:px-6">
       <div>
         <div className="mb-1 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
-          Current conversation
+          Conversation
         </div>
         <div className="text-sm text-neutral-200 md:text-base">
-          Make sense of the pressure before you respond.
+          Understand what happened before it repeats.
         </div>
       </div>
 
@@ -294,13 +294,13 @@ function Composer(props: {
             htmlFor="defrag-input"
             className="mb-2 block text-[11px] uppercase tracking-[0.16em] text-neutral-500"
           >
-            Ask DEFRAG
+            Start with a message
           </label>
           <textarea
             id="defrag-input"
             value={props.draft}
             onChange={(e) => props.setDraft(e.target.value)}
-            placeholder="Describe the interaction, what was said, and what feels stuck."
+            placeholder="Paste a conversation, message, or tense moment."
             className="min-h-[84px] w-full resize-none border-0 bg-transparent text-sm leading-6 text-neutral-100 outline-none placeholder:text-neutral-500"
           />
         </div>
@@ -347,7 +347,7 @@ function RightRail(props: {
       <div className="rounded-[28px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-2xl">
         <div className="mb-4 flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-neutral-400">
           <MessageSquareText className="h-4 w-4" />
-          Simulation
+          Next move
         </div>
 
         <div className="space-y-4">

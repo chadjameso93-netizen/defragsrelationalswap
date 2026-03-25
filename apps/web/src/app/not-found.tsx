@@ -4,9 +4,9 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <AppShell
-      eyebrow="System State"
+      eyebrow="404"
       title="Signal lost."
-      description="The requested view or coordinate does not exist."
+      description="The page you are looking for does not exist."
       accent="var(--color-text-muted)"
     >
       <div
@@ -23,7 +23,7 @@ export default function NotFound() {
         }}
       >
         <p style={{ margin: 0, color: "var(--color-text-secondary)", fontSize: 16, lineHeight: 1.6 }}>
-          It may have been moved, deleted, or you might have stepped outside the known boundaries of your DEFRAG session.
+          You may have moved outside the known boundaries of your DEFRAG session.
         </p>
         <div style={{ marginTop: 8 }}>
           <Link
@@ -41,7 +41,7 @@ export default function NotFound() {
               display: "inline-block",
             }}
           >
-            Return to known coordinates
+            Return home
           </Link>
         </div>
       </div>

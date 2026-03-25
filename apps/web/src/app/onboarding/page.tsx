@@ -18,10 +18,10 @@ function OnboardingContent() {
   const isInviteFlow = nextPath?.includes("/share/");
 
   const eyebrow = isInviteFlow ? "Almost there" : "Welcome";
-  const title = "What should we call you?";
+  const title = "Setting up your workspace.";
   const description = isInviteFlow 
-    ? "Before you view the shared summary, enter your name. Your response stays private until you choose to share it back."
-    : "Enter your name to personalize your private workspace.";
+    ? "Before you view the shared summary, enter your name. Your work stays private until you choose to share it back."
+    : "This helps us personalize how you usually respond under pressure and what helps you feel steady.";
 
   return (
     <AppShell

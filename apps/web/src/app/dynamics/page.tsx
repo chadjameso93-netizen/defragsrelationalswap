@@ -14,8 +14,8 @@ export default async function DynamicsPage() {
     return (
       <AppShell
         eyebrow="Console"
-        title="See what's happening."
-        description="The primary intelligence environment for mapping conversations, identifying pressure, and taking structural action."
+        title="See the pattern. Change what happens next."
+        description="DEFRAG helps you understand what’s happening, notice pressure, and know what to do next."
         accent="#22d3ee"
       >
         <div style={{ display: "grid", gap: 22 }}>
@@ -45,12 +45,12 @@ export default async function DynamicsPage() {
                 </div>
 
                 <div style={{ display: "grid", gap: 14, padding: 24, borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "var(--color-surface-hover)" }}>
-                  <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Insight Overlay</p>
+                  <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>What happened</p>
                   <p style={{ margin: 0, fontSize: 24, lineHeight: 1.4, color: "var(--color-text-primary)" }}>
-                    The tension stems less from foundational incompatibility, and more from parallel repair attempts intersecting while both parties remain highly defensive.
+                    The tension stems less from foundational incompatibility, and more from parallel repair attempts intersecting while both parties remain defensive.
                   </p>
                   <p style={{ margin: 0, fontSize: 15, lineHeight: 1.75, color: "var(--color-text-secondary)" }}>
-                    DEFRAG AI distills the precise architectural pattern causing friction without assigning character flaws or leaning into permanent diagnosis.
+                    DEFRAG helps you understand both sides, see what changed, and decide what to say next.
                   </p>
                 </div>
                 
@@ -64,8 +64,8 @@ export default async function DynamicsPage() {
 
             <aside style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: 22, background: "var(--color-surface)", display: "grid", gap: 18 }}>
               <div style={{ display: "grid", gap: 6 }}>
-                <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Context Tracing</p>
-                <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "var(--color-text-secondary)" }}>Recurring themes are mapped continuously in the active session to ensure guidance reflects the holistic context, not a singular reaction.</p>
+                <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Context</p>
+                <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "var(--color-text-secondary)" }}>Recurring themes are mapped across the conversation to help you see the pattern and respond clearly.</p>
               </div>
               {[
                 "Conflict de-escalation mapping",

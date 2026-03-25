@@ -27,26 +27,27 @@ export default async function AccountPage() {
   const profileLabel =
     (typeof user?.user_metadata?.display_name === "string" && user.user_metadata.display_name) ||
     user?.email?.split("@")[0] ||
-    "Observer";
+    "User";
 
   return (
     <AppShell
-      eyebrow="My Conversations"
-      title="Understand where your energy is clustering."
-      description="This view helps you step back from single events and notice which interactions need the most attention."
+      eyebrow="Conversations"
+      title="See the pattern across your interaction history."
+      description="Notice where pressure is clustering and which interactions need the most attention."
       accent="var(--color-accent)"
     >
       {!user ? (
         <PublicPreviewCta
           title="Sign in to see your overview."
-          description="In order to help you track conversations, we need to anchor the data to your perspective. Sign in to begin."
-          primaryLabel="Try it"
+          description="DEFRAG translates the timeline of an interaction to help you see the pattern and decide what to do next. Sign in to begin."
+          primaryLabel="Try DEFRAG"
           secondaryLabel="Console"
           secondaryHref="/dynamics"
         />
       ) : null}
       <section
-        className="account-hero-grid"
+        className="premium-fade-up"
+        data-delay="1"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
@@ -55,11 +56,11 @@ export default async function AccountPage() {
         }}
       >
         {[
-          ["Active Threads", String(mockPeople.length)],
+          ["Conversations", String(mockPeople.length)],
           ["Status", user ? "Authenticated" : "Guest"],
-          ["Next move", user ? "Open Console" : "Start a session"],
+          ["Next move", user ? "Open Console" : "Try DEFRAG"],
         ].map(([label, value]) => (
-          <div key={label} className="premium-fade-up" data-delay="1" style={{ padding: 24, borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "var(--color-surface)" }}>
+          <div key={label} style={{ padding: 24, borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "var(--color-surface)" }}>
             <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>{label}</div>
             <div style={{ marginTop: 10, color: "var(--color-text-primary)", fontSize: 18, lineHeight: 1.5 }}>{value}</div>
           </div>
@@ -67,7 +68,8 @@ export default async function AccountPage() {
       </section>
 
       <div
-        className="account-main-grid"
+        className="premium-fade-up"
+        data-delay="2"
         style={{
           display: "grid",
           gridTemplateColumns: "minmax(0, 1.25fr) minmax(280px, 0.75fr)",
@@ -85,13 +87,13 @@ export default async function AccountPage() {
         </div>
 
         <aside style={{ display: "grid", gap: 16 }}>
-          <section className="premium-fade-up" data-delay="2" style={{ padding: 24, borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "var(--color-surface)", display: "grid", gap: 12 }}>
+          <section style={{ padding: 24, borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "var(--color-surface)", display: "grid", gap: 12 }}>
             <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Next step</div>
             <p style={{ margin: 0, color: "var(--color-text-primary)", fontSize: 18, lineHeight: 1.5 }}>
-              Focus on one specific interaction in the Console.
+              Focus on one interaction in the Console.
             </p>
             <p style={{ margin: 0, color: "var(--color-text-secondary)", fontSize: 14, lineHeight: 1.7 }}>
-              The overview helps you pick the target. The Console gives you the specific actions to take.
+              The overview helps you pick where to look. The Console gives you the specific moves to make.
             </p>
             <Link
               href={user ? "/dynamics" : "/login"}
@@ -109,14 +111,14 @@ export default async function AccountPage() {
                 fontWeight: 700,
               }}
             >
-              {user ? "Open Console" : "Try it"}
+              {user ? "Open Console" : "Try DEFRAG"}
             </Link>
           </section>
 
-          <section className="premium-fade-up" data-delay="3" style={{ padding: 24, borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "var(--color-surface)", display: "grid", gap: 12 }}>
-            <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Orientation</div>
+          <section style={{ padding: 24, borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "var(--color-surface)", display: "grid", gap: 12 }}>
+            <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Personalize</div>
             <div style={{ color: "var(--color-text-secondary)", lineHeight: 1.75, fontSize: 14 }}>
-              Use this page to notice where things feel charged or unfinished. Then move to DEFRAG AI for pattern clarity and a direct read on what to try next.
+              DEFRAG helps you understand what happened, see the pattern, and know what to do next. Use this view to pick an interaction, then move to the Console for specific guidance.
             </div>
           </section>
         </aside>
@@ -124,7 +126,7 @@ export default async function AccountPage() {
 
       <style>{`
         @media (max-width: 900px) {
-          .account-main-grid {
+          div[style*="grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr)"] {
             grid-template-columns: 1fr !important;
           }
         }

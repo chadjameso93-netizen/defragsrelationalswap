@@ -32,7 +32,7 @@ export function PublicPreviewCta({
     >
       <div style={{ display: "grid", gap: 10 }}>
         <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--color-accent)" }}>
-          Access Status
+          Status
         </p>
         <h2 style={{ margin: 0, fontSize: 24, lineHeight: 1.2, color: "var(--color-text-primary)" }}>{title}</h2>
         <p style={{ margin: 0, fontSize: 14, lineHeight: 1.75, color: "var(--color-text-secondary)", maxWidth: 620 }}>{description}</p>

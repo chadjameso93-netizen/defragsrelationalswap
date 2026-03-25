@@ -5,8 +5,8 @@ export default function AboutPage() {
   return (
     <AppShell
       eyebrow="Approach"
-      title="Guidance for difficult interactions."
-      description="We believe that misunderstandings escalate when people react to the moment instead of the history. DEFRAG helps you see what is actually happening."
+      title="A practical approach to difficult interactions."
+      description="DEFRAG helps you understand what happened, see the pattern, and know what to do next."
       accent="#c8d8a2"
     >
       <section
@@ -30,19 +30,19 @@ export default function AboutPage() {
           {[
             {
               title: "What DEFRAG is for",
-              body: "DEFRAG helps people slow down charged exchanges, understand what is happening, and choose one next move that creates more room for repair.",
+              body: "DEFRAG shows you the behavioral pattern you default to under stress and helps you interrupt it before it repeats.",
             },
             {
-              title: "How patterns form",
-              body: "When an event occurs, our initial response is often based on an accumulation of past, unresolved tension. The specific details matter less than the recurring timeline of the conflict. By documenting this, we can observe the event instead of getting caught in it.",
+              title: "Seeing the pattern",
+              body: "When a tense moment occurs, our first response is often based on past tension instead of the current event. The details matter less than the recurring timeline of the conflict. By documenting what happened, we can see the pattern instead of getting caught in it.",
             },
             {
               title: "What DEFRAG does not do",
-              body: "DEFRAG does not diagnose people, assign labels, or pretend to know more than the actual event supports. It stays with observable events and clarity.",
+              body: "DEFRAG is not a therapist and not a mystic. It does not diagnose people or assign labels. It stays with observable events, helping you understand both sides and decide what to do next.",
             },
             {
               title: "Changing what happens next",
-              body: "Once you recognize a pattern is repeating, DEFRAG provides guidance that stays grounded in timing and phrasing. It lowers the heat so both people can return to a neutral baseline without sacrificing their needs.",
+              body: "Once you see the pattern, DEFRAG provides guidance grounded in wording and timing. It helps you notice pressure and respond clearly, preserving the interaction without sacrificing your perspective.",
             },
           ].map((section) => (
             <div key={section.title} className="premium-fade-up" data-delay="1" style={{ display: "grid", gap: 10 }}>
