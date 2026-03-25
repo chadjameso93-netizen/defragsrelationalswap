@@ -1,39 +1,34 @@
 "use client";
 
-import { FormEvent, Suspense, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
-import { createClient } from "../../utils/supabase/client";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { enterEmailSystemLink } from "../server/auth";
 
-function LoginPageContent() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const supabase = createClient();
+export default function LoginPage() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setLoading(true);
-    setError(null);
+  const searchParams = useSearchParams();
+  const nextPath = searchParams.get("next");
 
-    const { error: signInError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (signInError) {
-      setError("Sign in failed. Check your email and password, then try again.");
-      setLoading(false);
-      return;
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setStatus("sending");
+    try {
+      const result = await enterEmailSystemLink(email, nextPath || "/dynamics");
+      if (result.error) {
+        setErrorMessage(result.error);
+        setStatus("error");
+      } else {
+        setStatus("sent");
+      }
+    } catch (err) {
+      setErrorMessage(String(err));
+      setStatus("error");
     }
-
-    const nextPath = searchParams.get("next");
-    router.push(nextPath && nextPath.startsWith("/") ? nextPath : "/dynamics");
-    router.refresh();
-  }
+  };
 
   return (
     <main
@@ -42,164 +37,125 @@ function LoginPageContent() {
         minHeight: "100vh",
         display: "grid",
         placeItems: "center",
-        background: "var(--color-bg)",
+        background: "linear-gradient(180deg, #040507 0%, #0a0c10 100%)",
         color: "var(--color-text-primary)",
         padding: 24,
       }}
     >
-      <div style={{ width: "min(100%, 980px)", display: "grid", gridTemplateColumns: "1fr 420px", gap: 24, alignItems: "stretch" }}>
-        <section
-          className="login-story"
-          style={{
-            borderRadius: "var(--radius-lg)",
-            border: "1px solid var(--color-border)",
-            padding: 32,
-            background: "linear-gradient(180deg, var(--color-surface), transparent)",
-            display: "grid",
-            alignContent: "space-between",
-            minHeight: 560,
-          }}
-        >
-          <div style={{ display: "grid", gap: 14 }}>
-            <Link href="/" style={{ textDecoration: "none", color: "var(--color-text-primary)", fontSize: 18, letterSpacing: "0.28em", textTransform: "uppercase" }}>
-              DEFRAG
-            </Link>
-            <p className="premium-fade-up" data-delay="1" style={{ margin: 0, fontSize: "clamp(2.2rem, 5vw, 4.6rem)", lineHeight: 0.98, maxWidth: 520, fontFamily: "var(--font-display), serif" }}>
-              See what’s actually happening.
-            </p>
-            <p className="premium-fade-up" data-delay="2" style={{ margin: 0, maxWidth: 480, color: "var(--color-text-secondary)", lineHeight: 1.75 }}>
-              Return to your relational history. The system builds a persistent map of events and patterns so you can break the cycle of reactions.
-            </p>
+      <div
+        style={{
+          width: "100%",
+          maxWidth: 420,
+          display: "grid",
+          gap: 32,
+          position: "relative",
+          zIndex: 10
+        }}
+      >
+        <div style={{ display: "grid", gap: 12, textAlign: "center" }}>
+          <div style={{ letterSpacing: "0.32em", fontSize: 13, textTransform: "uppercase", color: "var(--color-text-secondary)", fontWeight: 500 }}>
+            DEFRAG
           </div>
-
-          <div className="premium-fade-up" data-delay="3" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
-            {[
-              ["Mapping", "Historical alignment"],
-              ["Pattern", "Cycle recognition"],
-              ["Guidance", "Grounded momentum"],
-            ].map(([label, value]) => (
-              <div key={label} style={{ padding: 16, borderRadius: "var(--radius-md)", background: "var(--color-surface)", border: "1px solid var(--color-border)", backdropFilter: "blur(12px)" }}>
-                <div style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>{label}</div>
-                <div style={{ marginTop: 8, fontSize: 13, lineHeight: 1.5, color: "var(--color-text-primary)" }}>{value}</div>
-              </div>
-            ))}
-          </div>
-        </section>
+          <h1 style={{ margin: 0, fontSize: "2.4rem", letterSpacing: "-0.02em", color: "var(--color-text-primary)", fontWeight: 400 }}>
+            System Access
+          </h1>
+          <p style={{ margin: 0, fontSize: 14, color: "var(--color-text-secondary)", lineHeight: 1.6 }}>
+            Authenticate to access the live relational field.
+          </p>
+        </div>
 
         <form
-          className="login-form premium-fade-up" data-delay="1"
           onSubmit={handleSubmit}
           style={{
-            width: "100%",
+            background: "rgba(10, 12, 16, 0.4)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            border: "1px solid rgba(255,255,255,0.06)",
+            borderRadius: "16px",
+            padding: 32,
             display: "grid",
             gap: 20,
-            padding: 32,
-            borderRadius: "var(--radius-lg)",
-            border: "1px solid var(--color-border)",
-            background: "var(--color-surface)",
-            alignSelf: "center",
+            boxShadow: "0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)"
           }}
         >
-          <div style={{ display: "grid", gap: 8 }}>
-            <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--color-accent)" }}>
-              Access
-            </p>
-            <h1 style={{ margin: 0, fontSize: 34 }}>Sign in</h1>
-            <p style={{ margin: 0, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
-              Continue your mapping.
-            </p>
-          </div>
+          {status === "idle" || status === "sending" || status === "error" ? (
+            <>
+              <div style={{ display: "grid", gap: 8 }}>
+                <label style={{ fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--color-text-muted)", marginLeft: 4 }}>
+                  Identity (Email)
+                </label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your transmission address"
+                  disabled={status === "sending"}
+                  style={{
+                    width: "100%",
+                    padding: "16px",
+                    borderRadius: "12px",
+                    background: "rgba(0,0,0,0.5)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    color: "var(--color-text-primary)",
+                    fontSize: 15,
+                    outline: "none",
+                    boxSizing: "border-box",
+                    transition: "border-color 0.2s ease"
+                  }}
+                />
+              </div>
 
-          <label style={{ display: "grid", gap: 8 }}>
-            <span style={{ fontSize: 13, color: "var(--color-text-secondary)" }}>Email</span>
-            <input
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              autoComplete="email"
-              required
-              style={{
-                borderRadius: "var(--radius-md)",
-                border: "1px solid var(--color-border)",
-                background: "var(--color-bg)",
-                color: "var(--color-text-primary)",
-                padding: "16px 18px",
-              }}
-            />
-          </label>
+              {status === "error" && (
+                <div style={{ padding: 12, borderRadius: 8, background: "rgba(220, 38, 38, 0.1)", border: "1px solid rgba(220, 38, 38, 0.2)", color: "#fca5a5", fontSize: 13, textAlign: "center" }}>
+                  {errorMessage || "Authentication failed. The system could not verify the request."}
+                </div>
+              )}
 
-          <label style={{ display: "grid", gap: 8 }}>
-            <span style={{ fontSize: 13, color: "var(--color-text-secondary)" }}>Password</span>
-            <input
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              autoComplete="current-password"
-              required
-              style={{
-                borderRadius: "var(--radius-md)",
-                border: "1px solid var(--color-border)",
-                background: "var(--color-bg)",
-                color: "var(--color-text-primary)",
-                padding: "16px 18px",
-              }}
-            />
-          </label>
-
-          {error ? <p style={{ margin: 0, color: "#fca5a5" }}>{error}</p> : null}
-
-          <button
-            type="submit"
-            disabled={loading}
-            style={{
-              border: 0,
-              borderRadius: "var(--radius-pill)",
-              padding: "16px 20px",
-              background: "var(--color-text-primary)",
-              color: "var(--color-bg)",
-              fontWeight: 700,
-              cursor: loading ? "progress" : "pointer",
-            }}
-          >
-            {loading ? "Signing in..." : "Continue"}
-          </button>
-
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 14, color: "var(--color-text-muted)", fontSize: 13 }}>
-            <Link href="/terms" style={{ color: "var(--color-text-secondary)", textDecoration: "none" }}>
-              Terms
-            </Link>
-            <Link href="/privacy" style={{ color: "var(--color-text-secondary)", textDecoration: "none" }}>
-              Privacy
-            </Link>
-            <Link href="/about" style={{ color: "var(--color-text-secondary)", textDecoration: "none" }}>
-              About DEFRAG
-            </Link>
-          </div>
+              <button
+                type="submit"
+                disabled={status === "sending" || !email}
+                style={{
+                  width: "100%",
+                  padding: "16px",
+                  borderRadius: "12px",
+                  background: "var(--color-text-primary)",
+                  color: "var(--color-bg)",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  letterSpacing: "0.02em",
+                  border: 0,
+                  cursor: status === "sending" || !email ? "default" : "pointer",
+                  opacity: status === "sending" || !email ? 0.7 : 1,
+                  transition: "all 0.2s ease",
+                  marginTop: 8
+                }}
+              >
+                {status === "sending" ? "Confirming Handshake..." : "Initialize Link"}
+              </button>
+            </>
+          ) : (
+            <div style={{ textAlign: "center", display: "grid", gap: 16, padding: "16px 0" }}>
+              <div style={{ width: 48, height: 48, borderRadius: 24, background: "rgba(216,196,159,0.1)", border: "1px solid rgba(216,196,159,0.3)", display: "grid", placeItems: "center", margin: "0 auto", color: "var(--color-accent)" }}>
+                ✓
+              </div>
+              <div>
+                <h3 style={{ margin: "0 0 8px 0", fontSize: 18, fontWeight: 400 }}>Transmission Sent</h3>
+                <p style={{ margin: 0, fontSize: 14, color: "var(--color-text-secondary)", lineHeight: 1.6 }}>
+                  A secure access link has been routed to <strong>{email}</strong>. Acknowledge it to enter the system.
+                </p>
+              </div>
+              <button
+                onClick={() => setStatus("idle")}
+                style={{ margin: "12px auto 0", background: "none", border: 0, color: "var(--color-text-muted)", fontSize: 13, textDecoration: "underline", cursor: "pointer" }}
+              >
+                Use a different address
+              </button>
+            </div>
+          )}
         </form>
       </div>
-      <style>{`
-        @media (max-width: 920px) {
-          .login-story {
-            min-height: auto !important;
-          }
 
-          .login-form {
-            order: -1;
-          }
-
-          main > div {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
+      <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: 600, height: 600, background: "radial-gradient(circle, rgba(216, 196, 159, 0.03) 0%, transparent 60%)", pointerEvents: "none", zIndex: 0 }} />
     </main>
-  );
-}
-
-export default function LoginPage() {
-  return (
-    <Suspense fallback={null}>
-      <LoginPageContent />
-    </Suspense>
   );
 }

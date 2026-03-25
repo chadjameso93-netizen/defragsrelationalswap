@@ -45,6 +45,7 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loadingThread, setLoadingThread] = useState(false);
+  const [viewHistory, setViewHistory] = useState(false);
 
   useEffect(() => {
     async function loadThreadInsights() {
@@ -62,6 +63,7 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
       const body = (await response.json()) as { insights?: InsightRecord[] };
       const loaded = body.insights ?? [];
       setInsights(loaded);
+      
       if (loaded[0]) {
         setLatestInsightId(loaded[0].id);
         setResult(loaded[0].contract);
@@ -80,238 +82,309 @@ export function DynamicsWorkspace({ initialThreads, entitlements }: DynamicsWork
   }, [activeThreadId]);
 
   const activeInsight = insights.find((insight) => insight.id === latestInsightId) ?? null;
-  const suggestedTitle = situation.trim().slice(0, 42) || "Recent conversation";
+  const suggestedTitle = situation.trim().slice(0, 42) || "Live Interaction";
 
   return (
-    <div
-      className="dynamics-layout premium-fade-up"
-      data-delay="2"
+    <div 
+      className="defrag-ai-environment premium-fade-up" 
+      data-delay="1"
       style={{
+        position: "relative",
+        minHeight: "calc(100vh - 120px)",
+        borderRadius: "var(--radius-lg)",
+        overflow: "hidden",
+        border: "1px solid var(--color-border)",
+        background: "var(--color-bg)",
         display: "grid",
-        gridTemplateColumns: "minmax(0, 1.3fr) 360px",
-        gap: 22,
-        alignItems: "start",
+        gridTemplateColumns: "1fr",
       }}
     >
-      <div style={{ display: "grid", gap: 18 }}>
-        {/* Live Relational Field injected into DEFRAG AI layout */}
+      {/* Background Layer: Live Relational Field */}
+      <div style={{ position: "absolute", inset: 0, opacity: 0.6, pointerEvents: "none" }}>
         <LiveRelationalField preview={false} />
-
-        {result ? (
-          <div>
-            <div style={{ padding: "12px 0", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.2em", color: "var(--color-text-muted)" }}>Insight Overlay</div>
-            <DynamicsV1Shell
-              contract={result}
-              entitlements={entitlements}
-              synthesis={activeInsight?.synthesis ?? null}
-              evaluation={activeInsight?.evaluation ?? null}
-            />
-          </div>
-        ) : null}
-        
-        {actionResult ? (
-          <section style={{ border: "1px solid var(--color-border-hover)", borderRadius: "var(--radius-md)", padding: 16, background: "var(--color-surface)" }}>
-            <p style={{ margin: "0 0 10px 0", fontWeight: 600, color: "var(--color-text-primary)" }}>{actionResult.title}</p>
-            <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.8, color: "var(--color-text-secondary)" }}>
-              {actionResult.lines.map((line) => (
-                <li key={line}>{line}</li>
-              ))}
-            </ul>
-          </section>
-        ) : null}
       </div>
 
-
-      {/* Main DEFRAG AI Right Hand Interaction Component */}
-      <aside
-        className="dynamics-rail"
-        style={{
-          border: "1px solid var(--color-border)",
-          borderRadius: "var(--radius-lg)",
-          background: "var(--color-surface)",
+      {/* Foreground Layer: Interaction & Intelligence Overlays */}
+      <div 
+        style={{ 
+          position: "relative", 
+          zIndex: 10,
           display: "grid",
-          position: "sticky",
-          top: 24,
-          maxHeight: "calc(100vh - 48px)",
-          overflowY: "auto",
+          gridTemplateColumns: "minmax(320px, 400px) minmax(0, 1fr)",
+          gap: 24,
+          padding: 24,
+          height: "100%",
+          alignItems: "start"
         }}
       >
-        <div style={{ padding: 24, borderBottom: "1px solid var(--color-border)", display: "grid", gap: 18 }}>
-          <div style={{ display: "grid", gap: 6 }}>
-            <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Interaction Input</p>
-            <p style={{ margin: 0, fontSize: 13, color: "var(--color-text-secondary)", lineHeight: 1.6 }}>
-              Provide the context of the recent exchange to update the relational field.
-            </p>
-          </div>
-
-          <textarea
-            value={situation}
-            onChange={(event) => setSituation(event.target.value)}
-            rows={4}
-            placeholder="Describe one specific moment or rupture you want to trace."
-            style={{ width: "100%", borderRadius: "var(--radius-md)", padding: 16, background: "var(--color-surface)", border: "1px solid var(--color-border)", color: "var(--color-text-primary)", boxSizing: "border-box", fontFamily: "inherit" }}
-          />
-
-          <button
-            type="button"
-            disabled={busy}
-            onClick={async () => {
-              setBusy(true);
-              setError(null);
-              try {
-                const response = await fetch("/api/dynamics/insights", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({
-                    threadId: activeThreadId,
-                    threadTitle: suggestedTitle,
-                    situation,
-                    recentEvents: [situation],
-                  }),
-                });
-
-                const body = (await response.json()) as {
-                  error?: string;
-                  insight?: InsightRecord;
-                  threadId?: string;
-                  actions?: ActionRecord[];
-                };
-
-                if (!response.ok || !body.insight) {
-                  throw new Error(body.error ?? "Unable to create insight");
-                }
-
-                if (!activeThreadId && body.threadId) {
-                  setThreads((prev) => [{ id: body.threadId!, title: suggestedTitle }, ...prev]);
-                  setActiveThreadId(body.threadId);
-                }
-
-                setLatestInsightId(body.insight.id);
-                setResult(body.insight.contract);
-                setInsights((prev) => [body.insight!, ...prev]);
-                setActions(body.actions ?? []);
-                setActionResult(null);
-                setSituation("");
-              } catch (err) {
-                setError(String(err));
-              } finally {
-                setBusy(false);
-              }
+        {/* Left Control Panel: Intake & History */}
+        <div style={{ display: "grid", gap: 16 }}>
+          <div 
+            style={{ 
+              background: "rgba(6, 7, 10, 0.75)", 
+              backdropFilter: "blur(20px)", 
+              WebkitBackdropFilter: "blur(20px)",
+              border: "1px solid var(--color-border-hover)",
+              borderRadius: "var(--radius-lg)",
+              padding: 24,
+              display: "grid",
+              gap: 20
             }}
-            style={{ borderRadius: 10, border: 0, padding: "10px 14px", cursor: "pointer", background: "var(--color-text-primary)", color: "var(--color-bg)", fontWeight: 600, width: "100%" }}
           >
-            {busy ? "Applying context..." : "Submit to DEFRAG AI"}
-          </button>
-
-          {error ? (
-              <p
-                style={{
-                  margin: 0,
-                  color: "#fecaca",
-                  borderRadius: 8,
-                  padding: "10px 12px",
-                  background: "rgba(127,29,29,0.22)",
-                  border: "1px solid rgba(248,113,113,0.24)",
-                  lineHeight: 1.6,
-                  fontSize: 13
-                }}
-              >
-                Failed to process. Try narrowing the moment.
-              </p>
-            ) : null}
-        </div>
-
-        {actions.length > 0 && latestInsightId ? (
-          <div style={{ borderBottom: "1px solid var(--color-border)", padding: 24 }}>
-            <p style={{ margin: "0 0 12px 0", fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Simulations</p>
-            <div style={{ display: "grid", gap: 10 }}>
-              {actions.map((action) => (
-                <button
-                  key={action.type}
-                  type="button"
-                  onClick={async () => {
-                    const response = await fetch("/api/dynamics/actions", {
-                      method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify({ insightId: latestInsightId, actionType: action.type }),
-                    });
-                    const body = (await response.json()) as { result?: { title: string; lines: string[] }; error?: string };
-                    if (!response.ok || !body.result) {
-                      setError(body.error ?? "Simulation failed");
-                      return;
-                    }
-                    setActionResult(body.result);
-                  }}
-                  style={{ textAlign: "left", borderRadius: "var(--radius-md)", border: "1px solid var(--color-border-hover)", background: "var(--color-surface-hover)", color: "var(--color-text-secondary)", padding: "12px 14px", cursor: "pointer", fontSize: 13 }}
-                >
-                  {action.label}
-                </button>
-              ))}
+            <div>
+              <p style={{ margin: "0 0 6px 0", fontSize: 10, letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--color-accent)" }}>Sequence Interface</p>
+              <h2 style={{ margin: 0, fontSize: 18, fontWeight: 400, color: "var(--color-text-primary)", letterSpacing: "-0.01em" }}>Trace a relational sequence</h2>
+              <p style={{ margin: "6px 0 0 0", fontSize: 13, lineHeight: 1.6, color: "var(--color-text-secondary)" }}>Submit the exchange. DEFRAG AI will extract the architectural pattern and update the live field.</p>
             </div>
-          </div>
-        ) : null}
 
+            <textarea
+              value={situation}
+              onChange={(event) => setSituation(event.target.value)}
+              rows={4}
+              placeholder="Detail the point of tension or shift in tone..."
+              style={{ 
+                width: "100%", 
+                borderRadius: "var(--radius-md)", 
+                padding: 16, 
+                background: "rgba(0,0,0,0.4)", 
+                border: "1px solid var(--color-border)", 
+                color: "var(--color-text-primary)", 
+                fontSize: 14,
+                lineHeight: 1.6,
+                resize: "none",
+                outline: "none",
+                boxShadow: "inset 0 2px 10px rgba(0,0,0,0.2)",
+                fontFamily: "inherit",
+              }}
+            />
 
-        {threads.length > 0 && (
-          <div style={{ padding: 24, display: "grid", gap: 14 }}>
-            <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>History / Sessions</p>
-            
             <button
               type="button"
+              disabled={busy || !situation.trim()}
+              onClick={async () => {
+                setBusy(true);
+                setError(null);
+                try {
+                  const response = await fetch("/api/dynamics/insights", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      threadId: activeThreadId,
+                      threadTitle: suggestedTitle,
+                      situation,
+                      recentEvents: [situation],
+                    }),
+                  });
+
+                  const body = (await response.json()) as { error?: string; insight?: InsightRecord; threadId?: string; actions?: ActionRecord[] };
+
+                  if (!response.ok || !body.insight) throw new Error(body.error ?? "Failed to synthesize sequence");
+
+                  if (!activeThreadId && body.threadId) {
+                    setThreads((prev) => [{ id: body.threadId!, title: suggestedTitle }, ...prev]);
+                    setActiveThreadId(body.threadId);
+                  }
+
+                  setLatestInsightId(body.insight.id);
+                  setResult(body.insight.contract);
+                  setInsights((prev) => [body.insight!, ...prev]);
+                  setActions(body.actions ?? []);
+                  setActionResult(null);
+                  setSituation("");
+                  setViewHistory(false);
+                } catch (err) {
+                  setError(String(err));
+                } finally {
+                  setBusy(false);
+                }
+              }}
+              style={{
+                width: "100%",
+                padding: 14,
+                borderRadius: "var(--radius-pill)",
+                border: 0,
+                background: situation.trim() ? "var(--color-text-primary)" : "var(--color-surface-hover)",
+                color: situation.trim() ? "var(--color-bg)" : "var(--color-text-muted)",
+                fontSize: 13,
+                fontWeight: 600,
+                letterSpacing: "0.04em",
+                cursor: situation.trim() ? "pointer" : "default",
+                transition: "all 0.2s ease"
+              }}
+            >
+              {busy ? "Synthesizing Field State..." : "Compute Field State"}
+            </button>
+
+            {error && (
+              <div style={{ padding: 12, borderRadius: "var(--radius-md)", background: "rgba(180,50,50,0.1)", border: "1px solid rgba(180,50,50,0.2)", color: "#fca5a5", fontSize: 12, lineHeight: 1.5 }}>
+                {error}
+              </div>
+            )}
+          </div>
+
+          <div 
+            style={{ 
+              background: "rgba(6, 7, 10, 0.4)", 
+              backdropFilter: "blur(12px)", 
+              WebkitBackdropFilter: "blur(12px)",
+              border: "1px solid var(--color-border)",
+              borderRadius: "var(--radius-lg)",
+              padding: 20,
+            }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+              <span style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Session History</span>
+              <button 
+                onClick={() => setViewHistory(!viewHistory)}
+                style={{ fontSize: 11, background: "none", border: 0, color: "var(--color-accent)", cursor: "pointer", letterSpacing: "0.1em" }}
+              >
+                {viewHistory ? "HIDE" : "VIEW ALL"}
+              </button>
+            </div>
+
+            <button
               onClick={() => {
                 setActiveThreadId(undefined);
                 setSituation("");
-                setInsights([]);
                 setResult(null);
-                setLatestInsightId(null);
                 setActions([]);
-                setActionResult(null);
-                setError(null);
+                setViewHistory(false);
               }}
-              style={{ borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "transparent", color: "var(--color-text-primary)", padding: "10px", cursor: "pointer", fontSize: 13 }}
+              style={{ width: "100%", textAlign: "left", padding: "12px 14px", borderRadius: "var(--radius-md)", border: "1px dashed var(--color-border)", background: "transparent", color: "var(--color-text-secondary)", fontSize: 13, cursor: "pointer", marginBottom: 12 }}
             >
-              + Initialize New Session
+              + Initialize New Trace
             </button>
 
-            <div style={{ display: "grid", gap: 8 }}>
-              {threads.map((thread) => (
-                <button
-                  key={thread.id}
-                  type="button"
-                  onClick={() => setActiveThreadId(thread.id)}
-                  style={{
-                    borderRadius: "var(--radius-md)",
-                    border: thread.id === activeThreadId ? "1px solid var(--color-accent)" : "1px solid var(--color-border)",
-                    background: thread.id === activeThreadId ? "color-mix(in srgb, var(--color-accent) 15%, transparent)" : "var(--color-surface)",
-                    color: "var(--color-text-primary)",
-                    fontSize: 13,
-                    padding: "16px",
-                    cursor: "pointer",
-                    textAlign: "left",
-                    display: "grid",
-                    gap: 6,
-                  }}
-                >
-                  <span style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: thread.id === activeThreadId ? "var(--color-accent)" : "var(--color-text-muted)" }}>
-                    {thread.id === activeThreadId ? "Active Thread" : "Thread"}
-                  </span>
-                  <span style={{ lineHeight: 1.55 }}>{thread.title}</span>
-                </button>
-              ))}
-            </div>
+            {viewHistory && (
+              <div style={{ display: "grid", gap: 6, maxHeight: 300, overflowY: "auto", paddingRight: 4 }}>
+                {threads.map((t) => (
+                  <button
+                    key={t.id}
+                    onClick={() => setActiveThreadId(t.id)}
+                    style={{
+                      width: "100%",
+                      textAlign: "left",
+                      padding: "12px 14px",
+                      borderRadius: "var(--radius-sm)",
+                      border: t.id === activeThreadId ? "1px solid var(--color-accent)" : "1px solid transparent",
+                      background: t.id === activeThreadId ? "rgba(216,196,159,0.08)" : "var(--color-surface)",
+                      color: t.id === activeThreadId ? "var(--color-text-primary)" : "var(--color-text-secondary)",
+                      fontSize: 13,
+                      lineHeight: 1.5,
+                      cursor: "pointer",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis"
+                    }}
+                  >
+                    {t.title}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
-        )}
+        </div>
 
-      </aside>
+        {/* Right Output Area: Insight Overlays & Simulations */}
+        <div style={{ display: "grid", gap: 20, alignContent: "start", height: "100%", overflowY: "auto", paddingBottom: 60 }}>
+          {loadingThread && (
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: 200, color: "var(--color-text-muted)", fontSize: 12, letterSpacing: "0.1em", textTransform: "uppercase" }}>
+              Restoring Context...
+            </div>
+          )}
 
+          {!loadingThread && result && (
+            <div className="premium-fade-up">
+              <DynamicsV1Shell
+                contract={result}
+                entitlements={entitlements}
+                synthesis={activeInsight?.synthesis ?? null}
+                evaluation={activeInsight?.evaluation ?? null}
+              />
+            </div>
+          )}
+
+          {!loadingThread && actions.length > 0 && latestInsightId && (
+            <div 
+              className="premium-fade-up"
+              style={{ 
+                background: "rgba(6, 7, 10, 0.8)", 
+                backdropFilter: "blur(24px)", 
+                WebkitBackdropFilter: "blur(24px)",
+                border: "1px solid var(--color-border-hover)",
+                borderRadius: "var(--radius-lg)",
+                padding: 24,
+                display: "grid",
+                gap: 16
+              }}
+            >
+              <div>
+                <span style={{ fontSize: 10, letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--color-accent)" }}>Simulations</span>
+                <p style={{ margin: "6px 0 0 0", fontSize: 13, color: "var(--color-text-secondary)" }}>Stress-test responses or refine structural phasing before returning to the live dynamic.</p>
+              </div>
+              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                {actions.map((act) => (
+                  <button
+                    key={act.type}
+                    onClick={async () => {
+                      const res = await fetch("/api/dynamics/actions", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ insightId: latestInsightId, actionType: act.type }),
+                      });
+                      const data = await res.json();
+                      if (data.result) setActionResult(data.result);
+                    }}
+                    style={{
+                      padding: "10px 16px",
+                      borderRadius: "var(--radius-pill)",
+                      background: "var(--color-surface-hover)",
+                      border: "1px solid var(--color-border)",
+                      color: "var(--color-text-primary)",
+                      fontSize: 12,
+                      fontWeight: 500,
+                      cursor: "pointer",
+                      transition: "all 0.2s ease"
+                    }}
+                  >
+                    {act.label}
+                  </button>
+                ))}
+              </div>
+
+              {actionResult && (
+                <div style={{ margin: "16px 0 0 0", paddingTop: 16, borderTop: "1px solid var(--color-border)" }}>
+                  <h4 style={{ margin: "0 0 12px 0", fontSize: 14, fontWeight: 500, color: "var(--color-text-primary)" }}>{actionResult.title}</h4>
+                  <ul style={{ margin: 0, paddingLeft: 16, color: "var(--color-text-secondary)", fontSize: 14, lineHeight: 1.7, display: "grid", gap: 8 }}>
+                    {actionResult.lines.map((l, i) => <li key={i}>{l}</li>)}
+                  </ul>
+                </div>
+              )}
+            </div>
+          )}
+
+          {!loadingThread && !result && !busy && (
+            <div style={{ 
+              height: "100%", 
+              display: "flex", 
+              alignItems: "center", 
+              justifyContent: "center", 
+              flexDirection: "column",
+              gap: 12,
+              opacity: 0.5
+            }}>
+              <div style={{ width: 1, height: 40, background: "var(--color-border-hover)" }} />
+              <div style={{ fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-text-muted)", textAlign: "center" }}>
+                Live Field Standing By<br/>Awaiting Interaction Data
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
       <style>{`
-        @media (max-width: 980px) {
-          .dynamics-layout {
+        @media (max-width: 900px) {
+          .defrag-ai-environment > div:nth-child(2) {
             grid-template-columns: 1fr !important;
-          }
-
-          .dynamics-rail {
-            position: static !important;
           }
         }
       `}</style>
