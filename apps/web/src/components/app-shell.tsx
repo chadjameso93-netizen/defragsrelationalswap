@@ -18,7 +18,6 @@ export function AppShell({ eyebrow, title, description, children, accent = "var(
     { href: "/", label: "Home", match: (value: string) => value === "/" },
     { href: "/about", label: "About", match: (value: string) => value.startsWith("/about") },
     { href: "/dynamics", label: "Dynamics", match: (value: string) => value.startsWith("/dynamics") },
-    { href: "/account/insights", label: "Insights", match: (value: string) => value.startsWith("/account/insights") },
     { href: "/account/billing", label: "Billing", match: (value: string) => value.startsWith("/account/billing") },
     { href: "/world", label: "World", match: (value: string) => value.startsWith("/world") },
   ];
