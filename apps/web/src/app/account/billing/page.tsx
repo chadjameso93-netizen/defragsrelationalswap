@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { AppShell } from "../../../components/app-shell";
 import { BillingActions } from "../../../components/billing-actions";
-import { PublicPreviewCta } from "../../../components/public-preview-cta";
 import { getBillingStateForUser } from "../../../lib/billing-server";
 import { getAuthenticatedUserOrNull } from "../../../server/auth";
 import type { BillingPlan } from "../../../../../../packages/core/src";
@@ -31,57 +30,40 @@ export default async function BillingPage() {
   if (!user) {
     return (
       <AppShell
-        eyebrow="Account"
-        title="Billing that stays operational, not mysterious."
-        description="Preview the plan ladder, upgrade flow, and Stripe-backed account rhythm here. Sign in when you want checkout, portal access, and live subscription state on defrag.app."
+        eyebrow="Coverage"
+        title="Structured Intelligence Tiers"
+        description="The environment scales based on your relational mapping and pattern frequency needs. Secure your capacity block below."
         accent="#cbb8ff"
       >
         <div style={{ display: "grid", gap: 22 }}>
-          <PublicPreviewCta
-            title="Billing remains canonical on defrag.app."
-            description="You can inspect the plan architecture before signing in, but checkout, portal access, and account ownership stay on the main DEFRAG site."
-            primaryLabel="Sign in for billing"
-            secondaryLabel="Open Dynamics preview"
-            secondaryHref="/dynamics"
-          />
-
-          <section className="billing-preview-grid premium-fade-up" data-delay="1" style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 24 }}>
+          <section className="billing-preview-grid premium-fade-up" data-delay="1" style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 24, alignItems: "start" }}>
             <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: 24, display: "grid", gap: 16, background: "var(--color-surface)" }}>
-              <div style={{ fontSize: 11, color: "var(--color-accent)", letterSpacing: "0.18em", textTransform: "uppercase" }}>Plan ladder</div>
+              <div style={{ fontSize: 11, color: "var(--color-accent)", letterSpacing: "0.18em", textTransform: "uppercase" }}>Available Tiers</div>
               {previewPlans.map((plan, index) => (
                 <div key={plan.id} style={{ display: "grid", gap: 8, padding: 18, borderRadius: "var(--radius-md)", border: index === 1 ? "1px solid var(--color-accent)" : "1px solid var(--color-border)", background: index === 1 ? "color-mix(in srgb, var(--color-accent) 15%, transparent)" : "var(--color-surface-hover)" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "baseline" }}>
-                    <strong style={{ fontSize: 18, color: "var(--color-text-primary)" }}>{plan.name}</strong>
+                    <strong style={{ fontSize: 18, color: "var(--color-text-primary)", letterSpacing: "0.05em", textTransform: "uppercase" }}>{plan.name}</strong>
                     <span style={{ color: "var(--color-text-secondary)" }}>{plan.monthlyPriceUsd ? `$${plan.monthlyPriceUsd}/mo` : "Custom"}</span>
                   </div>
                   <p style={{ margin: 0, color: "var(--color-text-secondary)", lineHeight: 1.7, fontSize: 14 }}>
                     {plan.id === "core"
-                      ? "Entry access for calmer insights and basic guided flow."
+                      ? "Entry capacity for mapping individual repeating loops."
                       : plan.id === "studio"
-                        ? "Adds deeper support for ongoing reflection, insight review, and pattern clarity."
-                        : "Designed for faster iteration and more active guidance tools."}
+                        ? "Expanded capacity for deep historical analysis, relationship mapping, and proactive tracking."
+                        : "Designed for immediate, real-time guidance streams."}
                   </p>
                 </div>
               ))}
             </section>
 
             <section className="premium-fade-up" data-delay="2" style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: 24, display: "grid", gap: 16, background: "linear-gradient(180deg, var(--color-surface), transparent)" }}>
-              <div style={{ fontSize: 11, color: "var(--color-text-muted)", letterSpacing: "0.18em", textTransform: "uppercase" }}>What happens after sign-in</div>
-              {[
-                "Upgrade actions open Stripe Checkout on the canonical DEFRAG site.",
-                "Portal handoff appears once a customer record exists.",
-                "Webhook sync updates plan status back into the app.",
-              ].map((item) => (
-                <div key={item} style={{ color: "var(--color-text-secondary)", lineHeight: 1.7, paddingBottom: 10, borderBottom: "1px solid var(--color-border)" }}>
-                  {item}
-                </div>
-              ))}
+              <div style={{ fontSize: 11, color: "var(--color-text-muted)", letterSpacing: "0.18em", textTransform: "uppercase" }}>Requirements</div>
+              <div style={{ color: "var(--color-text-secondary)", lineHeight: 1.7, paddingBottom: 10 }}>
+                Access is restricted to authenticated individuals. Please authenticate to verify available provisioning and initialize a dedicated environment.
+              </div>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 8 }}>
                 <Link href="/login" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "14px 20px", borderRadius: "var(--radius-pill)", background: "var(--color-text-primary)", color: "var(--color-bg)", textDecoration: "none", fontWeight: 700 }}>
-                  Sign in for Checkout
-                </Link>
-                <Link href="/account/insights" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "14px 20px", borderRadius: "var(--radius-pill)", border: "1px solid var(--color-border)", color: "var(--color-text-primary)", textDecoration: "none" }}>
-                  Open Insights preview
+                  Authenticate to Continue
                 </Link>
               </div>
             </section>
@@ -103,46 +85,32 @@ export default async function BillingPage() {
 
   return (
     <AppShell
-      eyebrow="Account"
-      title="Billing that stays operational, not mysterious."
-      description={`Signed in as ${user.email}. Stripe-backed subscriptions, checkout, portal access, and entitlement sync are active on this branch.`}
+      eyebrow="Access"
+      title="Intelligence Architecture"
+      description="Manage your current environment allowances and intelligence layer expansion."
       accent="#cbb8ff"
     >
       <section className="billing-grid premium-fade-up" data-delay="1" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }}>
         <section className="billing-card" style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: 26, display: "grid", gap: 18, background: "var(--color-surface)" }}>
           <div style={{ display: "grid", gap: 10 }}>
-            <div style={{ fontSize: 11, color: "var(--color-text-muted)", letterSpacing: "0.18em", textTransform: "uppercase" }}>Current state</div>
+            <div style={{ fontSize: 11, color: "var(--color-text-muted)", letterSpacing: "0.18em", textTransform: "uppercase" }}>Provisioned Status</div>
             <div style={{ display: "grid", gap: 10 }}>
               <div style={{ display: "flex", justifyContent: "space-between", gap: 12, paddingBottom: 12, borderBottom: "1px solid var(--color-border)" }}>
-                <span style={{ color: "var(--color-text-secondary)" }}>Plan</span>
-                <strong style={{ color: "var(--color-text-primary)" }}>{currentPlan.name}</strong>
+                <span style={{ color: "var(--color-text-secondary)" }}>Tier</span>
+                <strong style={{ color: "var(--color-text-primary)", textTransform: "uppercase" }}>{currentPlan.name}</strong>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", gap: 12, paddingBottom: 12, borderBottom: "1px solid var(--color-border)" }}>
-                <span style={{ color: "var(--color-text-secondary)" }}>Billing status</span>
-                <strong style={{ color: "var(--color-text-primary)" }}>{account.subscriptionState}</strong>
+                <span style={{ color: "var(--color-text-secondary)" }}>Uptime cycle</span>
+                <strong style={{ color: "var(--color-text-primary)", textTransform: "capitalize" }}>{account.subscriptionState}</strong>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
-                <span style={{ color: "var(--color-text-secondary)" }}>Current period end</span>
+                <span style={{ color: "var(--color-text-secondary)" }}>Renewal</span>
                 <strong style={{ color: "var(--color-text-primary)" }}>{formatPeriodEnd(account.currentPeriodEnd)}</strong>
               </div>
             </div>
           </div>
 
           <BillingActions currentPlan={account.plan} hasCustomer={Boolean(account.customerId)} />
-        </section>
-
-        <section className="billing-card premium-fade-up" data-delay="2" style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: 26, display: "grid", gap: 16, background: "var(--color-surface-hover)" }}>
-          <div style={{ fontSize: 11, color: "var(--color-text-muted)", letterSpacing: "0.18em", textTransform: "uppercase" }}>Included in this slice</div>
-          {[
-            "Checkout session creation from the app",
-            "Customer portal handoff for active billing accounts",
-            "Webhook-driven subscription synchronization",
-            "Plan-aware upgrade path across free, core, studio, and realtime",
-          ].map((item) => (
-            <div key={item} style={{ color: "var(--color-text-secondary)", lineHeight: 1.7, paddingBottom: 12, borderBottom: "1px solid var(--color-border)" }}>
-              {item}
-            </div>
-          ))}
         </section>
       </section>
       <style>{`

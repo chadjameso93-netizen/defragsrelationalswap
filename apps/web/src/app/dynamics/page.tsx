@@ -13,32 +13,32 @@ export default async function DynamicsPage() {
     return (
       <AppShell
         eyebrow="Dynamics"
-        title="See the relationship pattern before the whole moment hardens into a story."
-        description="Preview the dynamics workspace, thread flow, and next-step guidance here. Sign in when you want private history, saved follow-up actions, and account-linked access on DEFRAG."
+        title="See the relationship pattern before the moment hardens."
+        description="Explore the reasoning environment, pattern extraction, and next-step alignment. Access requires an initialized workspace."
         accent="#d8c49f"
       >
         <div style={{ display: "grid", gap: 22 }}>
           <PublicPreviewCta
-            title="Dynamics is visible in preview, private in use."
-            description="You can inspect the thread rail, pattern summary, and next-step flow without crossing the auth boundary. Sign in when you want to write, save, and keep an ongoing thread on your DEFRAG account."
-            primaryLabel="Sign in for your workspace"
-            secondaryLabel="See billing"
+            title="Analysis requires a connected workspace."
+            description="The system must track events over time to build reliable interaction mapping. Initiate your environment to process and trace ongoing conversations."
+            primaryLabel="Initialize workspace"
+            secondaryLabel="View intelligence tiers"
             secondaryHref="/account/billing"
           />
 
           <section className="dynamics-preview-grid premium-fade-up" data-delay="1" style={{ display: "grid", gridTemplateColumns: "300px minmax(0, 1fr)", gap: 24, alignItems: "start" }}>
             <aside style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: 22, background: "var(--color-surface)", display: "grid", gap: 18 }}>
               <div style={{ display: "grid", gap: 6 }}>
-                <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Sample threads</p>
-                <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "var(--color-text-secondary)" }}>Recurring themes stay grouped so the guidance tracks pattern, not only the latest sentence.</p>
+                <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Structural Tracing</p>
+                <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "var(--color-text-secondary)" }}>Recurring themes are mapped continuously to ensure guidance reflects the holistic pattern, not a singular reaction.</p>
               </div>
               {[
-                "After dinner repair attempt",
-                "The message that changed the tone",
-                "Family gathering residue",
+                "Conflict de-escalation mapping",
+                "Tone shifting anomalies",
+                "Repetitive post-event stress cycles",
               ].map((thread, index) => (
                 <div key={thread} style={{ borderRadius: "var(--radius-md)", border: index === 0 ? "1px solid var(--color-accent)" : "1px solid var(--color-border)", background: index === 0 ? "color-mix(in srgb, var(--color-accent) 10%, transparent)" : "var(--color-surface-hover)", padding: "16px 16px", display: "grid", gap: 8 }}>
-                  <span style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: index === 0 ? "var(--color-accent)" : "var(--color-text-muted)" }}>Thread</span>
+                  <span style={{ fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: index === 0 ? "var(--color-accent)" : "var(--color-text-muted)" }}>Analysis Trace</span>
                   <span style={{ lineHeight: 1.55, color: "var(--color-text-primary)" }}>{thread}</span>
                 </div>
               ))}
@@ -48,9 +48,9 @@ export default async function DynamicsPage() {
               <section style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-lg)", padding: 22, background: "linear-gradient(180deg, var(--color-surface), transparent)", display: "grid", gap: 20 }}>
                 <div className="dynamics-preview-metrics" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 12 }}>
                   {[
-                    ["Mode", "Lead summary"],
-                    ["Confidence", "Measured"],
-                    ["Action", "One next move"],
+                    ["Mapping", "Pattern Extraction"],
+                    ["Certainty", "Grounded"],
+                    ["Resolution", "Actionable Step"],
                   ].map(([label, value]) => (
                     <div key={label} style={{ padding: 16, borderRadius: "var(--radius-md)", background: "var(--color-surface)", border: "1px solid var(--color-border)" }}>
                       <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>{label}</div>
@@ -60,32 +60,29 @@ export default async function DynamicsPage() {
                 </div>
 
                 <div style={{ display: "grid", gap: 14, padding: 24, borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "var(--color-surface-hover)" }}>
-                  <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Lead synthesis</p>
+                  <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Pattern extraction</p>
                   <p style={{ margin: 0, fontSize: 24, lineHeight: 1.4, color: "var(--color-text-primary)" }}>
-                    The pressure may be less about total incompatibility and more about two repair attempts arriving while both people still feel exposed.
+                    The tension stems less from foundational incompatibility, and more from parallel repair attempts intersecting while both parties remain highly defensive.
                   </p>
                   <p style={{ margin: 0, fontSize: 15, lineHeight: 1.75, color: "var(--color-text-secondary)" }}>
-                    DEFRAG keeps the tone gentle, names the likely pattern, and narrows the next move enough that you can try it without turning the whole relationship into a diagnosis or fixed story.
+                    DEFRAG names the architectural pattern causing friction and distills the next move without assigning character flaws or leaning into permanent diagnosis.
                   </p>
                 </div>
 
                 <div className="dynamics-preview-columns" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 16 }}>
                   <div style={{ display: "grid", gap: 12, padding: 22, borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "var(--color-surface)" }}>
-                    <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Likely pattern</p>
-                    <p style={{ margin: 0, color: "var(--color-text-primary)", lineHeight: 1.7 }}>Protective pacing on one side, urgency on the other, and a loop where both people may read the other as pulling away.</p>
+                    <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Observed cycle</p>
+                    <p style={{ margin: 0, color: "var(--color-text-primary)", lineHeight: 1.7 }}>Protective pacing on one side meets vocal urgency on the other, creating a feedback cycle that makes both feel abandoned.</p>
                   </div>
                   <div style={{ display: "grid", gap: 12, padding: 22, borderRadius: "var(--radius-md)", border: "1px solid var(--color-border)", background: "var(--color-surface)" }}>
-                    <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Next move</p>
-                    <p style={{ margin: 0, color: "var(--color-text-primary)", lineHeight: 1.7 }}>Open with one observation about the moment itself before explaining impact or asking for repair.</p>
+                    <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Immediate action</p>
+                    <p style={{ margin: 0, color: "var(--color-text-primary)", lineHeight: 1.7 }}>Acknowledge the physical environment or timeline before directly responding to the emotional content.</p>
                   </div>
                 </div>
 
                 <div style={{ display: "flex", gap: 12, flexWrap: "wrap", paddingTop: 8 }}>
                   <Link href="/login" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "14px 20px", borderRadius: "var(--radius-pill)", background: "var(--color-text-primary)", color: "var(--color-bg)", textDecoration: "none", fontWeight: 700 }}>
-                    Sign in to start a thread
-                  </Link>
-                  <Link href="/world" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "14px 20px", borderRadius: "var(--radius-pill)", border: "1px solid var(--color-border)", color: "var(--color-text-primary)", textDecoration: "none" }}>
-                    Open World preview
+                    Access Workspace
                   </Link>
                 </div>
               </section>
@@ -116,8 +113,8 @@ export default async function DynamicsPage() {
   return (
       <AppShell
       eyebrow="Dynamics"
-        title="See the relationship pattern before the whole moment hardens into a story."
-        description="Thread-based guidance, saved insight history, follow-up actions, and evidence views now sit inside one calmer workspace on DEFRAG."
+        title="Map the relationship pattern."
+        description="Analyze exchanges, trace historical evidence, and surface next-step alignment."
       accent="#d8c49f"
     >
       <DynamicsWorkspace

@@ -14,9 +14,9 @@ export default function OnboardingPage() {
 
   return (
     <AppShell
-      eyebrow="Onboarding"
-      title="Set the workspace once, then move freely."
-      description="This is a minimal handoff that marks the account ready for private pages. You can refine everything else later."
+      eyebrow="Setup"
+      title="Establish your baseline identity."
+      description="Tell the system what to call you. This frames your perspective within the relational map."
       accent="var(--color-accent)"
     >
       <section
@@ -32,10 +32,10 @@ export default function OnboardingPage() {
       >
         <div style={{ display: "grid", gap: 8 }}>
           <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-accent)" }}>
-            Workspace setup
+            Perspective
           </p>
           <p style={{ margin: 0, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
-            Add the name you want the product to use, then continue into your account. This avoids the dead-end redirect and gives the private routes a stable profile label.
+            We map dynamics relative to the observer. Enter your name below to anchor the workspace context.
           </p>
         </div>
 
@@ -82,7 +82,7 @@ export default function OnboardingPage() {
                   throw updateResult.error;
                 }
 
-                router.push("/account");
+                router.push("/dynamics");
                 router.refresh();
               } catch (err) {
                 setError(err instanceof Error ? err.message : "Unable to complete onboarding");
@@ -101,7 +101,7 @@ export default function OnboardingPage() {
               cursor: busy ? "default" : "pointer",
             }}
           >
-            {busy ? "Saving…" : "Enter workspace"}
+            {busy ? "Saving…" : "Set Perspective"}
           </button>
         </div>
 

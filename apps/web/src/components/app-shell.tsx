@@ -16,10 +16,9 @@ export function AppShell({ eyebrow, title, description, children, accent = "var(
   const pathname = usePathname();
   const navItems = [
     { href: "/", label: "Home", match: (value: string) => value === "/" },
-    { href: "/about", label: "About", match: (value: string) => value.startsWith("/about") },
     { href: "/dynamics", label: "Dynamics", match: (value: string) => value.startsWith("/dynamics") },
+    { href: "/about", label: "About", match: (value: string) => value.startsWith("/about") },
     { href: "/account/billing", label: "Billing", match: (value: string) => value.startsWith("/account/billing") },
-    { href: "/world", label: "World", match: (value: string) => value.startsWith("/world") },
   ];
   const footerItems = [
     { href: "/about", label: "About" },
@@ -100,7 +99,7 @@ export function AppShell({ eyebrow, title, description, children, accent = "var(
                   boxShadow: "var(--shadow-glow)",
                 }}
               />
-              Preview available
+              System Active
             </div>
           </div>
 
@@ -205,8 +204,8 @@ export function AppShell({ eyebrow, title, description, children, accent = "var(
               alignItems: "center",
             }}
           >
-            <div style={{ color: "var(--color-text-muted)", fontSize: 13 }}>
-              DEFRAG owns the website, account, billing, and legal surfaces. MCP and ChatGPT stay integration-side.
+            <div style={{ color: "var(--color-text-muted)", fontSize: 13, maxWidth: 400 }}>
+              DEFRAG helps you identify repeating patterns and change what happens next.
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
               {footerItems.map((item) => (

@@ -27,24 +27,22 @@ export default async function AccountPage() {
   const profileLabel =
     (typeof user?.user_metadata?.display_name === "string" && user.user_metadata.display_name) ||
     user?.email?.split("@")[0] ||
-    "Preview visitor";
+    "Observer";
 
   return (
     <AppShell
       eyebrow="Landscape"
       title="See where care, distance, and timing are clustering."
-      description={user
-        ? "This page keeps the wider relational field in view so you can notice where attention may help before moving into a single insight."
-        : "The account landscape stays visible in preview mode so you can inspect the wider field view before authentication turns it into your own working map."}
+      description="This topology keeps the wider relational field in view, so you can notice where attention may help before diving into single events."
       accent="var(--color-accent)"
     >
       {!user ? (
         <PublicPreviewCta
-          title="The landscape can be viewed before it becomes personal."
-          description="Preview the wider relational field, orientation panels, and next-step flow here. Sign in when you want your actual people, stored profile, and linked account pages."
-          primaryLabel="Sign in for your landscape"
-          secondaryLabel="Open Insights preview"
-          secondaryHref="/account/insights"
+          title="The landscape must be anchored to an observer."
+          description="In order to map dynamics accurately, the system must orient around a central perspective. Link your identity to initialize a true relational map."
+          primaryLabel="Anchor Perspective"
+          secondaryLabel="Open Dynamics"
+          secondaryHref="/dynamics"
         />
       ) : null}
       <section
@@ -57,9 +55,9 @@ export default async function AccountPage() {
         }}
       >
         {[
-          ["People in frame", String(mockPeople.length)],
-          ["Profile", profileLabel],
-          ["Next move", user ? "Open Insights" : "Sign in to save"],
+          ["Nodes in Frame", String(mockPeople.length)],
+          ["Observer", profileLabel],
+          ["Next move", user ? "Open Dynamics Workspace" : "Authenticate to save view"],
         ].map(([label, value]) => (
           <div key={label} className="premium-fade-up" data-delay="1" style={{ padding: 24, borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "var(--color-surface)" }}>
             <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>{label}</div>
@@ -90,13 +88,13 @@ export default async function AccountPage() {
           <section className="premium-fade-up" data-delay="2" style={{ padding: 24, borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "var(--color-surface)", display: "grid", gap: 12 }}>
             <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-accent)" }}>Best next step</div>
             <p style={{ margin: 0, color: "var(--color-text-primary)", fontSize: 18, lineHeight: 1.5 }}>
-              Take one relationship moment from this map and open it in Insights.
+              Take one relationship moment from this map and isolate it in Dynamics.
             </p>
             <p style={{ margin: 0, color: "var(--color-text-secondary)", fontSize: 14, lineHeight: 1.7 }}>
-              The map keeps the wider field visible. Insights gives you the closer view.
+              The map keeps the wider field visible. Dynamics provides the closer mechanism for extraction.
             </p>
             <Link
-              href={user ? "/account/insights" : "/login"}
+              href={user ? "/dynamics" : "/login"}
               style={{
                 marginTop: 6,
                 display: "inline-flex",
@@ -111,15 +109,14 @@ export default async function AccountPage() {
                 fontWeight: 700,
               }}
             >
-              {user ? "Open Insights" : "Sign in to open Insights"}
+              {user ? "Open Dynamics" : "Authenticate to Proceed"}
             </Link>
           </section>
 
           <section className="premium-fade-up" data-delay="3" style={{ padding: 24, borderRadius: "var(--radius-lg)", border: "1px solid var(--color-border)", background: "var(--color-surface)", display: "grid", gap: 12 }}>
             <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>Orientation</div>
             <div style={{ color: "var(--color-text-secondary)", lineHeight: 1.75, fontSize: 14 }}>
-              Use this page to notice where things feel charged or unfinished.
-              Then move to Dynamics for pattern clarity or Insights for a more direct read on what to try next.
+              Use this page to notice where things feel charged or unfinished. Then move to Dynamics for pattern clarity and a direct read on what to try next.
             </div>
           </section>
         </aside>

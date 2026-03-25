@@ -65,18 +65,18 @@ function LoginPageContent() {
               DEFRAG
             </Link>
             <p className="premium-fade-up" data-delay="1" style={{ margin: 0, fontSize: "clamp(2.2rem, 5vw, 4.6rem)", lineHeight: 0.98, maxWidth: 520, fontFamily: "var(--font-display), serif" }}>
-              Sign in to return to your dynamics workspace, saved insights, and account state.
+              See what’s actually happening.
             </p>
             <p className="premium-fade-up" data-delay="2" style={{ margin: 0, maxWidth: 480, color: "var(--color-text-secondary)", lineHeight: 1.75 }}>
-              DEFRAG keeps dynamics, insights, world state, and billing in one canonical account flow. Authentication is the handoff between private guidance and stored history.
+              Return to your relational history. The system builds a persistent map of events and patterns so you can break the cycle of reactions.
             </p>
           </div>
 
           <div className="premium-fade-up" data-delay="3" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
             {[
-              ["Dynamics", "Thread-based guidance"],
-              ["Insights", "Saved account insights"],
-              ["World", "Field interpretation"],
+              ["Mapping", "Historical alignment"],
+              ["Pattern", "Cycle recognition"],
+              ["Guidance", "Grounded momentum"],
             ].map(([label, value]) => (
               <div key={label} style={{ padding: 16, borderRadius: "var(--radius-md)", background: "var(--color-surface)", border: "1px solid var(--color-border)", backdropFilter: "blur(12px)" }}>
                 <div style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>{label}</div>
@@ -106,7 +106,7 @@ function LoginPageContent() {
             </p>
             <h1 style={{ margin: 0, fontSize: 34 }}>Sign in</h1>
             <p style={{ margin: 0, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
-              Use your DEFRAG account to reopen private threads, saved insights, and billing state.
+              Continue your mapping.
             </p>
           </div>
 
@@ -120,7 +120,7 @@ function LoginPageContent() {
               required
               style={{
                 borderRadius: "var(--radius-md)",
-                border: "1px solid var(--color-border-hover)",
+                border: "1px solid var(--color-border)",
                 background: "var(--color-bg)",
                 color: "var(--color-text-primary)",
                 padding: "16px 18px",
@@ -138,7 +138,7 @@ function LoginPageContent() {
               required
               style={{
                 borderRadius: "var(--radius-md)",
-                border: "1px solid var(--color-border-hover)",
+                border: "1px solid var(--color-border)",
                 background: "var(--color-bg)",
                 color: "var(--color-text-primary)",
                 padding: "16px 18px",

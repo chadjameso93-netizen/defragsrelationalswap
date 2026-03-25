@@ -1,7 +1,10 @@
-# Launch Blockers
+# DEFRAG Launch Blockers
 
-| ID | Title | Severity | Surface | Owner | Reproduction | Expected Behavior | Current Behavior | Fix Commit | Status |
-|---|---|---|---|---|---|---|---|---|---|
-| B01 | Missing Webhook & Price Envs in Staging | High | Billing / Deployment | Operator/Vercel | Launch Vercel Preview deployment, trigger `useCheckout` for any core/studio plan. | Staging initializes checkout using test-mode Stripe keys. Webhook verifies test-mode payment correctly. | Vercel Preview environment missing `STRIPE_PRICE_*` IDs and `STRIPE_WEBHOOK_SECRET`. | - | Untriaged |
-| B02 | Preview Mode Missing | High | QA / Shell | Antigravity | Hit `/preview` directly or append `?preview=1` | A unified QA hub appears allowing mock overrides of auth and billing without real Stripe checkout. | Path 404s. `AppShell` lacks preview state mutations. | - | In Progress |
-| B03 | Unfinished MCP/Chat Surfaces | Medium | Chat Handoff | Antigravity | Check usage of AI entrypoints on `/dynamics` and ChatGPT widget layer | All AI paths route to one shared prompt/response standard | Still assessing scope of divergence and unfinished artifacts | - | Pending Audit |
+| ID | Priority | Surface | Issue Summary | Status |
+|---|---|---|---|---|
+| B01 | **P0** | Vercel Deployment | Staging/Preview environments lack the necessary Stripe Price IDs (`STRIPE_PRICE_CORE`, etc.) and `STRIPE_WEBHOOK_SECRET` causing billing flows to crash outside of `/preview`. | Active |
+| B02 | **P0** | Brand & Public Copy | The public app shell, billing, login, and homepages were leaking internal SaaS architectural labels ("auth boundary", "preview mode") and generic SaaS UI styles. | **Fixed** |
+| B03 | **P1** | AI Surface Exposure | The legacy `/account/insights` surface and `/world` surface were exposed publicly but do not strictly conform to the primary stable `/dynamics` reasoning contract. | **Fixed** (Hidden from brand nav) |
+
+## Change Log
+- **2026-03:** Enforced the strict "Defrag Worldview" rule across `apps/web/src/app` (pages: `login`, `onboarding`, `account`, `account/billing`, `dynamics`, `about`, `layout`, `app-shell`). Stripped all generic SaaS branding and "pillowy" card interfaces to 2-4px tight structural radii. Banned terms (Companion, World, Preview Mode) purged from public entry points.

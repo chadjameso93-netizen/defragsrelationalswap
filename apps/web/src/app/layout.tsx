@@ -56,9 +56,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             --shadow-subtle: 0 8px 30px rgba(0,0,0,0.4);
             --shadow-glow: 0 0 24px color-mix(in srgb, var(--color-accent) 20%, transparent);
 
-            --radius-md: 16px;
-            --radius-lg: 24px;
-            --radius-pill: 9999px;
+            --radius-md: 2px;
+            --radius-lg: 4px;
+            --radius-pill: 4px;
           }
           * {
             box-sizing: border-box;

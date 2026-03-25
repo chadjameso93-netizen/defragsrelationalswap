@@ -4,9 +4,9 @@ import { AppShell } from "../../components/app-shell";
 export default function AboutPage() {
   return (
     <AppShell
-      eyebrow="About"
-      title="DEFRAG is the public shell, the trust layer, and the account owner."
-      description="The website carries the brand, product context, legal pages, authentication, billing, and account management. ChatGPT and MCP integrations extend DEFRAG without becoming a second website."
+      eyebrow="Worldview"
+      title="DEFRAG provides structural clarity for charged interactions."
+      description="We believe that misunderstandings escalate when people react to the moment instead of recognizing the historical pattern. DEFRAG maps these dynamics to help you see what is actually happening."
       accent="#c8d8a2"
     >
       <section
@@ -33,16 +33,16 @@ export default function AboutPage() {
               body: "DEFRAG helps people slow down charged exchanges, understand what patterns may be active between people, and choose one next move that creates more room for repair.",
             },
             {
-              title: "What the website owns",
-              body: "The website at defrag.app owns sign-in, account state, subscriptions, upgrade, billing portal access, legal pages, and the public explanation of the product. It is the canonical product shell.",
-            },
-            {
-              title: "What integrations are for",
-              body: "MCP and ChatGPT surfaces are DEFRAG service layers. They help a user reach guidance or account state from another environment, but they always hand back to defrag.app for identity, billing, and account management.",
+              title: "How relational patterns form",
+              body: "When an event occurs, our initial response is often based on an accumulation of past, unresolved tension. The specific details matter less than the recurring structure of the conflict. By documenting this structure, we can observe the pattern instead of getting caught in it.",
             },
             {
               title: "What DEFRAG does not do",
-              body: "DEFRAG does not diagnose people, assign fixed personality labels, or pretend to know more than the actual events support. It stays with observable dynamics, timing, and pattern clarity.",
+              body: "DEFRAG does not diagnose people, assign fixed personality labels, or pretend to know more than the actual events support. It stays with observable dynamics, timing, and pattern clarity. Birth-based symbolic attributes are treated as weaker information compared to actual repeated behavior.",
+            },
+            {
+              title: "Changing what happens next",
+              body: "Once you recognize a pattern is repeating, DEFRAG provides guidance that stays grounded in timing and phrasing. It lowers the heat so both people can return to a neutral baseline without sacrificing their needs.",
             },
           ].map((section) => (
             <div key={section.title} className="premium-fade-up" data-delay="1" style={{ display: "grid", gap: 10 }}>
@@ -66,13 +66,11 @@ export default function AboutPage() {
           }}
         >
           <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "#c8d8a2" }}>
-            Canonical entry points
+            The System
           </div>
           {[
-            ["Dynamics", "/dynamics"],
-            ["Insights", "/account/insights"],
-            ["World", "/world"],
-            ["Billing", "/account/billing"],
+            ["Dynamics Workspace", "/dynamics"],
+            ["Intelligence Architecture", "/account/billing"],
           ].map(([label, href]) => (
             <Link
               key={href}
@@ -120,7 +118,7 @@ export default function AboutPage() {
                 textDecoration: "none",
               }}
             >
-              Review privacy
+              Review policy
             </Link>
           </div>
         </aside>
