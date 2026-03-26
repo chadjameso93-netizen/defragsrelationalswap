@@ -58,10 +58,7 @@ export function BillingActions({ currentPlan, hasCustomer }: BillingActionsProps
         <button
           type="button"
           onClick={async () => {
-            if (!upgradePlan) {
-              return;
-            }
-
+            if (!upgradePlan) return;
             setBusy("upgrade");
             setError(null);
             try {
@@ -71,8 +68,7 @@ export function BillingActions({ currentPlan, hasCustomer }: BillingActionsProps
               setBusy(null);
             }
           }}
-          className="premium-panel"
-          style={{ padding: "12px 16px", borderRadius: "var(--radius-pill)", border: 0, cursor: "pointer", background: "var(--color-text-primary)", color: "var(--color-bg)", fontWeight: 700 }}
+          style={{ padding: "14px 24px", borderRadius: 9999, border: 0, cursor: "pointer", background: "white", color: "#050505", fontWeight: 600, fontSize: 14 }}
           disabled={busy !== null || !upgradePlan}
         >
           {busy === "upgrade" ? "Loading…" : upgradeLabel}
@@ -81,10 +77,7 @@ export function BillingActions({ currentPlan, hasCustomer }: BillingActionsProps
         <button
           type="button"
           onClick={async () => {
-            if (!hasCustomer) {
-              return;
-            }
-
+            if (!hasCustomer) return;
             setBusy("manage");
             setError(null);
             try {
@@ -94,8 +87,7 @@ export function BillingActions({ currentPlan, hasCustomer }: BillingActionsProps
               setBusy(null);
             }
           }}
-          className="premium-panel"
-          style={{ padding: "12px 16px", borderRadius: "var(--radius-pill)", border: "1px solid rgba(255,255,255,0.18)", background: "transparent", color: "var(--color-text-primary)", cursor: "pointer" }}
+          style={{ padding: "14px 24px", borderRadius: 9999, border: "1px solid rgba(255,255,255,0.1)", background: "transparent", color: "white", cursor: "pointer", fontSize: 14 }}
           disabled={busy !== null || !hasCustomer}
         >
           {busy === "manage" ? "Loading…" : hasCustomer ? "Manage billing" : "Manage billing unavailable"}
@@ -103,12 +95,12 @@ export function BillingActions({ currentPlan, hasCustomer }: BillingActionsProps
       </div>
 
       {!hasCustomer ? (
-        <p style={{ margin: 0, color: "var(--color-text-secondary)" }}>
+        <p style={{ margin: 0, color: "rgba(245,245,245,0.5)", fontSize: 13 }}>
           A Stripe customer record will be created the first time you start checkout.
         </p>
       ) : null}
 
-      {error ? <p style={{ margin: 0, color: "#fca5a5" }}>{error}</p> : null}
+      {error ? <p style={{ margin: 0, color: "#fca5a5", fontSize: 13 }}>{error}</p> : null}
     </div>
   );
 }

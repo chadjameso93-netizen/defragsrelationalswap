@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { AppShell } from "../components/app-shell";
+import { ArrowLeft, RotateCcw } from "lucide-react";
 
 export default function GlobalError({
   error,
@@ -19,57 +20,51 @@ export default function GlobalError({
       eyebrow="System State"
       title="Connection lost."
       description="The application encountered an unexpected interruption. We have secured your session."
-      accent="var(--color-text-muted)"
+      accent="rgba(245, 245, 245, 0.45)"
     >
-      <div
-        className="premium-fade-up premium-panel"
-        data-delay="2"
-        style={{
-          padding: 32,
-          borderRadius: "var(--radius-lg)",
-          background: "var(--color-surface)",
-          border: "1px solid var(--color-border)",
-          maxWidth: 620,
-          display: "grid",
-          gap: 16,
-        }}
-      >
-        <p style={{ margin: 0, color: "var(--color-text-secondary)", fontSize: 16, lineHeight: 1.6 }}>
+      <div style={{ maxWidth: 640, marginTop: 48, display: "grid", gap: 32 }}>
+        <p style={{ margin: 0, color: "rgba(245, 245, 245, 0.6)", fontSize: 18, lineHeight: 1.6, fontWeight: 300 }}>
           You can attempt to restore the connection or return to the home screen. If this persists, the servers may be handling an update.
         </p>
-        <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
+        <div style={{ display: "flex", gap: 12 }}>
           <button
             onClick={() => reset()}
             style={{
               appearance: "none",
-              border: "1px solid var(--color-border)",
-              background: "var(--color-text-primary)",
-              color: "var(--color-bg)",
-              padding: "10px 16px",
-              borderRadius: "var(--radius-pill)",
-              fontSize: 13,
-              letterSpacing: "0.06em",
-              fontWeight: 500,
+              border: 0,
+              background: "white",
+              color: "#050505",
+              padding: "16px 32px",
+              borderRadius: 16,
+              fontSize: 15,
+              fontWeight: 600,
               cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              boxShadow: "0 20px 40px rgba(0,0,0,0.4)"
             }}
           >
+            <RotateCcw style={{ width: 18, height: 18 }} />
             Attempt Restore
           </button>
           <a
             href="/"
             style={{
               textDecoration: "none",
-              border: "1px solid var(--color-border)",
+              border: "1px solid rgba(255,255,255,0.1)",
               background: "transparent",
-              color: "var(--color-text-secondary)",
-              padding: "10px 16px",
-              borderRadius: "var(--radius-pill)",
-              fontSize: 13,
-              letterSpacing: "0.06em",
+              color: "white",
+              padding: "16px 32px",
+              borderRadius: 16,
+              fontSize: 15,
               fontWeight: 500,
-              display: "inline-block",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 10,
             }}
           >
+            <ArrowLeft style={{ width: 18, height: 18 }} />
             Return Home
           </a>
         </div>

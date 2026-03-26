@@ -35,11 +35,21 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           :root {
             color-scheme: dark;
             --color-bg: #050505;
+            --color-surface: rgba(255, 255, 255, 0.04);
+            --color-surface-hover: rgba(255, 255, 255, 0.06);
+            --color-border: rgba(255, 255, 255, 0.08);
+            --color-border-hover: rgba(255, 255, 255, 0.12);
             --color-text-primary: #ffffff;
             --color-text-secondary: rgba(255, 255, 255, 0.65);
             --color-text-muted: rgba(255, 255, 255, 0.4);
             --color-accent: #22d3ee;
-            --color-border: rgba(255, 255, 255, 0.08);
+
+            --radius-md: 12px;
+            --radius-lg: 24px;
+            --radius-pill: 9999px;
+
+            --shadow-subtle: 0 8px 32px rgba(0,0,0,0.5);
+            --shadow-glow: 0 0 32px rgba(34, 211, 238, 0.1);
             
             --motion-spring: cubic-bezier(0.16, 1, 0.3, 1);
             --motion-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
