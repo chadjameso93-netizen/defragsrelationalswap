@@ -96,299 +96,194 @@ export default function DefragAISurface(): React.JSX.Element {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-neutral-950 text-neutral-50">
+    <div style={{ position: "relative", minHeight: "100vh", backgroundColor: "#050505", color: "#f5f5f5" }}>
       <AmbientBackground />
 
-      <div className="relative mx-auto flex min-h-screen max-[1600px] flex-col px-4 py-4 md:px-6 md:py-6">
-        <header className="mb-4 flex items-center justify-between border-b border-white/10 pb-4">
-          <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-xl border border-white/10 bg-white/5 backdrop-blur-md" />
+      <div style={{ position: "relative", margin: "0 auto", display: "flex", minHeight: "100vh", maxWidth: 1600, flexDirection: "column", padding: "24px" }}>
+        <header style={{ marginBottom: 32, display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", paddingBottom: 24 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div style={{ height: 36, width: 36, borderRadius: 10, border: "1px solid rgba(255, 255, 255, 0.1)", backgroundColor: "rgba(255, 255, 255, 0.05)", backdropFilter: "blur(20px)" }} />
             <div>
-              <div className="text-[11px] uppercase tracking-[0.22em] text-neutral-400">
+              <div style={{ fontSize: 10, fontWeight: 500, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(245, 245, 245, 0.5)" }}>
                 DEFRAG
               </div>
-              <h1 className="text-sm font-medium text-neutral-100 md:text-base">
+              <h1 style={{ fontSize: 16, fontWeight: 500, color: "white", margin: 0 }}>
                 Console
               </h1>
             </div>
           </div>
 
-          <div className="hidden items-center gap-2 md:flex">
-            <button className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-neutral-200 transition hover:bg-white/10">
-              Share
-            </button>
-            <button className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-neutral-200 transition hover:bg-white/10">
-              Invite
-            </button>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+             <button style={{ borderRadius: 9999, border: "1px solid rgba(255, 255, 255, 0.08)", backgroundColor: "rgba(255, 255, 255, 0.03)", padding: "8px 16px", fontSize: 13, color: "white", cursor: "pointer" }}>Share</button>
+             <button style={{ borderRadius: 9999, border: "1px solid rgba(255, 255, 255, 0.08)", backgroundColor: "rgba(255, 255, 255, 0.03)", padding: "8px 16px", fontSize: 13, color: "white", cursor: "pointer" }}>Invite</button>
           </div>
         </header>
 
-        <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 xl:grid-cols-[280px_minmax(0,1fr)_360px]">
-          <aside className="hidden xl:block">
-            <FieldRail
-              pressureLevel={pressureLevel}
-              timingWindow={timingWindow}
-              nextMove={nextMove}
-            />
+        <div style={{ display: "grid", gridTemplateColumns: "300px minmax(0, 1fr) 380px", gap: 32, flex: 1 }} className="surface-grid">
+          {/* Left Rail: Status Indicators */}
+          <aside className="left-rail">
+            <div style={{ display: "grid", gap: 32 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 10, fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245, 245, 245, 0.4)" }}>
+                <Waves style={{ width: 14, height: 14 }} />
+                Session Status
+              </div>
+              
+              <div style={{ display: "grid", gap: 24 }}>
+                <StatusItem label="Pressure" value={pressureLevel} />
+                <StatusItem label="Timing" value={timingWindow} />
+                <StatusItem label="Next Move" value={nextMove} />
+              </div>
+
+              <div style={{ marginTop: 24 }}>
+                 <div style={{ marginBottom: 16, fontSize: 10, fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245, 245, 245, 0.3)" }}>
+                   Timeline Visualization
+                 </div>
+                 <div style={{ height: 280, borderRadius: 20, border: "1px solid rgba(255,255,255,0.06)", background: "rgba(0,0,0,0.2)", position: "relative", overflow: "hidden" }}>
+                    <div style={{ position: "absolute", left: "20%", top: "25%", width: 80, height: 80, borderRadius: "50%", background: "rgba(34, 211, 238, 0.05)", filter: "blur(20px)" }} />
+                    <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} viewBox="0 0 100 100">
+                      <path d="M10 50 Q 30 20 50 50 T 90 50" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
+                    </svg>
+                 </div>
+              </div>
+            </div>
           </aside>
 
-          <main className="min-h-0">
-            <div className="grid h-full min-h-[78vh] grid-rows-[auto_minmax(0,1fr)_auto] overflow-hidden rounded-[28px] border border-white/10 bg-white/5 backdrop-blur-2xl">
-              <ConversationHeader />
-              <ConversationBody messages={messages} />
-              <Composer
-                draft={draft}
-                setDraft={setDraft}
-                sendMessage={sendMessage}
-              />
+          {/* Main Content Area: Analysis Workspace */}
+          <main style={{ minHeight: 0, display: "flex", flexDirection: "column" }}>
+            <div style={{ flex: 1, display: "grid", gridTemplateRows: "auto 1fr auto", borderRadius: 32, border: "1px solid rgba(255, 255, 255, 0.1)", backgroundColor: "rgba(255, 255, 255, 0.04)", backdropFilter: "blur(40px)", overflow: "hidden", minHeight: "78vh" }}>
+              <div style={{ padding: "24px 32px", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                 <div>
+                    <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245, 245, 245, 0.4)", marginBottom: 4 }}>Conversation Analysis</div>
+                    <div style={{ fontSize: 14, color: "rgba(245, 245, 245, 0.8)" }}>Determine what happened before the moment turns into a story.</div>
+                 </div>
+                 <div style={{ display: "flex", gap: 16 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 11, color: "rgba(245, 245, 245, 0.4)" }}>
+                       <Clock3 style={{ width: 12, height: 12 }} /> Slow
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 11, color: "rgba(245, 245, 245, 0.4)" }}>
+                       <TriangleAlert style={{ width: 12, height: 12 }} /> High
+                    </div>
+                 </div>
+              </div>
+
+              <div style={{ padding: "32px", overflowY: "auto" }}>
+                <div style={{ maxWidth: 760, margin: "0 auto", display: "grid", gap: 32 }}>
+                  {messages.map((message) => (
+                    <div key={message.id} style={{ alignSelf: message.role === "assistant" ? "flex-start" : "flex-end", maxWidth: "85%" }}>
+                      <div style={{ marginBottom: 8, fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(245, 245, 245, 0.3)", textAlign: message.role === "assistant" ? "left" : "right" }}>
+                        {message.role === "assistant" ? "DEFRAG" : "You"}
+                      </div>
+                      <div style={{ 
+                        padding: "20px 24px", 
+                        borderRadius: message.role === "assistant" ? "24px 24px 24px 4px" : "24px 24px 4px 24px",
+                        background: message.role === "assistant" ? "rgba(255,255,255,0.05)" : "rgba(34, 211, 238, 0.1)",
+                        border: message.role === "assistant" ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(34, 211, 238, 0.2)",
+                        fontSize: 15,
+                        lineHeight: 1.6,
+                        color: "white"
+                      }}>
+                        {message.content}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div style={{ padding: "24px 32px", borderTop: "1px solid rgba(255, 255, 255, 0.08)" }}>
+                 <div style={{ maxWidth: 760, margin: "0 auto", position: "relative" }}>
+                    <textarea 
+                      value={draft}
+                      onChange={(e) => setDraft(e.target.value)}
+                      placeholder="Paste the conversation..."
+                      style={{ 
+                        width: "100%", 
+                        minHeight: 100, 
+                        borderRadius: 20, 
+                        border: "1px solid rgba(255,255,255,0.1)", 
+                        background: "rgba(0,0,0,0.2)", 
+                        padding: "16px 60px 16px 20px",
+                        color: "white",
+                        fontSize: 15,
+                        resize: "none",
+                        outline: "none"
+                      }}
+                    />
+                    <button 
+                      onClick={sendMessage}
+                      style={{ position: "absolute", right: 12, bottom: 12, width: 40, height: 40, borderRadius: "50%", border: "none", background: "white", color: "#050505", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}
+                    >
+                      <Send style={{ width: 18, height: 18 }} />
+                    </button>
+                 </div>
+              </div>
             </div>
           </main>
 
-          <aside className="min-h-0">
-            <RightRail insights={starterInsights} simulation={starterSimulation} />
+          {/* Right Rail: Insights & Suggestions */}
+          <aside className="right-rail">
+            <div style={{ display: "grid", gap: 32 }}>
+               <section>
+                 <div style={{ marginBottom: 20, display: "flex", alignItems: "center", gap: 10, fontSize: 10, fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245, 245, 245, 0.4)" }}>
+                    <Sparkles style={{ width: 14, height: 14 }} />
+                    Pattern Recognition
+                 </div>
+                 <div style={{ display: "grid", gap: 32 }}>
+                    {starterInsights.map(insight => (
+                      <div key={insight.title} style={{ paddingLeft: 16, borderLeft: "1px solid rgba(255,255,255,0.1)" }}>
+                         <div style={{ fontSize: 14, fontWeight: 600, color: "white", marginBottom: 8 }}>{insight.title}</div>
+                         <div style={{ fontSize: 13, lineHeight: 1.6, color: "rgba(245, 245, 245, 0.7)" }}>{insight.body}</div>
+                      </div>
+                    ))}
+                 </div>
+               </section>
+
+               <section>
+                 <div style={{ marginBottom: 20, display: "flex", alignItems: "center", gap: 10, fontSize: 10, fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245, 245, 245, 0.4)" }}>
+                    <MessageSquareText style={{ width: 14, height: 14 }} />
+                    Next-Move Simulation
+                 </div>
+                 <div style={{ display: "grid", gap: 24 }}>
+                    {starterSimulation.map((sim, i) => (
+                      <div key={i} style={{ borderRadius: 20, border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.03)", padding: 20, cursor: "pointer" }}>
+                         <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(245, 245, 245, 0.3)", marginBottom: 10 }}>{sim.label}</div>
+                         <div style={{ fontSize: 14, lineHeight: 1.6, color: "rgba(245, 245, 245, 0.9)" }}>{sim.text}</div>
+                      </div>
+                    ))}
+                 </div>
+               </section>
+            </div>
           </aside>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 1200px) {
+          .surface-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .left-rail, .right-rail {
+            display: none !important;
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
+
+function StatusItem({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <div style={{ fontSize: 10, fontWeight: 500, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245, 245, 245, 0.4)", marginBottom: 8 }}>{label}</div>
+      <div style={{ fontSize: 18, fontWeight: 400, color: "white" }}>{value}</div>
     </div>
   );
 }
 
 function AmbientBackground(): React.JSX.Element {
   return (
-    <div className="pointer-events-none absolute inset-0">
-      <div className="absolute left-[-10%] top-[-10%] h-[34rem] w-[34rem] rounded-full bg-cyan-500/10 blur-3xl" />
-      <div className="absolute right-[-12%] top-[8%] h-[30rem] w-[30rem] rounded-full bg-indigo-500/10 blur-3xl" />
-      <div className="absolute bottom-[-15%] left-[20%] h-[28rem] w-[28rem] rounded-full bg-violet-500/10 blur-3xl" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_32%)]" />
-      <div className="absolute inset-0 opacity-[0.08] [background-image:linear-gradient(rgba(255,255,255,0.16)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.16)_1px,transparent_1px)] [background-size:40px_40px]" />
+    <div style={{ pointerEvents: "none", position: "absolute", inset: 0 }}>
+      <div style={{ position: "absolute", left: "-10%", top: "-10%", height: "34rem", width: "34rem", borderRadius: "50%", background: "rgba(34, 211, 238, 0.05)", filter: "blur(120px)" }} />
+      <div style={{ position: "absolute", right: "-12%", top: "8%", height: "30rem", width: "30rem", borderRadius: "50%", background: "rgba(79, 70, 229, 0.04)", filter: "blur(120px)" }} />
     </div>
-  );
-}
-
-function FieldRail(props: {
-  pressureLevel: string;
-  timingWindow: string;
-  nextMove: string;
-}): React.JSX.Element {
-  const { pressureLevel, timingWindow, nextMove } = props;
-
-  return (
-    <div className="h-full rounded-[28px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-2xl">
-      <div className="mb-6 flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-neutral-400">
-        <Waves className="h-4 w-4" />
-        Session Status
-      </div>
-
-      <div className="space-y-4">
-        <MetricBlock label="Pressure" value={pressureLevel} />
-        <MetricBlock label="Timing" value={timingWindow} />
-        <MetricBlock label="Next move" value={nextMove} />
-      </div>
-
-      <div className="mt-8">
-        <div className="mb-3 text-xs uppercase tracking-[0.18em] text-neutral-500">
-          Activity
-        </div>
-        <div className="relative h-[340px] overflow-hidden rounded-[24px] border border-white/10 bg-black/30">
-          <div className="absolute left-[18%] top-[18%] h-24 w-24 rounded-full border border-cyan-400/20 bg-cyan-400/10 blur-[1px]" />
-          <div className="absolute right-[16%] top-[26%] h-20 w-20 rounded-full border border-violet-400/20 bg-violet-400/10 blur-[1px]" />
-          <div className="absolute bottom-[20%] left-[36%] h-28 w-28 rounded-full border border-white/10 bg-white/5 blur-[1px]" />
-          <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100">
-            <path
-              d="M24 28 C 40 35, 52 48, 64 54"
-              stroke="rgba(255,255,255,0.18)"
-              strokeWidth="0.6"
-              fill="none"
-            />
-            <path
-              d="M64 54 C 72 58, 78 62, 82 36"
-              stroke="rgba(255,255,255,0.12)"
-              strokeWidth="0.6"
-              fill="none"
-            />
-          </svg>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function MetricBlock(props: {
-  label: string;
-  value: string;
-}): React.JSX.Element {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-black/20 px-4 py-4">
-      <div className="mb-2 text-xs uppercase tracking-[0.14em] text-neutral-500">
-        {props.label}
-      </div>
-      <div className="text-lg font-medium text-neutral-100">{props.value}</div>
-    </div>
-  );
-}
-
-function ConversationHeader(): React.JSX.Element {
-  return (
-    <div className="flex items-center justify-between border-b border-white/10 px-4 py-4 md:px-6">
-      <div>
-        <div className="mb-1 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
-          Conversation
-        </div>
-        <div className="text-sm text-neutral-200 md:text-base">
-          Understand what happened before it repeats.
-        </div>
-      </div>
-
-      <div className="hidden items-center gap-3 text-xs text-neutral-400 md:flex">
-        <span className="inline-flex items-center gap-1">
-          <Clock3 className="h-3.5 w-3.5" />
-          Timing
-        </span>
-        <span className="inline-flex items-center gap-1">
-          <TriangleAlert className="h-3.5 w-3.5" />
-          Pressure
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function ConversationBody(props: {
-  messages: Message[];
-}): React.JSX.Element {
-  return (
-    <div className="min-h-0 overflow-y-auto px-4 py-5 md:px-6">
-      <div className="mx-auto flex max-w-3xl flex-col gap-4">
-        {props.messages.map((message) => (
-          <div
-            key={message.id}
-            className={
-              message.role === "assistant"
-                ? "max-w-[85%] rounded-[24px] rounded-tl-md border border-white/10 bg-white/8 px-4 py-4 backdrop-blur-xl"
-                : "ml-auto max-w-[80%] rounded-[24px] rounded-tr-md border border-cyan-400/20 bg-cyan-400/10 px-4 py-4"
-            }
-          >
-            <div className="mb-2 text-[11px] uppercase tracking-[0.16em] text-neutral-500">
-              {message.role === "assistant" ? "DEFRAG" : "You"}
-            </div>
-            <div className="text-sm leading-7 text-neutral-100 md:text-[15px]">
-              {message.content}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function Composer(props: {
-  draft: string;
-  setDraft: (value: string) => void;
-  sendMessage: () => void;
-}): React.JSX.Element {
-  return (
-    <div className="border-t border-white/10 px-4 py-4 md:px-6">
-      <div className="mx-auto flex max-w-3xl items-end gap-3 rounded-[24px] border border-white/10 bg-black/20 p-3">
-        <div className="flex-1">
-          <label
-            htmlFor="defrag-input"
-            className="mb-2 block text-[11px] uppercase tracking-[0.16em] text-neutral-500"
-          >
-            Start with a message
-          </label>
-          <textarea
-            id="defrag-input"
-            value={props.draft}
-            onChange={(e) => props.setDraft(e.target.value)}
-            placeholder="Paste a conversation, message, or tense moment."
-            className="min-h-[84px] w-full resize-none border-0 bg-transparent text-sm leading-6 text-neutral-100 outline-none placeholder:text-neutral-500"
-          />
-        </div>
-
-        <button
-          type="button"
-          onClick={props.sendMessage}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/10 transition hover:bg-white/15"
-          aria-label="Send message"
-        >
-          <Send className="h-4 w-4" />
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function RightRail(props: {
-  insights: InsightCard[];
-  simulation: SimulationStep[];
-}): React.JSX.Element {
-  return (
-    <div className="grid h-full min-h-[78vh] grid-rows-[auto_auto_1fr] gap-4">
-      <div className="rounded-[28px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-2xl">
-        <div className="mb-4 flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-neutral-400">
-          <Sparkles className="h-4 w-4" />
-          Insight
-        </div>
-
-        <div className="space-y-4">
-          {props.insights.map((item) => (
-            <div key={item.title} className="border-t border-white/10 pt-4 first:border-t-0 first:pt-0">
-              <div className="mb-2 text-sm font-medium text-neutral-100">
-                {item.title}
-              </div>
-              <div className="text-sm leading-7 text-neutral-300">
-                {item.body}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="rounded-[28px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-2xl">
-        <div className="mb-4 flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-neutral-400">
-          <MessageSquareText className="h-4 w-4" />
-          Next move
-        </div>
-
-        <div className="space-y-4">
-          {props.simulation.map((step, index) => (
-            <div key={step.label} className="border-t border-white/10 pt-4 first:border-t-0 first:pt-0">
-              <div className="mb-2 text-xs uppercase tracking-[0.16em] text-neutral-500">
-                {String(index + 1).padStart(2, "0")} — {step.label}
-              </div>
-              <div className="text-sm leading-7 text-neutral-200">
-                {step.text}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="rounded-[28px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-2xl">
-        <div className="mb-4 text-xs uppercase tracking-[0.18em] text-neutral-400">
-          Actions
-        </div>
-
-        <div className="flex flex-col gap-3">
-          <ActionButton icon={<Share2 className="h-4 w-4" />} label="Share summary" />
-          <ActionButton icon={<ArrowUpRight className="h-4 w-4" />} label="Invite someone" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ActionButton(props: {
-  icon: React.ReactNode;
-  label: string;
-}): React.JSX.Element {
-  return (
-    <button className="inline-flex items-center justify-between rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-neutral-100 transition hover:bg-black/30">
-      <span className="inline-flex items-center gap-2">
-        {props.icon}
-        {props.label}
-      </span>
-      <ArrowUpRight className="h-4 w-4 text-neutral-500" />
-    </button>
   );
 }

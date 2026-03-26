@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import type { ReactNode } from "react";
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-display",
-});
 
 const inter = Inter({
   subsets: ["latin"],
@@ -26,39 +21,28 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body
-        className={`${fraunces.variable} ${inter.variable}`}
+        className={`${inter.variable}`}
         style={{
           margin: 0,
           background: "#050505",
           color: "#f5f5f5",
           fontFamily: "var(--font-sans), sans-serif",
+          WebkitFontSmoothing: "antialiased",
+          MozOsxFontSmoothing: "grayscale"
         }}
       >
         <style>{`
           :root {
             color-scheme: dark;
             --color-bg: #050505;
-            --color-surface: rgba(255, 255, 255, 0.04);
-            --color-surface-hover: rgba(255, 255, 255, 0.06);
-            --color-border: rgba(255, 255, 255, 0.1);
-            --color-border-hover: rgba(255, 255, 255, 0.15);
-            --color-text-primary: #f5f5f5;
-            --color-text-secondary: rgba(245, 245, 245, 0.7);
-            --color-text-muted: rgba(245, 245, 245, 0.45);
+            --color-text-primary: #ffffff;
+            --color-text-secondary: rgba(255, 255, 255, 0.65);
+            --color-text-muted: rgba(255, 255, 255, 0.4);
             --color-accent: #22d3ee;
+            --color-border: rgba(255, 255, 255, 0.08);
             
             --motion-spring: cubic-bezier(0.16, 1, 0.3, 1);
             --motion-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
-            --motion-duration-fast: 120ms;
-            --motion-duration-normal: 250ms;
-            --motion-duration-slow: 500ms;
-            
-            --shadow-subtle: 0 8px 32px rgba(0,0,0,0.5);
-            --shadow-glow: 0 0 32px rgba(34, 211, 238, 0.1);
-
-            --radius-md: 12px;
-            --radius-lg: 24px;
-            --radius-pill: 9999px;
           }
           * {
             box-sizing: border-box;
@@ -68,67 +52,68 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           }
           body {
             min-width: 320px;
+            overflow-x: hidden;
             background-color: var(--color-bg) !important;
             color: var(--color-text-primary) !important;
+            line-height: 1.5;
           }
-          h1, h2, h3, h4 {
-            font-family: var(--font-display), serif;
+          h1, h2, h3, h4, h5, h6 {
+            margin: 0;
             font-weight: 500;
+            letter-spacing: -0.02em;
           }
-          a, button {
-            transition: transform var(--motion-duration-normal) var(--motion-spring), 
-                        opacity var(--motion-duration-fast) var(--motion-ease), 
-                        border-color var(--motion-duration-fast) var(--motion-ease), 
-                        background-color var(--motion-duration-fast) var(--motion-ease), 
-                        box-shadow var(--motion-duration-normal) var(--motion-spring),
-                        color var(--motion-duration-fast) var(--motion-ease);
+          p {
+            margin: 0;
           }
-          a:hover, button:hover {
-            transform: translateY(-1px);
+          a {
+            color: inherit;
+            text-decoration: none;
+            transition: opacity 0.2s ease;
           }
-          textarea:focus, input:focus, select:focus, button:focus {
-            outline: 2px solid color-mix(in srgb, var(--color-accent) 45%, transparent);
-            outline-offset: 2px;
+          a:hover {
+            opacity: 0.8;
           }
-          
-          /* Reveal Motion Elements */
+          button {
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+          }
+          button:active {
+            transform: scale(0.98);
+          }
+          input, textarea {
+            font-family: inherit;
+          }
+
+          /* Reveal Motion */
           .premium-fade-up {
             opacity: 0;
-            animation: premiumFadeUp var(--motion-duration-slow) var(--motion-spring) forwards;
+            animation: premiumFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
           }
-          .premium-fade-up[data-delay="1"] { animation-delay: 80ms; }
-          .premium-fade-up[data-delay="2"] { animation-delay: 160ms; }
-          .premium-fade-up[data-delay="3"] { animation-delay: 240ms; }
-          
-          .premium-panel {
-            transition: transform var(--motion-duration-normal) var(--motion-spring), 
-                        border-color var(--motion-duration-normal) var(--motion-ease), 
-                        background-color var(--motion-duration-normal) var(--motion-ease), 
-                        box-shadow var(--motion-duration-normal) var(--motion-spring);
-          }
-          .premium-panel:hover {
-            transform: translateY(-3px);
-            border-color: var(--color-border-hover) !important;
-            box-shadow: var(--shadow-subtle);
-          }
-          
           @keyframes premiumFadeUp {
             from {
               opacity: 0;
-              transform: translateY(16px);
+              transform: translateY(20px);
             }
             to {
               opacity: 1;
               transform: translateY(0);
             }
           }
-          @media (prefers-reduced-motion: reduce) {
-            html { scroll-behavior: auto; }
-            *, *::before, *::after {
-              animation-duration: 0.01ms !important;
-              animation-iteration-count: 1 !important;
-              transition-duration: 0.01ms !important;
-            }
+
+          /* Scrollbar */
+          ::-webkit-scrollbar {
+            width: 8px;
+          }
+          ::-webkit-scrollbar-track {
+            background: transparent;
+          }
+          ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+          }
+          ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.15);
           }
         `}</style>
         {children}

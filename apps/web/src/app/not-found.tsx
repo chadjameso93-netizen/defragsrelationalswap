@@ -1,5 +1,6 @@
 import { AppShell } from "../components/app-shell";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
   return (
@@ -7,43 +8,33 @@ export default function NotFound() {
       eyebrow="404"
       title="Signal lost."
       description="The page you are looking for does not exist."
-      accent="var(--color-text-muted)"
+      accent="rgba(245, 245, 245, 0.45)"
     >
-      <div
-        className="premium-fade-up premium-panel"
-        data-delay="2"
-        style={{
-          padding: 32,
-          borderRadius: "var(--radius-lg)",
-          background: "var(--color-surface)",
-          border: "1px solid var(--color-border)",
-          maxWidth: 620,
-          display: "grid",
-          gap: 16,
-        }}
-      >
-        <p style={{ margin: 0, color: "var(--color-text-secondary)", fontSize: 16, lineHeight: 1.6 }}>
-          You may have moved outside the known boundaries of your DEFRAG session.
+      <div style={{ maxWidth: 640, marginTop: 48, display: "grid", gap: 32 }}>
+        <p style={{ margin: 0, color: "rgba(245, 245, 245, 0.6)", fontSize: 18, lineHeight: 1.6, fontWeight: 300 }}>
+          You may have moved outside the known boundaries of your DEFRAG session. This interaction path is currently unmapped.
         </p>
-        <div style={{ marginTop: 8 }}>
-          <Link
-            href="/"
-            style={{
-              textDecoration: "none",
-              border: "1px solid var(--color-border)",
-              background: "var(--color-text-primary)",
-              color: "var(--color-bg)",
-              padding: "12px 20px",
-              borderRadius: "var(--radius-pill)",
-              fontSize: 13,
-              letterSpacing: "0.06em",
-              fontWeight: 500,
-              display: "inline-block",
-            }}
-          >
-            Return home
-          </Link>
-        </div>
+        
+        <Link
+          href="/"
+          style={{
+            width: "fit-content",
+            textDecoration: "none",
+            background: "white",
+            color: "#050505",
+            padding: "16px 32px",
+            borderRadius: 16,
+            fontSize: 15,
+            fontWeight: 600,
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            boxShadow: "0 20px 40px rgba(0,0,0,0.4)"
+          }}
+        >
+          <ArrowLeft style={{ width: 18, height: 18 }} />
+          Return home
+        </Link>
       </div>
     </AppShell>
   );

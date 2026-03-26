@@ -4,6 +4,7 @@ import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AppShell } from "@/components/app-shell";
 import { createClient } from "@/utils/supabase/client";
+import { ArrowRight, User } from "lucide-react";
 
 function OnboardingContent() {
   const router = useRouter();
@@ -28,99 +29,102 @@ function OnboardingContent() {
       eyebrow={eyebrow}
       title={title}
       description={description}
-      accent="var(--color-accent)"
+      accent="#22d3ee"
     >
-      <section
-        className="premium-fade-up"
-        style={{
-          maxWidth: 640,
-          marginTop: 24,
-          display: "grid",
-          gap: 24,
-          padding: 32,
-          borderRadius: "var(--radius-lg)",
-          background: "rgba(6, 7, 10, 0.4)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
-          border: "1px solid var(--color-border)",
-        }}
-      >
-        <div style={{ display: "grid", gap: 12 }}>
-          <label style={{ fontSize: 13, fontWeight: 500, color: "var(--color-text-primary)" }}>Your name</label>
-          <input
-            value={displayName}
-            onChange={(event) => setDisplayName(event.target.value)}
-            placeholder="Jane Doe"
-            style={{
-              width: "100%",
-              borderRadius: "var(--radius-md)",
-              border: "1px solid var(--color-border)",
-              background: "rgba(0,0,0,0.5)",
-              color: "var(--color-text-primary)",
-              padding: "16px",
-              fontSize: 16,
-              outline: "none",
-              boxSizing: "border-box"
-            }}
-          />
-        </div>
-
-        <button
-          type="button"
-          onClick={async () => {
-             setBusy(true);
-             setError(null);
-             try {
-                const { data: { user } } = await supabase.auth.getUser();
-
-                if (!user) {
-                  router.push("/login");
-                  return;
-                }
-
-                const metadata = {
-                  ...user.user_metadata,
-                  display_name: displayName.trim() || user.user_metadata?.display_name,
-                  onboarding_completed: true,
-                };
-
-                const updateResult = await supabase.auth.updateUser({ data: metadata });
-                if (updateResult.error) {
-                  throw updateResult.error;
-                }
-
-                router.push(nextPath && nextPath.startsWith("/") ? nextPath : "/dynamics");
-                router.refresh();
-             } catch (err) {
-                setError(err instanceof Error ? err.message : "Unable to complete setup");
-             } finally {
-                setBusy(false);
-             }
-          }}
-          disabled={busy || !displayName.trim()}
-          style={{
-            width: "100%",
-            padding: "16px",
-            borderRadius: "var(--radius-pill)",
-            border: 0,
-            background: "var(--color-text-primary)",
-            color: "var(--color-bg)",
-            fontWeight: 600,
-            fontSize: 15,
-            cursor: busy || !displayName.trim() ? "default" : "pointer",
-            opacity: busy || !displayName.trim() ? 0.7 : 1,
-            transition: "all 0.2s ease"
-          }}
-        >
-          {busy ? "Saving..." : isInviteFlow ? "View summary" : "Continue to DEFRAG"}
-        </button>
-
-        {error ? (
-          <div style={{ padding: 12, borderRadius: 8, background: "rgba(220, 38, 38, 0.1)", border: "1px solid rgba(220, 38, 38, 0.2)", color: "#fca5a5", fontSize: 13, textAlign: "center" }}>
-            {error}
+      <div style={{ maxWidth: 640, marginTop: 48 }}>
+        <div style={{ display: "grid", gap: 32 }}>
+          <div style={{ display: "grid", gap: 12 }}>
+            <label style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245, 245, 245, 0.4)" }}>
+              Your full name
+            </label>
+            <div style={{ display: "flex", alignItems: "center", gap: 16, borderRadius: 20, border: "1px solid rgba(255, 255, 255, 0.1)", background: "rgba(0,0,0,0.2)", padding: "18px 24px" }}>
+              <User style={{ width: 18, height: 18, color: "rgba(245, 245, 245, 0.4)" }} />
+              <input
+                value={displayName}
+                onChange={(event) => setDisplayName(event.target.value)}
+                placeholder="Jane Doe"
+                autoFocus
+                style={{
+                  width: "100%",
+                  border: "none",
+                  background: "transparent",
+                  color: "white",
+                  fontSize: 18,
+                  outline: "none",
+                  fontWeight: 400
+                }}
+              />
+            </div>
           </div>
-        ) : null}
-      </section>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+            <button
+              type="button"
+              onClick={async () => {
+                 setBusy(true);
+                 setError(null);
+                 try {
+                    const { data: { user } } = await supabase.auth.getUser();
+
+                    if (!user) {
+                      router.push("/login");
+                      return;
+                    }
+
+                    const metadata = {
+                      ...user.user_metadata,
+                      display_name: displayName.trim() || user.user_metadata?.display_name,
+                      onboarding_completed: true,
+                    };
+
+                    const updateResult = await supabase.auth.updateUser({ data: metadata });
+                    if (updateResult.error) {
+                      throw updateResult.error;
+                    }
+
+                    router.push(nextPath && nextPath.startsWith("/") ? nextPath : "/dynamics");
+                    router.refresh();
+                 } catch (err) {
+                    setError(err instanceof Error ? err.message : "Unable to complete setup");
+                 } finally {
+                    setBusy(false);
+                 }
+              }}
+              disabled={busy || !displayName.trim()}
+              style={{
+                width: "fit-content",
+                padding: "20px 48px",
+                borderRadius: 9999,
+                border: 0,
+                background: "white",
+                color: "#050505",
+                fontWeight: 600,
+                fontSize: 16,
+                cursor: busy || !displayName.trim() ? "default" : "pointer",
+                opacity: busy || !displayName.trim() ? 0.6 : 1,
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+                transition: "all 0.2s ease",
+                boxShadow: "0 20px 40px rgba(0,0,0,0.4)"
+              }}
+            >
+              {busy ? "Saving..." : isInviteFlow ? "View summary" : "Continue to DEFRAG"}
+              {!busy && <ArrowRight style={{ width: 18, height: 18 }} />}
+            </button>
+
+            <p style={{ margin: 0, fontSize: 13, color: "rgba(245, 245, 245, 0.4)", lineHeight: 1.6, maxWidth: 400 }}>
+              Your workspace is local to your device and is never used for training models or shared without your permission.
+            </p>
+          </div>
+
+          {error ? (
+            <div style={{ padding: 16, borderRadius: 16, background: "rgba(220, 38, 38, 0.1)", border: "1px solid rgba(220, 38, 38, 0.2)", color: "#fca5a5", fontSize: 13 }}>
+              {error}
+            </div>
+          ) : null}
+        </div>
+      </div>
     </AppShell>
   );
 }
