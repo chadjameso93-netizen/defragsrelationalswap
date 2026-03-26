@@ -4,9 +4,9 @@ import { AppShell } from "../../components/app-shell";
 export default function AboutPage() {
   return (
     <AppShell
-      eyebrow="Approach"
-      title="A practical approach to difficult interactions."
-      description="DEFRAG helps you understand what happened, see the pattern, and know what to do next."
+      eyebrow="Method"
+      title="A pattern-interruption system for high-stakes interactions."
+      description="DEFRAG helps you catch the pattern, lower the pressure, and change what happens next."
       accent="#c8d8a2"
     >
       <div style={{ maxWidth: 1000, margin: "0 auto", padding: "0 16px" }}>
@@ -16,19 +16,19 @@ export default function AboutPage() {
             {[
               {
                 title: "What DEFRAG is for",
-                body: "DEFRAG shows you the behavioral pattern you default to under stress and helps you interrupt it before it repeats. It is designed for high-stakes conversations where the outcome matters.",
+                body: "DEFRAG catches the behavioral pattern you default to under stress and helps you interrupt it before it repeats. It is designed for high-stakes conversations where the outcome matters.",
               },
               {
-                title: "Seeing the pattern",
-                body: "When a tense moment occurs, our first response is often based on past tension instead of the current event. The details matter less than the recurring timeline of the conflict. By documenting what happened, we can see the pattern instead of getting caught in it.",
+                title: "Catching the pattern",
+                body: "When a tense moment occurs, our first response is often based on past tension instead of the current event. The details matter less than the recurring timeline of the conflict. By documenting what happened, we can catch the pattern instead of getting caught in it.",
               },
               {
                 title: "What DEFRAG does not do",
-                body: "DEFRAG is not a therapist and not a mystic. It does not diagnose people or assign labels. It stays with observable events, helping you understand both sides and decide what to do next.",
+                body: "DEFRAG is not a therapist and not a mystic. It does not diagnose people or assign labels. It stays with observable events, helping you detect both sides and decide what to do next.",
               },
               {
                 title: "Changing what happens next",
-                body: "Once you see the pattern, DEFRAG provides guidance grounded in wording and timing. It helps you notice pressure and respond clearly, preserving the interaction without sacrificing your perspective.",
+                body: "Once you catch the pattern, DEFRAG provides guidance grounded in wording and timing. It helps you detect pressure, intervene early, and respond with more control.",
               },
             ].map((section, i) => (
               <div key={section.title} className="premium-fade-up" data-delay={String(i)} style={{ display: "grid", gap: 16 }}>
@@ -47,10 +47,10 @@ export default function AboutPage() {
                 <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245, 245, 245, 0.4)", marginBottom: 24 }}>System Access</div>
                 <div style={{ display: "grid", gap: 12 }}>
                   <Link href="/login" style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "18px", borderRadius: 16, background: "white", color: "#050505", textDecoration: "none", fontWeight: 600, fontSize: 16 }}>
-                    Try DEFRAG
+                    Run the Analysis
                   </Link>
                   <Link href="/dynamics" style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "18px", borderRadius: 16, border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.03)", color: "white", textDecoration: "none", fontSize: 16 }}>
-                    Open Console
+                    See It in Action
                   </Link>
                 </div>
              </div>
@@ -58,7 +58,7 @@ export default function AboutPage() {
              <div style={{ paddingTop: 40, borderTop: "1px solid rgba(255, 255, 255, 0.08)" }}>
                 <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245, 245, 245, 0.4)", marginBottom: 20 }}>Resources</div>
                 <div style={{ display: "grid", gap: 16 }}>
-                   <Link href="/account/billing" style={{ color: "rgba(245, 245, 245, 0.6)", textDecoration: "none", fontSize: 14 }}>Tiers & Capacity</Link>
+                   <Link href="/account/billing" style={{ color: "rgba(245, 245, 245, 0.6)", textDecoration: "none", fontSize: 14 }}>Pricing</Link>
                    <Link href="/privacy" style={{ color: "rgba(245, 245, 245, 0.6)", textDecoration: "none", fontSize: 14 }}>Privacy Policy</Link>
                    <Link href="/terms" style={{ color: "rgba(245, 245, 245, 0.6)", textDecoration: "none", fontSize: 14 }}>Terms of Service</Link>
                 </div>

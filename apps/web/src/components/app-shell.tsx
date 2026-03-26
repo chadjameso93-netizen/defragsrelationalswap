@@ -19,16 +19,16 @@ export function AppShell({
   const pathname = usePathname();
   const navItems = [
     { href: "/", label: "Home", match: (value: string) => value === "/" },
-    { href: "/dynamics", label: "Console", match: (value: string) => value.startsWith("/dynamics") },
-    { href: "/about", label: "Approach", match: (value: string) => value.startsWith("/about") },
-    { href: "/account/billing", label: "Tiers", match: (value: string) => value.startsWith("/account/billing") },
+    { href: "/dynamics", label: "Product", match: (value: string) => value.startsWith("/dynamics") },
+    { href: "/about", label: "Method", match: (value: string) => value.startsWith("/about") },
+    { href: "/account/billing", label: "Pricing", match: (value: string) => value.startsWith("/account/billing") || value.startsWith("/pricing") },
   ];
   const footerItems = [
     { href: "/about", label: "About" },
-    { href: "/account/billing", label: "Pricing & Billing" },
+    { href: "/account/billing", label: "Pricing" },
     { href: "/terms", label: "Terms" },
     { href: "/privacy", label: "Privacy" },
-    { href: "/login", label: "Login" },
+    { href: "/login", label: "Sign In" },
   ];
 
   return (
@@ -122,7 +122,7 @@ export function AppShell({
             <div style={{ display: "grid", gap: 16, maxWidth: 360 }}>
               <div style={{ fontSize: 14, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "white" }}>DEFRAG</div>
               <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: "rgba(245, 245, 245, 0.5)" }}>
-                A practical approach to difficult interactions. Understand what happened, see the pattern, and know what to do next.
+                DEFRAG helps you catch the pattern, lower the pressure, and change what happens next.
               </p>
             </div>
             
