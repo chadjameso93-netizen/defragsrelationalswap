@@ -7,6 +7,29 @@ import { listThreadsForUser } from "../../server/dynamics-store";
 import DefragAISurface from "../../components/defrag-ai-surface";
 import { ArrowRight } from "lucide-react";
 
+const capabilityBlocks = [
+  {
+    title: "What the workspace analyzes",
+    body: "A difficult interaction, the pressure inside it, how each side may be reading it, what changed, and what pattern is forming beneath the moment.",
+  },
+  {
+    title: "What the system returns",
+    body: "Structured outputs such as what may be happening, where pressure changed, what may be getting misread, and what move is most likely to help next.",
+  },
+  {
+    title: "Who it is built for",
+    body: "Individuals, two-person dynamics, families, teams, and broader relational systems where communication and pressure move across more than one participant.",
+  },
+];
+
+const outputLabels = [
+  "what may be happening",
+  "how each side may be reading it",
+  "where pressure changed",
+  "what pattern is forming",
+  "what to try next",
+];
+
 export default async function DynamicsPage() {
   const user = await getAuthenticatedUserOrNull();
 
@@ -14,41 +37,48 @@ export default async function DynamicsPage() {
     return (
       <AppShell
         eyebrow="Workspace"
-        title="See the pattern. Change what happens next."
-        description="Defrag helps you understand what may be happening, notice where pressure changed, and choose a better next step."
+        title="A relational intelligence workspace for difficult interactions."
+        description="Defrag helps you understand conflict, communication breakdown, emotional pressure, and perspective differences by turning one moment into structured relational analysis."
         accent="#22d3ee"
       >
-        <div style={{ display: "grid", gap: 48 }}>
+        <div style={{ display: "grid", gap: 72 }}>
           <PublicPreviewCta
             title="Sign in to open your workspace."
-            description="Your workspace helps you review one interaction, understand what may be happening, and decide what to do next."
+            description="Use Defrag to assess one interaction, compare perspectives across sides, and choose a clearer next move."
             primaryLabel="Sign in"
             secondaryLabel="Plans"
             secondaryHref="/account/billing"
           />
 
-          <div style={{ maxWidth: 980, display: "grid", gridTemplateColumns: "1fr 320px", gap: 48, alignItems: "start" }} className="dynamics-preview-grid">
-            <div style={{ display: "grid", gap: 32 }}>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }} className="dynamics-preview-metrics">
-                {[
-                  ["Focus", "One interaction at a time"],
-                  ["Insight", "What may be happening"],
-                  ["Next step", "Clearer wording"],
-                ].map(([label, value]) => (
-                  <div key={label}>
-                    <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(245,245,245,0.4)", marginBottom: 8 }}>{label}</div>
-                    <div style={{ fontSize: 14, color: "white", lineHeight: 1.5 }}>{value}</div>
+          <section style={{ maxWidth: 1100, display: "grid", gridTemplateColumns: "1.1fr 380px", gap: 48, alignItems: "start" }} className="dynamics-entry-grid">
+            <div style={{ display: "grid", gap: 36 }}>
+              <div style={{ display: "grid", gap: 16 }}>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245,245,245,0.4)" }}>
+                  What this workspace does
+                </div>
+                <p style={{ margin: 0, fontSize: 28, lineHeight: 1.45, color: "white", fontWeight: 400, letterSpacing: "-0.02em", maxWidth: 760 }}>
+                  Defrag turns a confusing interaction into something you can actually read.
+                </p>
+                <p style={{ margin: 0, fontSize: 16, lineHeight: 1.8, color: "rgba(245,245,245,0.62)", maxWidth: 760 }}>
+                  The workspace is designed to assess what happened, how each side may be interpreting it, where the pressure shifted, what pattern is forming, and what move protects truth and lowers distortion next.
+                </p>
+              </div>
+
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0,1fr))", gap: 24 }} className="dynamics-capabilities-grid">
+                {capabilityBlocks.map((block) => (
+                  <div key={block.title} style={{ display: "grid", gap: 12, padding: 24, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)" }}>
+                    <div style={{ fontSize: 15, fontWeight: 600, lineHeight: 1.35, color: "white" }}>{block.title}</div>
+                    <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "rgba(245,245,245,0.6)" }}>{block.body}</p>
                   </div>
                 ))}
               </div>
 
-              <div style={{ paddingTop: 32, borderTop: "1px solid rgba(255,255,255,0.08)", display: "grid", gap: 16 }}>
-                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245,245,245,0.4)" }}>What you will see</div>
-                <p style={{ margin: 0, fontSize: 22, lineHeight: 1.45, color: "white", fontWeight: 400, maxWidth: 640 }}>
-                  Defrag helps you separate the event from the story around it so you can respond with more clarity.
-                </p>
-                <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, color: "rgba(245,245,245,0.62)", fontWeight: 300 }}>
-                  You can describe the exchange, review what may be happening, and choose a smaller, steadier next move.
+              <div style={{ display: "grid", gap: 16, paddingTop: 12 }}>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245,245,245,0.4)" }}>
+                  Built for 1:1 and 1:many
+                </div>
+                <p style={{ margin: 0, fontSize: 16, lineHeight: 1.8, color: "rgba(245,245,245,0.62)", maxWidth: 820 }}>
+                  Defrag is not limited to one person's story. It is built to assess individuals, two-person dynamics, family systems, teams, and wider relational structures from all sides available in the input.
                 </p>
                 <Link href="/login" style={{ marginTop: 8, display: "inline-flex", alignItems: "center", gap: 10, width: "fit-content", padding: "16px 28px", borderRadius: 14, background: "white", color: "#050505", textDecoration: "none", fontWeight: 600, fontSize: 16 }}>
                   Open workspace <ArrowRight style={{ width: 18, height: 18 }} />
@@ -56,30 +86,38 @@ export default async function DynamicsPage() {
               </div>
             </div>
 
-            <div style={{ display: "grid", gap: 24 }}>
-              <div>
-                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#22d3ee", marginBottom: 12 }}>Inside the workspace</div>
-                <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "rgba(245,245,245,0.6)" }}>Review what may be happening, what it may be causing, and what to try next.</p>
-              </div>
-              {[
-                "What may be happening",
-                "What it may be causing",
-                "What to try next",
-              ].map((thread, index) => (
-                <div key={thread} style={{ paddingLeft: 16, borderLeft: index === 0 ? "2px solid #22d3ee" : "1px solid rgba(255,255,255,0.08)" }}>
-                  <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: index === 0 ? "#22d3ee" : "rgba(245,245,245,0.3)", marginBottom: 8 }}>Section</div>
-                  <span style={{ lineHeight: 1.55, color: "white", fontSize: 14 }}>{thread}</span>
+            <aside style={{ display: "grid", gap: 28 }}>
+              <div style={{ border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.03)", padding: 28 }}>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#22d3ee", marginBottom: 16 }}>
+                  Structured outputs
                 </div>
-              ))}
-            </div>
-          </div>
+                <div style={{ display: "grid", gap: 14 }}>
+                  {outputLabels.map((item) => (
+                    <div key={item} style={{ paddingLeft: 14, borderLeft: "1px solid rgba(255,255,255,0.1)", fontSize: 14, lineHeight: 1.55, color: "rgba(245,245,245,0.9)" }}>
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div style={{ display: "grid", gap: 10, paddingLeft: 16, borderLeft: "1px solid rgba(255,255,255,0.1)" }}>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245,245,245,0.35)" }}>
+                  Premium access
+                </div>
+                <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "rgba(245,245,245,0.58)" }}>
+                  Save interactions, review patterns over time, and use the workspace as an ongoing relational intelligence system.
+                </p>
+              </div>
+            </aside>
+          </section>
         </div>
+
         <style>{`
-          @media (max-width: 900px) {
-            .dynamics-preview-grid { grid-template-columns: 1fr !important; }
+          @media (max-width: 980px) {
+            .dynamics-entry-grid { grid-template-columns: 1fr !important; }
           }
-          @media (max-width: 720px) {
-            .dynamics-preview-metrics { grid-template-columns: 1fr !important; }
+          @media (max-width: 840px) {
+            .dynamics-capabilities-grid { grid-template-columns: 1fr !important; }
           }
         `}</style>
       </AppShell>
