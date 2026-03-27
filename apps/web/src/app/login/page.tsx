@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useMemo, useState, useTransition } from "react";
+import React, { Suspense, useMemo, useState, useTransition } from "react";
 import { ArrowRight, CheckCircle2, Mail } from "lucide-react";
 import { enterEmailSystemLink } from "./actions";
 import { useSearchParams } from "next/navigation";
 
-export default function LoginPage(): React.JSX.Element {
+function LoginContent(): React.JSX.Element {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
@@ -91,5 +91,17 @@ export default function LoginPage(): React.JSX.Element {
         )}
       </div>
     </div>
+  );
+}
+
+function LoginFallback(): React.JSX.Element {
+  return <div style={{ minHeight: "100vh", backgroundColor: "#050505" }} />;
+}
+
+export default function LoginPage(): React.JSX.Element {
+  return (
+    <Suspense fallback={<LoginFallback />}>
+      <LoginContent />
+    </Suspense>
   );
 }
