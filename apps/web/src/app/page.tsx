@@ -2,170 +2,154 @@
 
 import Link from "next/link";
 import { AppShell } from "../components/app-shell";
-import { ArrowRight, Zap, PlayCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+
+const offerings = [
+  {
+    title: "Personal pattern analysis",
+    body: "Understand how you tend to process tension, communication, pacing, and recurring pressure across relationships.",
+  },
+  {
+    title: "1:1 interaction analysis",
+    body: "Assess a difficult interaction between two people, including where the pressure changed, what may be getting misread, and what move makes sense next.",
+  },
+  {
+    title: "1:many and group dynamics",
+    body: "Assess families, teams, and multi-person systems where tension, communication, and emotional pressure move across more than two people.",
+  },
+  {
+    title: "Perspective comparison",
+    body: "Compare what each side may be experiencing, protecting, projecting, or misreading instead of reinforcing only one narrator's view.",
+  },
+  {
+    title: "Communication guidance",
+    body: "Get wording that is designed to lower pressure, preserve truth, and increase the chance of being understood.",
+  },
+  {
+    title: "Simulation and timing",
+    body: "Explore likely relational reactions before a conversation happens and understand when a moment calls for repair, spacing, or delay.",
+  },
+];
+
+const outputs = [
+  "what may be happening",
+  "how each side may be reading it",
+  "where pressure changed",
+  "what pattern is forming",
+  "what may be getting misread",
+  "what to try next",
+];
 
 export default function LandingPage() {
   return (
-    <AppShell
-      eyebrow=""
-      title=""
-      description=""
-      hideHero={true}
-    >
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: 80, paddingBottom: 96, paddingLeft: 16, paddingRight: 16 }}>
-
-        {/* 1. Live Analysis Panel — the product artifact */}
-        <div className="premium-fade-up" style={{ width: "100%", maxWidth: 1100, marginBottom: 120 }}>
-          <div style={{
-            borderRadius: 32,
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            background: "linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)",
-            padding: 8,
-            backdropFilter: "blur(60px)",
-            boxShadow: "0 64px 128px -32px rgba(0,0,0,0.9)",
-            position: "relative"
-          }}>
-            {/* Live Analysis Badge */}
-            <div style={{ padding: "16px 40px 0", display: "flex", alignItems: "center", gap: 8 }}>
-              <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#22d3ee", animation: "pulse 2s ease-in-out infinite" }} />
-              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#22d3ee" }}>Live Analysis</span>
+    <AppShell eyebrow="" title="" description="" hideHero={true}>
+      <div style={{ display: "grid", gap: 112, paddingTop: 64, paddingBottom: 96, paddingLeft: 16, paddingRight: 16 }}>
+        <section style={{ maxWidth: 1220, width: "100%", margin: "0 auto", display: "grid", gap: 56 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1.2fr) minmax(280px, 420px)", gap: 48, alignItems: "end" }} className="hero-grid">
+            <div style={{ display: "grid", gap: 28 }}>
+              <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(245,245,245,0.42)" }}>
+                Relational Intelligence Infrastructure
+              </div>
+              <h1 style={{ margin: 0, fontSize: "clamp(3rem, 8vw, 6.2rem)", fontWeight: 500, letterSpacing: "-0.05em", lineHeight: 0.94, color: "white" }}>
+                Understand what is happening between people.
+              </h1>
+              <p style={{ margin: 0, maxWidth: 760, fontSize: "clamp(1.05rem, 2vw, 1.3rem)", lineHeight: 1.7, color: "rgba(245,245,245,0.66)", fontWeight: 300 }}>
+                Defrag is a relational intelligence platform for understanding conflict, communication breakdown, emotional pressure, timing, and perspective differences across individuals, pairs, families, and teams.
+              </p>
+              <p style={{ margin: 0, maxWidth: 760, fontSize: 16, lineHeight: 1.7, color: "rgba(245,245,245,0.52)" }}>
+                It helps people see what may be happening, how each side may be reading the moment, where pressure changed, what pattern is forming, and what move makes sense next.
+              </p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 16, paddingTop: 8 }}>
+                <Link href="/login" style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "white", color: "#050505", padding: "16px 28px", borderRadius: 14, fontWeight: 600, fontSize: 16, textDecoration: "none" }}>
+                  Open Defrag
+                  <ArrowRight style={{ width: 18, height: 18 }} />
+                </Link>
+                <Link href="/dynamics" style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "rgba(255,255,255,0.03)", color: "white", border: "1px solid rgba(255,255,255,0.1)", padding: "16px 28px", borderRadius: 14, fontWeight: 500, fontSize: 16, textDecoration: "none" }}>
+                  See how it works
+                </Link>
+              </div>
             </div>
 
-            <div style={{ padding: "24px 40px 32px", display: "grid", gridTemplateColumns: "1fr 360px", gap: 40 }} className="analysis-panel-grid">
-
-               {/* Left: Conversation + Response */}
-               <div style={{ display: "grid", gap: 32 }}>
-                  <div style={{ padding: 32, borderRadius: 24, background: "rgba(0,0,0,0.2)", border: "1px solid rgba(255,255,255,0.05)" }}>
-                     <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245,245,245,0.4)", marginBottom: 16 }}>What They Felt</div>
-                     <p style={{ color: "rgba(245,245,245,0.8)", fontSize: 15, lineHeight: 1.6, margin: 0 }}>"Every time I try to say this, it turns back toward your side. It makes me feel like my perspective doesn't actually matter."</p>
+            <div style={{ border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.03)", padding: 28 }}>
+              <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245,245,245,0.4)", marginBottom: 18 }}>
+                What Defrag returns
+              </div>
+              <div style={{ display: "grid", gap: 14 }}>
+                {outputs.map((item) => (
+                  <div key={item} style={{ paddingLeft: 14, borderLeft: "1px solid rgba(255,255,255,0.1)", fontSize: 15, color: "rgba(245,245,245,0.9)", lineHeight: 1.5 }}>
+                    {item}
                   </div>
-                  <div style={{ padding: 32, borderRadius: 24, background: "rgba(34, 211, 238, 0.05)", border: "1px solid rgba(34, 211, 238, 0.2)" }}>
-                     <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 16 }}>
-                        <Zap style={{ width: 14, height: 14, color: "#22d3ee" }} />
-                        <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#22d3ee" }}>Recommended Response</span>
-                     </div>
-                     <p style={{ color: "white", fontSize: 18, fontWeight: 500, lineHeight: 1.5, margin: 0 }}>"I can see why that landed like a pivot. Let me slow down and stay with what you're saying before I respond."</p>
-                     <div style={{ marginTop: 16, display: "flex", gap: 12 }}>
-                        <span style={{ fontSize: 11, padding: "4px 12px", borderRadius: 9999, background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.2)", color: "#6ee7b7", fontWeight: 500 }}>Lowers Pressure</span>
-                        <span style={{ fontSize: 11, padding: "4px 12px", borderRadius: 9999, background: "rgba(34, 211, 238, 0.1)", border: "1px solid rgba(34, 211, 238, 0.15)", color: "#22d3ee", fontWeight: 500 }}>Restores Contact</span>
-                     </div>
-                  </div>
-               </div>
-
-               {/* Right: Interpretation Column */}
-               <div style={{ padding: 32, borderLeft: "1px solid rgba(255,255,255,0.08)" }}>
-                  <div style={{ display: "grid", gap: 40 }}>
-
-                     <div>
-                        <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245,245,245,0.4)", marginBottom: 16 }}>What DEFRAG Detected</div>
-                        <div style={{ fontSize: 16, fontWeight: 600, color: "#ef4444", marginBottom: 8 }}>Pressure Spike</div>
-                        <p style={{ fontSize: 13, color: "rgba(245,245,245,0.5)", lineHeight: 1.6, margin: 0 }}>The interaction shifted into pressure. Their perspective stopped feeling held, and your response started landing as redirection.</p>
-                     </div>
-
-                     <div>
-                        <div style={{ fontSize: 14, fontWeight: 600, color: "#22d3ee", marginBottom: 8 }}>Why It Shifted</div>
-                        <p style={{ fontSize: 13, color: "rgba(245,245,245,0.5)", lineHeight: 1.6, margin: 0 }}>If you slow the pace here, the moment can still be repaired before it hardens into a pattern.</p>
-                     </div>
-
-                     <div>
-                        <div style={{ fontSize: 14, fontWeight: 600, color: "white", marginBottom: 8 }}>Best Next Move</div>
-                        <p style={{ fontSize: 13, color: "rgba(245,245,245,0.5)", lineHeight: 1.6, margin: 0 }}>Validate the pivot first. Do not explain your intent until they feel accurately received.</p>
-                     </div>
-
-                  </div>
-               </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* 2. Hero Copy */}
-        <div style={{ textAlign: "center", maxWidth: 900, marginBottom: 80 }}>
-          <h1 className="premium-fade-up" style={{ fontSize: "clamp(3.5rem, 10vw, 8rem)", fontWeight: 500, letterSpacing: "-0.04em", marginBottom: 32, lineHeight: 0.9, color: "white" }}>
-            Catch the pattern early.<br/>Change what happens next.
-          </h1>
-
-          <p className="premium-fade-up" style={{ fontSize: "clamp(1.1rem, 2vw, 1.35rem)", color: "rgba(245, 245, 245, 0.6)", marginBottom: 48, lineHeight: 1.6, maxWidth: 640, marginLeft: "auto", marginRight: "auto", fontWeight: 300 }}>
-            DEFRAG identifies the pattern forming between you, detects where pressure changed, and gives you the next move before the moment gets worse.
-          </p>
-
-          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 20 }}>
-            <Link
-              href="/login"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
-                background: "white",
-                color: "#050505",
-                padding: "20px 48px",
-                borderRadius: 16,
-                fontWeight: 600,
-                fontSize: 18,
-                textDecoration: "none",
-                boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
-              }}
-            >
-              Run the Analysis
-              <ArrowRight style={{ width: 20, height: 20 }} />
-            </Link>
-            <Link
-              href="/dynamics"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
-                background: "rgba(255, 255, 255, 0.03)",
-                color: "white",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-                padding: "20px 48px",
-                borderRadius: 16,
-                fontWeight: 500,
-                fontSize: 18,
-                textDecoration: "none",
-                backdropFilter: "blur(20px)"
-              }}
-            >
-              <PlayCircle style={{ width: 20, height: 20 }} />
-              See It in Action
-            </Link>
+        <section style={{ maxWidth: 1220, width: "100%", margin: "0 auto", display: "grid", gridTemplateColumns: "280px minmax(0,1fr)", gap: 48 }} className="section-grid">
+          <div>
+            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "#22d3ee" }}>Why Defrag exists</div>
           </div>
-        </div>
+          <div style={{ display: "grid", gap: 22 }}>
+            <p style={{ margin: 0, fontSize: 28, lineHeight: 1.45, color: "white", fontWeight: 400, letterSpacing: "-0.02em" }}>
+              People do not only need answers. They need help seeing what is happening inside relationship systems while it is happening.
+            </p>
+            <p style={{ margin: 0, fontSize: 17, lineHeight: 1.8, color: "rgba(245,245,245,0.64)" }}>
+              Most people can feel tension, repetition, misalignment, and escalation, but they often cannot identify what activated it, why the same pattern keeps returning, or what next move would actually help. Defrag exists to make those structures visible.
+            </p>
+          </div>
+        </section>
 
-        {/* 3. Three-Column Value Props */}
-        <div style={{ width: "100%", maxWidth: 1000, display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 80 }} className="landing-features">
-           <div style={{ display: "grid", gap: 20 }}>
-              <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#22d3ee" }}>01. Detect</div>
-              <h3 style={{ fontSize: 18, color: "white", fontWeight: 500, margin: 0 }}>See what actually happened</h3>
-              <p style={{ fontSize: 15, color: "rgba(245,245,245,0.5)", lineHeight: 1.6, margin: 0 }}>Paste a message, conversation, or tense moment. DEFRAG breaks down what landed, what was missed, and where the interaction started to turn.</p>
-           </div>
-           <div style={{ display: "grid", gap: 20 }}>
-              <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#f59e0b" }}>02. Locate</div>
-              <h3 style={{ fontSize: 18, color: "white", fontWeight: 500, margin: 0 }}>Catch where the pressure shifted</h3>
-              <p style={{ fontSize: 15, color: "rgba(245,245,245,0.5)", lineHeight: 1.6, margin: 0 }}>Find the exact point the interaction changed so you can respond before frustration hardens into distance, defensiveness, or silence.</p>
-           </div>
-           <div style={{ display: "grid", gap: 20 }}>
-              <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245,245,245,0.4)" }}>03. Intervene</div>
-              <h3 style={{ fontSize: 18, color: "white", fontWeight: 500, margin: 0 }}>Know what to do next</h3>
-              <p style={{ fontSize: 15, color: "rgba(245,245,245,0.5)", lineHeight: 1.6, margin: 0 }}>Get precise wording and timing guidance that lowers pressure and helps you respond with more control.</p>
-           </div>
-        </div>
+        <section style={{ maxWidth: 1220, width: "100%", margin: "0 auto", display: "grid", gap: 36 }}>
+          <div style={{ display: "grid", gap: 12, maxWidth: 840 }}>
+            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "#22d3ee" }}>What users can access</div>
+            <h2 style={{ margin: 0, fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 500, letterSpacing: "-0.04em", color: "white" }}>
+              Core relational intelligence capabilities.
+            </h2>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0,1fr))", gap: 24 }} className="offerings-grid">
+            {offerings.map((item) => (
+              <div key={item.title} style={{ padding: 24, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)", display: "grid", gap: 12 }}>
+                <div style={{ fontSize: 16, fontWeight: 600, color: "white", lineHeight: 1.35 }}>{item.title}</div>
+                <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "rgba(245,245,245,0.62)" }}>{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
-        <div style={{ marginTop: 120, textAlign: "center" }}>
-           <Link href="/login" style={{ fontSize: 16, color: "#22d3ee", textDecoration: "none", fontWeight: 500, display: "inline-flex", alignItems: "center", gap: 8 }}>
-              Run your first analysis
-              <ArrowRight style={{ width: 16, height: 16 }} />
-           </Link>
-        </div>
+        <section style={{ maxWidth: 1220, width: "100%", margin: "0 auto", display: "grid", gridTemplateColumns: "280px minmax(0,1fr)", gap: 48 }} className="section-grid">
+          <div>
+            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "#22d3ee" }}>How the AI works</div>
+          </div>
+          <div style={{ display: "grid", gap: 22 }}>
+            <p style={{ margin: 0, fontSize: 28, lineHeight: 1.45, color: "white", fontWeight: 400, letterSpacing: "-0.02em" }}>
+              Defrag does not answer from prompt text alone. It operates as a relational reasoning system.
+            </p>
+            <p style={{ margin: 0, fontSize: 17, lineHeight: 1.8, color: "rgba(245,245,245,0.64)" }}>
+              It reasons from the current message, the people involved, relational context, timing and activation conditions, recurring interaction patterns, and communication pressure signals. That allows the system to assess not just what was said, but how each side may be interpreting the moment and what response is most likely to help next.
+            </p>
+          </div>
+        </section>
+
+        <section style={{ maxWidth: 1220, width: "100%", margin: "0 auto", display: "grid", gridTemplateColumns: "280px minmax(0,1fr)", gap: 48 }} className="section-grid">
+          <div>
+            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "#22d3ee" }}>1:1 and 1:many</div>
+          </div>
+          <div style={{ display: "grid", gap: 22 }}>
+            <p style={{ margin: 0, fontSize: 28, lineHeight: 1.45, color: "white", fontWeight: 400, letterSpacing: "-0.02em" }}>
+              Defrag is built for one person, two-person dynamics, and multi-person systems.
+            </p>
+            <p style={{ margin: 0, fontSize: 17, lineHeight: 1.8, color: "rgba(245,245,245,0.64)" }}>
+              It can be used to assess one person's recurring patterns, one-to-one relational dynamics, family systems, team systems, and wider networks where communication, tension, and emotional pressure move across multiple participants. It is designed to compare the interaction from all sides available, not only one narrator's story.
+            </p>
+          </div>
+        </section>
       </div>
 
       <style>{`
-        @media (max-width: 1000px) {
-          .analysis-panel-grid { grid-template-columns: 1fr !important; }
-          .landing-features { grid-template-columns: 1fr !important; gap: 48px !important; }
-        }
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.4; }
+        @media (max-width: 1080px) {
+          .hero-grid, .section-grid, .offerings-grid {
+            grid-template-columns: 1fr !important;
+          }
         }
       `}</style>
     </AppShell>
