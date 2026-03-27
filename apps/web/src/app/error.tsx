@@ -17,16 +17,16 @@ export default function GlobalError({
 
   return (
     <AppShell
-      eyebrow="System State"
-      title="Connection lost."
-      description="The application encountered an unexpected interruption. We have secured your session."
+      eyebrow="Session recovery"
+      title="This session needs to be reloaded."
+      description="Defrag hit an interruption before the analysis finished. Your workspace state is safe, and you can restore the session or return home."
       accent="rgba(245, 245, 245, 0.45)"
     >
-      <div style={{ maxWidth: 640, marginTop: 48, display: "grid", gap: 32 }}>
-        <p style={{ margin: 0, color: "rgba(245, 245, 245, 0.6)", fontSize: 18, lineHeight: 1.6, fontWeight: 300 }}>
-          You can attempt to restore the connection or return to the home screen. If this persists, the servers may be handling an update.
+      <div style={{ maxWidth: 760, marginTop: 48, display: "grid", gap: 36 }}>
+        <p style={{ margin: 0, color: "rgba(245, 245, 245, 0.6)", fontSize: 18, lineHeight: 1.68, fontWeight: 300 }}>
+          Most interruptions are temporary. Reload the session to continue, or return to the home screen and reopen the workspace when you are ready.
         </p>
-        <div style={{ display: "flex", gap: 12 }}>
+        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
           <button
             onClick={() => reset()}
             style={{
@@ -42,11 +42,11 @@ export default function GlobalError({
               display: "flex",
               alignItems: "center",
               gap: 10,
-              boxShadow: "0 20px 40px rgba(0,0,0,0.4)"
+              boxShadow: "0 20px 40px rgba(0,0,0,0.4)",
             }}
           >
             <RotateCcw style={{ width: 18, height: 18 }} />
-            Attempt Restore
+            Reload session
           </button>
           <a
             href="/"
@@ -65,7 +65,7 @@ export default function GlobalError({
             }}
           >
             <ArrowLeft style={{ width: 18, height: 18 }} />
-            Return Home
+            Return home
           </a>
         </div>
       </div>
