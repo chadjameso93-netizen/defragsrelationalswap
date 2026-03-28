@@ -18,7 +18,7 @@ export function AppShell({
   title,
   description,
   children,
-  accent = "#22d3ee",
+  accent = "var(--color-accent)",
   hideHero = false,
 }: AppShellProps) {
   const pathname = usePathname();
@@ -44,18 +44,18 @@ export function AppShell({
         color: "#f5f5f5",
         backgroundColor: "#050505",
         backgroundImage:
-          "radial-gradient(circle at 0% 0%, rgba(34, 211, 238, 0.04), transparent 30%), radial-gradient(circle at 100% 0%, rgba(79, 70, 229, 0.03), transparent 30%)",
+          "radial-gradient(circle at 0% 0%, rgba(159,179,164,0.05), transparent 28%), radial-gradient(circle at 100% 0%, rgba(255,255,255,0.04), transparent 20%)",
         backgroundAttachment: "fixed",
       }}
     >
       <div
         className="app-shell-frame"
         style={{
-          maxWidth: 1200,
+          maxWidth: 1280,
           margin: "0 auto",
-          padding: "40px 24px 80px",
+          padding: "48px 24px 88px",
           display: "grid",
-          gap: 64,
+          gap: 84,
         }}
       >
         <header
@@ -63,26 +63,25 @@ export function AppShell({
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            paddingBottom: 0,
             gap: 24,
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: 32 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 34 }}>
             <Link
               href="/"
               style={{
                 textDecoration: "none",
                 color: "white",
-                fontSize: 16,
+                fontSize: 15,
                 fontWeight: 600,
-                letterSpacing: "0.2em",
+                letterSpacing: "0.22em",
                 textTransform: "uppercase",
               }}
             >
               DEFRAG
             </Link>
 
-            <nav style={{ display: "flex", gap: 24 }} className="desktop-nav">
+            <nav style={{ display: "flex", gap: 22 }} className="desktop-nav">
               {navItems.map((item) => {
                 const active = item.match(pathname);
                 return (
@@ -93,7 +92,7 @@ export function AppShell({
                       textDecoration: "none",
                       fontSize: 13,
                       fontWeight: 500,
-                      color: active ? "white" : "rgba(245, 245, 245, 0.45)",
+                      color: active ? "white" : "rgba(245, 245, 245, 0.48)",
                       transition: "color 0.2s ease",
                     }}
                   >
@@ -111,10 +110,10 @@ export function AppShell({
               fontWeight: 500,
               color: "white",
               textDecoration: "none",
-              padding: "8px 16px",
-              borderRadius: 12,
+              padding: "10px 18px",
+              borderRadius: 14,
               border: "1px solid rgba(255,255,255,0.1)",
-              background: "rgba(245,245,245,0.05)",
+              background: "rgba(245,245,245,0.04)",
             }}
           >
             Sign in
@@ -122,13 +121,13 @@ export function AppShell({
         </header>
 
         {!hideHero && (
-          <section className="premium-fade-up" style={{ display: "grid", gap: 20 }}>
+          <section className="premium-fade-up" style={{ display: "grid", gap: 18, maxWidth: 980 }}>
             {eyebrow && (
               <p
                 style={{
                   margin: 0,
                   fontSize: 10,
-                  fontWeight: 600,
+                  fontWeight: 700,
                   letterSpacing: "0.24em",
                   textTransform: "uppercase",
                   color: accent,
@@ -138,13 +137,13 @@ export function AppShell({
               </p>
             )}
             <h1
+              className="font-display"
               style={{
                 margin: 0,
-                fontSize: "clamp(2.5rem, 5vw, 4.5rem)",
-                fontWeight: 500,
-                letterSpacing: "-0.04em",
-                lineHeight: 1,
+                fontSize: "clamp(3.6rem, 7vw, 6.4rem)",
+                lineHeight: 0.9,
                 color: "white",
+                maxWidth: 980,
               }}
             >
               {title}
@@ -152,10 +151,10 @@ export function AppShell({
             <p
               style={{
                 margin: 0,
-                maxWidth: 680,
+                maxWidth: 760,
                 fontSize: 18,
-                lineHeight: 1.6,
-                color: "rgba(245, 245, 245, 0.6)",
+                lineHeight: 1.72,
+                color: "rgba(245, 245, 245, 0.62)",
                 fontWeight: 300,
               }}
             >
@@ -164,22 +163,22 @@ export function AppShell({
           </section>
         )}
 
-        <div style={{ minHeight: "60vh" }}>{children}</div>
+        <div style={{ minHeight: "56vh" }}>{children}</div>
 
-        <footer style={{ marginTop: 80, paddingTop: 40, borderTop: "1px solid rgba(255, 255, 255, 0.08)" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 40 }}>
-            <div style={{ display: "grid", gap: 16, maxWidth: 420 }}>
-              <div style={{ fontSize: 14, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "white" }}>
+        <footer style={{ marginTop: 48, paddingTop: 34, borderTop: "1px solid rgba(255, 255, 255, 0.08)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 48 }}>
+            <div style={{ display: "grid", gap: 14, maxWidth: 420 }}>
+              <div style={{ fontSize: 14, fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: "white" }}>
                 DEFRAG
               </div>
-              <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: "rgba(245, 245, 245, 0.5)" }}>
+              <p style={{ margin: 0, fontSize: 14, lineHeight: 1.72, color: "rgba(245, 245, 245, 0.5)" }}>
                 Defrag helps people understand difficult interactions by showing what may be happening, where pressure changed, and what to do next.
               </p>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 140px)", gap: 40 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 150px)", gap: 40 }}>
               <div style={{ display: "grid", gap: 12 }}>
-                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(245, 245, 245, 0.3)" }}>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(245, 245, 245, 0.34)" }}>
                   Explore
                 </div>
                 {navItems.slice(0, 3).map((item) => (
@@ -189,7 +188,7 @@ export function AppShell({
                 ))}
               </div>
               <div style={{ display: "grid", gap: 12 }}>
-                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(245, 245, 245, 0.3)" }}>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(245, 245, 245, 0.34)" }}>
                   Legal
                 </div>
                 {footerItems.slice(2, 4).map((item) => (
@@ -200,21 +199,14 @@ export function AppShell({
               </div>
             </div>
           </div>
-          <div style={{ marginTop: 64, fontSize: 12, color: "rgba(245, 245, 245, 0.3)" }}>© 2026 DEFRAG.</div>
+          <div style={{ marginTop: 54, fontSize: 12, color: "rgba(245, 245, 245, 0.28)" }}>© 2026 DEFRAG.</div>
         </footer>
       </div>
 
       <style>{`
         @media (max-width: 768px) {
           .desktop-nav { display: none !important; }
-          .app-shell-frame { padding: 24px 16px 40px !important; gap: 40px !important; }
-        }
-        .premium-fade-up {
-          animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
+          .app-shell-frame { padding: 24px 16px 44px !important; gap: 48px !important; }
         }
       `}</style>
     </main>
