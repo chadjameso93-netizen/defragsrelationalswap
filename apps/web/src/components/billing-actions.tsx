@@ -53,8 +53,8 @@ export function BillingActions({ currentPlan, hasCustomer }: BillingActionsProps
   }
 
   return (
-    <div style={{ display: "grid", gap: 12 }}>
-      <div style={{ display: "flex", gap: 12 }}>
+    <div style={{ display: "grid", gap: 14, alignContent: "start" }}>
+      <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
         <button
           type="button"
           onClick={async () => {
@@ -68,7 +68,17 @@ export function BillingActions({ currentPlan, hasCustomer }: BillingActionsProps
               setBusy(null);
             }
           }}
-          style={{ padding: "14px 24px", borderRadius: 9999, border: 0, cursor: "pointer", background: "white", color: "#050505", fontWeight: 600, fontSize: 14 }}
+          style={{
+            padding: "16px 24px",
+            borderRadius: 14,
+            border: 0,
+            cursor: "pointer",
+            background: "white",
+            color: "#050505",
+            fontWeight: 600,
+            fontSize: 14,
+            minWidth: 220,
+          }}
           disabled={busy !== null || !upgradePlan}
         >
           {busy === "upgrade" ? "Loading…" : upgradeLabel}
@@ -87,7 +97,16 @@ export function BillingActions({ currentPlan, hasCustomer }: BillingActionsProps
               setBusy(null);
             }
           }}
-          style={{ padding: "14px 24px", borderRadius: 9999, border: "1px solid rgba(255,255,255,0.1)", background: "transparent", color: "white", cursor: "pointer", fontSize: 14 }}
+          style={{
+            padding: "16px 24px",
+            borderRadius: 14,
+            border: "1px solid rgba(255,255,255,0.1)",
+            background: "rgba(255,255,255,0.03)",
+            color: "white",
+            cursor: "pointer",
+            fontSize: 14,
+            minWidth: 190,
+          }}
           disabled={busy !== null || !hasCustomer}
         >
           {busy === "manage" ? "Loading…" : hasCustomer ? "Manage billing" : "Manage billing unavailable"}
@@ -95,7 +114,7 @@ export function BillingActions({ currentPlan, hasCustomer }: BillingActionsProps
       </div>
 
       {!hasCustomer ? (
-        <p style={{ margin: 0, color: "rgba(245,245,245,0.5)", fontSize: 13 }}>
+        <p style={{ margin: 0, color: "rgba(245,245,245,0.5)", fontSize: 13, lineHeight: 1.6, maxWidth: 420 }}>
           A Stripe customer record will be created the first time you start checkout.
         </p>
       ) : null}
