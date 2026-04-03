@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generateBaselineDesignWithProvider, type BaselineDesignInput } from "../../../../../../packages/reasoning/src/baseline-generator";
+import { generateBaselineDesignWithProvider, type BaselineDesignInput } from "@/server/baseline-generator";
 
 type ApiResponse = {
   ok: boolean;
