@@ -1,0 +1,153 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DefragRelationalField",
+  "type": "object",
+  "required": ["assistant_message", "field_update", "ui_actions"],
+  "properties": {
+    "assistant_message": {
+      "type": "object",
+      "required": ["title", "body", "next_steps"],
+      "properties": {
+        "title": { "type": "string" },
+        "body": { "type": "string" },
+        "next_steps": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "field_update": {
+      "type": "object",
+      "required": ["thread", "participants", "dynamics", "field_state", "branch_suggestions", "visual_state"],
+      "properties": {
+        "thread": {
+          "type": "object",
+          "required": ["id", "title", "summary"],
+          "properties": {
+            "id": { "type": "string" },
+            "title": { "type": "string" },
+            "summary": { "type": "string" }
+          }
+        },
+        "participants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "name", "current_state"],
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "role": { "type": "string" },
+              "current_state": {
+                "type": "object",
+                "required": ["state_label", "expression", "openness", "steadiness"],
+                "properties": {
+                  "state_label": { "type": "string" },
+                  "expression": { "type": "string" },
+                  "openness": { "type": "number", "minimum": 0, "maximum": 1 },
+                  "steadiness": { "type": "number", "minimum": 0, "maximum": 1 }
+                }
+              }
+            }
+          }
+        },
+        "dynamics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "from", "to", "type", "intensity", "description", "opening_level"],
+            "properties": {
+              "id": { "type": "string" },
+              "from": { "type": "string" },
+              "to": { "type": "string" },
+              "type": { "type": "string" },
+              "intensity": { "type": "number", "minimum": 0, "maximum": 1 },
+              "description": { "type": "string" },
+              "opening_level": { "type": "number", "minimum": 0, "maximum": 1 }
+            }
+          }
+        },
+        "field_state": {
+          "type": "object",
+          "required": ["overall_state", "dominant_pattern", "readiness_for_repair"],
+          "properties": {
+            "overall_state": { "type": "string" },
+            "dominant_pattern": { "type": "string" },
+            "readiness_for_repair": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "branch_suggestions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "label", "type"],
+            "properties": {
+              "id": { "type": "string" },
+              "label": { "type": "string" },
+              "type": { "type": "string" }
+            }
+          }
+        },
+        "visual_state": {
+          "type": "object",
+          "required": ["nodes", "edges"],
+          "properties": {
+            "nodes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["id", "label", "x", "y", "size", "state"],
+                "properties": {
+                  "id": { "type": "string" },
+                  "label": { "type": "string" },
+                  "role": { "type": "string" },
+                  "x": { "type": "number" },
+                  "y": { "type": "number" },
+                  "size": { "type": "number" },
+                  "state": { "type": "string" },
+                  "pulse": { "type": "number" }
+                }
+              }
+            },
+            "edges": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["from", "to", "weight", "state"],
+                "properties": {
+                  "from": { "type": "string" },
+                  "to": { "type": "string" },
+                  "weight": { "type": "number" },
+                  "state": { "type": "string" },
+                  "animation": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "ui_actions": {
+      "type": "object",
+      "required": ["open_branch_threads", "focus_node_ids", "camera_mode"],
+      "properties": {
+        "open_branch_threads": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "label"],
+            "properties": {
+              "id": { "type": "string" },
+              "label": { "type": "string" }
+            }
+          }
+        },
+        "focus_node_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "camera_mode": { "type": "string" }
+      }
+    }
+  }
+}
