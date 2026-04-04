@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Fraunces, Inter } from 'next/font/google';
+import { Fraunces, Inter, Cormorant_Garamond } from 'next/font/google';
 import type { ReactNode } from 'react';
 
 const fraunces = Fraunces({
@@ -10,6 +10,12 @@ const fraunces = Fraunces({
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-cormorant',
 });
 
 export const metadata: Metadata = {
