@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "baseline-design.schema.json",
+  "title": "DEFRAG Baseline Design",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "baseline",
+    "meta"
+  ],
+  "properties": {
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "core_design",
+        "strengths_and_gifts",
+        "pressure_points_and_drift_patterns",
+        "relationship_and_communication_tendencies",
+        "grounding_supports",
+        "active_now",
+        "practical_guidance",
+        "one_clear_next_step"
+      ],
+      "properties": {
+        "core_design": {
+          "type": "string",
+          "minLength": 1
+        },
+        "strengths_and_gifts": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "maxItems": 8
+        },
+        "pressure_points_and_drift_patterns": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "maxItems": 8
+        },
+        "relationship_and_communication_tendencies": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "maxItems": 8
+        },
+        "grounding_supports": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "maxItems": 8
+        },
+        "active_now": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "maxItems": 8
+        },
+        "practical_guidance": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "maxItems": 8
+        },
+        "one_clear_next_step": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "confidence_level",
+        "uncertainty_notes",
+        "safety_notes",
+        "source_layers"
+      ],
+      "properties": {
+        "confidence_level": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        },
+        "uncertainty_notes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "maxItems": 5
+        },
+        "safety_notes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "maxItems": 5
+        },
+        "source_layers": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "maxItems": 10
+        }
+      }
+    }
+  }
+}

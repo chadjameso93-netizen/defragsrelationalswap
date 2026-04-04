@@ -1,40 +1,38 @@
-import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
-import type { ReactNode } from "react";
+import type { Metadata } from 'next';
+import { Fraunces, Inter } from 'next/font/google';
+import type { ReactNode } from 'react';
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-display',
 });
 
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["400", "500", "600"],
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-sans',
 });
 
 export const metadata: Metadata = {
-  title: "DEFRAG",
-  description: "Relational intelligence for understanding what happened, how pressure changed, and what to do next.",
+  title: 'DEFRAG',
+  description:
+    'See what is happening between people, understand the pattern underneath it, and find a healthier next step.',
   icons: {
-    icon: "/icon.svg",
-    shortcut: "/icon.svg",
-    apple: "/icon.svg",
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
   },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body
         className={`${inter.variable} ${cormorant.variable}`}
         style={{
           margin: 0,
-          background: "#050505",
-          color: "#f5f5f5",
-          fontFamily: "var(--font-sans), sans-serif",
-          WebkitFontSmoothing: "antialiased",
-          MozOsxFontSmoothing: "grayscale",
+          background: '#040404',
+          color: '#f5f5f5',
+          fontFamily: 'var(--font-sans), sans-serif',
         }}
       >
         <style>{`
@@ -105,8 +103,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
           }
-          ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.15);
+          textarea:focus,
+          input:focus,
+          select:focus,
+          button:focus,
+          a:focus {
+            outline: 2px solid rgba(214,195,161,0.45);
+            outline-offset: 2px;
           }
         `}</style>
         {children}

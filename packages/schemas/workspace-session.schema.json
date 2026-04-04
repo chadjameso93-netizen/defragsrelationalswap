@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DefragWorkspaceSession",
+  "type": "object",
+  "required": ["workspace", "branch", "overlay"],
+  "properties": {
+    "workspace": {
+      "$ref": "./relational-field.schema.json"
+    },
+    "branch": {
+      "type": "object",
+      "required": ["title", "body", "suggestions"],
+      "properties": {
+        "title": { "type": "string" },
+        "body": { "type": "string" },
+        "suggestions": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "overlay": {
+      "type": "object",
+      "required": ["title", "body", "cards"],
+      "properties": {
+        "title": { "type": "string" },
+        "body": { "type": "string" },
+        "cards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "value"],
+            "properties": {
+              "label": { "type": "string" },
+              "value": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
