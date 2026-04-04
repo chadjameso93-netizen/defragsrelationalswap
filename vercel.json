@@ -10,6 +10,7 @@
     { "source": "/landing", "destination": "/studio", "permanent": false },
     { "source": "/login", "destination": "/signin/studio", "permanent": false },
     { "source": "/signin", "destination": "/signin/studio", "permanent": false },
+    { "source": "/signup", "destination": "/signup/studio", "permanent": false },
     { "source": "/account", "destination": "/app/studio", "permanent": false },
     { "source": "/app", "destination": "/app/studio", "permanent": false },
     { "source": "/membership", "destination": "/billing/studio", "permanent": false },
