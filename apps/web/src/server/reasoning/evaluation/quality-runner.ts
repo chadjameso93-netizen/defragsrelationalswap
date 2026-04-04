@@ -1,4 +1,4 @@
-import { runCompanionReasoning } from "../companion-reasoner";
+import { runDynamicsReasoning } from "../dynamics-reasoner";
 import { EVALUATION_FIXTURES } from "./fixtures";
 
 export interface FixtureResult {
@@ -15,11 +15,11 @@ export interface FixtureResult {
   };
 }
 
-export async function runCompanionQualityEvaluation(): Promise<FixtureResult[]> {
+export async function runDynamicsQualityEvaluation(): Promise<FixtureResult[]> {
   const results: FixtureResult[] = [];
 
   for (const fixture of EVALUATION_FIXTURES) {
-    const output = await runCompanionReasoning(fixture.input);
+    const output = await runDynamicsReasoning(fixture.input);
     const reasons: string[] = [];
 
     if (output.evaluation.groundedness < fixture.expectedQualities.minGroundedness) {

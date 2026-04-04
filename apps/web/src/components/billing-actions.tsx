@@ -38,26 +38,47 @@ export function BillingActions({ currentPlan, hasCustomer }: BillingActionsProps
     ? `Upgrade to ${upgradeDefinition.name}${upgradeDefinition.monthlyPriceUsd ? ` ($${upgradeDefinition.monthlyPriceUsd}/mo)` : ""}`
     : "No upgrade available";
 
+  function presentError(err: unknown, action: "checkout" | "portal") {
+    const message = err instanceof Error ? err.message : String(err);
+
+    if (message.includes("stale_customer_for_user")) {
+      return "Your billing profile needed a reset. Try checkout once more and the account will reconnect.";
+    }
+
+    if (action === "checkout") {
+      return "Checkout could not start right now. Please try again in a moment.";
+    }
+
+    return "Billing portal could not open right now. Please try again in a moment.";
+  }
+
   return (
-    <div style={{ display: "grid", gap: 12 }}>
-      <div style={{ display: "flex", gap: 12 }}>
+    <div style={{ display: "grid", gap: 14, alignContent: "start" }}>
+      <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
         <button
           type="button"
           onClick={async () => {
-            if (!upgradePlan) {
-              return;
-            }
-
+            if (!upgradePlan) return;
             setBusy("upgrade");
             setError(null);
             try {
               await postJson("/api/stripe/checkout", { plan: upgradePlan });
             } catch (err) {
-              setError(String(err));
+              setError(presentError(err, "checkout"));
               setBusy(null);
             }
           }}
-          style={{ padding: "12px 16px", borderRadius: 999, border: 0, cursor: "pointer", background: "#f5f5f5", color: "#050505", fontWeight: 700 }}
+          style={{
+            padding: "16px 24px",
+            borderRadius: 14,
+            border: 0,
+            cursor: "pointer",
+            background: "white",
+            color: "#050505",
+            fontWeight: 600,
+            fontSize: 14,
+            minWidth: 220,
+          }}
           disabled={busy !== null || !upgradePlan}
         >
           {busy === "upgrade" ? "Loading…" : upgradeLabel}
@@ -66,20 +87,26 @@ export function BillingActions({ currentPlan, hasCustomer }: BillingActionsProps
         <button
           type="button"
           onClick={async () => {
-            if (!hasCustomer) {
-              return;
-            }
-
+            if (!hasCustomer) return;
             setBusy("manage");
             setError(null);
             try {
               await postJson("/api/stripe/portal", {});
             } catch (err) {
-              setError(String(err));
+              setError(presentError(err, "portal"));
               setBusy(null);
             }
           }}
-          style={{ padding: "12px 16px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.18)", background: "transparent", color: "#f5f5f5", cursor: "pointer" }}
+          style={{
+            padding: "16px 24px",
+            borderRadius: 14,
+            border: "1px solid rgba(255,255,255,0.1)",
+            background: "rgba(255,255,255,0.03)",
+            color: "white",
+            cursor: "pointer",
+            fontSize: 14,
+            minWidth: 190,
+          }}
           disabled={busy !== null || !hasCustomer}
         >
           {busy === "manage" ? "Loading…" : hasCustomer ? "Manage billing" : "Manage billing unavailable"}
@@ -87,12 +114,12 @@ export function BillingActions({ currentPlan, hasCustomer }: BillingActionsProps
       </div>
 
       {!hasCustomer ? (
-        <p style={{ margin: 0, color: "#a1a1aa" }}>
+        <p style={{ margin: 0, color: "rgba(245,245,245,0.5)", fontSize: 13, lineHeight: 1.6, maxWidth: 420 }}>
           A Stripe customer record will be created the first time you start checkout.
         </p>
       ) : null}
 
-      {error ? <p style={{ margin: 0, color: "#fca5a5" }}>{error}</p> : null}
+      {error ? <p style={{ margin: 0, color: "#fca5a5", fontSize: 13 }}>{error}</p> : null}
     </div>
   );
 }

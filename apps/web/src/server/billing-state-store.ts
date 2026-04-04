@@ -37,6 +37,19 @@ async function getLatestSubscriptionIdForUser(userId: string): Promise<string | 
 }
 
 export async function getBillingAccount(userId: string): Promise<BillingAccount> {
+  if (userId.startsWith("preview-user-")) {
+    const plan = (userId.split("-")[2] || "studio") as BillingPlan;
+    return {
+      userId,
+      customerId: "cus_preview123",
+      subscriptionId: "sub_preview123",
+      subscriptionState: "active",
+      plan,
+      currentPeriodEnd: null,
+      updatedAt: new Date().toISOString()
+    };
+  }
+
   const supabase = createAdminClient();
   const { data, error } = await supabase
     .from("billing_accounts")

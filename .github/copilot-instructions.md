@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This repository builds a relational reasoning platform.
+This repository builds the DEFRAG website and its internal product APIs.
 
 The system must stay:
 - calm
@@ -67,12 +67,15 @@ Build in this order:
 ## Current stack direction
 
 Keep the repo aligned to:
-- Next.js frontend
-- FastAPI backend
+- Next.js app router in `apps/web`
+- shared packages in `packages/*`
 - Supabase for auth and database
 - Stripe for billing
-- GitHub Actions for CI
-- Vercel for deployment
+- GitHub Actions for validation only
+- Vercel Git integration for preview and production deployment
+
+There is no `apps/api` service in the current repo.
+Do not assume a FastAPI backend exists unless one is deliberately introduced later.
 
 ## Avoid drift
 

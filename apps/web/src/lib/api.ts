@@ -1,28 +1,56 @@
 import type { InsightApiResponse, SimulationApiResponse } from "../types/contracts";
 
-export async function fetchInsight(_payload: unknown): Promise<InsightApiResponse> {
-  return {
-    insight: {
-      what_may_be_happening: "This may be a moment where both people are reacting to tension before naming what they need.",
-      what_it_may_be_causing: "The exchange may feel sharper or more distant than either person intends.",
-      what_to_try_next: [
-        "Name the moment simply before trying to solve it.",
-        "Lead with one concrete observation instead of a larger judgment.",
-        "Ask for a small reset instead of pushing for full resolution immediately.",
-      ],
-    },
-    structured_synthesis: {
-      other_experience: "The other person may be hearing pressure first and meaning second, even if your intention is care.",
-    },
-  };
+async function postJson<T>(url: string, payload: Record<string, unknown>): Promise<T> {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  const body = (await response.json()) as T & { error?: string; detail?: string };
+
+  if (!response.ok) {
+    throw new Error(body.detail ?? body.error ?? "Request failed");
+  }
+
+  return body;
 }
 
-export async function fetchSimulation(_payload: unknown): Promise<SimulationApiResponse> {
-  return {
-    branches: [
-      "A softer opening may lower defensiveness and make the next exchange more honest.",
-      "If the conversation starts too forcefully, the other person may retreat into explanation instead of connection.",
-      "Keeping the first ask narrow may make agreement easier.",
-    ],
-  };
+function extractRequest(payload: unknown): string {
+  if (typeof payload === "object" && payload && "request" in payload && typeof (payload as { request?: unknown }).request === "string") {
+    return (payload as { request: string }).request;
+  }
+
+  if (
+    typeof payload === "object" &&
+    payload &&
+    "user_request" in payload &&
+    typeof (payload as { user_request?: unknown }).user_request === "string"
+  ) {
+    return (payload as { user_request: string }).user_request;
+  }
+
+  if (
+    typeof payload === "object" &&
+    payload &&
+    "recent_events" in payload &&
+    Array.isArray((payload as { recent_events?: unknown }).recent_events)
+  ) {
+    const first = (payload as { recent_events: Array<{ description?: string }> }).recent_events[0];
+    return first?.description ?? "";
+  }
+
+  return "";
+}
+
+export async function fetchInsight(payload: unknown): Promise<InsightApiResponse> {
+  return postJson<InsightApiResponse>("/api/insights", {
+    request: extractRequest(payload),
+  });
+}
+
+export async function fetchSimulation(payload: unknown): Promise<SimulationApiResponse> {
+  return postJson<SimulationApiResponse>("/api/insights/simulate", {
+    request: extractRequest(payload),
+  });
 }

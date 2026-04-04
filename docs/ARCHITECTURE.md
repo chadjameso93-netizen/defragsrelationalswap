@@ -1,0 +1,123 @@
+# DEFRAG Architecture Contract
+
+## Canonical app now
+
+- `apps/web` is the only current consumer-facing product app.
+- It contains both the Next.js UI routes and the internal route-handler APIs used by that UI.
+- Shared product logic lives in `packages/*`.
+- It is the canonical owner of the public website, brand/trust pages, auth, account, and billing.
+
+## Canonical deployment path now
+
+- GitHub is the source of truth for code.
+- Vercel Git integration is the canonical preview and production deployment system.
+- Repo root is the canonical Vercel deploy root.
+- `vercel.json` defines the checked-in deployment contract.
+- `defrag.app` and `www.defrag.app` must resolve only to the canonical Vercel project.
+- The MCP / ChatGPT app is a separate Vercel project rooted at `apps/defrag-chatgpt-app` and should be aliased to `mcp.defrag.app`.
+
+## Current platform layers
+
+### Consumer web app
+
+- `apps/web/src/app/*`
+- `apps/web/src/components/*`
+
+### Internal app APIs
+
+- `apps/web/src/app/api/dynamics/*`
+- `apps/web/src/app/api/insights/*`
+- `apps/web/src/app/api/world/*`
+- `apps/web/src/app/api/stripe/*`
+
+### Shared contracts and business logic
+
+- `packages/core`
+- `packages/billing`
+- `packages/platform`
+- `packages/platform-server`
+- `packages/reasoning`
+- `packages/schemas`
+
+### Platform dependencies
+
+- Supabase for auth and persistence
+- Stripe for billing and subscription state
+- Vercel for hosting and previews
+
+### Reusable service seams for future tool surfaces
+
+- `packages/platform-server/src/dynamics-service.ts`
+- `packages/platform-server/src/insight-service.ts`
+- `packages/platform-server/src/world-service.ts`
+- `packages/platform-server/src/billing-service.ts`
+- `packages/reasoning/src/*`
+
+The web app now composes these through thin wrappers in `apps/web/src/server/services/*`.
+
+## Future ChatGPT/OpenAI integration boundary
+
+The future ChatGPT/OpenAI-compatible integration must be a separate app surface.
+
+Suggested location:
+
+- `apps/defrag-chatgpt-app`
+
+That location now contains the MCP service app and inline widget resources for developer mode and private preview. It is not a second consumer website.
+
+That future app should reuse:
+
+- shared contracts from `packages/core`
+- schemas from `packages/schemas`
+- billing and entitlement logic from `packages/billing`
+- existing server-side reasoning capabilities where they can be safely exposed
+
+It should not:
+
+- replace `apps/web`
+- become a second consumer website
+- own the canonical billing or account shell
+- own legal/trust surfaces
+- own checkout or billing-portal flows
+
+## What remains website-specific
+
+- marketing and product framing
+- about, terms, and privacy
+- auth/session handling tied to browser cookies
+- account, onboarding, and billing pages
+- Stripe checkout and portal handoff
+- preview/public route behavior
+
+## What is reusable later
+
+- output contracts
+- plan and entitlement logic
+- schema definitions
+- reasoning layers
+- account-backed storage concepts
+
+## Current honesty check
+
+The repo is not currently Apps SDK-ready.
+
+What exists today:
+
+- one internal OpenAI Responses API helper for Insight Studio
+- env-gated provider usage
+- internal route handlers for the website
+
+What does not exist today:
+
+- ChatGPT app surface
+- Apps SDK server
+- MCP server
+- tool manifest
+- ChatGPT-facing auth/tool boundary
+
+What now exists for that future boundary:
+
+- authoritative tool registry in `packages/platform`
+- transport-neutral tool/session/auth/display contracts in `packages/platform`
+- reusable server-safe orchestration in `packages/platform-server`
+- shared reasoning engines in `packages/reasoning`

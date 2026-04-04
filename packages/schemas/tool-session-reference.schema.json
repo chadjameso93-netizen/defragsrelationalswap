@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "defrag.tool-session-reference.schema.json",
+  "title": "ToolSessionReference",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "sessionId": { "type": "string" },
+    "threadId": { "type": "string" },
+    "insightId": { "type": "string" },
+    "continuationId": { "type": "string" },
+    "worldStateId": { "type": "string" }
+  }
+}

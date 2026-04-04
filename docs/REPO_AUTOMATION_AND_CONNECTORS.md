@@ -14,14 +14,12 @@ It defines:
 
 The repo now includes:
 - `.github/workflows/ci.yml`
-- `.github/workflows/preview-deploy.yml`
-- `.github/workflows/production-deploy.yml`
 - `.github/workflows/auto-merge.yml`
 
 ### Intended behavior
 - CI validates changes
 - pull requests can auto-merge after checks pass
-- preview and production deploy workflows exist for Vercel-based deployment
+- Vercel Git integration handles preview and production deployment
 
 ## Recommended GitHub Settings
 
@@ -41,14 +39,6 @@ This keeps the system automated without requiring manual review.
 - Vercel: preview and production deployment
 - Supabase: database, auth, storage
 - Stripe: billing and entitlements
-
-## Recommended simplification
-If Vercel Git integration is enabled and stable, the repo can later simplify to:
-- keep `ci.yml`
-- keep `auto-merge.yml`
-- remove GitHub-driven preview/production deploy workflows
-
-This reduces duplicate deployment orchestration.
 
 ## Recommended Free Connectors and Generators
 
@@ -112,8 +102,7 @@ All future AI work should follow these rules:
 4. `apps/web/src/lib/api.ts`
 - typed client calls
 
-5. `apps/api/app/models.py`
-- Pydantic models aligned with the schemas
+5. route-handler and shared-contract alignment inside `apps/web` and `packages/*`
 
 ## Change Control
 

@@ -20,9 +20,9 @@ export function resolveEntitlements(plan: BillingPlan, subscriptionState: Subscr
 
   return {
     plan,
-    canUseCompanion: true,
-    canUseCompanionPremiumView: active && hasAtLeastPlan(plan, "core"),
-    canUseStudio: active && hasAtLeastPlan(plan, "studio"),
+    canUseDynamics: true,
+    canUseDynamicsPremiumView: active && hasAtLeastPlan(plan, "core"),
+    canUseInsights: active && hasAtLeastPlan(plan, "studio"),
     canUseRealtime: active && hasAtLeastPlan(plan, "realtime"),
     monthlySituationLimit: hasAtLeastPlan(plan, "core") && active ? 100 : 5,
   };

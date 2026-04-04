@@ -55,4 +55,4 @@ export const guidancePhrasing = {
   ]
 };
 
-export const guidanceSafetyDisclaimer = "These insights are grounded in general relational principles and are intended for self-reflection. They are not a substitute for clinical advice or professional support.";
+export const guidanceSafetyDisclaimer = "These insights are grounded in general relational principles and are intended for self-reflection. They are not a substitute for professional care, crisis support, or direct knowledge of your situation.";

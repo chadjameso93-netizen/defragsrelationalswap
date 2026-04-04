@@ -10,16 +10,23 @@ interface AppShellProps {
   description: string;
   children: ReactNode;
   accent?: string;
+  hideHero?: boolean;
 }
 
-export function AppShell({ eyebrow, title, description, children, accent = "#d6c3a1" }: AppShellProps) {
+export function AppShell({
+  eyebrow,
+  title,
+  description,
+  children,
+  accent = "var(--color-accent)",
+  hideHero = false,
+}: AppShellProps) {
   const pathname = usePathname();
   const navItems = [
     { href: "/", label: "Home", match: (value: string) => value === "/" },
-    { href: "/companion", label: "Companion", match: (value: string) => value.startsWith("/companion") },
-    { href: "/account/insights", label: "Insights", match: (value: string) => value.startsWith("/account/insights") },
-    { href: "/account/billing", label: "Billing", match: (value: string) => value.startsWith("/account/billing") },
-    { href: "/world", label: "World", match: (value: string) => value.startsWith("/world") },
+    { href: "/about", label: "How it works", match: (value: string) => value.startsWith("/about") },
+    { href: "/account/billing", label: "Plans", match: (value: string) => value.startsWith("/account/billing") || value.startsWith("/pricing") },
+    { href: "/login", label: "Sign in", match: (value: string) => value.startsWith("/login") },
   ];
 
   return (
@@ -27,150 +34,119 @@ export function AppShell({ eyebrow, title, description, children, accent = "#d6c
       style={{
         minHeight: "100vh",
         color: "#f5f5f5",
-        background:
-          "radial-gradient(circle at top left, rgba(214,195,161,0.16), transparent 28%), radial-gradient(circle at 80% 20%, rgba(111,145,201,0.14), transparent 24%), linear-gradient(180deg, #06070a 0%, #090b11 45%, #050505 100%)",
+        backgroundColor: "#050505",
+        backgroundImage:
+          "radial-gradient(circle at 0% 0%, rgba(159,179,164,0.06), transparent 28%), radial-gradient(circle at 100% 0%, rgba(255,255,255,0.035), transparent 22%)",
+        backgroundAttachment: "fixed",
       }}
     >
       <div
+        className="app-shell-frame"
         style={{
-          maxWidth: 1180,
+          maxWidth: 1380,
           margin: "0 auto",
-          padding: "28px 24px 72px",
+          padding: "34px 24px 96px",
           display: "grid",
-          gap: 28,
+          gap: 72,
         }}
       >
-        <header
-          style={{
-            display: "grid",
-            gap: 20,
-            paddingBottom: 18,
-            borderBottom: "1px solid rgba(255,255,255,0.08)",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-start",
-              gap: 20,
-              flexWrap: "wrap",
-            }}
-          >
-            <div style={{ display: "grid", gap: 4 }}>
-              <Link href="/" style={{ textDecoration: "none", color: "#f5f5f5", fontSize: 18, letterSpacing: "0.28em", textTransform: "uppercase" }}>
+        <header style={{ display: "grid", gap: 18 }}>
+          <div style={{ height: 1, background: "linear-gradient(90deg, rgba(255,255,255,0.16), rgba(255,255,255,0.03) 55%, transparent)" }} />
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 24 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 34 }}>
+              <Link href="/" style={{ textDecoration: "none", color: "white", fontSize: 14, fontWeight: 700, letterSpacing: "0.24em", textTransform: "uppercase" }}>
                 DEFRAG
               </Link>
-              <span style={{ color: "rgba(245,245,245,0.44)", fontSize: 12 }}>Relational reasoning system</span>
+              <nav className="desktop-nav" style={{ display: "flex", gap: 22 }}>
+                {navItems.map((item) => {
+                  const active = item.match(pathname);
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      style={{
+                        textDecoration: "none",
+                        fontSize: 13,
+                        fontWeight: 500,
+                        color: active ? "white" : "rgba(245,245,245,0.48)",
+                        transition: "color 0.2s ease",
+                      }}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
+              </nav>
             </div>
 
-            <div
+            <Link
+              href="/login"
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
-                padding: "8px 12px",
-                borderRadius: 999,
-                border: "1px solid rgba(255,255,255,0.08)",
+                textDecoration: "none",
+                color: "white",
+                fontSize: 13,
+                fontWeight: 500,
+                padding: "11px 18px",
+                border: "1px solid rgba(255,255,255,0.12)",
                 background: "rgba(255,255,255,0.03)",
-                color: "rgba(245,245,245,0.68)",
-                fontSize: 11,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
               }}
             >
-              <span
-                style={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: 999,
-                  background: accent,
-                  boxShadow: `0 0 18px ${accent}`,
-                }}
-              />
-              Live reasoning surfaces
-            </div>
+              Sign in
+            </Link>
           </div>
-
-          <nav
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: 10,
-            }}
-          >
-            {navItems.map((item) => {
-              const active = item.match(pathname);
-
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  style={{
-                    textDecoration: "none",
-                    fontSize: 12,
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                    padding: "10px 14px",
-                    borderRadius: 999,
-                    border: active ? `1px solid ${accent}` : "1px solid rgba(255,255,255,0.08)",
-                    color: active ? "#050505" : "rgba(245,245,245,0.72)",
-                    background: active ? accent : "rgba(255,255,255,0.03)",
-                    boxShadow: active ? `0 12px 30px color-mix(in srgb, ${accent} 28%, transparent)` : "none",
-                    transition: "background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease",
-                  }}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
         </header>
 
-        <section
-          style={{
-            display: "grid",
-            gap: 12,
-            padding: "8px 0 4px",
-          }}
-        >
-          <p
-            style={{
-              margin: 0,
-              fontSize: 11,
-              letterSpacing: "0.28em",
-              textTransform: "uppercase",
-              color: accent,
-            }}
-          >
-            {eyebrow}
-          </p>
-          <h1
-            style={{
-              margin: 0,
-              maxWidth: 760,
-              fontSize: "clamp(2.6rem, 6vw, 5.2rem)",
-              lineHeight: 0.96,
-              letterSpacing: "-0.04em",
-            }}
-          >
-            {title}
-          </h1>
-          <p
-            style={{
-              margin: 0,
-              maxWidth: 620,
-              fontSize: 16,
-              lineHeight: 1.75,
-              color: "rgba(245,245,245,0.68)",
-            }}
-          >
-            {description}
-          </p>
-        </section>
+        {!hideHero && (
+          <section className="premium-fade-up" style={{ display: "grid", gap: 18, maxWidth: 1040 }}>
+            {eyebrow ? (
+              <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.24em", textTransform: "uppercase", color: accent }}>
+                {eyebrow}
+              </div>
+            ) : null}
+            <h1 className="font-display" style={{ margin: 0, fontSize: "clamp(4rem, 7vw, 7rem)", lineHeight: 0.88, color: "white", maxWidth: 1020 }}>
+              {title}
+            </h1>
+            <p style={{ margin: 0, maxWidth: 760, fontSize: 18, lineHeight: 1.72, color: "rgba(245,245,245,0.62)", fontWeight: 300 }}>
+              {description}
+            </p>
+          </section>
+        )}
 
-        {children}
+        <div style={{ minHeight: "56vh" }}>{children}</div>
+
+        <footer style={{ marginTop: 36, paddingTop: 28, borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 320px", gap: 32 }} className="shell-footer-grid">
+            <div style={{ display: "grid", gap: 12, maxWidth: 460 }}>
+              <div style={{ fontSize: 14, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "white" }}>DEFRAG</div>
+              <p style={{ margin: 0, fontSize: 14, lineHeight: 1.72, color: "rgba(245,245,245,0.5)" }}>
+                Defrag helps people understand difficult interactions by showing what may be happening, where pressure changed, and what move makes sense next.
+              </p>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0,1fr))", gap: 20 }}>
+              <div style={{ display: "grid", gap: 10 }}>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(245,245,245,0.34)" }}>Explore</div>
+                <Link href="/about" style={{ fontSize: 13, color: "rgba(245,245,245,0.62)", textDecoration: "none" }}>How it works</Link>
+                <Link href="/account/billing" style={{ fontSize: 13, color: "rgba(245,245,245,0.62)", textDecoration: "none" }}>Plans</Link>
+                <Link href="/login" style={{ fontSize: 13, color: "rgba(245,245,245,0.62)", textDecoration: "none" }}>Sign in</Link>
+              </div>
+              <div style={{ display: "grid", gap: 10 }}>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(245,245,245,0.34)" }}>Trust</div>
+                <Link href="/terms" style={{ fontSize: 13, color: "rgba(245,245,245,0.62)", textDecoration: "none" }}>Terms</Link>
+                <Link href="/privacy" style={{ fontSize: 13, color: "rgba(245,245,245,0.62)", textDecoration: "none" }}>Privacy</Link>
+              </div>
+            </div>
+          </div>
+          <div style={{ marginTop: 48, fontSize: 12, color: "rgba(245,245,245,0.28)" }}>© 2026 DEFRAG.</div>
+        </footer>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .desktop-nav { display: none !important; }
+          .app-shell-frame { padding: 22px 16px 48px !important; gap: 48px !important; }
+          .shell-footer-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </main>
   );
 }

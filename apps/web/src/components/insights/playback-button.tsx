@@ -14,10 +14,10 @@ export default function PlaybackButton({ text = "Hear this", onClick }: Playback
         alignItems: "center",
         gap: 8,
         padding: "8px 18px",
-        borderRadius: 999,
-        border: "1px solid rgba(255,255,255,0.08)",
-        background: "rgba(255,255,255,0.03)",
-        color: "#f5c98b",
+        borderRadius: "var(--radius-pill)",
+        border: "1px solid var(--color-border)",
+        background: "var(--color-surface)",
+        color: "var(--color-accent)",
         fontSize: 15,
         fontWeight: 500,
         letterSpacing: 0.01,
@@ -32,8 +32,8 @@ export default function PlaybackButton({ text = "Hear this", onClick }: Playback
       tabIndex={0}
     >
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginRight: 4 }}>
-        <circle cx="9" cy="9" r="8.5" stroke="#f5c98b" strokeOpacity="0.5" />
-        <polygon points="7,6 13,9 7,12" fill="#f5c98b" />
+        <circle cx="9" cy="9" r="8.5" stroke="var(--color-accent)" strokeOpacity="0.5" />
+        <polygon points="7,6 13,9 7,12" fill="var(--color-accent)" />
       </svg>
       {text}
     </button>

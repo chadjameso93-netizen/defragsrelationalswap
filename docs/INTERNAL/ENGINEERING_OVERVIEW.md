@@ -1,11 +1,18 @@
 # Engineering Overview
 
+## Status
+
+This document describes the current repo, not the original prototype plan.
+
+There is no standalone backend app in this repository today.
+The canonical implementation is the Next.js app in `apps/web` plus shared packages in `packages/*`.
+
 ## System Layers
 
 1. Input Layer
-   - RequestContext JSON
-   - events
-   - relationship data
+   - browser input
+   - route-handler requests
+   - Supabase-backed account data
 
 2. Reasoning Layer
    - structured_synthesis
@@ -13,8 +20,9 @@
    - proof
 
 3. Output Layer
-   - strict JSON schema
-   - validated responses
+   - typed shared contracts
+   - JSON schema where available
+   - validated responses in app APIs
 
 ---
 
@@ -23,29 +31,23 @@
 - request-context.schema.json
 - insight-response.schema.json
 
-These must not drift.
-
----
-
-## Backend
-
-- FastAPI
-- Pydantic models
-- schema validation
+These must not drift where they are used.
+The repo does not yet have universal schema coverage across all surfaces.
 
 ---
 
 ## Frontend
 
 - Next.js
-- API route calls
-- simple UI for testing
+- App Router
+- route handlers for internal APIs
+- consumer product UI
 
 ---
 
 ## Deployment
 
-- Vercel (frontend)
+- Vercel (canonical app deploy)
 - GitHub Actions (CI)
 - Supabase (data)
 
@@ -54,7 +56,7 @@ These must not drift.
 ## Rule
 
 If schema changes:
-- update backend
+- update route handlers or shared services
 - update frontend
 - update docs
 

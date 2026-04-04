@@ -8,11 +8,19 @@
     "dev": "pnpm --dir apps/web dev",
     "build": "pnpm --dir apps/web build",
     "start": "pnpm --dir apps/web start",
-    "test": "vitest run"
+    "typecheck": "pnpm --dir apps/web typecheck",
+    "test": "pnpm run lint:copy && vitest run",
+    "lint:copy": "node scripts/copy-guard.mjs"
   },
   "devDependencies": {
     "next": "15.5.14",
     "typescript": "^5.6.3",
     "vitest": "^2.1.8"
+  },
+  "dependencies": {
+    "jose": "^6.2.2"
+  },
+  "engines": {
+    "node": "20.x"
   }
 }

@@ -4,6 +4,6 @@ import { resolveEntitlements } from "../../../../../packages/billing/src";
 describe("billing state access helpers", () => {
   it("derives entitlements from persisted billing state shape", () => {
     const entitlements = resolveEntitlements("studio", "active");
-    expect(entitlements.canUseStudio).toBe(true);
+    expect(entitlements.canUseInsights).toBe(true);
   });
 });

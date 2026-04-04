@@ -11,12 +11,12 @@ export default function ClarityQuestions() {
         display: "grid",
         gap: 12,
         padding: 20,
-        borderRadius: 16,
-        border: "1px solid rgba(255,255,255,0.06)",
-        background: "rgba(255,255,255,0.02)",
+        borderRadius: "var(--radius-md)",
+        border: "1px solid var(--color-border)",
+        background: "var(--color-surface)",
       }}
     >
-      <p style={{ margin: 0, fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#71717a" }}>
+      <p style={{ margin: 0, fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--color-text-muted)" }}>
         Questions worth holding
       </p>
       <div style={{ display: "grid", gap: 10 }}>
@@ -31,7 +31,7 @@ export default function ClarityQuestions() {
             }}
           >
             <span style={{ fontSize: 11, color: "#52525b", paddingTop: 3 }}>0{index + 1}</span>
-            <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "#d4d4d8" }}>{question}</p>
+            <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: "var(--color-text-secondary)" }}>{question}</p>
           </div>
         ))}
       </div>

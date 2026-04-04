@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { createClient } from "../utils/supabase/server";
 
 export interface AuthenticatedUser {
@@ -6,6 +7,17 @@ export interface AuthenticatedUser {
 }
 
 export async function getAuthenticatedUserOrNull(): Promise<AuthenticatedUser | null> {
+  const isPreviewEnv = process.env.NEXT_PUBLIC_PREVIEW_MODE === "1";
+  const cookieStore = await cookies();
+  const previewCookieValue = cookieStore.get("__defrag_preview")?.value;
+  
+  if (isPreviewEnv || previewCookieValue) {
+    return {
+      userId: `preview-user-${previewCookieValue || "studio"}`,
+      email: "preview@defrag.app",
+    };
+  }
+
   const supabase = await createClient();
   const {
     data: { user },

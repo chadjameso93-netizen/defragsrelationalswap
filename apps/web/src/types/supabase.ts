@@ -1,9 +1,10 @@
 import type {
   BillingPlan,
-  CompanionEvaluationRubric,
-  CompanionStructuredSynthesis,
+  DynamicsEvaluationRubric,
+  DynamicsStructuredSynthesis,
   SubscriptionState,
 } from "../../../../packages/core/src";
+import type { InsightApiResponse } from "../types/contracts";
 
 export type Json =
   | string
@@ -144,9 +145,9 @@ export interface Database {
           what_changed: string;
           next_move: string;
           what_this_is_based_on: Json;
-          synthesis: CompanionStructuredSynthesis | null;
+          synthesis: DynamicsStructuredSynthesis | null;
           confidence: number;
-          evaluation: CompanionEvaluationRubric | null;
+          evaluation: DynamicsEvaluationRubric | null;
           created_at: string;
         };
         Insert: {
@@ -159,9 +160,9 @@ export interface Database {
           what_changed: string;
           next_move: string;
           what_this_is_based_on: Json;
-          synthesis?: CompanionStructuredSynthesis | null;
+          synthesis?: DynamicsStructuredSynthesis | null;
           confidence?: number;
-          evaluation?: CompanionEvaluationRubric | null;
+          evaluation?: DynamicsEvaluationRubric | null;
           created_at?: string;
         };
         Update: {
@@ -174,9 +175,9 @@ export interface Database {
           what_changed?: string;
           next_move?: string;
           what_this_is_based_on?: Json;
-          synthesis?: CompanionStructuredSynthesis | null;
+          synthesis?: DynamicsStructuredSynthesis | null;
           confidence?: number;
-          evaluation?: CompanionEvaluationRubric | null;
+          evaluation?: DynamicsEvaluationRubric | null;
           created_at?: string;
         };
         Relationships: [];
@@ -204,6 +205,30 @@ export interface Database {
           action_type?: string;
           label?: string;
           payload?: Json | null;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      insight_reads: {
+        Row: {
+          id: string;
+          user_id: string;
+          prompt: string | null;
+          response: InsightApiResponse;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          prompt?: string | null;
+          response: InsightApiResponse;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          prompt?: string | null;
+          response?: InsightApiResponse;
           created_at?: string;
         };
         Relationships: [];

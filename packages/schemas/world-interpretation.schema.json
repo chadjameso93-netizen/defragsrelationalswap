@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "defrag.world-interpretation.schema.json",
+  "title": "WorldInterpretation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "dominantPattern",
+    "highestChargeNodeId",
+    "highestChargeNodeLabel",
+    "pressureLevel",
+    "repairWindow",
+    "strongestEdge",
+    "nodeReadings",
+    "nextMoves",
+    "stabilizationHint",
+    "timingSummary"
+  ],
+  "properties": {
+    "dominantPattern": { "type": "string" },
+    "highestChargeNodeId": { "type": ["string", "null"] },
+    "highestChargeNodeLabel": { "type": ["string", "null"] },
+    "pressureLevel": { "type": "string", "enum": ["low", "medium", "high"] },
+    "repairWindow": { "type": "string", "enum": ["closed", "narrow", "open"] },
+    "strongestEdge": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["id", "from", "to", "type", "intensity"],
+      "properties": {
+        "id": { "type": "string" },
+        "from": { "type": "string" },
+        "to": { "type": "string" },
+        "type": { "type": "string" },
+        "intensity": { "type": "number" }
+      }
+    },
+    "nodeReadings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "type", "charge", "note"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "type": { "type": "string", "enum": ["person", "self_part", "conflict", "future"] },
+          "charge": { "type": "number" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "nextMoves": { "type": "array", "items": { "type": "string" } },
+    "stabilizationHint": { "type": "string" },
+    "timingSummary": { "type": "string" }
+  }
+}

@@ -1,19 +1,68 @@
 # DEFRAG
 
-DEFRAG is a relational reasoning system with two initial product surfaces:
-- **Companion** (`/companion`)
-- **World alpha** (`/world`)
+DEFRAG is a single consumer web product deployed from this repository.
+It helps people understand relationship dynamics, notice repeating patterns between people, and decide what to do next without diagnosing or labeling anyone.
 
-The repository preserves a shared architecture:
-- `packages/core` for shared contracts/types
-- `packages/billing` for plan/subscription/entitlement logic
-- server-side Stripe + Supabase integration in `apps/web/src/server` and API routes
+## Canonical app
 
----
+- The only consumer-facing app in this repo is `apps/web`.
+- The canonical production domains are `defrag.app` and `www.defrag.app`.
+- The canonical Vercel project is the repo-root project that serves those domains.
+- Vercel PR previews are the only preview deployment system.
+- The MCP / ChatGPT app is a separate Vercel project rooted at `apps/defrag-chatgpt-app` and should be aliased to `mcp.defrag.app`.
 
-## 1) Local run commands (pnpm)
+Do not use any nested or legacy Vercel project linked from `apps/web`.
 
-> Intended package manager: **pnpm**.
+## Current product surfaces
+
+Consumer routes in the canonical app:
+
+- `/`
+- `/about`
+- `/login`
+- `/onboarding`
+- `/dynamics`
+- `/world`
+- `/account`
+- `/account/insights`
+- `/account/billing`
+- `/terms`
+- `/privacy`
+
+Internal product APIs in the same app:
+
+- `/api/dynamics/insights`
+- `/api/dynamics/actions`
+- `/api/insights`
+- `/api/insights/simulate`
+- `/api/world/interpret`
+- `/api/stripe/checkout`
+- `/api/stripe/portal`
+- `/api/stripe/webhook`
+
+Route behavior today:
+
+- `/` and `/login` are public
+- `/about`, `/terms`, and `/privacy` are public trust/legal surfaces
+- `/onboarding` is part of the authenticated account flow
+- `/dynamics`, `/world`, `/account`, `/account/insights`, and `/account/billing` render public previews when signed out and private/account-linked behavior when signed in
+
+## Monorepo layout
+
+- `apps/web`: canonical Next.js app
+- `packages/core`: shared product contracts and types
+- `packages/billing`: shared plan, entitlement, and Stripe mapping logic
+- `packages/platform`: future tool contracts, registry, auth/display/state metadata, and examples
+- `packages/platform-server`: reusable server-safe orchestration for future tool surfaces
+- `packages/reasoning`: shared reasoning engines used by both the website and the local MCP app
+- `packages/schemas`: JSON schemas used for structured-output alignment
+- `apps/defrag-chatgpt-app`: MCP app for ChatGPT private preview, deployed as a separate Vercel project
+- `supabase/migrations`: database schema and data-flow migrations
+- `docs`: product, architecture, and operator documentation
+
+There is no `apps/api` service in the current repo.
+
+## Local development
 
 ```bash
 cd /Users/cjo/Documents/defragsrelationalswap
@@ -22,146 +71,137 @@ pnpm install
 pnpm dev
 ```
 
-The local app runs at:
+Local app:
 
 ```bash
 http://localhost:3001
 ```
 
-Build/start:
-
-```bash
-pnpm build
-pnpm start
-```
-
-Tests:
+Validation:
 
 ```bash
 pnpm test
+pnpm typecheck
+pnpm build
+pnpm --dir apps/defrag-chatgpt-app build:web
+pnpm --dir apps/defrag-chatgpt-app typecheck
 ```
 
----
+## Environment contract
 
-## 2) Environment variables
-
-For local development, `pnpm dev` runs Next from `apps/web`, so env vars must live in:
+Local development uses:
 
 ```bash
 apps/web/.env.local
 ```
 
-The repo-root `.env.local` is not used for local run.
+The repo-root `.env.local` is reference-only and is not the canonical local runtime file.
 
-Example:
+### Required for local, preview, and production
 
 ```env
-# apps/web/.env.local
+NEXT_PUBLIC_APP_URL=...
+DEFRAG_MCP_APP_URL=...
 NEXT_PUBLIC_SUPABASE_URL=...
 NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 SUPABASE_SERVICE_ROLE_KEY=...
-NEXT_PUBLIC_APP_URL=http://localhost:3001
+STRIPE_SECRET_KEY=...
+STRIPE_PRICE_CORE=...
+STRIPE_PRICE_STUDIO=...
+STRIPE_PRICE_REALTIME=...
+STRIPE_WEBHOOK_SECRET=...
 ```
-
-### Required now for local page load + Stripe checkout/portal
-- `NEXT_PUBLIC_APP_URL`
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `SUPABASE_SERVICE_ROLE_KEY`
-- `STRIPE_SECRET_KEY`
-- `STRIPE_PRICE_CORE`
-- `STRIPE_PRICE_STUDIO`
-- `STRIPE_PRICE_REALTIME`
-
-### Required later for local webhook sync
-- `STRIPE_WEBHOOK_SECRET`
 
 ### Optional now
-- `DEFRAG_ENABLE_MODEL_GENERATION` (`false` by default)
 
-### Future placeholders
-- `STRIPE_PRICE_PROFESSIONAL`
-- `STRIPE_PRICE_TEAM`
-- `STRIPE_PRICE_API`
-- `STRIPE_PRICE_ENTERPRISE`
-
-Protected routes (`/companion`, `/account/billing`, `/world`) require:
-1. valid Supabase env vars in `apps/web/.env.local`
-2. Supabase migrations applied
-3. a real Supabase auth user
-
----
-
-## 3) Supabase migration/deploy commands
-
-Apply migrations locally (Supabase CLI):
-
-```bash
-supabase db push
+```env
+DEFRAG_REASONING_PROVIDER=heuristic
+OPENAI_API_KEY=
+DEFRAG_OPENAI_MODEL=gpt-4.1-mini
+DEFRAG_ENABLE_MODEL_GENERATION=false
 ```
 
-Or reset local DB and reapply migrations:
+### Preview environments
 
-```bash
-supabase db reset
-```
+Preview deployments must have the same base Supabase and Stripe variables as production if you expect preview routes to function end-to-end.
 
-This app depends on these tables/flows:
+If Preview does not have those values set, preview deployments should be treated as partial UI previews only.
+
+## Supabase
+
+The current app depends on these tables and flows:
+
+- `profiles`
 - `billing_accounts`
 - `subscriptions`
 - `processed_webhook_events`
 - `companion_threads`
 - `companion_insights`
 - `companion_follow_up_actions`
+- `insight_reads`
 
----
+Apply migrations with the Supabase CLI or the Supabase dashboard SQL runner.
 
-## 4) Stripe local webhook testing
+## Stripe
 
 Webhook route:
-- `POST /api/stripe/webhook`
 
-Forward events to local app:
+```bash
+POST /api/stripe/webhook
+```
+
+Local forwarding:
 
 ```bash
 stripe listen --forward-to localhost:3001/api/stripe/webhook
 ```
 
-Then copy the printed webhook signing secret into:
-- `STRIPE_WEBHOOK_SECRET`
+## Deployment contract
 
----
+Canonical deployment truth:
 
-## 5) Vercel deployment path
+1. GitHub is the source of truth for code.
+2. Vercel Git integration is the canonical deployment system.
+3. The main website project root is the repo root.
+4. `vercel.json` is the checked-in deployment contract.
+5. `defrag.app` and `www.defrag.app` must point only to the canonical Vercel project.
+6. The MCP project root is `apps/defrag-chatgpt-app`.
+7. `mcp.defrag.app` must point only to the separate MCP Vercel project rooted at `apps/defrag-chatgpt-app`.
 
-1. Import repo into Vercel.
-2. Set **Root Directory** to `apps/web`.
-3. Configure env vars (Preview + Production):
-   - `NEXT_PUBLIC_APP_URL`
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - `SUPABASE_SERVICE_ROLE_KEY`
-   - `STRIPE_SECRET_KEY`
-   - `STRIPE_WEBHOOK_SECRET`
-   - `STRIPE_PRICE_CORE`
-   - `STRIPE_PRICE_STUDIO`
-   - `STRIPE_PRICE_REALTIME`
-   - optional: `DEFRAG_ENABLE_MODEL_GENERATION`
-4. Deploy.
-5. Configure Stripe webhook endpoint to:
-   - `https://<your-domain>/api/stripe/webhook`
+Do not:
 
----
+- deploy from `apps/web` to a separate project
+- keep multiple Vercel projects in active use for the same consumer app
+- treat GitHub Actions as the canonical production deployment path
 
-## 6) Required routes
+See:
 
-- `/`
-- `/companion`
-- `/account/billing`
-- `/world`
-- `/api/stripe/checkout`
-- `/api/stripe/portal`
-- `/api/stripe/webhook`
-- `/api/companion/insights`
-- `/api/companion/actions`
-- `/api/world/interpret`
+- [`docs/ARCHITECTURE.md`](/Users/cjo/Documents/defragsrelationalswap/docs/ARCHITECTURE.md)
+- [`docs/OPERATOR_VERCEL_RUNBOOK.md`](/Users/cjo/Documents/defragsrelationalswap/docs/OPERATOR_VERCEL_RUNBOOK.md)
+- [`docs/CHATGPT_PLATFORM_BOUNDARY.md`](/Users/cjo/Documents/defragsrelationalswap/docs/CHATGPT_PLATFORM_BOUNDARY.md)
+- [`docs/CHATGPT_DEVELOPER_MODE_RUNBOOK.md`](/Users/cjo/Documents/defragsrelationalswap/docs/CHATGPT_DEVELOPER_MODE_RUNBOOK.md)
+- [`docs/CHATGPT_PRIVATE_PREVIEW_READINESS.md`](/Users/cjo/Documents/defragsrelationalswap/docs/CHATGPT_PRIVATE_PREVIEW_READINESS.md)
+- [`docs/CHATGPT_PRODUCTION_GAPS.md`](/Users/cjo/Documents/defragsrelationalswap/docs/CHATGPT_PRODUCTION_GAPS.md)
+
+## Future ChatGPT/OpenAI-compatible integration
+
+The current DEFRAG product is the website in `apps/web`.
+
+Any future ChatGPT/OpenAI-compatible integration must be a separate app surface, for example:
+
+- `apps/defrag-chatgpt-app`
+
+The MCP service project lives there for developer mode and private preview. It should reuse:
+
+- `packages/core`
+- `packages/billing`
+- `packages/platform`
+- `packages/reasoning`
+- `packages/platform-server`
+- `packages/schemas`
+- platform capabilities already exposed by Supabase, Stripe, and shared reasoning logic
+
+It should not replace the website or become a second consumer website.
+For private preview, deploy it as a separate Vercel project and alias it to `mcp.defrag.app`.
+
+It must not import page components, route handlers, or server internals from `apps/web`.
