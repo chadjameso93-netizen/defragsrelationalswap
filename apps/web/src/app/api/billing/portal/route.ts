@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createClient as createSupabaseServerClient } from "@/utils/supabase/server";
+import { isBillingBypassEmail } from '@/lib/billing-bypass';
 
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 const appUrl = process.env.NEXT_PUBLIC_APP_URL;
@@ -25,6 +26,13 @@ export async function POST() {
 
   if (!user?.email) {
     return NextResponse.json({ error: "You must be signed in before opening billing." }, { status: 401 });
+  }
+
+    if (isBillingBypassEmail(user?.email)) {
+    return NextResponse.json({
+      url: `${appUrl}/app/studio?billing=bypass`,
+      bypassBilling: true,
+    });
   }
 
   try {
