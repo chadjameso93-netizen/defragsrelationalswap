@@ -31,45 +31,53 @@ function buildParticipants(input: SessionRequest) {
   }));
 }
 
+function buildSummary(message: string) {
+  const lower = message.toLowerCase();
+  const mentionsConflict = /fight|argue|conflict|upset|hurt|tension|pull away|misunderstood/.test(lower);
+
+  return mentionsConflict
+    ? {
+        whatIsHappening:
+          "Both people may care about the relationship, but may be reacting in ways that make each other harder to hear.",
+        whatEachPersonMayBeCarrying:
+          "One side may be trying to get to clarity quickly, while the other side may be protecting themselves before they can really take in what is being said.",
+        nextClearStep:
+          "Slow the exchange down, keep the first point small, and say what you are hoping for before describing what feels hard.",
+      }
+    : {
+        whatIsHappening:
+          "This may be more about mixed signals and unclear meaning than about major harm.",
+        whatEachPersonMayBeCarrying:
+          "One or both people may be unsure what the moment means, so they may hesitate or fill in the gaps too quickly.",
+        nextClearStep:
+          "Clarify what you mean, keep the next move small, and do not try to solve everything at once.",
+      };
+}
+
 function buildWorkspace(message: string, participants: ReturnType<typeof buildParticipants>) {
   const lower = message.toLowerCase();
   const mentionsFamily = /mom|mother|dad|father|sister|brother|family/.test(lower);
   const mentionsConflict = /fight|argue|conflict|upset|hurt|tension|pull away|misunderstood/.test(lower);
-
-  const summary = mentionsConflict
-    ? "This looks like a moment where both people may care about the relationship, but may be reacting in ways that make each other harder to hear."
-    : "This looks like a situation where more clarity about what each person means and needs may help.";
+  const summary = buildSummary(message);
 
   return {
+    summary,
     assistant_message: {
       title: "What may be happening",
-      body: summary,
+      body: summary.whatIsHappening,
       next_steps: [
-        "Slow the exchange down and stay close to what is actually happening right now.",
-        "Say what you are hoping for before describing what feels hard.",
-        "Keep the next step small enough that the other person can hear it without feeling overwhelmed.",
+        summary.nextClearStep,
+        "Start with what you want to understand, not only what you want to correct.",
+        "Keep the first sentence simple so the other person does not have to defend themselves immediately.",
       ],
     },
     field_update: {
       thread: {
         id: "thread_main",
         title: mentionsFamily ? "Family dynamic" : "Relationship dynamic",
-        summary,
+        summary: summary.whatIsHappening,
       },
       participants,
-      dynamics: [
-        {
-          id: "dynamic_main",
-          from: participants[0]?.id ?? "self",
-          to: participants[1]?.id ?? "other",
-          type: mentionsConflict ? "misunderstanding" : "unclear_expectation",
-          intensity: mentionsConflict ? 0.74 : 0.48,
-          description: mentionsConflict
-            ? "Both sides may be reacting to what something means, not just to what is being said."
-            : "This may be more about clarity and timing than about major harm.",
-          opening_level: mentionsConflict ? 0.33 : 0.55,
-        },
-      ],
       field_state: {
         overall_state: mentionsConflict ? "strained" : "unclear",
         dominant_pattern: mentionsConflict
@@ -93,23 +101,7 @@ function buildWorkspace(message: string, participants: ReturnType<typeof buildPa
           state: participant.current_state.state_label,
           pulse: index === 0 ? 0.72 : 0.51,
         })),
-        edges: [
-          {
-            from: participants[0]?.id ?? "self",
-            to: participants[1]?.id ?? "other",
-            weight: mentionsConflict ? 0.81 : 0.52,
-            state: mentionsConflict ? "strained" : "unclear",
-            animation: mentionsConflict ? "tension-wave" : "soft-pulse",
-          },
-        ],
       },
-    },
-    ui_actions: {
-      open_branch_threads: mentionsFamily
-        ? [{ id: "family-view", label: "Family view" }]
-        : [{ id: "other-side", label: "See from the other side" }],
-      focus_node_ids: participants.map((participant) => participant.id),
-      camera_mode: "fit-active-dynamics",
     },
   };
 }
@@ -119,7 +111,7 @@ function buildBranch(branchId: string, message: string) {
     case "other-side":
       return {
         title: "See from the other side",
-        body: "The other person may not be reacting to your intent. They may be reacting to what the moment feels like to them. If they already feel guarded, even a reasonable point may land as criticism.",
+        body: "The other person may not be reacting to your intent. They may be reacting to what the moment feels like to them.",
         suggestions: [
           "Start with what you want to understand, not only what you want to correct.",
           "Name that you are trying to make things clearer, not start another argument.",
@@ -139,9 +131,9 @@ function buildBranch(branchId: string, message: string) {
     case "family-view":
       return {
         title: "Family view",
-        body: "This may be bigger than one conversation. The same pattern may already have a place in the family, and each person may be stepping into a familiar role without meaning to.",
+        body: "This may be bigger than one conversation. The same pattern may already have a place in the family.",
         suggestions: [
-          "Notice who becomes the pursuer, who pulls back, and who tries to keep the peace.",
+          "Notice who moves toward the issue, who pulls back, and who tries to keep the peace.",
           "Look for what keeps repeating rather than deciding who is the problem.",
           "Ask what would change if one person responded a little differently this time.",
         ],
@@ -159,8 +151,8 @@ function buildOverlay(mode: SessionRequest["overlayMode"]) {
   switch (mode) {
     case "family":
       return {
-        title: "Family overlay",
-        body: "This may be touching an older family pattern, not just the current moment. Each person may be stepping into a familiar role without meaning to.",
+        title: "Family view",
+        body: "This may be touching an older family pattern, not just the current moment.",
         cards: [
           {
             label: "What may be repeating",
@@ -168,13 +160,13 @@ function buildOverlay(mode: SessionRequest["overlayMode"]) {
           },
           {
             label: "What could help",
-            value: "Slow the pace, keep the first point small, and do not try to solve the whole family pattern in one conversation.",
+            value: "Slow the pace, keep the first point small, and do not try to solve the whole pattern in one conversation.",
           },
         ],
       };
     case "compare":
       return {
-        title: "Two-person overlay",
+        title: "Two-person view",
         body: "This view helps show how two people may hear the same moment very differently.",
         cards: [
           {
@@ -190,8 +182,8 @@ function buildOverlay(mode: SessionRequest["overlayMode"]) {
     case "baseline":
     default:
       return {
-        title: "Baseline overlay",
-        body: "This view translates each person’s usual way of reacting, coping, and relating into plain language.",
+        title: "Baseline view",
+        body: "This view translates each person’s usual way of reacting and relating into plain language.",
         cards: [
           {
             label: "When you feel hurt",
