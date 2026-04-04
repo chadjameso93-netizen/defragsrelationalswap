@@ -15,10 +15,10 @@
     { "source": "/app", "destination": "/app/studio", "permanent": false },
     { "source": "/membership", "destination": "/billing/studio", "permanent": false },
     { "source": "/billing", "destination": "/billing/studio", "permanent": false },
-    { "source": "/workspace", "destination": "/workspace/clarity", "permanent": false },
-    { "source": "/workspace/final", "destination": "/workspace/clarity", "permanent": false },
-    { "source": "/companion", "destination": "/workspace/clarity", "permanent": false },
-    { "source": "/world", "destination": "/workspace/clarity", "permanent": false },
-    { "source": "/dynamics", "destination": "/workspace/clarity", "permanent": false }
+    { "source": "/workspace", "destination": "/workspace/clarity-v2", "permanent": false },
+    { "source": "/workspace/final", "destination": "/workspace/clarity-v2", "permanent": false },
+    { "source": "/companion", "destination": "/workspace/clarity-v2", "permanent": false },
+    { "source": "/world", "destination": "/workspace/clarity-v2", "permanent": false },
+    { "source": "/dynamics", "destination": "/workspace/clarity-v2", "permanent": false }
   ]
 }
