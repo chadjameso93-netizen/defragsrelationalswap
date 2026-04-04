@@ -6,9 +6,13 @@
   "outputDirectory": "apps/web/.next",
   "redirects": [
     { "source": "/", "destination": "/home", "permanent": false },
+    { "source": "/landing", "destination": "/home", "permanent": false },
     { "source": "/login", "destination": "/signin", "permanent": false },
     { "source": "/account", "destination": "/app", "permanent": false },
     { "source": "/membership", "destination": "/billing", "permanent": false },
-    { "source": "/workspace", "destination": "/workspace/final", "permanent": false }
+    { "source": "/workspace", "destination": "/workspace/final", "permanent": false },
+    { "source": "/companion", "destination": "/workspace/final", "permanent": false },
+    { "source": "/world", "destination": "/workspace/final", "permanent": false },
+    { "source": "/dynamics", "destination": "/workspace/final", "permanent": false }
   ]
 }
