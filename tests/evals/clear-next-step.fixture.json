@@ -1,0 +1,20 @@
+{
+  "name": "clear-next-step",
+  "input": {
+    "message": "I keep getting defensive when my partner says we need to talk."
+  },
+  "expect": {
+    "must_include_any": [
+      "start with",
+      "say",
+      "slow",
+      "keep",
+      "ask"
+    ],
+    "must_avoid": [
+      "heal the dynamic",
+      "raise your frequency",
+      "move into alignment"
+    ]
+  }
+}
