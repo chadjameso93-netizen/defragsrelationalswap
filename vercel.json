@@ -3,5 +3,12 @@
   "framework": "nextjs",
   "installCommand": "pnpm install --frozen-lockfile",
   "buildCommand": "pnpm build",
-  "outputDirectory": "apps/web/.next"
+  "outputDirectory": "apps/web/.next",
+  "redirects": [
+    { "source": "/", "destination": "/home", "permanent": false },
+    { "source": "/login", "destination": "/signin", "permanent": false },
+    { "source": "/account", "destination": "/app", "permanent": false },
+    { "source": "/membership", "destination": "/billing", "permanent": false },
+    { "source": "/workspace", "destination": "/workspace/final", "permanent": false }
+  ]
 }
