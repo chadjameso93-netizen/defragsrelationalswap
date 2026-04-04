@@ -1,37 +1,38 @@
-import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
-import type { ReactNode } from "react";
+import type { Metadata } from 'next';
+import { Fraunces, Inter } from 'next/font/google';
+import type { ReactNode } from 'react';
 
 const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-display",
+  subsets: ['latin'],
+  variable: '--font-display',
 });
 
 const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
+  subsets: ['latin'],
+  variable: '--font-sans',
 });
 
 export const metadata: Metadata = {
-  title: "DEFRAG",
-  description: "Relational reasoning system for Companion, billing, and World.",
+  title: 'DEFRAG',
+  description:
+    'See what is happening between people, understand the pattern underneath it, and find a healthier next step.',
   icons: {
-    icon: "/icon.svg",
-    shortcut: "/icon.svg",
-    apple: "/icon.svg",
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
   },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body
         className={`${fraunces.variable} ${inter.variable}`}
         style={{
           margin: 0,
-          background: "#050505",
-          color: "#f5f5f5",
-          fontFamily: "var(--font-sans), sans-serif",
+          background: '#040404',
+          color: '#f5f5f5',
+          fontFamily: 'var(--font-sans), sans-serif',
         }}
       >
         <style>{`
@@ -60,7 +61,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           textarea:focus,
           input:focus,
           select:focus,
-          button:focus {
+          button:focus,
+          a:focus {
             outline: 2px solid rgba(214,195,161,0.45);
             outline-offset: 2px;
           }
