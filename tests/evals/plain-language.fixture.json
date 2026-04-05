@@ -1,0 +1,19 @@
+{
+  "name": "plain-language-workspace-summary",
+  "input": {
+    "message": "I want to talk to my sister, but every time I try, it turns into tension."
+  },
+  "expect": {
+    "must_include": [
+      "what may be happening",
+      "what each person may be carrying",
+      "what could help next"
+    ],
+    "must_avoid": [
+      "pressure",
+      "resonance",
+      "alignment",
+      "diagnosis"
+    ]
+  }
+}
