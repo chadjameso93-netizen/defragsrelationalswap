@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { buildBaselineCards } from "@/lib/workspace/baseline";
+import { validateWorkspaceText } from "@/lib/workspace/validator";
 
 type SessionRequest = {
   message?: string;
@@ -147,7 +149,12 @@ function buildBranch(branchId: string, message: string) {
   }
 }
 
-function buildOverlay(mode: SessionRequest["overlayMode"]) {
+function buildOverlay(mode: SessionRequest["overlayMode"], message: string, participants: ReturnType<typeof buildParticipants>) {
+  const baselineCards = buildBaselineCards(
+    message,
+    participants.map((participant) => participant.name),
+  );
+
   switch (mode) {
     case "family":
       return {
@@ -184,16 +191,7 @@ function buildOverlay(mode: SessionRequest["overlayMode"]) {
       return {
         title: "Baseline view",
         body: "This view translates each person’s usual way of reacting and relating into plain language.",
-        cards: [
-          {
-            label: "When you feel hurt",
-            value: "you may move toward the issue quickly because clarity feels better than uncertainty.",
-          },
-          {
-            label: "When the other side feels hurt",
-            value: "they may become quieter, more careful, or harder to reach before they can respond clearly.",
-          },
-        ],
+        cards: baselineCards,
       };
   }
 }
@@ -209,10 +207,26 @@ export async function POST(req: NextRequest) {
   const participants = buildParticipants(body);
   const workspace = buildWorkspace(message, participants);
   const firstBranchId = workspace.field_update.branch_suggestions[0]?.id ?? "other-side";
+  const branch = buildBranch(firstBranchId, message);
+  const overlay = buildOverlay(body.overlayMode ?? "baseline", message, participants);
+  const validation = validateWorkspaceText([
+    workspace.summary.whatIsHappening,
+    workspace.summary.whatEachPersonMayBeCarrying,
+    workspace.summary.nextClearStep,
+    branch.body,
+    overlay.body,
+    ...branch.suggestions,
+    ...overlay.cards.map((card) => `${card.label} ${card.value}`),
+  ]);
+
+  if (!validation.ok) {
+    return NextResponse.json({ error: "Workspace text validation failed", bannedHits: validation.bannedHits }, { status: 422 });
+  }
 
   return NextResponse.json({
     workspace,
-    branch: buildBranch(firstBranchId, message),
-    overlay: buildOverlay(body.overlayMode ?? "baseline"),
+    branch,
+    overlay,
+    validation,
   });
 }
