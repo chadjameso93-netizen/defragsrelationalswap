@@ -1,17 +1,17 @@
 "use client";
 
-import { FormEvent, useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { createClient } from '@/utils/supabase/client';
+import { FormEvent, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/utils/supabase/client";
 
 const PREVIEW_ENV_ERROR =
-  'Sign in is unavailable in this preview environment. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to continue.';
+  "Sign in is unavailable in this preview environment. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to continue.";
 
 export default function StudioSignInPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -37,67 +37,106 @@ export default function StudioSignInPage() {
       return;
     }
 
-    router.push('/app/studio');
+    router.push("/app/studio");
     router.refresh();
   }
 
   return (
-    <main style={{ minHeight: '100vh', background: '#040404', color: '#f5f2ec', display: 'grid', placeItems: 'center', padding: 22 }}>
+    <main style={{ minHeight: "100vh", background: "#050505", color: "#f5f2ec" }}>
       <style>{`
-        .signin-shell { width: min(1120px, 100%); display: grid; grid-template-columns: 1.02fr 0.98fr; gap: 22px; }
-        .signin-card { border: 1px solid rgba(255,255,255,0.08); background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015)); box-shadow: 0 16px 40px rgba(0,0,0,0.18); }
-        .signin-kicker { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,242,236,0.42); }
-        .signin-muted { color: rgba(245,242,236,0.62); }
-        .signin-title { font-size: 64px; line-height: 0.92; letter-spacing: -0.03em; font-family: var(--font-display), serif; margin: 0; }
-        .signin-stage { position: relative; overflow: hidden; padding: 28px; display: grid; gap: 20px; }
-        .signin-stage::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06), transparent 24%), radial-gradient(circle at 70% 20%, rgba(214,195,161,0.10), transparent 28%), radial-gradient(circle at 65% 72%, rgba(255,255,255,0.04), transparent 22%); }
-        .signin-stage > * { position: relative; z-index: 1; }
-        .signin-node { width: 164px; height: 164px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.14); background: radial-gradient(circle at center, rgba(255,255,255,0.09), rgba(255,255,255,0.015)); display: grid; place-items: center; text-align: center; box-shadow: 0 0 44px rgba(255,255,255,0.04); }
-        .signin-step { padding: 14px 16px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); line-height: 1.68; }
-        .signin-form { padding: 28px; display: grid; gap: 14px; }
-        .signin-input { padding: 14px 16px; background: #0a0a0a; color: #f5f2ec; border: 1px solid rgba(255,255,255,0.1); }
-        .signin-btn { border: 0; padding: 14px 18px; background: #f5f2ec; color: #050505; font-weight: 700; }
-        @media (max-width: 920px) { .signin-shell { grid-template-columns: 1fr; } .signin-title { font-size: 46px; } }
+        .si-page { min-height: 100vh; position: relative; overflow: hidden; background: radial-gradient(900px 620px at 80% 4%, rgba(214,195,161,0.12), transparent 70%), radial-gradient(800px 520px at 12% 18%, rgba(255,255,255,0.07), transparent 72%), linear-gradient(160deg, #090909, #050505 48%, #080808); }
+        .si-shell { width: min(1320px, 100%); margin: 0 auto; padding: clamp(22px, 3vw, 40px); display: grid; grid-template-columns: minmax(0,1.06fr) minmax(0,0.94fr); gap: clamp(20px, 3vw, 32px); }
+        .si-panel { border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); }
+        .si-kicker { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,242,236,0.42); }
+        .si-muted { color: rgba(245,242,236,0.68); }
+
+        .si-left { padding: clamp(24px, 4vw, 44px); display: grid; gap: clamp(20px, 3vw, 34px); align-content: start; min-height: 760px; position: relative; overflow: hidden; }
+        .si-left::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 16% 18%, rgba(255,255,255,0.08), transparent 30%), radial-gradient(circle at 72% 22%, rgba(214,195,161,0.14), transparent 34%), radial-gradient(circle at 66% 74%, rgba(255,255,255,0.06), transparent 28%); opacity: 0.9; }
+        .si-left > * { position: relative; z-index: 1; }
+        .si-title { margin: 0; font-family: var(--font-display), serif; font-size: clamp(2.5rem, 6.4vw, 5.4rem); line-height: 0.9; letter-spacing: -0.036em; max-width: 11ch; }
+
+        .si-field { border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.032); padding: 14px; line-height: 1.7; }
+        .si-nodewrap { display: flex; justify-content: center; padding-top: 8px; }
+        .si-node { width: 170px; height: 170px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.16); background: radial-gradient(circle at center, rgba(255,255,255,0.1), rgba(255,255,255,0.016)); display: grid; place-items: center; text-align: center; box-shadow: 0 0 54px rgba(214,195,161,0.1); }
+
+        .si-form { padding: clamp(24px, 3.4vw, 40px); display: grid; gap: 14px; align-content: start; }
+        .si-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,242,236,0.48); }
+        .si-input { width: 100%; border: 1px solid rgba(255,255,255,0.12); background: rgba(0,0,0,0.36); color: #f5f2ec; padding: 14px 15px; }
+        .si-input:focus { outline: 1px solid rgba(214,195,161,0.38); border-color: rgba(214,195,161,0.4); }
+        .si-btn { border: 1px solid rgba(255,255,255,0.08); background: #f5f2ec; color: #050505; padding: 14px 18px; font-weight: 600; cursor: pointer; }
+        .si-btn:disabled { opacity: 0.65; cursor: default; }
+        .si-legal { color: rgba(245,242,236,0.58); line-height: 1.7; font-size: 14px; }
+
+        @media (max-width: 980px) {
+          .si-shell { grid-template-columns: 1fr; }
+          .si-left { min-height: auto; }
+        }
       `}</style>
 
-      <section className='signin-shell'>
-        <div className='signin-card signin-stage'>
-          <div className='signin-kicker'>Premium access</div>
-          <h1 className='signin-title'>Return to your Defrag studio.</h1>
-          <div className='signin-muted' style={{ lineHeight: 1.76, maxWidth: 560 }}>
-            Sign in to continue your baseline, open workspace analysis, and manage billing in one place.
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0,1fr))', gap: 12 }}>
-            <div className='signin-step'>Baseline intake and profile</div>
-            <div className='signin-step'>Relationship workspace and mobile view</div>
-            <div className='signin-step'>Billing, plans, and account access</div>
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 12 }}>
-            <div className='signin-node'>
-              <div>
-                <div className='signin-kicker' style={{ fontSize: 10 }}>Defrag</div>
-                <div style={{ fontSize: 30, fontFamily: 'var(--font-display), serif' }}>Studio</div>
-                <div className='signin-muted' style={{ fontSize: 13 }}>premium workflow</div>
+      <div className="si-page">
+        <section className="si-shell">
+          <article className="si-panel si-left">
+            <div className="si-kicker">Premium access surface</div>
+            <h1 className="si-title">Return to your relationship studio.</h1>
+            <div className="si-muted" style={{ lineHeight: 1.8, maxWidth: 560 }}>
+              Sign in to continue your baseline, open the live field workspace, and keep your progress steady across devices.
+            </div>
+
+            <div style={{ display: "grid", gap: 10 }}>
+              <div className="si-field">Baseline and intake stay connected to your ongoing relationship work.</div>
+              <div className="si-field">Story Canvas and guided rewrites remain available in the same calm environment.</div>
+              <div className="si-field">Billing and account controls stay in one coherent premium flow.</div>
+            </div>
+
+            <div className="si-nodewrap">
+              <div className="si-node">
+                <div>
+                  <div className="si-kicker" style={{ fontSize: 10 }}>
+                    Defrag
+                  </div>
+                  <div style={{ fontFamily: "var(--font-display), serif", fontSize: 32 }}>Studio</div>
+                  <div className="si-muted" style={{ fontSize: 13 }}>
+                    calm clarity
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          </article>
 
-        <form onSubmit={handleSubmit} className='signin-card signin-form'>
-          <div style={{ display: 'grid', gap: 8 }}>
-            <div className='signin-kicker'>Access</div>
-            <div style={{ fontSize: 36, fontFamily: 'var(--font-display), serif' }}>Sign in</div>
-            <div className='signin-muted' style={{ lineHeight: 1.72 }}>Use your Defrag account to continue into your studio workspace and billing flow.</div>
-          </div>
-          <input className='signin-input' value={email} onChange={(e) => setEmail(e.target.value)} type='email' placeholder='Email' required />
-          <input className='signin-input' value={password} onChange={(e) => setPassword(e.target.value)} type='password' placeholder='Password' required />
-          {error ? <div style={{ color: '#fca5a5', lineHeight: 1.6 }}>{error}</div> : null}
-          <button type='submit' disabled={loading} className='signin-btn'>{loading ? 'Signing in...' : 'Continue to studio'}</button>
-          <div className='signin-muted' style={{ lineHeight: 1.7 }}>
-            Need an account? <Link href='/signup' style={{ color: '#f5f2ec' }}>Create one</Link>
-          </div>
-        </form>
-      </section>
+          <form onSubmit={handleSubmit} className="si-panel si-form">
+            <div style={{ display: "grid", gap: 8, marginBottom: 8 }}>
+              <div className="si-kicker">Sign in</div>
+              <div style={{ fontFamily: "var(--font-display), serif", fontSize: 42, lineHeight: 0.94 }}>Continue into your workspace</div>
+              <div className="si-muted" style={{ lineHeight: 1.75 }}>
+                Use your Defrag account to continue safely where you left off.
+              </div>
+            </div>
+
+            <label style={{ display: "grid", gap: 8 }}>
+              <span className="si-label">Email</span>
+              <input className="si-input" value={email} onChange={(e) => setEmail(e.target.value)} type="email" required />
+            </label>
+            <label style={{ display: "grid", gap: 8 }}>
+              <span className="si-label">Password</span>
+              <input className="si-input" value={password} onChange={(e) => setPassword(e.target.value)} type="password" required />
+            </label>
+
+            {error ? <div style={{ color: "#f0a6a6", lineHeight: 1.65 }}>{error}</div> : null}
+
+            <button type="submit" disabled={loading} className="si-btn">
+              {loading ? "Signing in..." : "Continue to studio"}
+            </button>
+
+            <div className="si-legal">
+              New here?{" "}
+              <Link href="/signup/studio" style={{ color: "#f5f2ec" }}>
+                Create your account
+              </Link>
+              .
+            </div>
+          </form>
+        </section>
+      </div>
     </main>
   );
 }
