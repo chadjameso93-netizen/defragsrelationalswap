@@ -12,10 +12,10 @@ interface PublicPreviewCtaProps {
 export function PublicPreviewCta({
   title,
   description,
-  primaryLabel = "Sign in",
-  primaryHref = "/login",
-  secondaryLabel = "Back home",
-  secondaryHref = "/",
+  primaryLabel = "Open Defrag",
+  primaryHref = "/enter",
+  secondaryLabel = "See how it works",
+  secondaryHref = "/studio#how-it-works",
 }: PublicPreviewCtaProps) {
   return (
     <div style={{ display: "grid", gap: 20, maxWidth: 640 }}>
