@@ -1,20 +1,11 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-
-  if (pathname === "/") {
-    return NextResponse.redirect(new URL("/landing", request.url));
-  }
-
-  if (pathname === "/workspace") {
-    return NextResponse.redirect(new URL("/workspace/final", request.url));
-  }
-
+/**
+ * Middleware scope: auth/session gates only.
+ * Redirect ownership for public entry paths (e.g. `/`, `/workspace`) lives in vercel.json and route handlers/pages,
+ * and must not be duplicated here to avoid redirect conflicts.
+ */
+export function middleware(_request: NextRequest) {
   return NextResponse.next();
 }
-
-export const config = {
-  matcher: ["/", "/workspace"],
-};

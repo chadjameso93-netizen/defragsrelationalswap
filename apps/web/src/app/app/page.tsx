@@ -28,7 +28,7 @@ export default async function AppHomePage() {
             <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245,242,236,0.42)" }}>Baseline</div>
             <div style={{ marginTop: 8, fontSize: 30, fontFamily: "var(--font-display), serif" }}>Continue intake</div>
           </Link>
-          <Link href="/workspace/final" style={{ padding: 20, textDecoration: "none", color: "#f5f2ec", border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)" }}>
+          <Link href="/workspace/clarity-v2" style={{ padding: 20, textDecoration: "none", color: "#f5f2ec", border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)" }}>
             <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245,242,236,0.42)" }}>Workspace</div>
             <div style={{ marginTop: 8, fontSize: 30, fontFamily: "var(--font-display), serif" }}>Open workspace</div>
           </Link>
