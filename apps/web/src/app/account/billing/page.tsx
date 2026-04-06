@@ -4,32 +4,47 @@ import { getBillingStateForUser } from "../../../lib/billing-server";
 import { getAuthenticatedUserOrNull } from "../../../server/auth";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { PLAN_CATALOG } from "../../../../../../packages/billing/src";
+import type { BillingPlan } from "../../../../../../packages/core/src";
 
-const PLANS = [
-  {
-    key: "base",
-    label: "Free",
-    price: "Included",
+const PUBLIC_PLAN_IDS = ["free", "core", "studio", "realtime"] as const;
+
+type PublicPlanId = (typeof PUBLIC_PLAN_IDS)[number];
+
+const PLAN_COPY: Record<PublicPlanId, { description: string; features: string[] }> = {
+  free: {
     description: "An introduction to relational awareness with access to the Defrag workspace.",
     features: ["Workspace access", "Basic relational context", "Account-linked entry"],
   },
-  {
-    key: "core",
-    label: "Solo",
-    price: "$15",
-    period: "/ month",
-    description: "Full personal relational intelligence for regular support through difficult interactions.",
+  core: {
+    description: "Personal relational intelligence for regular support through difficult interactions.",
     features: ["Personal pattern analysis", "1:1 interaction analysis", "Structured next-step guidance"],
   },
-  {
-    key: "studio",
-    label: "Team",
-    price: "$45",
-    period: "/ month",
-    description: "Relational intelligence across collaborative systems and recurring multi-person dynamics.",
-    features: ["Multi-person system analysis", "Perspective comparison", "Broader team and family dynamics"],
+  studio: {
+    description: "Expanded support for recurring multi-person dynamics and relational systems.",
+    features: ["Multi-person system analysis", "Perspective comparison", "Broader system context"],
   },
-];
+  realtime: {
+    description: "High-intensity, real-time relational support for complex and fast-moving situations.",
+    features: ["Priority processing", "Realtime guidance mode", "Advanced relational depth"],
+  },
+};
+
+const PUBLIC_PLANS = PUBLIC_PLAN_IDS.map((planId) => {
+  const plan = PLAN_CATALOG[planId];
+  return {
+    key: plan.id,
+    label: plan.name,
+    price: plan.monthlyPriceUsd === 0 ? "$0" : `$${plan.monthlyPriceUsd}`,
+    period: plan.monthlyPriceUsd === 0 ? null : "/ month",
+    description: PLAN_COPY[planId].description,
+    features: PLAN_COPY[planId].features,
+  };
+});
+
+function getPlanLabel(plan: BillingPlan): string {
+  return PLAN_CATALOG[plan]?.name ?? "Free";
+}
 
 export default async function BillingPage() {
   const user = await getAuthenticatedUserOrNull();
@@ -123,7 +138,7 @@ export default async function BillingPage() {
           <div style={{ display: "grid", gap: 16, paddingBottom: 24, borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
             <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245,245,245,0.38)" }}>Current access</div>
             <div style={{ fontSize: 40, fontWeight: 400, color: "white", letterSpacing: "-0.03em", display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-              {activePlanKey === "realtime" ? "Studio+" : activePlanKey === "studio" ? "Team" : activePlanKey === "core" ? "Solo" : "Free"}
+              {getPlanLabel(activePlanKey)}
               {isSubscribed ? (
                 <span style={{ padding: "5px 10px", border: "1px solid rgba(159,179,164,0.2)", color: "#c8d8a2", fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase" }}>
                   Current
@@ -153,7 +168,7 @@ export default async function BillingPage() {
   );
 }
 
-function PlanBreakdown({ activePlanKey }: { activePlanKey: string | null }) {
+function PlanBreakdown({ activePlanKey }: { activePlanKey: BillingPlan | null }) {
   return (
     <div style={{ display: "grid", gap: 28 }}>
       <div style={{ display: "grid", gap: 10, maxWidth: 760 }}>
@@ -163,9 +178,9 @@ function PlanBreakdown({ activePlanKey }: { activePlanKey: string | null }) {
         </p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 24 }} className="plans-grid">
-        {PLANS.map((plan) => {
-          const isActive = activePlanKey === plan.key || (!activePlanKey && plan.key === "base");
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 24 }} className="plans-grid">
+        {PUBLIC_PLANS.map((plan) => {
+          const isActive = activePlanKey === plan.key || (!activePlanKey && plan.key === "free");
           return (
             <div key={plan.key} style={{ display: "grid", gap: 18, padding: 26, border: isActive ? "1px solid rgba(255,255,255,0.18)" : "1px solid rgba(255,255,255,0.08)", background: isActive ? "rgba(255,255,255,0.05)" : "rgba(255,255,255,0.02)" }}>
               <div style={{ display: "grid", gap: 10 }}>
