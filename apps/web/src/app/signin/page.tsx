@@ -5,9 +5,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
 
+const PREVIEW_ENV_ERROR =
+  "Sign in is unavailable in this preview environment. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to continue.";
+
 export default function SignInPage() {
   const router = useRouter();
-  const supabase = createClient();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -17,6 +19,15 @@ export default function SignInPage() {
     event.preventDefault();
     setLoading(true);
     setError(null);
+
+    let supabase;
+    try {
+      supabase = createClient();
+    } catch {
+      setError(PREVIEW_ENV_ERROR);
+      setLoading(false);
+      return;
+    }
 
     const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
 
@@ -35,9 +46,9 @@ export default function SignInPage() {
       <section style={{ width: "min(880px, 100%)", display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: 20 }}>
         <div style={{ border: "1px solid rgba(255,255,255,0.08)", background: "linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015))", padding: 28, display: "grid", gap: 18 }}>
           <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245,242,236,0.42)" }}>Sign in</div>
-          <h1 style={{ margin: 0, fontSize: 54, lineHeight: 0.94, fontFamily: "var(--font-display), serif" }}>Return to your DEFRAG workspace.</h1>
+          <h1 style={{ margin: 0, fontSize: 54, lineHeight: 0.94, fontFamily: "var(--font-display), serif" }}>Return to your Defrag workspace.</h1>
           <p style={{ margin: 0, color: "rgba(245,242,236,0.62)", lineHeight: 1.74 }}>
-            Sign in to continue your baseline, open the relationship workspace, and manage billing from one account.
+            Sign in to continue your baseline, open workspace analysis, and manage billing from one account.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
             {[
@@ -60,9 +71,9 @@ export default function SignInPage() {
           </div>
           <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" required style={{ padding: "14px 16px", background: "#0a0a0a", color: "#f5f2ec", border: "1px solid rgba(255,255,255,0.1)" }} />
           <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" required style={{ padding: "14px 16px", background: "#0a0a0a", color: "#f5f2ec", border: "1px solid rgba(255,255,255,0.1)" }} />
-          {error ? <div style={{ color: "#fca5a5" }}>{error}</div> : null}
+          {error ? <div style={{ color: "#fca5a5", lineHeight: 1.6 }}>{error}</div> : null}
           <button type="submit" disabled={loading} style={{ border: 0, padding: "14px 18px", background: "#f5f2ec", color: "#050505", fontWeight: 700 }}>
-            {loading ? "Signing in..." : "Continue"}
+            {loading ? "Signing in..." : "Continue to workspace"}
           </button>
           <div style={{ color: "rgba(245,242,236,0.62)", lineHeight: 1.7 }}>
             Need an account? <Link href="/signup" style={{ color: "#f5f2ec" }}>Create one</Link>

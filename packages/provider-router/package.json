@@ -1,0 +1,8 @@
+{
+  "name": "@defrag/provider-router",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run --config vitest.config.ts"
+  }
+}

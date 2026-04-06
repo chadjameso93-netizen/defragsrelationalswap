@@ -10,24 +10,24 @@ const PLANS = [
     key: "base",
     label: "Free",
     price: "Included",
-    description: "An introduction to relational awareness and access to the Defrag workspace.",
-    features: ["workspace access", "basic relational context", "account-linked entry"],
+    description: "An introduction to relational awareness with access to the Defrag workspace.",
+    features: ["Workspace access", "Basic relational context", "Account-linked entry"],
   },
   {
     key: "core",
     label: "Solo",
     price: "$15",
     period: "/ month",
-    description: "Full personal relational intelligence for people who want regular support understanding difficult interactions.",
-    features: ["personal pattern analysis", "1:1 interaction analysis", "structured next-step guidance"],
+    description: "Full personal relational intelligence for regular support through difficult interactions.",
+    features: ["Personal pattern analysis", "1:1 interaction analysis", "Structured next-step guidance"],
   },
   {
     key: "studio",
     label: "Team",
     price: "$45",
     period: "/ month",
-    description: "Relational intelligence across collaborative systems, recurring pressure, and broader multi-person dynamics.",
-    features: ["multi-person system analysis", "perspective comparison", "broader team and family dynamics"],
+    description: "Relational intelligence across collaborative systems and recurring multi-person dynamics.",
+    features: ["Multi-person system analysis", "Perspective comparison", "Broader team and family dynamics"],
   },
 ];
 
@@ -38,8 +38,8 @@ export default async function BillingPage() {
     return (
       <AppShell
         eyebrow="Plans"
-        title="Choose the level of access that fits how you want to use Defrag."
-        description="Start with the workspace you need today. You can change your plan later."
+        title="Choose the Defrag access level that fits your workflow."
+        description="Start with what you need now. You can change plans anytime."
       >
         <div style={{ maxWidth: 1160, display: "grid", gap: 56 }}>
           <section style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 320px", gap: 40 }} className="billing-top-grid">
@@ -48,10 +48,10 @@ export default async function BillingPage() {
                 Access and billing
               </div>
               <h2 className="font-display" style={{ margin: 0, fontSize: "clamp(2.3rem, 5vw, 4rem)", lineHeight: 0.96, color: "white" }}>
-                Sign in to choose a plan.
+                Sign in to choose your plan.
               </h2>
               <p style={{ margin: 0, fontSize: 16, color: "rgba(245,245,245,0.62)", lineHeight: 1.78, fontWeight: 300 }}>
-                Your account keeps your workspace, saved context, and paid access in one place. Sign in to continue to checkout.
+                Your account keeps your workspace, saved context, and paid access in one place. Sign in to continue to checkout and plan management.
               </p>
             </div>
 
@@ -63,7 +63,7 @@ export default async function BillingPage() {
                 Use your Defrag account to choose a plan and manage billing in one place.
               </p>
               <Link href="/login" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 10, width: "fit-content", padding: "16px 28px", borderRadius: 14, background: "white", color: "#050505", textDecoration: "none", fontWeight: 600, fontSize: 16 }}>
-                Sign in <ArrowRight style={{ width: 18, height: 18 }} />
+                Sign in to continue <ArrowRight style={{ width: 18, height: 18 }} />
               </Link>
             </div>
           </section>
@@ -129,9 +129,9 @@ function PlanBreakdown({ activePlanKey }: { activePlanKey: string | null }) {
   return (
     <div style={{ display: "grid", gap: 28 }}>
       <div style={{ display: "grid", gap: 10, maxWidth: 760 }}>
-        <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245,245,245,0.38)" }}>Access tiers</div>
+        <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245,245,245,0.38)" }}>Plan tiers</div>
         <p style={{ margin: 0, fontSize: 16, lineHeight: 1.75, color: "rgba(245,245,245,0.58)" }}>
-          Defrag is structured as an intelligence tier system. Choose the level that matches the depth of analysis and ongoing support you need.
+          Choose the level of support you need now. Upgrade any time when your workflow needs more depth.
         </p>
       </div>
 
