@@ -94,8 +94,7 @@ type StoryCanvasView = {
   rewritePath: RewritePath | null;
 };
 
-const INITIAL_MESSAGE =
-  "I want to talk to my mom tonight, but I think we may end up missing each other again.";
+const INITIAL_MESSAGE = "I want to talk to my mom tonight, but I think we may end up missing each other again.";
 
 export default function WorkspacePage() {
   const [message, setMessage] = useState(INITIAL_MESSAGE);
@@ -114,9 +113,7 @@ export default function WorkspacePage() {
     const relationshipLabel =
       result?.field_update.participants.map((participant) => participant.name).join(" and ") || "You and your mother";
 
-    const sharedGoal =
-      result?.assistant_message.next_steps[0] ??
-      "move the conversation toward clarity, steadiness, and a practical next step";
+    const sharedGoal = result?.assistant_message.next_steps[0] ?? "move the conversation toward clarity, steadiness, and a practical next step";
 
     const scene = buildScene(
       {
@@ -193,227 +190,239 @@ export default function WorkspacePage() {
   return (
     <main style={{ minHeight: "100vh", background: "#050505", color: "#f6f3ee" }}>
       <style>{`
-        .ws-shell { display:grid; grid-template-columns: 380px minmax(0,1fr) 380px; min-height:100vh; }
-        .ws-col { border-right:1px solid rgba(255,255,255,0.08); }
-        .ws-col:last-child { border-right:none; }
-        .ws-left, .ws-center, .ws-right { display:grid; }
-        .ws-left { grid-template-rows:auto auto 1fr; }
-        .ws-center { grid-template-rows:auto 1fr auto; }
-        .ws-right { align-content:start; }
-        .ws-block { padding:22px; }
-        .ws-header { border-bottom:1px solid rgba(255,255,255,0.08); }
-        .ws-kicker { font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(246,243,238,0.46); }
-        .ws-muted { color: rgba(246,243,238,0.62); }
-        .ws-title { margin:0; font-size:34px; line-height:0.98; font-family: var(--font-display), serif; }
-        .ws-card { border:1px solid rgba(255,255,255,0.09); background: rgba(255,255,255,0.02); }
-        .ws-textarea { width:100%; min-height:140px; resize:vertical; background:#0a0a0a; color:#f6f3ee; border:1px solid rgba(255,255,255,0.12); padding:14px; line-height:1.65; }
-        .ws-btn { background:#f6f3ee; color:#050505; border:none; padding:12px 16px; font-weight:600; cursor:pointer; }
-        .ws-btn.secondary { background:transparent; color:#f6f3ee; border:1px solid rgba(255,255,255,0.12); }
-        .ws-thread { display:grid; gap:12px; padding:0 22px 22px; align-content:start; }
-        .ws-bubble { padding:14px 16px; border:1px solid rgba(255,255,255,0.08); line-height:1.7; }
-        .ws-bubble.user { background: rgba(255,255,255,0.03); margin-left:auto; max-width:94%; }
-        .ws-bubble.assistant { background: rgba(214,195,161,0.08); max-width:94%; }
-        .ws-canvas { position:relative; overflow:hidden; min-height:560px; }
-        .ws-canvas::before { content:""; position:absolute; inset:0; background:radial-gradient(circle at 50% 50%, rgba(214,195,161,0.06), transparent 40%); }
-        .ws-canvas::after { content:""; position:absolute; inset:0; background-image: linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px); background-size:32px 32px; opacity:0.12; }
-        .ws-node { position:absolute; width:136px; height:136px; border-radius:999px; border:1px solid rgba(255,255,255,0.16); display:flex; align-items:center; justify-content:center; flex-direction:column; backdrop-filter: blur(8px); background: rgba(255,255,255,0.02); z-index:2; }
-        .ws-edge { position:absolute; left:50%; top:50%; width:240px; height:1px; background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.3), rgba(255,255,255,0.1)); transform: translate(-50%, -50%); z-index:1; }
-        .ws-panel-list { display:grid; gap:12px; padding:22px; }
-        .ws-tag { font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(246,243,238,0.5); }
-        .ws-list { margin:0; padding-left:18px; display:grid; gap:8px; line-height:1.55; color:rgba(246,243,238,0.82); }
-        @media (max-width: 1180px) {
+        .ws-page { min-height: 100vh; background: radial-gradient(980px 660px at 68% 4%, rgba(214,195,161,0.1), transparent 68%), radial-gradient(760px 520px at 14% 18%, rgba(255,255,255,0.05), transparent 70%), linear-gradient(162deg, #080808, #050505 52%, #090909); }
+        .ws-shell { width: min(1640px, 100%); margin: 0 auto; padding: 20px clamp(14px, 2.2vw, 32px) 28px; display: grid; grid-template-columns: 380px minmax(0,1fr) 400px; gap: 14px; min-height: 100vh; }
+        .ws-col { border: 1px solid rgba(255,255,255,0.09); background: rgba(255,255,255,0.025); backdrop-filter: blur(10px); min-height: calc(100vh - 48px); }
+        .ws-block { padding: 20px; }
+        .ws-divider { border-top: 1px solid rgba(255,255,255,0.08); }
+        .ws-kicker { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(246,243,238,0.44); }
+        .ws-muted { color: rgba(246,243,238,0.66); }
+        .ws-title { margin: 0; font-family: var(--font-display), serif; font-size: 36px; line-height: 0.94; }
+
+        .ws-textarea { width: 100%; min-height: 150px; resize: vertical; background: rgba(0,0,0,0.34); color: #f6f3ee; border: 1px solid rgba(255,255,255,0.12); padding: 14px; line-height: 1.68; }
+        .ws-textarea:focus { outline: 1px solid rgba(214,195,161,0.36); border-color: rgba(214,195,161,0.4); }
+        .ws-row { display: flex; gap: 10px; flex-wrap: wrap; }
+        .ws-btn { border: 1px solid rgba(255,255,255,0.1); background: #f6f3ee; color: #050505; padding: 12px 15px; font-weight: 600; cursor: pointer; }
+        .ws-btn.secondary { background: rgba(255,255,255,0.03); color: #f6f3ee; }
+
+        .ws-thread { display: grid; gap: 10px; }
+        .ws-bubble { padding: 14px; border: 1px solid rgba(255,255,255,0.1); line-height: 1.68; background: rgba(255,255,255,0.035); }
+        .ws-bubble.user { margin-left: auto; max-width: 95%; }
+        .ws-bubble.assistant { max-width: 95%; background: linear-gradient(145deg, rgba(214,195,161,0.18), rgba(255,255,255,0.035)); }
+
+        .ws-center { display: grid; grid-template-rows: auto minmax(520px, 1fr) auto; }
+        .ws-canvas { position: relative; overflow: hidden; margin: 0 20px 20px; border: 1px solid rgba(255,255,255,0.1); background: radial-gradient(circle at 24% 24%, rgba(255,255,255,0.08), transparent 34%), radial-gradient(circle at 72% 68%, rgba(214,195,161,0.14), transparent 44%), linear-gradient(168deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015)); }
+        .ws-canvas::after { content: ''; position: absolute; inset: 0; opacity: 0.14; background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 32px 32px; }
+        .ws-edge { position: absolute; left: 50%; top: 50%; width: 250px; height: 2px; transform: translate(-50%, -50%); background: linear-gradient(90deg, rgba(214,195,161,0), rgba(214,195,161,0.34), rgba(255,255,255,0.7), rgba(214,195,161,0.34), rgba(214,195,161,0)); z-index: 2; }
+        .ws-node { position: absolute; width: 140px; height: 140px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.16); background: radial-gradient(circle at center, rgba(255,255,255,0.1), rgba(255,255,255,0.02)); display: grid; place-items: center; text-align: center; z-index: 3; box-shadow: 0 0 50px rgba(214,195,161,0.08); }
+        .ws-summary { position: absolute; left: 18px; right: 18px; bottom: 18px; z-index: 3; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); padding: 14px; }
+
+        .ws-steps { margin: 0 20px 20px; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+        .ws-step { border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); padding: 14px; line-height: 1.64; }
+
+        .ws-side-list { padding: 20px; display: grid; gap: 12px; align-content: start; }
+        .ws-card { border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.032); padding: 14px; display: grid; gap: 8px; }
+        .ws-list { margin: 0; padding-left: 18px; display: grid; gap: 8px; line-height: 1.6; color: rgba(246,243,238,0.82); }
+        .ws-tag { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(246,243,238,0.52); }
+
+        @media (max-width: 1320px) {
           .ws-shell { grid-template-columns: 360px minmax(0,1fr); }
-          .ws-right { border-top:1px solid rgba(255,255,255,0.08); grid-column:1 / -1; }
-          .ws-panel-list { grid-template-columns: repeat(2, minmax(0,1fr)); display:grid; }
+          .ws-right { grid-column: 1 / -1; min-height: auto; }
+          .ws-side-list { grid-template-columns: repeat(2, minmax(0,1fr)); }
         }
-        @media (max-width: 840px) {
+        @media (max-width: 900px) {
           .ws-shell { grid-template-columns: 1fr; }
-          .ws-col { border-right:none; border-bottom:1px solid rgba(255,255,255,0.08); }
-          .ws-panel-list { grid-template-columns: 1fr; }
-          .ws-canvas { min-height:420px; }
+          .ws-col { min-height: auto; }
+          .ws-side-list { grid-template-columns: 1fr; }
+          .ws-canvas { min-height: 420px; }
         }
       `}</style>
 
-      <div className="ws-shell">
-        <section className="ws-col ws-left">
-          <div className="ws-block ws-header" style={{ display: "grid", gap: 10 }}>
-            <div className="ws-kicker">Defrag workspace</div>
-            <h1 className="ws-title">Relationship workspace</h1>
-            <p className="ws-muted" style={{ margin: 0, lineHeight: 1.65 }}>
-              Bring your baseline into this space to read one relationship moment clearly and choose a constructive next step.
-            </p>
-          </div>
-
-          <div className="ws-block" style={{ display: "grid", gap: 12 }}>
-            <div className="ws-kicker">Describe one moment</div>
-            <textarea className="ws-textarea" value={message} onChange={(e) => setMessage(e.target.value)} />
-            <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-              <button className="ws-btn" onClick={interpret} disabled={loading}>
-                {loading ? "Reading the moment..." : "Analyze this moment"}
-              </button>
-              <button className="ws-btn secondary" onClick={() => setMessage(INITIAL_MESSAGE)}>
-                Reset example
-              </button>
+      <div className="ws-page">
+        <div className="ws-shell">
+          <section className="ws-col">
+            <div className="ws-block" style={{ display: "grid", gap: 10 }}>
+              <div className="ws-kicker">Defrag workspace</div>
+              <h1 className="ws-title">Relationship environment</h1>
+              <p className="ws-muted" style={{ margin: 0, lineHeight: 1.72 }}>
+                Bring one difficult moment into view, read it clearly, then choose a practical next move.
+              </p>
             </div>
-          </div>
 
-          <div style={{ display: "grid", gap: 12 }}>
-            <div className="ws-block ws-header" style={{ paddingTop: 14, paddingBottom: 14 }}>
-              <div className="ws-kicker">Conversation thread</div>
+            <div className="ws-divider ws-block" style={{ display: "grid", gap: 12 }}>
+              <div className="ws-kicker">Describe one moment</div>
+              <textarea className="ws-textarea" value={message} onChange={(e) => setMessage(e.target.value)} />
+              <div className="ws-row">
+                <button className="ws-btn" onClick={interpret} disabled={loading}>
+                  {loading ? "Reading the moment..." : "Analyze this moment"}
+                </button>
+                <button className="ws-btn secondary" onClick={() => setMessage(INITIAL_MESSAGE)}>
+                  Reset example
+                </button>
+              </div>
             </div>
-            <div className="ws-thread">
-              {transcript.length === 0 ? (
-                <div className="ws-card" style={{ padding: 16 }}>
-                  <div className="ws-muted">Run your first read to open the thread, then compare it with your baseline guidance.</div>
-                </div>
-              ) : (
-                transcript.map((entry, index) => (
-                  <div key={`${entry.role}-${index}`} className={`ws-bubble ${entry.role}`}>
-                    <div className="ws-kicker" style={{ marginBottom: 8 }}>
-                      {entry.role === "user" ? "You" : "Defrag"}
-                    </div>
-                    <div>{entry.body}</div>
+
+            <div className="ws-divider ws-block" style={{ display: "grid", gap: 10 }}>
+              <div className="ws-kicker">Thread</div>
+              <div className="ws-thread">
+                {transcript.length === 0 ? (
+                  <div className="ws-bubble">
+                    <div className="ws-muted">Run your first read to open a plain-language thread of what may be happening.</div>
                   </div>
-                ))
+                ) : (
+                  transcript.map((entry, index) => (
+                    <div key={`${entry.role}-${index}`} className={`ws-bubble ${entry.role}`}>
+                      <div className="ws-kicker" style={{ marginBottom: 8 }}>
+                        {entry.role === "user" ? "You" : "Defrag"}
+                      </div>
+                      {entry.body}
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          </section>
+
+          <section className="ws-col ws-center">
+            <div className="ws-block" style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "end" }}>
+              <div style={{ display: "grid", gap: 8 }}>
+                <div className="ws-kicker">Live field</div>
+                <div style={{ fontSize: 34, lineHeight: 0.94, fontFamily: "var(--font-display), serif" }}>Read the interaction clearly</div>
+              </div>
+              <div className="ws-card" style={{ minWidth: 240 }}>
+                <div className="ws-kicker">Current pattern</div>
+                <div style={{ marginTop: 6 }}>{result?.field_update.field_state.dominant_pattern ?? "Waiting for first read"}</div>
+              </div>
+            </div>
+
+            <div className="ws-canvas">
+              {result ? (
+                <>
+                  <div className="ws-edge" />
+                  {result.field_update.visual_state.nodes.map((node) => (
+                    <div
+                      key={node.id}
+                      className="ws-node"
+                      style={{
+                        left: `${node.x * 100}%`,
+                        top: `${node.y * 100}%`,
+                        transform: `translate(-50%, -50%) scale(${node.size})`,
+                      }}
+                    >
+                      <div className="ws-kicker" style={{ fontSize: 10 }}>
+                        {node.role ?? "person"}
+                      </div>
+                      <div style={{ fontSize: 26, fontFamily: "var(--font-display), serif" }}>{node.label}</div>
+                      <div className="ws-muted" style={{ fontSize: 12 }}>
+                        {node.state}
+                      </div>
+                    </div>
+                  ))}
+                  <div className="ws-summary">
+                    <div className="ws-kicker">Field reading</div>
+                    <div style={{ fontSize: 22, fontFamily: "var(--font-display), serif", marginTop: 4 }}>{result.assistant_message.title}</div>
+                    <div className="ws-muted" style={{ lineHeight: 1.68, marginTop: 6 }}>
+                      {result.field_update.thread.summary}
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", padding: 30 }}>
+                  <div style={{ display: "grid", gap: 10, textAlign: "center", maxWidth: 520 }}>
+                    <div className="ws-kicker">Field preview</div>
+                    <div style={{ fontSize: 32, lineHeight: 0.94, fontFamily: "var(--font-display), serif" }}>Your interaction map appears here</div>
+                    <div className="ws-muted" style={{ lineHeight: 1.74 }}>
+                      Analyze one moment to map people, pressure shifts, and a calmer direction for the conversation.
+                    </div>
+                  </div>
+                </div>
               )}
             </div>
-          </div>
-        </section>
 
-        <section className="ws-col ws-center">
-          <div className="ws-block ws-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "end", gap: 12 }}>
-            <div style={{ display: "grid", gap: 8 }}>
-              <div className="ws-kicker">Live field</div>
-              <h2 style={{ margin: 0, fontSize: 30, lineHeight: 1.08 }}>Read the interaction clearly</h2>
-            </div>
-            <div className="ws-card" style={{ padding: "10px 12px", minWidth: 220 }}>
-              <div className="ws-kicker">Current pattern</div>
-              <div style={{ marginTop: 6 }}>{result?.field_update.field_state.dominant_pattern ?? "Waiting for first read"}</div>
-            </div>
-          </div>
-
-          <div className="ws-canvas ws-card">
-            {result ? (
-              <>
-                <div className="ws-edge" />
-                {result.field_update.visual_state.nodes.map((node) => (
-                  <div
-                    key={node.id}
-                    className="ws-node"
-                    style={{
-                      left: `${node.x * 100}%`,
-                      top: `${node.y * 100}%`,
-                      transform: `translate(-50%, -50%) scale(${node.size})`,
-                    }}
-                  >
-                    <div className="ws-kicker" style={{ fontSize: 10 }}>{node.role ?? "person"}</div>
-                    <div style={{ fontSize: 24, fontFamily: "var(--font-display), serif" }}>{node.label}</div>
-                    <div className="ws-muted" style={{ fontSize: 12 }}>{node.state}</div>
-                  </div>
-                ))}
-                <div style={{ position: "absolute", left: 22, right: 22, bottom: 22, zIndex: 3 }} className="ws-card">
-                  <div style={{ padding: 14, display: "grid", gap: 8 }}>
-                    <div className="ws-kicker">Field reading</div>
-                    <div style={{ fontSize: 20, fontFamily: "var(--font-display), serif" }}>{result.assistant_message.title}</div>
-                    <div className="ws-muted" style={{ lineHeight: 1.65 }}>{result.field_update.thread.summary}</div>
-                  </div>
-                </div>
-              </>
-            ) : (
-              <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", padding: 32 }}>
-                <div style={{ maxWidth: 520, textAlign: "center", display: "grid", gap: 10 }}>
-                  <div className="ws-kicker">Field preview</div>
-                  <div style={{ fontSize: 28, fontFamily: "var(--font-display), serif" }}>Your interaction map appears here</div>
-                  <div className="ws-muted" style={{ lineHeight: 1.7 }}>
-                    Run your first read to map people, pressure shifts, and where the conversation may open toward repair.
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="ws-block" style={{ display: "grid", gap: 10 }}>
-            <div className="ws-kicker">What could help next</div>
-            <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+            <div className="ws-steps">
               {(result?.assistant_message.next_steps ?? [
                 "Start with what you want more of, not only what feels hard.",
                 "Keep the first step small enough that it can be heard.",
                 "If the moment is heated, create a little more room first.",
               ]).map((step) => (
-                <div key={step} className="ws-card" style={{ padding: 14, lineHeight: 1.6 }}>
+                <div key={step} className="ws-step">
                   {step}
                 </div>
               ))}
             </div>
-          </div>
-        </section>
+          </section>
 
-        <aside className="ws-col ws-right">
-          <div className="ws-block ws-header" style={{ display: "grid", gap: 8 }}>
-            <div className="ws-kicker">Story Canvas</div>
-            <h2 style={{ margin: 0, fontSize: 26 }}>{storyCanvas.scene.title}</h2>
-            <p className="ws-muted" style={{ margin: 0, lineHeight: 1.65 }}>{storyCanvas.scene.plainLanguageOverlay}</p>
-            <div className="ws-tag" style={{ marginTop: 2 }}>
-              Grammar: {storyCanvas.scene.grammarId}
+          <aside className="ws-col ws-right">
+            <div className="ws-block" style={{ display: "grid", gap: 8 }}>
+              <div className="ws-kicker">Story Canvas</div>
+              <h2 style={{ margin: 0, fontSize: 28, lineHeight: 1.04 }}>{storyCanvas.scene.title}</h2>
+              <p className="ws-muted" style={{ margin: 0, lineHeight: 1.7 }}>
+                {storyCanvas.scene.plainLanguageOverlay}
+              </p>
+              <div className="ws-tag">Grammar: {storyCanvas.scene.grammarId}</div>
             </div>
-          </div>
 
-          <div className="ws-panel-list">
-            <section className="ws-card" style={{ padding: 14, display: "grid", gap: 10 }}>
-              <div className="ws-kicker">Story beats</div>
-              <ol className="ws-list">
-                {storyCanvas.scene.beats.map((beat) => (
-                  <li key={beat.id}>
-                    <div style={{ display: "grid", gap: 6 }}>
-                      <div>
-                        <strong>{beat.title}.</strong> {beat.selectedOverlay}
+            <div className="ws-divider ws-side-list">
+              <section className="ws-card">
+                <div className="ws-kicker">Story beats</div>
+                <ol className="ws-list">
+                  {storyCanvas.scene.beats.map((beat) => (
+                    <li key={beat.id}>
+                      <div style={{ display: "grid", gap: 6 }}>
+                        <div>
+                          <strong>{beat.title}.</strong> {beat.selectedOverlay}
+                        </div>
+                        <div className="ws-tag">Focus: {beat.focus}</div>
+                        <div className="ws-muted">{beat.constructiveFrame}</div>
                       </div>
-                      <div className="ws-tag">Focus: {beat.focus}</div>
-                      <div className="ws-muted">{beat.constructiveFrame}</div>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </section>
-
-            <section className="ws-card" style={{ padding: 14, display: "grid", gap: 10 }}>
-              <div className="ws-kicker">Annotations</div>
-              <ul className="ws-list" style={{ paddingLeft: 16 }}>
-                {storyCanvas.annotations.map((annotation) => (
-                  <li key={annotation.id}>
-                    <span className="ws-tag" style={{ marginRight: 8 }}>{annotation.category}</span>
-                    {annotation.message}
-                  </li>
-                ))}
-              </ul>
-            </section>
-
-            {storyCanvas.rewritePath ? (
-              <section className="ws-card" style={{ padding: 14, display: "grid", gap: 10 }}>
-                <div className="ws-kicker">Constructive rewrite</div>
-                <div style={{ fontWeight: 600 }}>{storyCanvas.rewritePath.title}</div>
-                <div className="ws-muted" style={{ lineHeight: 1.6 }}>
-                  <strong style={{ color: "#f6f3ee" }}>Before:</strong> {storyCanvas.rewritePath.before}
-                </div>
-                <div className="ws-muted" style={{ lineHeight: 1.6 }}>
-                  <strong style={{ color: "#f6f3ee" }}>After:</strong> {storyCanvas.rewritePath.after}
-                </div>
-                <div className="ws-tag">{storyCanvas.rewritePath.rationale}</div>
+                    </li>
+                  ))}
+                </ol>
               </section>
-            ) : null}
 
-            {placeholderPanels.map((panel) => (
-              <section key={panel.id} className="ws-card" style={{ padding: 14, display: "grid", gap: 8 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center" }}>
-                  <div className="ws-kicker">{panel.subtitle}</div>
-                  <div className="ws-tag">{panel.state}</div>
-                </div>
-                <div style={{ fontSize: 20, fontFamily: "var(--font-display), serif" }}>{panel.title}</div>
-                <div className="ws-muted" style={{ lineHeight: 1.6 }}>{panel.body}</div>
+              <section className="ws-card">
+                <div className="ws-kicker">Annotations</div>
+                <ul className="ws-list" style={{ paddingLeft: 16 }}>
+                  {storyCanvas.annotations.map((annotation) => (
+                    <li key={annotation.id}>
+                      <span className="ws-tag" style={{ marginRight: 8 }}>
+                        {annotation.category}
+                      </span>
+                      {annotation.message}
+                    </li>
+                  ))}
+                </ul>
               </section>
-            ))}
-          </div>
-        </aside>
+
+              {storyCanvas.rewritePath ? (
+                <section className="ws-card">
+                  <div className="ws-kicker">Constructive rewrite</div>
+                  <div style={{ fontWeight: 600 }}>{storyCanvas.rewritePath.title}</div>
+                  <div className="ws-muted" style={{ lineHeight: 1.6 }}>
+                    <strong style={{ color: "#f6f3ee" }}>Before:</strong> {storyCanvas.rewritePath.before}
+                  </div>
+                  <div className="ws-muted" style={{ lineHeight: 1.6 }}>
+                    <strong style={{ color: "#f6f3ee" }}>After:</strong> {storyCanvas.rewritePath.after}
+                  </div>
+                  <div className="ws-tag">{storyCanvas.rewritePath.rationale}</div>
+                </section>
+              ) : null}
+
+              {placeholderPanels.map((panel) => (
+                <section key={panel.id} className="ws-card">
+                  <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "center" }}>
+                    <div className="ws-kicker">{panel.subtitle}</div>
+                    <div className="ws-tag">{panel.state}</div>
+                  </div>
+                  <div style={{ fontSize: 21, lineHeight: 1.04, fontFamily: "var(--font-display), serif" }}>{panel.title}</div>
+                  <div className="ws-muted" style={{ lineHeight: 1.64 }}>
+                    {panel.body}
+                  </div>
+                </section>
+              ))}
+            </div>
+          </aside>
+        </div>
       </div>
     </main>
   );
