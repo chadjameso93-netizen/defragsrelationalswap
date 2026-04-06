@@ -9,9 +9,9 @@ export interface PlanDefinition {
 
 export const PLAN_CATALOG: Record<BillingPlan, PlanDefinition> = {
   free: { id: "free", name: "Free", monthlyPriceUsd: 0, status: "active" },
-  core: { id: "core", name: "Core", monthlyPriceUsd: 9, status: "active" },
-  studio: { id: "studio", name: "Studio", monthlyPriceUsd: 19, status: "active" },
-  realtime: { id: "realtime", name: "Realtime", monthlyPriceUsd: 29, status: "active" },
+  core: { id: "core", name: "Core", monthlyPriceUsd: 15, status: "active" },
+  studio: { id: "studio", name: "Studio", monthlyPriceUsd: 29, status: "active" },
+  realtime: { id: "realtime", name: "Realtime", monthlyPriceUsd: 59, status: "active" },
   professional: { id: "professional", name: "Professional", monthlyPriceUsd: null, status: "placeholder" },
   team: { id: "team", name: "Team", monthlyPriceUsd: null, status: "placeholder" },
   api: { id: "api", name: "API", monthlyPriceUsd: null, status: "placeholder" },
