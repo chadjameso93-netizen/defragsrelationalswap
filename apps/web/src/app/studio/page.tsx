@@ -462,6 +462,27 @@ export default function StudioHomePage() {
                   </div>
                 </div>
               </div>
+            </article>
+            <article className="studio-panel">
+              <div className="studio-kicker">What stays consistent</div>
+              <ul className="studio-list">
+                <li>Simple language you can use in real conversations.</li>
+                <li>Guidance that protects dignity for both people.</li>
+                <li>A consistent environment across intake, workspace, and account surfaces.</li>
+              </ul>
+            </article>
+          </section>
+
+          <section className="studio-close">
+            <div className="studio-kicker">Start when you are ready</div>
+            <div style={{ fontSize: 48, lineHeight: 0.92, fontFamily: "var(--font-display), serif" }}>Enter the studio and open one relationship moment clearly.</div>
+            <div className="studio-cta">
+              <Link className="studio-btn primary" href="/enter">
+                Open Defrag
+              </Link>
+              <Link className="studio-btn secondary" href="/signin/studio">
+                Sign in to continue
+              </Link>
             </div>
           </section>
 

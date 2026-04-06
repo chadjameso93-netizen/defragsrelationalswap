@@ -1,16 +1,18 @@
 "use client";
 
-import Link from 'next/link';
-import { FormEvent, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { createClient } from '@/utils/supabase/client';
+import Link from "next/link";
+import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/utils/supabase/client";
+
+const PREVIEW_ENV_ERROR =
+  "Account creation is unavailable in this preview environment. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to continue.";
 
 export default function StudioSignUpPage() {
   const router = useRouter();
-  const supabase = createClient();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -20,13 +22,22 @@ export default function StudioSignUpPage() {
     setError(null);
 
     if (password.length < 8) {
-      setError('Password must be at least 8 characters.');
+      setError("Password must be at least 8 characters.");
       setLoading(false);
       return;
     }
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match.');
+      setError("Passwords do not match.");
+      setLoading(false);
+      return;
+    }
+
+    let supabase;
+    try {
+      supabase = createClient();
+    } catch {
+      setError(PREVIEW_ENV_ERROR);
       setLoading(false);
       return;
     }
@@ -45,57 +56,91 @@ export default function StudioSignUpPage() {
       return;
     }
 
-    router.push('/app/studio');
+    router.push("/app/studio");
     router.refresh();
   }
 
   return (
-    <main style={{ minHeight: '100vh', background: '#040404', color: '#f5f2ec', display: 'grid', placeItems: 'center', padding: 22 }}>
+    <main style={{ minHeight: "100vh", background: "#050505", color: "#f5f2ec" }}>
       <style>{`
-        .signup-shell { width: min(1120px, 100%); display: grid; grid-template-columns: 1.02fr 0.98fr; gap: 22px; }
-        .signup-card { border: 1px solid rgba(255,255,255,0.08); background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015)); box-shadow: 0 16px 40px rgba(0,0,0,0.18); }
-        .signup-kicker { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,242,236,0.42); }
-        .signup-muted { color: rgba(245,242,236,0.62); }
-        .signup-title { font-size: 60px; line-height: 0.92; letter-spacing: -0.03em; font-family: var(--font-display), serif; margin: 0; }
-        .signup-stage { position: relative; overflow: hidden; padding: 28px; display: grid; gap: 18px; }
-        .signup-stage::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 18% 18%, rgba(255,255,255,0.06), transparent 24%), radial-gradient(circle at 72% 22%, rgba(214,195,161,0.10), transparent 28%), radial-gradient(circle at 66% 76%, rgba(255,255,255,0.04), transparent 24%); }
-        .signup-stage > * { position: relative; z-index: 1; }
-        .signup-step { padding: 14px 16px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); line-height: 1.68; }
-        .signup-form { padding: 28px; display: grid; gap: 14px; }
-        .signup-input { padding: 14px 16px; background: #0a0a0a; color: #f5f2ec; border: 1px solid rgba(255,255,255,0.1); }
-        .signup-btn { border: 0; padding: 14px 18px; background: #f5f2ec; color: #050505; font-weight: 700; }
-        @media (max-width: 920px) { .signup-shell { grid-template-columns: 1fr; } .signup-title { font-size: 44px; } }
+        .su-page { min-height: 100vh; position: relative; overflow: hidden; background: radial-gradient(920px 620px at 82% 6%, rgba(214,195,161,0.14), transparent 68%), radial-gradient(720px 560px at 14% 22%, rgba(255,255,255,0.06), transparent 70%), linear-gradient(160deg, #090909, #050505 52%, #070707); }
+        .su-shell { width: min(1320px, 100%); margin: 0 auto; padding: clamp(22px, 3vw, 40px); display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,0.95fr); gap: clamp(20px, 3vw, 32px); }
+        .su-panel { border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); }
+        .su-kicker { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,242,236,0.42); }
+        .su-muted { color: rgba(245,242,236,0.66); }
+
+        .su-left { padding: clamp(24px, 4vw, 44px); display: grid; gap: clamp(20px, 3vw, 34px); align-content: start; min-height: 760px; position: relative; overflow: hidden; }
+        .su-left::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 22% 16%, rgba(255,255,255,0.08), transparent 28%), radial-gradient(circle at 72% 28%, rgba(214,195,161,0.16), transparent 34%), radial-gradient(circle at 66% 74%, rgba(255,255,255,0.06), transparent 30%); opacity: 0.94; }
+        .su-left > * { position: relative; z-index: 1; }
+        .su-title { margin: 0; font-family: var(--font-display), serif; font-size: clamp(2.45rem, 6.2vw, 5.2rem); line-height: 0.9; letter-spacing: -0.035em; max-width: 11ch; }
+        .su-step { border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.035); padding: 14px; line-height: 1.7; }
+
+        .su-form { padding: clamp(24px, 3.4vw, 40px); display: grid; gap: 14px; align-content: start; }
+        .su-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,242,236,0.48); }
+        .su-input { width: 100%; border: 1px solid rgba(255,255,255,0.12); background: rgba(0,0,0,0.36); color: #f5f2ec; padding: 14px 15px; }
+        .su-input:focus { outline: 1px solid rgba(214,195,161,0.38); border-color: rgba(214,195,161,0.4); }
+        .su-btn { border: 1px solid rgba(255,255,255,0.08); background: #f5f2ec; color: #050505; padding: 14px 18px; font-weight: 600; cursor: pointer; }
+        .su-btn:disabled { opacity: 0.65; cursor: default; }
+
+        @media (max-width: 980px) {
+          .su-shell { grid-template-columns: 1fr; }
+          .su-left { min-height: auto; }
+        }
       `}</style>
 
-      <section className='signup-shell'>
-        <div className='signup-card signup-stage'>
-          <div className='signup-kicker'>Create account</div>
-          <h1 className='signup-title'>Create your DEFRAG studio account.</h1>
-          <div className='signup-muted' style={{ lineHeight: 1.78 }}>
-            Create one account so your baseline, workspace access, and billing state stay attached to the same premium product flow.
-          </div>
-          <div style={{ display: 'grid', gap: 10 }}>
-            <div className='signup-step'>One account for baseline, workspace, and billing</div>
-            <div className='signup-step'>Premium studio surfaces across public and signed-in flow</div>
-            <div className='signup-step'>Ready for end-to-end testing on the preview branch</div>
-          </div>
-        </div>
+      <div className="su-page">
+        <section className="su-shell">
+          <article className="su-panel su-left">
+            <div className="su-kicker">Premium onboarding access</div>
+            <h1 className="su-title">Create your Defrag studio account.</h1>
+            <div className="su-muted" style={{ lineHeight: 1.8, maxWidth: 560 }}>
+              One account keeps your baseline, workspace reads, and billing controls connected in one calm relationship-intelligence environment.
+            </div>
+            <div style={{ display: "grid", gap: 10 }}>
+              <div className="su-step">Use the same account across intake, workspace, and Story Canvas guidance.</div>
+              <div className="su-step">Keep your sessions and interpretation history in one steady flow.</div>
+              <div className="su-step">Continue safely later on desktop or mobile without re-framing everything again.</div>
+            </div>
+          </article>
 
-        <form onSubmit={handleSubmit} className='signup-card signup-form'>
-          <div style={{ display: 'grid', gap: 8 }}>
-            <div className='signup-kicker'>Access</div>
-            <div style={{ fontSize: 36, fontFamily: 'var(--font-display), serif' }}>Create account</div>
-          </div>
-          <input className='signup-input' value={email} onChange={(e) => setEmail(e.target.value)} type='email' placeholder='Email' required />
-          <input className='signup-input' value={password} onChange={(e) => setPassword(e.target.value)} type='password' placeholder='Password' required />
-          <input className='signup-input' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} type='password' placeholder='Confirm password' required />
-          {error ? <div style={{ color: '#fca5a5' }}>{error}</div> : null}
-          <button type='submit' disabled={loading} className='signup-btn'>{loading ? 'Creating account...' : 'Create account'}</button>
-          <div className='signup-muted' style={{ lineHeight: 1.7 }}>
-            Already have an account? <Link href='/signin/studio' style={{ color: '#f5f2ec' }}>Sign in</Link>
-          </div>
-        </form>
-      </section>
+          <form onSubmit={handleSubmit} className="su-panel su-form">
+            <div style={{ display: "grid", gap: 8, marginBottom: 8 }}>
+              <div className="su-kicker">Create account</div>
+              <div style={{ fontFamily: "var(--font-display), serif", fontSize: 42, lineHeight: 0.94 }}>Start your studio access</div>
+              <div className="su-muted" style={{ lineHeight: 1.75 }}>
+                Create your credentials once, then continue into your workspace.
+              </div>
+            </div>
+
+            <label style={{ display: "grid", gap: 8 }}>
+              <span className="su-label">Email</span>
+              <input className="su-input" value={email} onChange={(e) => setEmail(e.target.value)} type="email" required />
+            </label>
+            <label style={{ display: "grid", gap: 8 }}>
+              <span className="su-label">Password</span>
+              <input className="su-input" value={password} onChange={(e) => setPassword(e.target.value)} type="password" required />
+            </label>
+            <label style={{ display: "grid", gap: 8 }}>
+              <span className="su-label">Confirm password</span>
+              <input className="su-input" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} type="password" required />
+            </label>
+
+            {error ? <div style={{ color: "#f0a6a6", lineHeight: 1.65 }}>{error}</div> : null}
+
+            <button type="submit" disabled={loading} className="su-btn">
+              {loading ? "Creating account..." : "Create account"}
+            </button>
+
+            <div className="su-muted" style={{ lineHeight: 1.75 }}>
+              Already have an account?{" "}
+              <Link href="/signin/studio" style={{ color: "#f5f2ec" }}>
+                Sign in
+              </Link>
+              .
+            </div>
+          </form>
+        </section>
+      </div>
     </main>
   );
 }

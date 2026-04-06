@@ -1,22 +1,5 @@
 import type { Metadata } from 'next';
-import { Fraunces, Inter, Cormorant_Garamond } from 'next/font/google';
 import type { ReactNode } from 'react';
-
-const fraunces = Fraunces({
-  subsets: ['latin'],
-  variable: '--font-display',
-});
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-sans',
-});
-
-const cormorant = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-cormorant',
-});
 
 export const metadata: Metadata = {
   title: 'DEFRAG',
@@ -33,17 +16,20 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang='en'>
       <body
-        className={`${inter.variable} ${cormorant.variable}`}
         style={{
           margin: 0,
           background: '#040404',
           color: '#f5f5f5',
-          fontFamily: 'var(--font-sans), sans-serif',
+          fontFamily:
+            'var(--font-sans), Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif',
         }}
       >
         <style>{`
           :root {
             color-scheme: dark;
+            --font-display: "Fraunces", "Times New Roman", Georgia, serif;
+            --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-cormorant: "Cormorant Garamond", "Times New Roman", Georgia, serif;
             --color-bg: #050505;
             --color-surface: rgba(255, 255, 255, 0.03);
             --color-surface-hover: rgba(255, 255, 255, 0.05);
