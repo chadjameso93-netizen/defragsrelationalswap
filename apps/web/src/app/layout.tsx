@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
 export const metadata: Metadata = {
-  title: 'DEFRAG',
+  title: 'Defrag',
   description:
-    'See what is happening between people, understand the pattern underneath it, and find a healthier next step.',
+    'The tool you reach for before replying. See why it felt one way to you — and another way to them.',
   icons: {
     icon: '/icon.svg',
     shortcut: '/icon.svg',

@@ -37,7 +37,7 @@ export default function StudioSignInPage() {
       return;
     }
 
-    router.push("/app/studio");
+    router.push("/account");
     router.refresh();
   }
 
@@ -76,16 +76,16 @@ export default function StudioSignInPage() {
       <div className="si-page">
         <section className="si-shell">
           <article className="si-panel si-left">
-            <div className="si-kicker">Premium access surface</div>
-            <h1 className="si-title">Return to your relationship studio.</h1>
+            <div className="si-kicker">Sign in</div>
+            <h1 className="si-title">Return to Defrag.</h1>
             <div className="si-muted" style={{ lineHeight: 1.8, maxWidth: 560 }}>
-              Sign in to continue your baseline, open the live field workspace, and keep your progress steady across devices.
+              Sign in to pick up your last conversation read, open your workspace, and keep your progress in one place.
             </div>
 
             <div style={{ display: "grid", gap: 10 }}>
-              <div className="si-field">Baseline and intake stay connected to your ongoing relationship work.</div>
-              <div className="si-field">Story Canvas and guided rewrites remain available in the same calm environment.</div>
-              <div className="si-field">Billing and account controls stay in one coherent premium flow.</div>
+              <div className="si-field">Review what happened and where the conversation turned.</div>
+              <div className="si-field">Compare perspectives before you send your next message.</div>
+              <div className="si-field">Choose one grounded next step and keep moving.</div>
             </div>
 
             <div className="si-nodewrap">
@@ -124,8 +124,14 @@ export default function StudioSignInPage() {
             {error ? <div style={{ color: "#f0a6a6", lineHeight: 1.65 }}>{error}</div> : null}
 
             <button type="submit" disabled={loading} className="si-btn">
-              {loading ? "Signing in..." : "Continue to studio"}
+              {loading ? "Signing in..." : "Open workspace"}
             </button>
+
+            <div className="si-legal">
+              <Link href="/forgot-password" style={{ color: "#f5f2ec" }}>
+                Forgot password?
+              </Link>
+            </div>
 
             <div className="si-legal">
               New here?{" "}

@@ -11,7 +11,7 @@ function LoginContent(): React.JSX.Element {
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const searchParams = useSearchParams();
-  const nextPath = searchParams.get("next") || "/dynamics";
+  const nextPath = searchParams.get("next") || "/workspace/clarity-v2";
   const isValidEmail = useMemo(() => /\S+@\S+\.\S+/.test(email), [email]);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -43,10 +43,10 @@ function LoginContent(): React.JSX.Element {
                 Defrag
               </div>
               <h1 className="font-display" style={{ margin: 0, fontSize: "clamp(4rem, 8vw, 7.2rem)", lineHeight: 0.84, color: "white" }}>
-                Open Defrag and steady the moment.
+                The tool you reach for before replying.
               </h1>
               <p style={{ margin: 0, maxWidth: 620, fontSize: 17, lineHeight: 1.84, color: "rgba(245,245,245,0.66)" }}>
-                Use Defrag to read difficult interactions, compare perspectives, and choose one clear next step.
+                Sign in to see why something landed one way for you and another way for them, then choose a clearer next step.
               </p>
             </div>
 
@@ -102,6 +102,9 @@ function LoginContent(): React.JSX.Element {
                   {status === "sending" ? "Sending..." : "Send secure link"}
                   <ArrowRight style={{ width: 16, height: 16 }} />
                 </button>
+                <p style={{ margin: 0, fontSize: 13, color: "rgba(245,245,245,0.58)" }}>
+                  Prefer password sign-in or need a reset? <a href="/signin/studio" style={{ color: "white" }}>Go to sign in</a>.
+                </p>
                 {error ? <p style={{ margin: 0, fontSize: 13, color: "#fca5a5" }}>{error}</p> : null}
               </form>
             )}

@@ -46,7 +46,7 @@ export default function SignUpPage() {
       email,
       password,
       options: {
-        emailRedirectTo: `${window.location.origin}/account`,
+        emailRedirectTo: `${window.location.origin}/onboarding?next=/intake`,
       },
     });
 
@@ -56,7 +56,7 @@ export default function SignUpPage() {
       return;
     }
 
-    router.push("/account");
+    router.push("/onboarding?next=/intake");
     router.refresh();
   }
 
@@ -67,7 +67,7 @@ export default function SignUpPage() {
           <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245,242,236,0.42)" }}>Create account</div>
           <h1 style={{ margin: 0, fontSize: 44, lineHeight: 0.98, fontFamily: "var(--font-display), serif" }}>Create your Defrag account</h1>
           <p style={{ margin: 0, color: "rgba(245,242,236,0.62)", lineHeight: 1.72 }}>
-            Create one account so your baseline, workspace access, and billing stay connected.
+            Create your account, complete onboarding, and get your first useful output quickly.
           </p>
         </div>
 

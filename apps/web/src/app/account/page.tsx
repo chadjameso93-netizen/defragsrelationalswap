@@ -10,8 +10,15 @@ import TimingHints from "@/components/field/timing-hints";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 export default async function AccountPage() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  let user: Awaited<ReturnType<Awaited<ReturnType<typeof createClient>>["auth"]["getUser"]>>["data"]["user"] | null =
+    null;
+  try {
+    const supabase = await createClient();
+    const result = await supabase.auth.getUser();
+    user = result.data.user;
+  } catch {
+    user = null;
+  }
 
   if (user && !user.user_metadata?.onboarding_completed) {
     redirect("/onboarding");
@@ -44,7 +51,7 @@ export default async function AccountPage() {
             description="Defrag helps you review important interactions and decide what to do next. Sign in to get started."
             primaryLabel="Sign in"
             secondaryLabel="Open workspace"
-            secondaryHref="/dynamics"
+            secondaryHref="/workspace/clarity-v2"
           />
         </div>
       ) : null}
@@ -67,7 +74,7 @@ export default async function AccountPage() {
                 <p style={{ margin: 0, fontSize: 14, color: "rgba(245, 245, 245, 0.58)", lineHeight: 1.6 }}>
                   Your account shows the broader picture. Your workspace helps you examine one exchange and decide what to do next.
                 </p>
-                <Link href="/dynamics" style={{ marginTop: 6, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, borderRadius: 16, background: "white", color: "#050505", padding: "16px 18px", textDecoration: "none", fontWeight: 600, fontSize: 16 }}>
+                <Link href="/workspace/clarity-v2" style={{ marginTop: 6, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, borderRadius: 16, background: "white", color: "#050505", padding: "16px 18px", textDecoration: "none", fontWeight: 600, fontSize: 16 }}>
                   Open workspace
                   <ArrowRight style={{ width: 18, height: 18 }} />
                 </Link>

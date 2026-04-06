@@ -34,10 +34,19 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Missing NEXT_PUBLIC_APP_URL" }, { status: 500 });
   }
 
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let user: { id?: string; email?: string } | null = null;
+  try {
+    const supabase = await createSupabaseServerClient();
+    const result = await supabase.auth.getUser();
+    user = result.data.user;
+  } catch {
+    return NextResponse.json(
+      {
+        error: "Checkout is unavailable in this environment until auth variables are configured.",
+      },
+      { status: 503 },
+    );
+  }
 
   if (!user?.id || !user.email) {
     return NextResponse.json({ error: "You must be signed in before starting checkout." }, { status: 401 });
