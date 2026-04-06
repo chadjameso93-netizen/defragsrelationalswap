@@ -165,9 +165,9 @@ export default function StudioHomePage() {
         <header className="mk-header">
           <div className="mk-brand">Defrag · Studio</div>
           <nav className="mk-nav">
-            <Link href="/signin">Sign in</Link>
-            <Link href="/about">About</Link>
-            <Link href="/pricing">Pricing</Link>
+            <Link href="/signin/studio">Sign in</Link>
+            <Link href="/about">Learn more</Link>
+            <Link href="/plans">Plans</Link>
           </nav>
         </header>
 

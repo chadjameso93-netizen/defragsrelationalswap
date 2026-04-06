@@ -8,6 +8,8 @@
     { "source": "/", "destination": "/studio", "permanent": false },
     { "source": "/home", "destination": "/studio", "permanent": false },
     { "source": "/landing", "destination": "/studio", "permanent": false },
+    { "source": "/plans", "destination": "/account/billing", "permanent": false },
+    { "source": "/pricing", "destination": "/account/billing", "permanent": false },
     { "source": "/login", "destination": "/signin/studio", "permanent": false },
     { "source": "/signin", "destination": "/signin/studio", "permanent": false },
     { "source": "/signup", "destination": "/signup/studio", "permanent": false },

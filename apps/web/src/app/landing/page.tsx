@@ -73,17 +73,17 @@ export default function LandingPage() {
       <div className="land-shell">
         <section className="land-hero">
           <div className="land-card" style={{ padding: 26, display: "grid", gap: 20, alignContent: "start" }}>
-            <div className="land-kicker">Defrag</div>
-            <div className="land-title">Read relationship moments with more clarity.</div>
+            <div className="land-kicker">Relational intelligence for real life</div>
+            <div className="land-title">The tool you reach for before replying.</div>
             <div className="land-muted" style={{ maxWidth: 700, lineHeight: 1.76, fontSize: 18 }}>
-              Defrag turns tense interactions into clear language so you can respond with more steadiness.
+              See why it felt one way to you — and another way to them.
             </div>
             <div className="land-muted" style={{ maxWidth: 700, lineHeight: 1.72 }}>
               Start with your baseline, then move into workspace analysis to see the pattern, compare perspectives, and choose your next move.
             </div>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-              <Link className="land-btn primary" href="/start">Start your baseline</Link>
-              <Link className="land-btn secondary" href="/workspace/final">Try workspace</Link>
+              <Link className="land-btn primary" href="/enter">Open Defrag</Link>
+              <Link className="land-btn secondary" href="/studio#how-it-works">See how it works</Link>
               <Link className="land-btn secondary" href="/membership">View plans</Link>
             </div>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>

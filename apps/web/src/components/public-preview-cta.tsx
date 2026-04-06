@@ -20,7 +20,7 @@ export function PublicPreviewCta({
   return (
     <div style={{ display: "grid", gap: 20, maxWidth: 640 }}>
       <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "#22d3ee" }}>
-        Status
+        Next step
       </div>
       <h2 style={{ margin: 0, fontSize: 24, fontWeight: 500, lineHeight: 1.2, color: "white" }}>{title}</h2>
       <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, color: "rgba(245,245,245,0.6)", fontWeight: 300 }}>{description}</p>

@@ -2,14 +2,21 @@ import { redirect } from "next/navigation";
 import { createClient as createSupabaseServerClient } from "@/utils/supabase/server";
 
 export default async function EnterPage() {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let userId: string | null = null;
 
-  if (user) {
+  try {
+    const supabase = await createSupabaseServerClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    userId = user?.id ?? null;
+  } catch {
+    redirect("/login");
+  }
+
+  if (userId) {
     redirect("/app");
   }
 
-  redirect("/signin");
+  redirect("/login");
 }

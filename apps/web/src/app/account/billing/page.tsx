@@ -62,7 +62,7 @@ export default async function BillingPage() {
               <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "rgba(245,245,245,0.58)" }}>
                 Use your Defrag account to choose a plan and manage billing in one place.
               </p>
-              <Link href="/login" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 10, width: "fit-content", padding: "16px 28px", borderRadius: 14, background: "white", color: "#050505", textDecoration: "none", fontWeight: 600, fontSize: 16 }}>
+              <Link href="/signin/studio" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 10, width: "fit-content", padding: "16px 28px", borderRadius: 14, background: "white", color: "#050505", textDecoration: "none", fontWeight: 600, fontSize: 16 }}>
                 Sign in to continue <ArrowRight style={{ width: 18, height: 18 }} />
               </Link>
             </div>
@@ -80,7 +80,35 @@ export default async function BillingPage() {
     );
   }
 
-  const { account } = await getBillingStateForUser(user.userId);
+  let account: Awaited<ReturnType<typeof getBillingStateForUser>>["account"] | null = null;
+  let billingLoadError: string | null = null;
+  try {
+    const billingState = await getBillingStateForUser(user.userId);
+    account = billingState.account;
+  } catch {
+    billingLoadError =
+      "We couldn’t load your billing status right now. You can still review plans, then try billing actions again in a moment.";
+  }
+
+  if (!account) {
+    return (
+      <AppShell
+        eyebrow="Plans"
+        title="Plans are available. Billing status is temporarily unavailable."
+        description="Review plan options now. If your account details are unavailable, refresh in a moment or open billing again."
+      >
+        <div style={{ maxWidth: 1160, display: "grid", gap: 32 }}>
+          {billingLoadError ? (
+            <div style={{ padding: 16, border: "1px solid rgba(252,165,165,0.4)", background: "rgba(252,165,165,0.08)", color: "#fecaca", lineHeight: 1.65 }}>
+              {billingLoadError}
+            </div>
+          ) : null}
+          <PlanBreakdown activePlanKey={null} />
+        </div>
+      </AppShell>
+    );
+  }
+
   const activePlanKey = account.plan;
   const isSubscribed = account.subscriptionState === "active" || account.subscriptionState === "trialing";
 

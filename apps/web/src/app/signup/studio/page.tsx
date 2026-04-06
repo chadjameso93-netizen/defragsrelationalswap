@@ -46,7 +46,7 @@ export default function StudioSignUpPage() {
       email,
       password,
       options: {
-        emailRedirectTo: `${window.location.origin}/app/studio`,
+        emailRedirectTo: `${window.location.origin}/onboarding?next=/intake`,
       },
     });
 
@@ -56,7 +56,7 @@ export default function StudioSignUpPage() {
       return;
     }
 
-    router.push("/app/studio");
+    router.push("/onboarding?next=/intake");
     router.refresh();
   }
 
@@ -91,15 +91,15 @@ export default function StudioSignUpPage() {
       <div className="su-page">
         <section className="su-shell">
           <article className="su-panel su-left">
-            <div className="su-kicker">Premium onboarding access</div>
-            <h1 className="su-title">Create your Defrag studio account.</h1>
+            <div className="su-kicker">Create account</div>
+            <h1 className="su-title">Create your Defrag account.</h1>
             <div className="su-muted" style={{ lineHeight: 1.8, maxWidth: 560 }}>
-              One account keeps your baseline, workspace reads, and billing controls connected in one calm relationship-intelligence environment.
+              Create your account, complete onboarding, and get to your first useful Defrag output quickly.
             </div>
             <div style={{ display: "grid", gap: 10 }}>
-              <div className="su-step">Use the same account across intake, workspace, and Story Canvas guidance.</div>
-              <div className="su-step">Keep your sessions and interpretation history in one steady flow.</div>
-              <div className="su-step">Continue safely later on desktop or mobile without re-framing everything again.</div>
+              <div className="su-step">Step 1: Create your account.</div>
+              <div className="su-step">Step 2: Add your onboarding details at your own pace.</div>
+              <div className="su-step">Step 3: Generate your first baseline and open workspace.</div>
             </div>
           </article>
 
@@ -108,7 +108,7 @@ export default function StudioSignUpPage() {
               <div className="su-kicker">Create account</div>
               <div style={{ fontFamily: "var(--font-display), serif", fontSize: 42, lineHeight: 0.94 }}>Start your studio access</div>
               <div className="su-muted" style={{ lineHeight: 1.75 }}>
-                Create your credentials once, then continue into your workspace.
+                Create your credentials once, then continue into onboarding.
               </div>
             </div>
 

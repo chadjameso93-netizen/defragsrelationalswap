@@ -1,5 +1,7 @@
 "use client";
 
+import { createClient } from "@/utils/supabase/client";
+import { useEffect } from "react";
 import { useMemo, useState } from "react";
 
 type BaselineApiResponse = {
@@ -41,6 +43,40 @@ export default function IntakePage() {
   const [loading, setLoading] = useState(false);
 
   const ready = useMemo(() => !!form.dob, [form.dob]);
+
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      let supabase;
+      try {
+        supabase = createClient();
+      } catch {
+        return;
+      }
+
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!mounted || !user) return;
+
+      setForm((prev) => ({
+        ...prev,
+        name: typeof user.user_metadata?.display_name === "string" ? user.user_metadata.display_name : prev.name,
+        dob: typeof user.user_metadata?.dob === "string" ? user.user_metadata.dob : prev.dob,
+        birth_time:
+          typeof user.user_metadata?.birth_time === "string" ? user.user_metadata.birth_time : prev.birth_time,
+        birth_place:
+          typeof user.user_metadata?.birth_place === "string" ? user.user_metadata.birth_place : prev.birth_place,
+        current_location:
+          typeof user.user_metadata?.current_location === "string"
+            ? user.user_metadata.current_location
+            : prev.current_location,
+      }));
+    })();
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   async function generatePreview() {
     setLoading(true);
@@ -145,10 +181,12 @@ export default function IntakePage() {
                 <label className="in-field">
                   <span className="in-label">Date of birth</span>
                   <input type="date" className="in-input" value={form.dob} onChange={(e) => setForm({ ...form, dob: e.target.value })} />
+                  <span className="in-muted" style={{ fontSize: 13 }}>Used to anchor timing and pacing in your baseline.</span>
                 </label>
                 <label className="in-field">
                   <span className="in-label">Birth time</span>
                   <input type="time" className="in-input" value={form.birth_time} onChange={(e) => setForm({ ...form, birth_time: e.target.value })} />
+                  <span className="in-muted" style={{ fontSize: 13 }}>Optional if unknown. Adds precision when available.</span>
                 </label>
                 <label className="in-field">
                   <span className="in-label">Birth place</span>
@@ -158,6 +196,7 @@ export default function IntakePage() {
                     onChange={(e) => setForm({ ...form, birth_place: e.target.value })}
                     placeholder="City, State, Country"
                   />
+                  <span className="in-muted" style={{ fontSize: 13 }}>Used to ground perspective context.</span>
                 </label>
                 <label className="in-field" style={{ gridColumn: "1 / -1" }}>
                   <span className="in-label">Current location</span>
@@ -167,6 +206,7 @@ export default function IntakePage() {
                     onChange={(e) => setForm({ ...form, current_location: e.target.value })}
                     placeholder="Optional"
                   />
+                  <span className="in-muted" style={{ fontSize: 13 }}>Optional and editable later.</span>
                 </label>
               </div>
 
