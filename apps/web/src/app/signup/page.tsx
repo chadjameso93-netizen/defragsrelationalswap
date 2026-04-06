@@ -82,7 +82,7 @@ export default function SignUpPage() {
         </form>
 
         <div style={{ color: "rgba(245,242,236,0.62)" }}>
-          Already have an account? <Link href="/login" style={{ color: "#f5f2ec" }}>Sign in</Link>
+          Already have an account? <Link href="/signin/studio" style={{ color: "#f5f2ec" }}>Sign in</Link>
         </div>
       </section>
     </main>

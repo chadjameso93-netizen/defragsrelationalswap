@@ -34,5 +34,5 @@ export async function GET(request: Request) {
     }
   }
 
-  return NextResponse.redirect(new URL("/login?error=auth_callback_failed", origin));
+  return NextResponse.redirect(new URL("/signin/studio?error=auth_callback_failed", origin));
 }

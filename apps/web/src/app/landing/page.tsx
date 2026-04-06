@@ -76,7 +76,7 @@ export default function LandingPage() {
             <div className="land-kicker">Relational intelligence for real life</div>
             <div className="land-title">The tool you reach for before replying.</div>
             <div className="land-muted" style={{ maxWidth: 700, lineHeight: 1.76, fontSize: 18 }}>
-              Defrag helps you understand why something landed badly, how the other person may be seeing it, and what to do next — before a text, conversation, or misunderstanding becomes a bigger problem.
+              See why it felt one way to you — and another way to them.
             </div>
             <div className="land-muted" style={{ maxWidth: 700, lineHeight: 1.72 }}>
               Start with your baseline, then move into workspace analysis to see the pattern, compare perspectives, and choose your next move.

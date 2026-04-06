@@ -87,7 +87,7 @@ export const marketingCopy: MarketingCopy = {
     kicker: "Relational intelligence for real life",
     title: "The tool you reach for before replying.",
     description:
-      "Defrag helps you understand why something landed badly, how the other person may be seeing it, and what to do next — before a text, conversation, or misunderstanding becomes a bigger problem.",
+      "See why it felt one way to you — and another way to them.",
     quietNote: "Plain-language guidance • anti-stigma framing • built for real conversations",
     primaryCtaLabel: "Open Defrag",
     primaryCtaHref: "/enter",

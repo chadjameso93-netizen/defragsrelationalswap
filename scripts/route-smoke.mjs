@@ -71,6 +71,7 @@ const requiredRoutes = [
   "/studio",
   "/about",
   "/plans",
+  "/signin",
   "/signin/studio",
   "/signup/studio",
   "/forgot-password",

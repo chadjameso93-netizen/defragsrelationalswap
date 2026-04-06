@@ -62,7 +62,7 @@ export default async function BillingPage() {
               <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: "rgba(245,245,245,0.58)" }}>
                 Use your Defrag account to choose a plan and manage billing in one place.
               </p>
-              <Link href="/login" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 10, width: "fit-content", padding: "16px 28px", borderRadius: 14, background: "white", color: "#050505", textDecoration: "none", fontWeight: 600, fontSize: 16 }}>
+              <Link href="/signin/studio" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 10, width: "fit-content", padding: "16px 28px", borderRadius: 14, background: "white", color: "#050505", textDecoration: "none", fontWeight: 600, fontSize: 16 }}>
                 Sign in to continue <ArrowRight style={{ width: 18, height: 18 }} />
               </Link>
             </div>
