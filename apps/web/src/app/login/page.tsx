@@ -40,21 +40,21 @@ function LoginContent(): React.JSX.Element {
             <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 10% 12%, rgba(159,179,164,0.22), transparent 18%), radial-gradient(circle at 82% 18%, rgba(255,255,255,0.08), transparent 14%)" }} />
             <div style={{ position: "relative", display: "grid", gap: 18, alignContent: "start", maxWidth: 760 }}>
               <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(245,245,245,0.42)" }}>
-                Relational Intelligence Infrastructure
+                Defrag
               </div>
               <h1 className="font-display" style={{ margin: 0, fontSize: "clamp(4rem, 8vw, 7.2rem)", lineHeight: 0.84, color: "white" }}>
-                Open the workspace and read the moment clearly.
+                Open Defrag and steady the moment.
               </h1>
               <p style={{ margin: 0, maxWidth: 620, fontSize: 17, lineHeight: 1.84, color: "rgba(245,245,245,0.66)" }}>
-                Use Defrag to understand difficult interactions, compare perspectives across sides, and receive structured guidance on what may be happening and what to do next.
+                Use Defrag to read difficult interactions, compare perspectives, and choose one clear next step.
               </p>
             </div>
 
             <div style={{ position: "relative", display: "grid", gap: 14, maxWidth: 760 }}>
               {[
-                "Read what may be happening beneath the interaction.",
+                "See what may be happening beneath the interaction.",
                 "Compare how each side may be reading the moment.",
-                "Choose a next move that lowers pressure instead of adding more distortion.",
+                "Choose a next move that lowers pressure.",
               ].map((line, index) => (
                 <div key={line} style={{ width: `${92 - index * 10}%`, marginLeft: index === 2 ? "auto" : 0, padding: "16px 18px", borderLeft: "1px solid rgba(255,255,255,0.16)", background: "rgba(255,255,255,0.03)", boxShadow: "0 22px 48px rgba(0,0,0,0.26)", fontSize: 15, lineHeight: 1.72, color: "rgba(245,245,245,0.92)" }}>
                   {line}
@@ -72,7 +72,7 @@ function LoginContent(): React.JSX.Element {
                 Enter Defrag
               </h2>
               <p style={{ margin: 0, fontSize: 14, lineHeight: 1.72, color: "rgba(245,245,245,0.58)" }}>
-                Enter your email and we will send a secure link so you can continue directly to your workspace.
+                Enter your email and we’ll send a secure link to continue.
               </p>
             </div>
 
@@ -80,7 +80,7 @@ function LoginContent(): React.JSX.Element {
               <div style={{ display: "grid", gap: 12, padding: 20, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, color: "#c8d8a2", fontSize: 14, fontWeight: 600 }}>
                   <CheckCircle2 style={{ width: 16, height: 16 }} />
-                  Link sent
+                  Secure link sent
                 </div>
                 <p style={{ fontSize: 14, color: "rgba(245,245,245,0.62)", margin: 0, lineHeight: 1.6 }}>
                   Check your email and follow the link to continue.

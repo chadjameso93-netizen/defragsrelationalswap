@@ -9,21 +9,21 @@ const PLANS: Array<{ id: PlanId; name: string; price: string; summary: string; p
     id: 'core',
     name: 'Core',
     price: '$24/mo',
-    summary: 'The main DEFRAG workspace and baseline flow.',
+    summary: 'Best for one person using baseline and workspace tools.',
     points: ['Baseline intake', 'Relationship workspace', 'Mobile workspace'],
   },
   {
     id: 'studio',
     name: 'Studio',
     price: '$72/mo',
-    summary: 'More room for guided sessions and family work.',
+    summary: 'Best for recurring family or team dynamics.',
     points: ['Everything in Core', 'Deeper family layering', 'Longer guided sessions'],
   },
   {
     id: 'realtime',
     name: 'Realtime',
     price: '$149/mo',
-    summary: 'The highest tier for the fastest product iteration path.',
+    summary: 'Best for high-touch ongoing support and priority access.',
     points: ['Everything in Studio', 'Priority workspace access', 'Future realtime features'],
   },
 ];
@@ -104,9 +104,9 @@ export default function StudioBillingPage() {
         <section className='bill-hero'>
           <div className='bill-card bill-overview'>
             <div className='bill-kicker'>Premium plans</div>
-            <h1 className='bill-title'>Choose your DEFRAG studio plan.</h1>
+            <h1 className='bill-title'>Choose your Defrag studio plan.</h1>
             <div className='bill-muted' style={{ lineHeight: 1.78, fontSize: 18 }}>
-              Pick the level that fits how deeply you want to use DEFRAG. This page is wired to the live Stripe checkout and billing portal routes already in the branch.
+              Pick the level that fits how you want to use Defrag. Checkout and billing portal access are live on this page.
             </div>
             <div className='bill-actions'>
               <button className='bill-btn primary' onClick={openPortal} disabled={portalLoading}>{portalLoading ? 'Opening portal...' : 'Open billing portal'}</button>
@@ -146,7 +146,7 @@ export default function StudioBillingPage() {
                 ))}
               </div>
               <button className='bill-btn primary' onClick={() => startCheckout(plan.id)} disabled={loadingPlan === plan.id}>
-                {loadingPlan === plan.id ? 'Opening checkout...' : `Choose ${plan.name}`}
+                {loadingPlan === plan.id ? 'Opening checkout...' : `Start ${plan.name}`}
               </button>
             </article>
           ))}

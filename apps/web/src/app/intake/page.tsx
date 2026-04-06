@@ -70,8 +70,10 @@ export default function IntakePage() {
         .intake-grid { display: grid; grid-template-columns: 1.02fr 0.98fr; gap: 22px; }
         .intake-card { border: 1px solid rgba(255,255,255,0.08); background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015)); box-shadow: 0 16px 40px rgba(0,0,0,0.18); }
         .intake-copy { padding: 28px; display: grid; gap: 18px; align-content: start; }
+        .intake-phase { display: flex; gap: 8px; flex-wrap: wrap; }
         .intake-kicker { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,242,236,0.42); }
         .intake-muted { color: rgba(245,242,236,0.64); }
+        .intake-chip { display: inline-flex; align-items: center; gap: 6px; padding: 8px 10px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(245,242,236,0.62); }
         .intake-title { margin: 0; font-size: 64px; line-height: 0.92; letter-spacing: -0.04em; font-family: var(--font-display), serif; }
         .intake-stage { position: relative; overflow: hidden; min-height: 620px; }
         .intake-stage::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 22% 18%, rgba(255,255,255,0.06), transparent 24%), radial-gradient(circle at 72% 22%, rgba(214,195,161,0.10), transparent 28%), radial-gradient(circle at 66% 76%, rgba(255,255,255,0.04), transparent 24%); }
@@ -110,7 +112,7 @@ export default function IntakePage() {
             <div className='intake-mark' />
             <div style={{ display: 'grid', gap: 4 }}>
               <div className='intake-kicker'>Defrag</div>
-              <div>Baseline intake</div>
+              <div>Natal baseline walkthrough</div>
             </div>
           </div>
           <nav className='intake-nav'>
@@ -122,13 +124,18 @@ export default function IntakePage() {
 
         <section className='intake-grid'>
           <section className='intake-card intake-copy'>
-            <div className='intake-kicker'>Begin here</div>
-            <h1 className='intake-title'>Start with the details that shape your baseline.</h1>
+            <div className='intake-kicker'>Guided intake</div>
+            <h1 className='intake-title'>Create your natal baseline in three short steps.</h1>
+            <div className='intake-phase'>
+              <span className='intake-chip'>Step 1 · Core birth details</span>
+              <span className='intake-chip'>Step 2 · Current context</span>
+              <span className='intake-chip'>Step 3 · Preview + workspace</span>
+            </div>
             <div className='intake-muted' style={{ fontSize: 18, lineHeight: 1.78 }}>
-              DEFRAG turns the basics of your profile into simple language you can actually use.
+              Defrag uses these details to create a clear baseline you can carry into the workspace.
             </div>
             <div className='intake-muted' style={{ lineHeight: 1.78 }}>
-              Fill in the core details below, generate a preview, and then carry that into the relationship workspace.
+              You only need your date of birth to start. Add time, place, and context when available for a fuller baseline.
             </div>
 
             <div className='intake-formgrid'>
@@ -155,15 +162,18 @@ export default function IntakePage() {
             </div>
 
             <label className='intake-field'>
-              <span className='intake-kicker'>What you want help with</span>
+              <span className='intake-kicker'>Relationship context</span>
               <textarea className='intake-input intake-textarea' value={form.context} onChange={(e) => setForm({ ...form, context: e.target.value })} />
             </label>
+            <div className='intake-muted' style={{ fontSize: 13, lineHeight: 1.68 }}>
+              This note helps Defrag frame your baseline around the moment you want to understand.
+            </div>
 
             <div className='intake-btnrow'>
               <button className='intake-btn' onClick={generatePreview} disabled={!ready || loading}>
-                {loading ? 'Generating preview...' : 'Generate preview'}
+                {loading ? 'Creating preview...' : 'Create baseline preview'}
               </button>
-              <a className='intake-btn secondary' href='/workspace'>Open workspace</a>
+              <a className='intake-btn secondary' href='/workspace'>Go to workspace</a>
             </div>
           </section>
 
@@ -173,9 +183,9 @@ export default function IntakePage() {
             <div className='intake-previewbox'>
               <div className='intake-kicker'>What you will get</div>
               <div className='intake-stepgrid'>
-                <div className='intake-step'>A first read on how you may react and relate.</div>
-                <div className='intake-step'>A simple summary you can carry into the workspace.</div>
-                <div className='intake-step'>One clear next step to start with.</div>
+                <div className='intake-step'>A plain-language read of your core pattern.</div>
+                <div className='intake-step'>A short summary you can bring into workspace analysis.</div>
+                <div className='intake-step'>One grounded next step you can try right away.</div>
               </div>
             </div>
 
@@ -203,7 +213,7 @@ export default function IntakePage() {
                 </>
               ) : (
                 <div className='intake-muted' style={{ lineHeight: 1.74 }}>
-                  Generate a preview to see your first plain-language baseline here before moving into the workspace.
+                  Create a preview to see your natal baseline before you move into the workspace.
                 </div>
               )}
               {result?.warning ? <div className='intake-step'>{result.warning}</div> : null}

@@ -5,9 +5,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 
+const PREVIEW_ENV_ERROR =
+  'Sign in is unavailable in this preview environment. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to continue.';
+
 export default function StudioSignInPage() {
   const router = useRouter();
-  const supabase = createClient();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -17,6 +19,15 @@ export default function StudioSignInPage() {
     event.preventDefault();
     setLoading(true);
     setError(null);
+
+    let supabase;
+    try {
+      supabase = createClient();
+    } catch {
+      setError(PREVIEW_ENV_ERROR);
+      setLoading(false);
+      return;
+    }
 
     const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
 
@@ -52,9 +63,9 @@ export default function StudioSignInPage() {
       <section className='signin-shell'>
         <div className='signin-card signin-stage'>
           <div className='signin-kicker'>Premium access</div>
-          <h1 className='signin-title'>Return to your DEFRAG studio.</h1>
+          <h1 className='signin-title'>Return to your Defrag studio.</h1>
           <div className='signin-muted' style={{ lineHeight: 1.76, maxWidth: 560 }}>
-            Sign in to continue your baseline, open the relationship workspace, and manage billing from one account.
+            Sign in to continue your baseline, open workspace analysis, and manage billing in one place.
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0,1fr))', gap: 12 }}>
             <div className='signin-step'>Baseline intake and profile</div>
@@ -66,7 +77,7 @@ export default function StudioSignInPage() {
               <div>
                 <div className='signin-kicker' style={{ fontSize: 10 }}>Defrag</div>
                 <div style={{ fontSize: 30, fontFamily: 'var(--font-display), serif' }}>Studio</div>
-                <div className='signin-muted' style={{ fontSize: 13 }}>premium workspace</div>
+                <div className='signin-muted' style={{ fontSize: 13 }}>premium workflow</div>
               </div>
             </div>
           </div>
@@ -76,11 +87,11 @@ export default function StudioSignInPage() {
           <div style={{ display: 'grid', gap: 8 }}>
             <div className='signin-kicker'>Access</div>
             <div style={{ fontSize: 36, fontFamily: 'var(--font-display), serif' }}>Sign in</div>
-            <div className='signin-muted' style={{ lineHeight: 1.72 }}>Use your DEFRAG account to continue into the upgraded product flow.</div>
+            <div className='signin-muted' style={{ lineHeight: 1.72 }}>Use your Defrag account to continue into your studio workspace and billing flow.</div>
           </div>
           <input className='signin-input' value={email} onChange={(e) => setEmail(e.target.value)} type='email' placeholder='Email' required />
           <input className='signin-input' value={password} onChange={(e) => setPassword(e.target.value)} type='password' placeholder='Password' required />
-          {error ? <div style={{ color: '#fca5a5' }}>{error}</div> : null}
+          {error ? <div style={{ color: '#fca5a5', lineHeight: 1.6 }}>{error}</div> : null}
           <button type='submit' disabled={loading} className='signin-btn'>{loading ? 'Signing in...' : 'Continue to studio'}</button>
           <div className='signin-muted' style={{ lineHeight: 1.7 }}>
             Need an account? <Link href='/signup' style={{ color: '#f5f2ec' }}>Create one</Link>

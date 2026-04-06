@@ -5,9 +5,11 @@ import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 
+const PREVIEW_ENV_ERROR =
+  'Account creation is unavailable in this preview environment. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to continue.';
+
 export default function StudioSignUpPage() {
   const router = useRouter();
-  const supabase = createClient();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -27,6 +29,15 @@ export default function StudioSignUpPage() {
 
     if (password !== confirmPassword) {
       setError('Passwords do not match.');
+      setLoading(false);
+      return;
+    }
+
+    let supabase;
+    try {
+      supabase = createClient();
+    } catch {
+      setError(PREVIEW_ENV_ERROR);
       setLoading(false);
       return;
     }
@@ -70,14 +81,14 @@ export default function StudioSignUpPage() {
       <section className='signup-shell'>
         <div className='signup-card signup-stage'>
           <div className='signup-kicker'>Create account</div>
-          <h1 className='signup-title'>Create your DEFRAG studio account.</h1>
+          <h1 className='signup-title'>Create your Defrag studio account.</h1>
           <div className='signup-muted' style={{ lineHeight: 1.78 }}>
-            Create one account so your baseline, workspace access, and billing state stay attached to the same premium product flow.
+            Create one account so baseline, workspace access, and billing stay connected in one premium flow.
           </div>
           <div style={{ display: 'grid', gap: 10 }}>
             <div className='signup-step'>One account for baseline, workspace, and billing</div>
-            <div className='signup-step'>Premium studio surfaces across public and signed-in flow</div>
-            <div className='signup-step'>Ready for end-to-end testing on the preview branch</div>
+            <div className='signup-step'>Premium studio surfaces across public and signed-in pages</div>
+            <div className='signup-step'>Built for ongoing use across intake, workspace, and account tools</div>
           </div>
         </div>
 
@@ -89,7 +100,7 @@ export default function StudioSignUpPage() {
           <input className='signup-input' value={email} onChange={(e) => setEmail(e.target.value)} type='email' placeholder='Email' required />
           <input className='signup-input' value={password} onChange={(e) => setPassword(e.target.value)} type='password' placeholder='Password' required />
           <input className='signup-input' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} type='password' placeholder='Confirm password' required />
-          {error ? <div style={{ color: '#fca5a5' }}>{error}</div> : null}
+          {error ? <div style={{ color: '#fca5a5', lineHeight: 1.6 }}>{error}</div> : null}
           <button type='submit' disabled={loading} className='signup-btn'>{loading ? 'Creating account...' : 'Create account'}</button>
           <div className='signup-muted' style={{ lineHeight: 1.7 }}>
             Already have an account? <Link href='/signin/studio' style={{ color: '#f5f2ec' }}>Sign in</Link>
