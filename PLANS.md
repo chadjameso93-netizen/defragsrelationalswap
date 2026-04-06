@@ -232,6 +232,23 @@
 
 ---
 
+# ExecPlan — Phase 13: Premium visual redesign (/studio)
+
+## Context
+- Functional quality is stable; the remaining gap is visual authority on the public product surface.
+
+## Plan
+1. Rebuild `/studio` with a cinematic hero environment, stronger composition, and premium dark editorial rhythm.
+2. Reduce boxed/grid commodity patterns and improve CTA hierarchy and typography.
+3. Keep messaging calm, plain-language, and anti-stigma while raising visual differentiation.
+
+## Validation
+- Run `pnpm --dir apps/web typecheck`
+- Run `pnpm --dir apps/web build`
+- Run `git status --short`
+
+---
+
 # ExecPlan — Phase 12: Final product completion pass
 
 ## Context
