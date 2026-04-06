@@ -100,6 +100,9 @@ export default function WorkspacePage() {
   const [message, setMessage] = useState(INITIAL_MESSAGE);
   const [result, setResult] = useState<WorkspaceResponse | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showAllBeats, setShowAllBeats] = useState(false);
+  const [showAllAnnotations, setShowAllAnnotations] = useState(false);
+  const [showRewriteDetails, setShowRewriteDetails] = useState(false);
 
   const transcript = useMemo(() => {
     if (!result) return [];
@@ -224,6 +227,19 @@ export default function WorkspacePage() {
         .ws-card { border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.032); padding: 14px; display: grid; gap: 8px; }
         .ws-list { margin: 0; padding-left: 18px; display: grid; gap: 8px; line-height: 1.6; color: rgba(246,243,238,0.82); }
         .ws-tag { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(246,243,238,0.52); }
+        .ws-rail { gap: 14px; }
+        .ws-rail-card { padding: 16px; gap: 10px; }
+        .ws-panel-head { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+        .ws-section-intro { margin: 0; color: rgba(246,243,238,0.72); line-height: 1.68; font-size: 14px; }
+        .ws-story-list { padding-left: 16px; gap: 10px; }
+        .ws-story-item { border-left: 1px solid rgba(255,255,255,0.12); padding-left: 12px; margin-left: 2px; display: grid; gap: 7px; }
+        .ws-reveal-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+        .ws-reveal-btn { border: 1px solid rgba(214,195,161,0.36); background: rgba(214,195,161,0.08); color: #f6f3ee; padding: 6px 10px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: background 120ms ease, border-color 120ms ease; }
+        .ws-reveal-btn:hover { background: rgba(214,195,161,0.16); border-color: rgba(214,195,161,0.54); }
+        .ws-reveal-btn.quiet { border-color: rgba(255,255,255,0.22); background: rgba(255,255,255,0.05); }
+        .ws-rewrite-shell { display: grid; gap: 8px; border-top: 1px solid rgba(255,255,255,0.12); padding-top: 10px; }
+        .ws-fade-out { position: relative; max-height: 96px; overflow: hidden; }
+        .ws-fade-out::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 42px; background: linear-gradient(180deg, rgba(5,5,5,0), rgba(5,5,5,0.94)); pointer-events: none; }
 
         @media (max-width: 1320px) {
           .ws-shell { grid-template-columns: 360px minmax(0,1fr); }
@@ -362,13 +378,23 @@ export default function WorkspacePage() {
               <div className="ws-tag">Grammar: {storyCanvas.scene.grammarId}</div>
             </div>
 
-            <div className="ws-divider ws-side-list">
-              <section className="ws-card">
-                <div className="ws-kicker">Story beats</div>
-                <ol className="ws-list">
-                  {storyCanvas.scene.beats.map((beat) => (
+            <div className="ws-divider ws-side-list ws-rail">
+              <section className="ws-card ws-rail-card">
+                <div className="ws-panel-head">
+                  <div className="ws-kicker">Story beats</div>
+                  <button
+                    className="ws-reveal-btn quiet"
+                    type="button"
+                    onClick={() => setShowAllBeats((current) => !current)}
+                  >
+                    {showAllBeats ? "Condense" : "Expand"}
+                  </button>
+                </div>
+                <p className="ws-section-intro">Ordered movement through pressure, signal, and practical next shape.</p>
+                <ol className="ws-list ws-story-list">
+                  {(showAllBeats ? storyCanvas.scene.beats : storyCanvas.scene.beats.slice(0, 2)).map((beat) => (
                     <li key={beat.id}>
-                      <div style={{ display: "grid", gap: 6 }}>
+                      <div className="ws-story-item">
                         <div>
                           <strong>{beat.title}.</strong> {beat.selectedOverlay}
                         </div>
@@ -378,12 +404,32 @@ export default function WorkspacePage() {
                     </li>
                   ))}
                 </ol>
+                {!showAllBeats && storyCanvas.scene.beats.length > 2 ? (
+                  <div className="ws-reveal-row">
+                    <div className="ws-tag">{storyCanvas.scene.beats.length - 2} more beats available</div>
+                    <button className="ws-reveal-btn" type="button" onClick={() => setShowAllBeats(true)}>
+                      Show next beats
+                    </button>
+                  </div>
+                ) : null}
               </section>
 
-              <section className="ws-card">
-                <div className="ws-kicker">Annotations</div>
+              <section className="ws-card ws-rail-card">
+                <div className="ws-panel-head">
+                  <div className="ws-kicker">Annotations</div>
+                  <button
+                    className="ws-reveal-btn quiet"
+                    type="button"
+                    onClick={() => setShowAllAnnotations((current) => !current)}
+                  >
+                    {showAllAnnotations ? "Condense" : "Expand"}
+                  </button>
+                </div>
+                <p className={`ws-section-intro ${showAllAnnotations ? "" : "ws-fade-out"}`}>
+                  Focus notes mark leverage points where wording or pacing can reduce friction.
+                </p>
                 <ul className="ws-list" style={{ paddingLeft: 16 }}>
-                  {storyCanvas.annotations.map((annotation) => (
+                  {(showAllAnnotations ? storyCanvas.annotations : storyCanvas.annotations.slice(0, 3)).map((annotation) => (
                     <li key={annotation.id}>
                       <span className="ws-tag" style={{ marginRight: 8 }}>
                         {annotation.category}
@@ -392,19 +438,44 @@ export default function WorkspacePage() {
                     </li>
                   ))}
                 </ul>
+                {!showAllAnnotations && storyCanvas.annotations.length > 3 ? (
+                  <div className="ws-reveal-row">
+                    <div className="ws-tag">{storyCanvas.annotations.length - 3} more annotations</div>
+                    <button className="ws-reveal-btn" type="button" onClick={() => setShowAllAnnotations(true)}>
+                      Reveal full set
+                    </button>
+                  </div>
+                ) : null}
               </section>
 
               {storyCanvas.rewritePath ? (
-                <section className="ws-card">
-                  <div className="ws-kicker">Constructive rewrite</div>
+                <section className="ws-card ws-rail-card">
+                  <div className="ws-panel-head">
+                    <div className="ws-kicker">Constructive rewrite</div>
+                    <button
+                      className="ws-reveal-btn quiet"
+                      type="button"
+                      onClick={() => setShowRewriteDetails((current) => !current)}
+                    >
+                      {showRewriteDetails ? "Hide detail" : "Open detail"}
+                    </button>
+                  </div>
                   <div style={{ fontWeight: 600 }}>{storyCanvas.rewritePath.title}</div>
-                  <div className="ws-muted" style={{ lineHeight: 1.6 }}>
-                    <strong style={{ color: "#f6f3ee" }}>Before:</strong> {storyCanvas.rewritePath.before}
-                  </div>
-                  <div className="ws-muted" style={{ lineHeight: 1.6 }}>
-                    <strong style={{ color: "#f6f3ee" }}>After:</strong> {storyCanvas.rewritePath.after}
-                  </div>
-                  <div className="ws-tag">{storyCanvas.rewritePath.rationale}</div>
+                  {showRewriteDetails ? (
+                    <div className="ws-rewrite-shell">
+                      <div className="ws-muted" style={{ lineHeight: 1.72 }}>
+                        <strong style={{ color: "#f6f3ee" }}>Before:</strong> {storyCanvas.rewritePath.before}
+                      </div>
+                      <div className="ws-muted" style={{ lineHeight: 1.72 }}>
+                        <strong style={{ color: "#f6f3ee" }}>After:</strong> {storyCanvas.rewritePath.after}
+                      </div>
+                      <div className="ws-tag">{storyCanvas.rewritePath.rationale}</div>
+                    </div>
+                  ) : (
+                    <div className="ws-muted ws-fade-out" style={{ lineHeight: 1.68 }}>
+                      {storyCanvas.rewritePath.after}
+                    </div>
+                  )}
                 </section>
               ) : null}
 
