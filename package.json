@@ -10,7 +10,8 @@
     "start": "pnpm --dir apps/web start",
     "typecheck": "pnpm --dir apps/web typecheck",
     "test": "pnpm run lint:copy && vitest run",
-    "lint:copy": "node scripts/copy-guard.mjs"
+    "lint:copy": "pnpm run copy:guard",
+    "copy:guard": "node scripts/copy-guard.mjs"
   },
   "devDependencies": {
     "next": "15.5.14",

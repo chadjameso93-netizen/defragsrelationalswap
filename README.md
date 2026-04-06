@@ -80,6 +80,7 @@ http://localhost:3001
 Validation:
 
 ```bash
+pnpm copy:guard
 pnpm test
 pnpm typecheck
 pnpm build
