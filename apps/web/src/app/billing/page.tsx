@@ -9,21 +9,21 @@ const PLANS: Array<{ id: PlanId; name: string; price: string; summary: string; p
     id: "core",
     name: "Core",
     price: "$24/mo",
-    summary: "The main DEFRAG workspace and baseline flow.",
+    summary: "Best for one person starting with baseline + workspace.",
     points: ["Baseline intake", "Relationship workspace", "Mobile workspace"],
   },
   {
     id: "studio",
     name: "Studio",
     price: "$72/mo",
-    summary: "More room for guided sessions and family work.",
+    summary: "Best for recurring family or team patterns.",
     points: ["Everything in Core", "Deeper family layering", "Longer guided sessions"],
   },
   {
     id: "realtime",
     name: "Realtime",
     price: "$149/mo",
-    summary: "The highest tier for the fastest product iteration path.",
+    summary: "Best for intensive ongoing support and priority access.",
     points: ["Everything in Studio", "Priority workspace access", "Future realtime features"],
   },
 ];
@@ -80,13 +80,13 @@ export default function BillingPage() {
       <section style={{ maxWidth: 1240, margin: "0 auto", display: "grid", gap: 24 }}>
         <div style={{ display: "grid", gap: 8, border: "1px solid rgba(255,255,255,0.08)", background: "linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015))", padding: 24 }}>
           <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245,242,236,0.42)" }}>Billing</div>
-          <h1 style={{ margin: 0, fontSize: 52, lineHeight: 0.96, fontFamily: "var(--font-display), serif" }}>Choose your DEFRAG plan</h1>
+          <h1 style={{ margin: 0, fontSize: 52, lineHeight: 0.96, fontFamily: "var(--font-display), serif" }}>Choose your Defrag plan</h1>
           <div style={{ color: "rgba(245,242,236,0.62)", maxWidth: 760, lineHeight: 1.72 }}>
-            This page uses the live Stripe checkout and billing portal routes added to the branch. Sign in first, then choose a plan or open the portal.
+            Choose the plan that fits your workflow, then use billing portal access any time to manage your subscription.
           </div>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
             <button onClick={openPortal} disabled={portalLoading} style={{ border: 0, padding: "13px 16px", background: "#f5f2ec", color: "#050505", fontWeight: 700 }}>
-              {portalLoading ? "Opening portal..." : "Open billing portal"}
+              {portalLoading ? "Opening portal..." : "Manage billing"}
             </button>
           </div>
           {error ? <div style={{ color: "#fca5a5" }}>{error}</div> : null}
@@ -106,7 +106,7 @@ export default function BillingPage() {
                 ))}
               </div>
               <button onClick={() => startCheckout(plan.id)} disabled={loadingPlan === plan.id} style={{ border: 0, padding: "13px 16px", background: "#f5f2ec", color: "#050505", fontWeight: 700 }}>
-                {loadingPlan === plan.id ? "Opening checkout..." : `Choose ${plan.name}`}
+                {loadingPlan === plan.id ? "Opening checkout..." : `Start ${plan.name}`}
               </button>
             </article>
           ))}

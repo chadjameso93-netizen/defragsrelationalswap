@@ -3,7 +3,7 @@ import Link from "next/link";
 const STEPS = [
   {
     label: "Start with your baseline",
-    body: "Enter the core birth details that help DEFRAG translate how you tend to react, cope, and relate into simple language.",
+    body: "Share a few core birth details so Defrag can build a clear baseline in plain language.",
   },
   {
     label: "See the relationship more clearly",
@@ -11,7 +11,7 @@ const STEPS = [
   },
   {
     label: "Move toward a healthier next step",
-    body: "Use the guided thread, visual field, and focused views to choose what may help next.",
+    body: "Use guided views to choose one practical next step that lowers pressure.",
   },
 ];
 
@@ -74,17 +74,17 @@ export default function LandingPage() {
         <section className="land-hero">
           <div className="land-card" style={{ padding: 26, display: "grid", gap: 20, alignContent: "start" }}>
             <div className="land-kicker">Defrag</div>
-            <div className="land-title">See what is happening between people.</div>
+            <div className="land-title">Read relationship moments with more clarity.</div>
             <div className="land-muted" style={{ maxWidth: 700, lineHeight: 1.76, fontSize: 18 }}>
-              DEFRAG helps people understand hard relationship patterns in simple language, so they can respond in a healthier way.
+              Defrag turns tense interactions into clear language so you can respond with more steadiness.
             </div>
             <div className="land-muted" style={{ maxWidth: 700, lineHeight: 1.72 }}>
-              Start with your baseline. Then bring that into a live workspace that helps you see what may be happening, what each person may be carrying, and what could help next.
+              Start with your baseline, then move into workspace analysis to see the pattern, compare perspectives, and choose your next move.
             </div>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-              <Link className="land-btn primary" href="/start">Start here</Link>
-              <Link className="land-btn secondary" href="/workspace/final">Open the workspace</Link>
-              <Link className="land-btn secondary" href="/membership">View membership</Link>
+              <Link className="land-btn primary" href="/start">Start your baseline</Link>
+              <Link className="land-btn secondary" href="/workspace/final">Try workspace</Link>
+              <Link className="land-btn secondary" href="/membership">View plans</Link>
             </div>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
               <span className="land-chip">Simple language</span>
@@ -119,7 +119,7 @@ export default function LandingPage() {
 
             <div className="land-summary">
               <div className="land-card" style={{ padding: 16, display: "grid", gap: 10 }}>
-                <div className="land-kicker">Live workspace preview</div>
+                <div className="land-kicker">Workspace preview</div>
                 <div style={{ fontSize: 24, fontFamily: "var(--font-display), serif" }}>What may be happening</div>
                 <div className="land-muted" style={{ lineHeight: 1.7 }}>
                   Both people may care about the relationship, but may be reacting in ways that make each other harder to hear.

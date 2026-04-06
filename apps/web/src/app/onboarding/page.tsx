@@ -6,10 +6,12 @@ import { AppShell } from "@/components/app-shell";
 import { createClient } from "@/utils/supabase/client";
 import { ArrowRight, User } from "lucide-react";
 
+const PREVIEW_ENV_ERROR =
+  "Onboarding is unavailable in this preview environment. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to continue.";
+
 function OnboardingContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const supabase = createClient();
 
   const [displayName, setDisplayName] = useState("");
   const [busy, setBusy] = useState(false);
@@ -22,7 +24,7 @@ function OnboardingContent() {
   const title = "Finish setting up your account.";
   const description = isInviteFlow
     ? "Before you open the shared summary, add your name so we can finish your setup."
-    : "Add your name to continue to your workspace.";
+    : "Add your name to continue to your Defrag workspace.";
 
   return (
     <AppShell
@@ -63,6 +65,16 @@ function OnboardingContent() {
               onClick={async () => {
                 setBusy(true);
                 setError(null);
+
+                let supabase;
+                try {
+                  supabase = createClient();
+                } catch {
+                  setError(PREVIEW_ENV_ERROR);
+                  setBusy(false);
+                  return;
+                }
+
                 try {
                   const {
                     data: { user },
@@ -114,7 +126,7 @@ function OnboardingContent() {
             </button>
 
             <p style={{ margin: 0, fontSize: 13, color: "rgba(245, 245, 245, 0.44)", lineHeight: 1.6, maxWidth: 440 }}>
-              Your account helps keep your workspace available when you come back. You stay in control of what you keep and share.
+              Your account keeps your workspace ready when you come back. You stay in control of what you keep and share.
             </p>
           </div>
 
