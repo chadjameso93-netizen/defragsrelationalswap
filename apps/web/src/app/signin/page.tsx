@@ -37,7 +37,7 @@ export default function SignInPage() {
       return;
     }
 
-    router.push("/app");
+    router.push("/account");
     router.refresh();
   }
 
@@ -46,15 +46,15 @@ export default function SignInPage() {
       <section style={{ width: "min(880px, 100%)", display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: 20 }}>
         <div style={{ border: "1px solid rgba(255,255,255,0.08)", background: "linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015))", padding: 28, display: "grid", gap: 18 }}>
           <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245,242,236,0.42)" }}>Sign in</div>
-          <h1 style={{ margin: 0, fontSize: 54, lineHeight: 0.94, fontFamily: "var(--font-display), serif" }}>Return to your Defrag workspace.</h1>
+          <h1 style={{ margin: 0, fontSize: 54, lineHeight: 0.94, fontFamily: "var(--font-display), serif" }}>The tool you reach for before replying.</h1>
           <p style={{ margin: 0, color: "rgba(245,242,236,0.62)", lineHeight: 1.74 }}>
-            Sign in to continue your baseline, open workspace analysis, and manage billing from one account.
+            Sign in to review what happened, compare perspectives, and choose your next move with more clarity.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
             {[
-              ["Baseline", "Intake and first profile"],
-              ["Workspace", "Desktop and mobile views"],
-              ["Billing", "Checkout and portal"],
+              ["Read", "See what likely happened"],
+              ["Compare", "Understand both sides"],
+              ["Respond", "Choose one next step"],
             ].map(([label, value]) => (
               <div key={label} style={{ padding: 12, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)" }}>
                 <div style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(245,242,236,0.42)" }}>{label}</div>
@@ -75,6 +75,9 @@ export default function SignInPage() {
           <button type="submit" disabled={loading} style={{ border: 0, padding: "14px 18px", background: "#f5f2ec", color: "#050505", fontWeight: 700 }}>
             {loading ? "Signing in..." : "Continue to workspace"}
           </button>
+          <div style={{ color: "rgba(245,242,236,0.62)", lineHeight: 1.7 }}>
+            <Link href="/forgot-password" style={{ color: "#f5f2ec" }}>Forgot password?</Link>
+          </div>
           <div style={{ color: "rgba(245,242,236,0.62)", lineHeight: 1.7 }}>
             Need an account? <Link href="/signup" style={{ color: "#f5f2ec" }}>Create one</Link>
           </div>

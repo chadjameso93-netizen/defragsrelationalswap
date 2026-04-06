@@ -24,9 +24,9 @@ export function AppShell({
   const pathname = usePathname();
   const navItems = [
     { href: "/", label: "Home", match: (value: string) => value === "/" },
-    { href: "/about", label: "How it works", match: (value: string) => value.startsWith("/about") },
-    { href: "/account/billing", label: "Plans", match: (value: string) => value.startsWith("/account/billing") || value.startsWith("/pricing") },
-    { href: "/login", label: "Sign in", match: (value: string) => value.startsWith("/login") },
+    { href: "/about", label: "Learn more", match: (value: string) => value.startsWith("/about") },
+    { href: "/plans", label: "Plans", match: (value: string) => value.startsWith("/plans") || value.startsWith("/account/billing") || value.startsWith("/pricing") },
+    { href: "/signin/studio", label: "Sign in", match: (value: string) => value.startsWith("/login") || value.startsWith("/signin") },
   ];
 
   return (
@@ -80,7 +80,7 @@ export function AppShell({
             </div>
 
             <Link
-              href="/login"
+              href="/signin/studio"
               style={{
                 textDecoration: "none",
                 color: "white",
@@ -119,15 +119,15 @@ export function AppShell({
             <div style={{ display: "grid", gap: 12, maxWidth: 460 }}>
               <div style={{ fontSize: 14, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "white" }}>DEFRAG</div>
               <p style={{ margin: 0, fontSize: 14, lineHeight: 1.72, color: "rgba(245,245,245,0.5)" }}>
-                Defrag helps people understand difficult interactions by showing what may be happening, where pressure changed, and what move makes sense next.
+                Defrag helps you understand why something landed badly, how the other person may be seeing it, and what to do next before things escalate.
               </p>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0,1fr))", gap: 20 }}>
               <div style={{ display: "grid", gap: 10 }}>
                 <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(245,245,245,0.34)" }}>Explore</div>
-                <Link href="/about" style={{ fontSize: 13, color: "rgba(245,245,245,0.62)", textDecoration: "none" }}>How it works</Link>
-                <Link href="/account/billing" style={{ fontSize: 13, color: "rgba(245,245,245,0.62)", textDecoration: "none" }}>Plans</Link>
-                <Link href="/login" style={{ fontSize: 13, color: "rgba(245,245,245,0.62)", textDecoration: "none" }}>Sign in</Link>
+                <Link href="/about" style={{ fontSize: 13, color: "rgba(245,245,245,0.62)", textDecoration: "none" }}>Learn more</Link>
+                <Link href="/plans" style={{ fontSize: 13, color: "rgba(245,245,245,0.62)", textDecoration: "none" }}>Plans</Link>
+                <Link href="/signin/studio" style={{ fontSize: 13, color: "rgba(245,245,245,0.62)", textDecoration: "none" }}>Sign in</Link>
               </div>
               <div style={{ display: "grid", gap: 10 }}>
                 <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(245,245,245,0.34)" }}>Trust</div>
