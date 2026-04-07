@@ -96,10 +96,10 @@ export interface MarketingCopy {
 export const marketingCopy: MarketingCopy = {
   hero: {
     kicker: "Relational intelligence for real life",
-    title: "The tool you reach for before replying.",
+    title: "The tool you reach for before you send the next line.",
     description:
       "See why it felt one way to you — and another way to them.",
-    quietNote: "Quiet clarity for loaded conversations",
+    quietNote: "Quiet clarity for loaded conversations.",
     primaryCtaLabel: "Open Defrag",
     primaryCtaHref: "/enter",
     secondaryCtaLabel: "See how it works",
@@ -179,14 +179,14 @@ export const marketingCopy: MarketingCopy = {
   },
   proofBlock: {
     kicker: "Interaction preview",
-    title: "A compact read that changes the next line.",
+    title: "A compact read that changes what you send next.",
     happenedLabel: "What happened",
-    happenedBody: "A conversation turned tense after a short reply.",
+    happenedBody: 'You replied “Okay.” after a long message. It landed colder than you intended.',
     readsLabel: "What each side may be reading",
-    readsYou: "You were trying to stay steady.",
-    readsThem: "They may have felt distance.",
+    readsYou: "Your likely intent: keep things calm and avoid escalating.",
+    readsThem: "Their likely read: emotional distance or withdrawal.",
     nextMoveLabel: "Next move",
-    nextMoveBody: "Lead with acknowledgment before explanation.",
+    nextMoveBody: 'Try: “I care about this, and I went short earlier. I want to respond better.”',
   },
   productSystem: {
     kicker: "Product clarity",

@@ -50,6 +50,14 @@ export default function StudioHomePage() {
           align-items: center;
           flex-wrap: wrap;
           gap: 14px;
+          position: sticky;
+          top: 10px;
+          z-index: 5;
+          backdrop-filter: blur(10px);
+          background: linear-gradient(180deg, rgba(10, 10, 10, 0.88), rgba(10, 10, 10, 0.62));
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 999px;
+          padding: 10px 16px;
         }
         .mk-brand {
           font-size: 11px;
@@ -71,6 +79,16 @@ export default function StudioHomePage() {
         .mk-nav a:hover {
           color: #fff;
           border-color: rgba(245, 242, 236, 0.64);
+        }
+        .mk-hero-grid {
+          display: grid;
+          grid-template-columns: minmax(0, 1.06fr) minmax(300px, 0.94fr);
+          gap: clamp(20px, 4vw, 48px);
+          align-items: end;
+        }
+        .mk-hero-copy {
+          display: grid;
+          gap: 14px;
         }
         .mk-section {
           display: grid;
@@ -113,9 +131,9 @@ export default function StudioHomePage() {
           margin: 0;
           font-family: var(--font-display), serif;
           font-size: clamp(2.8rem, 8.8vw, 7.2rem);
-          line-height: 0.9;
+          line-height: 0.88;
           letter-spacing: -0.05em;
-          max-width: 11ch;
+          max-width: 9.5ch;
           text-wrap: balance;
         }
         .mk-h2 {
@@ -172,6 +190,55 @@ export default function StudioHomePage() {
           letter-spacing: 0.12em;
           text-transform: uppercase;
           color: rgba(245, 242, 236, 0.44);
+        }
+        .mk-hero-frame {
+          border-radius: 24px;
+          padding: clamp(18px, 3.4vw, 24px);
+          border: 1px solid rgba(255, 255, 255, 0.14);
+          background:
+            radial-gradient(120% 180% at 86% -24%, rgba(230, 206, 160, 0.2), transparent 46%),
+            linear-gradient(160deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.02));
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 28px 64px rgba(0, 0, 0, 0.42);
+          display: grid;
+          gap: 14px;
+        }
+        .mk-hero-frame-label {
+          font-size: 10px;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: rgba(245, 242, 236, 0.56);
+        }
+        .mk-hero-frame-line {
+          padding: 12px 14px;
+          border-radius: 14px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.11);
+          color: rgba(245, 242, 236, 0.92);
+          font-size: 0.94rem;
+          line-height: 1.6;
+        }
+        .mk-hero-frame-split {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+        .mk-hero-frame-split span {
+          border-radius: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.02);
+          padding: 10px;
+          font-size: 0.9rem;
+          color: rgba(245, 242, 236, 0.84);
+          line-height: 1.5;
+        }
+        .mk-hero-frame-next {
+          border-radius: 14px;
+          border: 1px solid rgba(230, 206, 160, 0.3);
+          background: rgba(230, 206, 160, 0.1);
+          padding: 12px 14px;
+          color: #f8f0de;
+          font-size: 0.94rem;
+          line-height: 1.6;
         }
         .mk-card {
           background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
@@ -247,15 +314,37 @@ export default function StudioHomePage() {
         @media (max-width: 980px) {
           .mk-shell { gap: 40px; }
           .mk-hero { min-height: auto; padding-top: 6px; }
+          .mk-header {
+            position: static;
+            border-radius: 16px;
+          }
+          .mk-hero-grid {
+            grid-template-columns: 1fr;
+          }
           .mk-hero::after {
             width: min(400px, 78vw);
             height: min(400px, 78vw);
             right: -10%;
             top: 26%;
           }
+          .mk-hero-frame-split {
+            grid-template-columns: 1fr;
+          }
           .mk-get-grid,
           .mk-steps {
             grid-template-columns: 1fr;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .mk-section,
+          .mk-hero::after {
+            animation: none;
+          }
+          .mk-btn {
+            transition: none;
+          }
+          .mk-btn:hover {
+            transform: none;
           }
         }
       `}</style>

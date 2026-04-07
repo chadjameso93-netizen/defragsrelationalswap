@@ -25,12 +25,12 @@ export function HeroSection({ copy }: HeroSectionProps) {
         </div>
         <aside className="mk-hero-frame" aria-hidden="true">
           <div className="mk-hero-frame-label">Live read preview</div>
-          <div className="mk-hero-frame-line">Tone shifted after one short message.</div>
+          <div className="mk-hero-frame-line">Tone shifted after a single “Okay.”</div>
           <div className="mk-hero-frame-split">
-            <span>You meant calm.</span>
-            <span>They felt distance.</span>
+            <span>Your intent: keep things steady.</span>
+            <span>Their read: you pulled away.</span>
           </div>
-          <div className="mk-hero-frame-next">Try acknowledgment before context.</div>
+          <div className="mk-hero-frame-next">Next move: acknowledgment before explanation.</div>
         </aside>
       </div>
     </section>
