@@ -1,5 +1,6 @@
 import { ClosingScene, HeroScene, ListScene, StepScene, TitleCardScene } from "../../components/public/primitives";
 import { PublicPageShell } from "../../components/public/page-shell";
+import Link from "next/link";
 
 const pillars = ["Simple language", "Relationship workspace", "Perspective comparison", "Practical next-step guidance"];
 
