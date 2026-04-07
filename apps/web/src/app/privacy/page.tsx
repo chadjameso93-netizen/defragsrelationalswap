@@ -1,25 +1,22 @@
-import { AppShell } from "../../components/app-shell";
+import { ClosingScene, LegalTextScene } from "../../components/public/primitives";
+import { PublicPageShell } from "../../components/public/page-shell";
 
-const sections = [
+const scenes = [
   {
-    number: "01",
     title: "What we collect",
-    body: "Defrag uses the information you provide, your account details, and your plan status to keep your workspace running and deliver the product experience.",
+    body: "We collect the information required to run your account and deliver your workspace experience: sign-in details, product activity, and plan state.",
   },
   {
-    number: "02",
     title: "How we use it",
-    body: "We use your information to support sign-in, save your workspace, deliver insights, and keep your account working as expected.",
+    body: "We use this information to authenticate access, save your ongoing work, generate product outputs, and keep core account functionality stable.",
   },
   {
-    number: "03",
-    title: "Billing",
-    body: "Payments and subscription changes are handled through Defrag and our payment provider. Billing details are used only to process and manage your plan.",
+    title: "Billing information",
+    body: "Paid subscriptions are processed through Defrag and our payment providers. Billing data is used for subscription operations, invoices, and account changes.",
   },
   {
-    number: "04",
     title: "Security and control",
-    body: "We use authentication, access controls, and plan checks to protect your account. You control what you choose to keep, use, and share.",
+    body: "We apply authentication, access controls, and operational safeguards to reduce misuse. You control what you enter, keep, and share inside your account.",
   },
 ];
 

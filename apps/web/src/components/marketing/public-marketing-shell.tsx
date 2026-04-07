@@ -1,6 +1,11 @@
-import { CinematicHomepage } from "../../components/marketing/cinematic-homepage";
+import Link from "next/link";
+import type { ReactNode } from "react";
 
-export default function StudioHomePage() {
+interface PublicMarketingShellProps {
+  children: ReactNode;
+}
+
+export function PublicMarketingShell({ children }: PublicMarketingShellProps) {
   return (
     <main className="mk-page">
       <style>{`
@@ -297,26 +302,6 @@ export default function StudioHomePage() {
           display: grid;
           gap: 6px;
         }
-        .mk-transcript {
-          display: grid;
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .mk-transcript-band {
-          display: grid;
-          grid-template-columns: 20px minmax(0, 1fr) 20px;
-          gap: 14px;
-          padding: 16px 0;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .mk-transcript-label {
-          margin: 0;
-          font-size: 10px;
-          line-height: 1.8;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
-          color: rgba(245, 242, 236, 0.4);
-          font-weight: 600;
-        }
         @keyframes mk-rise {
           from { opacity: 0; transform: translateY(10px); }
           to { opacity: 1; transform: translateY(0); }
@@ -348,10 +333,6 @@ export default function StudioHomePage() {
           .mk-steps {
             grid-template-columns: 1fr;
           }
-          .mk-transcript-band {
-            grid-template-columns: 1fr;
-            gap: 8px;
-          }
         }
         @media (prefers-reduced-motion: reduce) {
           .mk-section,
@@ -370,17 +351,14 @@ export default function StudioHomePage() {
         <header className="mk-header">
           <div className="mk-brand">Defrag · Studio</div>
           <nav className="mk-nav">
-            <Link href="/signin/studio">Sign in</Link>
-            <Link href="/about">Learn more</Link>
+            <Link href="/">Home</Link>
+            <Link href="/how-it-works">How it works</Link>
             <Link href="/plans">Plans</Link>
+            <Link href="/signin/studio">Sign in</Link>
           </nav>
         </header>
 
-        <HeroSection copy={marketingCopy.hero} />
-        <OutputVisibilitySection copy={marketingCopy.outputVisibility} />
-        <HowItWorksSection copy={marketingCopy.howItWorks} />
-        <ProofBlockSection copy={marketingCopy.proofBlock} />
-        <ClosingCtaSection copy={marketingCopy.closingCta} />
+        {children}
       </div>
     </main>
   );

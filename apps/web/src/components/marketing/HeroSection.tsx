@@ -14,10 +14,10 @@ export function HeroSection({ copy }: HeroSectionProps) {
           <h1 className="mk-title">{copy.title}</h1>
           <p className="mk-lead">{copy.description}</p>
           <div className="mk-actions">
-            <Link className="mk-btn mk-btn-primary" href={copy.primaryCtaHref}>
+            <Link className="mk-cta mk-cta-primary" href={copy.primaryCtaHref}>
               {copy.primaryCtaLabel}
             </Link>
-            <Link className="mk-btn mk-btn-secondary" href={copy.secondaryCtaHref}>
+            <Link className="mk-cta mk-cta-secondary" href={copy.secondaryCtaHref}>
               {copy.secondaryCtaLabel}
             </Link>
           </div>

@@ -1,25 +1,22 @@
-import { AppShell } from "../../components/app-shell";
+import { ClosingScene, LegalTextScene } from "../../components/public/primitives";
+import { PublicPageShell } from "../../components/public/page-shell";
 
-const sections = [
+const scenes = [
   {
-    number: "01",
     title: "Using Defrag",
-    body: "Defrag helps you think through difficult interactions more clearly. It is not emergency support, legal advice, medical advice, or a substitute for licensed care.",
+    body: "Defrag supports clearer communication in difficult moments. It is not emergency support, legal advice, medical advice, or a replacement for licensed care.",
   },
   {
-    number: "02",
-    title: "Accounts",
-    body: "You are responsible for keeping your sign-in method secure and for using your account in a lawful and respectful way.",
+    title: "Account responsibility",
+    body: "You are responsible for account security and lawful use. Keep your sign-in credentials protected and use the service in good faith.",
   },
   {
-    number: "03",
     title: "Plans and billing",
-    body: "If you choose a paid plan, billing and subscription changes are handled through Defrag and our payment provider.",
+    body: "If you subscribe to a paid plan, billing operations and subscription changes are handled through Defrag and our payment infrastructure.",
   },
   {
-    number: "04",
     title: "Acceptable use",
-    body: "You may not misuse the product, interfere with the service, try to bypass access controls, or use Defrag in a way that harms others or breaks the law.",
+    body: "You may not misuse the product, attempt to bypass controls, disrupt service integrity, or use Defrag for activity that harms others or violates law.",
   },
 ];
 

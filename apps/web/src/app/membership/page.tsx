@@ -1,41 +1,24 @@
-import Link from "next/link";
+import { ClosingScene, ListScene, StepScene, TitleCardScene } from "../../components/public/primitives";
+import { PublicPageShell } from "../../components/public/page-shell";
 
-const TIERS = [
+const tiers = [
   {
-    name: "Preview",
-    price: "$0",
-    subtitle: "Best for trying the flow",
-    points: [
-      "Baseline intake preview",
-      "Relationship workspace access",
-      "Mobile workspace view",
-    ],
-    ctaHref: "/start",
-    ctaLabel: "Start preview",
+    step: "Preview",
+    title: "$0",
+    body: "Best for trying the flow.",
+    points: ["Baseline intake preview", "Relationship workspace access", "Mobile workspace view"],
   },
   {
-    name: "Core",
-    price: "$24/mo",
-    subtitle: "Best for regular personal use",
-    points: [
-      "Saved baseline profile",
-      "Full workspace access",
-      "Family overlays and focused threads",
-    ],
-    ctaHref: "/intake",
-    ctaLabel: "Continue to intake",
+    step: "Core",
+    title: "$24/mo",
+    body: "Best for regular personal use.",
+    points: ["Saved baseline profile", "Full workspace access", "Family overlays and focused threads"],
   },
   {
-    name: "Deep Work",
-    price: "$72/mo",
-    subtitle: "Best for extended reflection and family mapping",
-    points: [
-      "Expanded family layering",
-      "Longer guided sessions",
-      "Priority access to deeper workspace features",
-    ],
-    ctaHref: "/workspace/final",
-    ctaLabel: "See workspace first",
+    step: "Deep Work",
+    title: "$72/mo",
+    body: "Best for extended reflection and family mapping.",
+    points: ["Expanded family layering", "Longer guided sessions", "Priority access to deeper workspace features"],
   },
 ];
 
@@ -63,7 +46,8 @@ export default function MembershipPage() {
           <div className="member-muted" style={{ maxWidth: 780, lineHeight: 1.72 }}>
             This page gives the product a clear paywall and plan surface now. It can later be wired to the repo’s Stripe checkout and billing routes without changing the user-facing structure.
           </div>
-        </section>
+        ))}
+      </section>
 
         <section className="member-grid" aria-label="Membership plans">
           {TIERS.map((tier) => (
