@@ -19,3 +19,6 @@ When activated via cookie `__defrag_preview`:
 
 ## Launch Security
 This mechanism utilizes the absolute lowest-conflict perimeter. Because it intercepts Auth at the `server/auth.ts` level, no downstream API endpoints, components, or services had to be rewritten to handle "is this a preview". The system organically treats the QA process under maximum realism.
+
+## UX Gate Reference
+Before merging workspace UI updates, run the explicit mobile readability + emotional legibility checks in `docs/qa/mobile-scene-checkpoints.md`.
