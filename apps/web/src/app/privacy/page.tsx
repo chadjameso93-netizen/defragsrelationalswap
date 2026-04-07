@@ -31,7 +31,7 @@ export default function PrivacyPage() {
       description="This page explains what Defrag uses, why it uses it, and how your account stays protected."
       accent="var(--color-accent)"
     >
-      <div style={{ maxWidth: 1120, display: "grid", gridTemplateColumns: "220px minmax(0,1fr)", gap: 48 }} className="privacy-grid">
+      <section style={{ maxWidth: 1120, display: "grid", gridTemplateColumns: "220px minmax(0,1fr)", gap: 48 }} className="privacy-grid" aria-labelledby="privacy-section-heading">
         <aside style={{ display: "grid", gap: 16, alignContent: "start" }}>
           <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245,245,245,0.38)" }}>
             What this page explains
@@ -41,9 +41,11 @@ export default function PrivacyPage() {
           </p>
         </aside>
 
-        <div style={{ display: "grid", gap: 0, borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+        <div style={{ display: "grid", gap: 0, borderTop: "1px solid rgba(255,255,255,0.08)" }} role="list" aria-label="Privacy sections">
+          <h2 id="privacy-section-heading" style={{ position: "absolute", left: "-9999px" }}>Privacy sections</h2>
           {sections.map((section) => (
-            <div key={section.title} style={{ display: "grid", gridTemplateColumns: "70px minmax(0,1fr)", gap: 16, paddingTop: 22, paddingBottom: 24, borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+            <article key={section.title} role="listitem" style={{ display: "grid", gridTemplateColumns: "20px 70px minmax(0,1fr)", gap: 16, paddingTop: 22, paddingBottom: 24, borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+              <div style={{ fontSize: 11, color: "rgba(245,245,245,0.36)", fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase" }} aria-hidden="true">P</div>
               <div style={{ fontSize: 11, color: "rgba(245,245,245,0.3)", fontWeight: 600, letterSpacing: "0.1em" }}>{section.number}</div>
               <div style={{ display: "grid", gap: 10 }}>
                 <h2 style={{ margin: 0, fontSize: 28, fontWeight: 500, color: "white", lineHeight: 1.08 }}>
@@ -53,10 +55,10 @@ export default function PrivacyPage() {
                   {section.body}
                 </p>
               </div>
-            </div>
+            </article>
           ))}
         </div>
-      </div>
+      </section>
 
       <style>{`
         @media (max-width: 900px) {

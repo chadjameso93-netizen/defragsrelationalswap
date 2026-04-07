@@ -303,6 +303,26 @@ export default function StudioHomePage() {
           display: grid;
           gap: 6px;
         }
+        .mk-transcript {
+          display: grid;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .mk-transcript-band {
+          display: grid;
+          grid-template-columns: 20px minmax(0, 1fr) 20px;
+          gap: 14px;
+          padding: 16px 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .mk-transcript-label {
+          margin: 0;
+          font-size: 10px;
+          line-height: 1.8;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: rgba(245, 242, 236, 0.4);
+          font-weight: 600;
+        }
         @keyframes mk-rise {
           from { opacity: 0; transform: translateY(10px); }
           to { opacity: 1; transform: translateY(0); }
@@ -333,6 +353,10 @@ export default function StudioHomePage() {
           .mk-get-grid,
           .mk-steps {
             grid-template-columns: 1fr;
+          }
+          .mk-transcript-band {
+            grid-template-columns: 1fr;
+            gap: 8px;
           }
         }
         @media (prefers-reduced-motion: reduce) {

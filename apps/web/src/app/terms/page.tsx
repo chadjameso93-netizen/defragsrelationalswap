@@ -31,7 +31,7 @@ export default function TermsPage() {
       description="These terms explain the core rules for using Defrag, keeping your account secure, and managing paid access."
       accent="rgba(245, 245, 245, 0.56)"
     >
-      <div style={{ maxWidth: 1120, display: "grid", gridTemplateColumns: "220px minmax(0,1fr)", gap: 48 }} className="terms-grid">
+      <section style={{ maxWidth: 1120, display: "grid", gridTemplateColumns: "220px minmax(0,1fr)", gap: 48 }} className="terms-grid" aria-labelledby="terms-section-heading">
         <aside style={{ display: "grid", gap: 16, alignContent: "start" }}>
           <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245,245,245,0.38)" }}>
             What these terms cover
@@ -41,9 +41,11 @@ export default function TermsPage() {
           </p>
         </aside>
 
-        <div style={{ display: "grid", gap: 0, borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+        <div style={{ display: "grid", gap: 0, borderTop: "1px solid rgba(255,255,255,0.08)" }} role="list" aria-label="Terms sections">
+          <h2 id="terms-section-heading" style={{ position: "absolute", left: "-9999px" }}>Terms sections</h2>
           {sections.map((section) => (
-            <div key={section.title} style={{ display: "grid", gridTemplateColumns: "70px minmax(0,1fr)", gap: 16, paddingTop: 22, paddingBottom: 24, borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+            <article key={section.title} role="listitem" style={{ display: "grid", gridTemplateColumns: "20px 70px minmax(0,1fr)", gap: 16, paddingTop: 22, paddingBottom: 24, borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+              <div style={{ fontSize: 11, color: "rgba(245,245,245,0.36)", fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase" }} aria-hidden="true">T</div>
               <div style={{ fontSize: 11, color: "rgba(245,245,245,0.3)", fontWeight: 600, letterSpacing: "0.1em" }}>{section.number}</div>
               <div style={{ display: "grid", gap: 10 }}>
                 <h2 style={{ margin: 0, fontSize: 28, fontWeight: 500, color: "white", lineHeight: 1.08 }}>
@@ -53,10 +55,10 @@ export default function TermsPage() {
                   {section.body}
                 </p>
               </div>
-            </div>
+            </article>
           ))}
         </div>
-      </div>
+      </section>
 
       <style>{`
         @media (max-width: 900px) {
