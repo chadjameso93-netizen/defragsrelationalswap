@@ -103,7 +103,7 @@ export const marketingCopy: MarketingCopy = {
     primaryCtaLabel: "Open Defrag",
     primaryCtaHref: "/enter",
     secondaryCtaLabel: "See how it works",
-    secondaryCtaHref: "/studio#how-it-works",
+    secondaryCtaHref: "/how-it-works",
   },
   outputVisibility: {
     kicker: "What you get",
@@ -251,6 +251,6 @@ export const marketingCopy: MarketingCopy = {
     primaryCtaLabel: "Open Defrag",
     primaryCtaHref: "/enter",
     secondaryCtaLabel: "See how it works",
-    secondaryCtaHref: "/studio#how-it-works",
+    secondaryCtaHref: "/how-it-works",
   },
 };

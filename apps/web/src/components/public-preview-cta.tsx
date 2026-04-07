@@ -15,7 +15,7 @@ export function PublicPreviewCta({
   primaryLabel = "Open Defrag",
   primaryHref = "/enter",
   secondaryLabel = "See how it works",
-  secondaryHref = "/studio#how-it-works",
+  secondaryHref = "/how-it-works",
 }: PublicPreviewCtaProps) {
   return (
     <div style={{ display: "grid", gap: 20, maxWidth: 640 }}>
