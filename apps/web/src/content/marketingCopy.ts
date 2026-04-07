@@ -13,6 +13,8 @@ export interface OutputVisibilityCopy {
   kicker: string;
   title: string;
   items: Array<{ title: string; body: string }>;
+  description?: string;
+  bullets?: string[];
 }
 
 export interface CoreValueCopy {
