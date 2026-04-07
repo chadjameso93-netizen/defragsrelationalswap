@@ -1,25 +1,21 @@
 import { AppShell } from "../../components/app-shell";
 
-const sections = [
+const scenes = [
   {
-    number: "01",
     title: "What we collect",
-    body: "Defrag uses the information you provide, your account details, and your plan status to keep your workspace running and deliver the product experience.",
+    body: "We collect the information required to run your account and deliver your workspace experience: sign-in details, product activity, and plan state.",
   },
   {
-    number: "02",
     title: "How we use it",
-    body: "We use your information to support sign-in, save your workspace, deliver insights, and keep your account working as expected.",
+    body: "We use this information to authenticate access, save your ongoing work, generate product outputs, and keep core account functionality stable.",
   },
   {
-    number: "03",
-    title: "Billing",
-    body: "Payments and subscription changes are handled through Defrag and our payment provider. Billing details are used only to process and manage your plan.",
+    title: "Billing information",
+    body: "Paid subscriptions are processed through Defrag and our payment providers. Billing data is used for subscription operations, invoices, and account changes.",
   },
   {
-    number: "04",
     title: "Security and control",
-    body: "We use authentication, access controls, and plan checks to protect your account. You control what you choose to keep, use, and share.",
+    body: "We apply authentication, access controls, and operational safeguards to reduce misuse. You control what you enter, keep, and share inside your account.",
   },
 ];
 
@@ -27,40 +23,37 @@ export default function PrivacyPage() {
   return (
     <AppShell
       eyebrow="Privacy"
-      title="Privacy should be clear and easy to understand."
-      description="This page explains what Defrag uses, why it uses it, and how your account stays protected."
+      title="Privacy in plain language."
+      description="This is the same legal policy content, restyled into a calmer reading flow with clear sections and consistent brand rhythm."
       accent="var(--color-accent)"
     >
-      <div style={{ maxWidth: 1120, display: "grid", gridTemplateColumns: "220px minmax(0,1fr)", gap: 48 }} className="privacy-grid">
-        <aside style={{ display: "grid", gap: 16, alignContent: "start" }}>
-          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245,245,245,0.38)" }}>
-            What this page explains
-          </div>
-          <p style={{ margin: 0, fontSize: 14, lineHeight: 1.72, color: "rgba(245,245,245,0.52)" }}>
-            What Defrag uses to run the product, why that information matters, and how access stays controlled.
-          </p>
-        </aside>
-
-        <div style={{ display: "grid", gap: 0, borderTop: "1px solid rgba(255,255,255,0.08)" }}>
-          {sections.map((section) => (
-            <div key={section.title} style={{ display: "grid", gridTemplateColumns: "70px minmax(0,1fr)", gap: 16, paddingTop: 22, paddingBottom: 24, borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-              <div style={{ fontSize: 11, color: "rgba(245,245,245,0.3)", fontWeight: 600, letterSpacing: "0.1em" }}>{section.number}</div>
-              <div style={{ display: "grid", gap: 10 }}>
-                <h2 style={{ margin: 0, fontSize: 28, fontWeight: 500, color: "white", lineHeight: 1.08 }}>
-                  {section.title}
-                </h2>
-                <p style={{ margin: 0, color: "rgba(245,245,245,0.64)", lineHeight: 1.8, fontSize: 16, fontWeight: 300, maxWidth: 760 }}>
-                  {section.body}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+      <div style={{ maxWidth: 980, margin: "0 auto", padding: "0 16px", display: "grid", gap: 18 }}>
+        {scenes.map((scene, index) => (
+          <section
+            key={scene.title}
+            style={{
+              display: "grid",
+              gap: 10,
+              padding: "22px 22px 24px",
+              border: "1px solid rgba(255,255,255,0.08)",
+              background: "linear-gradient(180deg, rgba(255,255,255,0.028), rgba(255,255,255,0.012))",
+              animation: `legalFade 360ms ease ${index * 80}ms both`,
+            }}
+          >
+            <h2 style={{ margin: 0, fontSize: "clamp(1.35rem, 2.4vw, 1.9rem)", lineHeight: 1.15, color: "white", fontWeight: 500, letterSpacing: "-0.02em" }}>
+              {scene.title}
+            </h2>
+            <p style={{ margin: 0, fontSize: 16, lineHeight: 1.78, color: "rgba(245,245,245,0.66)", fontWeight: 300 }}>
+              {scene.body}
+            </p>
+          </section>
+        ))}
       </div>
 
       <style>{`
-        @media (max-width: 900px) {
-          .privacy-grid { grid-template-columns: 1fr !important; }
+        @keyframes legalFade {
+          from { opacity: 0; transform: translateY(8px); }
+          to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
     </AppShell>

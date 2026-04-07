@@ -1,25 +1,21 @@
 import { AppShell } from "../../components/app-shell";
 
-const sections = [
+const scenes = [
   {
-    number: "01",
     title: "Using Defrag",
-    body: "Defrag helps you think through difficult interactions more clearly. It is not emergency support, legal advice, medical advice, or a substitute for licensed care.",
+    body: "Defrag supports clearer communication in difficult moments. It is not emergency support, legal advice, medical advice, or a replacement for licensed care.",
   },
   {
-    number: "02",
-    title: "Accounts",
-    body: "You are responsible for keeping your sign-in method secure and for using your account in a lawful and respectful way.",
+    title: "Account responsibility",
+    body: "You are responsible for account security and lawful use. Keep your sign-in credentials protected and use the service in good faith.",
   },
   {
-    number: "03",
     title: "Plans and billing",
-    body: "If you choose a paid plan, billing and subscription changes are handled through Defrag and our payment provider.",
+    body: "If you subscribe to a paid plan, billing operations and subscription changes are handled through Defrag and our payment infrastructure.",
   },
   {
-    number: "04",
     title: "Acceptable use",
-    body: "You may not misuse the product, interfere with the service, try to bypass access controls, or use Defrag in a way that harms others or breaks the law.",
+    body: "You may not misuse the product, attempt to bypass controls, disrupt service integrity, or use Defrag for activity that harms others or violates law.",
   },
 ];
 
@@ -27,40 +23,37 @@ export default function TermsPage() {
   return (
     <AppShell
       eyebrow="Terms"
-      title="Terms should be straightforward."
-      description="These terms explain the core rules for using Defrag, keeping your account secure, and managing paid access."
+      title="Terms in a calm, readable flow."
+      description="These terms preserve legal clarity while matching the same typography, spacing, and gentle motion language used across the public experience."
       accent="rgba(245, 245, 245, 0.56)"
     >
-      <div style={{ maxWidth: 1120, display: "grid", gridTemplateColumns: "220px minmax(0,1fr)", gap: 48 }} className="terms-grid">
-        <aside style={{ display: "grid", gap: 16, alignContent: "start" }}>
-          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(245,245,245,0.38)" }}>
-            What these terms cover
-          </div>
-          <p style={{ margin: 0, fontSize: 14, lineHeight: 1.72, color: "rgba(245,245,245,0.52)" }}>
-            How to use Defrag appropriately, how accounts are handled, and how paid access is managed.
-          </p>
-        </aside>
-
-        <div style={{ display: "grid", gap: 0, borderTop: "1px solid rgba(255,255,255,0.08)" }}>
-          {sections.map((section) => (
-            <div key={section.title} style={{ display: "grid", gridTemplateColumns: "70px minmax(0,1fr)", gap: 16, paddingTop: 22, paddingBottom: 24, borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-              <div style={{ fontSize: 11, color: "rgba(245,245,245,0.3)", fontWeight: 600, letterSpacing: "0.1em" }}>{section.number}</div>
-              <div style={{ display: "grid", gap: 10 }}>
-                <h2 style={{ margin: 0, fontSize: 28, fontWeight: 500, color: "white", lineHeight: 1.08 }}>
-                  {section.title}
-                </h2>
-                <p style={{ margin: 0, color: "rgba(245,245,245,0.64)", lineHeight: 1.8, fontSize: 16, fontWeight: 300, maxWidth: 760 }}>
-                  {section.body}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+      <div style={{ maxWidth: 980, margin: "0 auto", padding: "0 16px", display: "grid", gap: 18 }}>
+        {scenes.map((scene, index) => (
+          <section
+            key={scene.title}
+            style={{
+              display: "grid",
+              gap: 10,
+              padding: "22px 22px 24px",
+              border: "1px solid rgba(255,255,255,0.08)",
+              background: "linear-gradient(180deg, rgba(255,255,255,0.026), rgba(255,255,255,0.01))",
+              animation: `legalFade 360ms ease ${index * 80}ms both`,
+            }}
+          >
+            <h2 style={{ margin: 0, fontSize: "clamp(1.35rem, 2.4vw, 1.9rem)", lineHeight: 1.15, color: "white", fontWeight: 500, letterSpacing: "-0.02em" }}>
+              {scene.title}
+            </h2>
+            <p style={{ margin: 0, fontSize: 16, lineHeight: 1.78, color: "rgba(245,245,245,0.66)", fontWeight: 300 }}>
+              {scene.body}
+            </p>
+          </section>
+        ))}
       </div>
 
       <style>{`
-        @media (max-width: 900px) {
-          .terms-grid { grid-template-columns: 1fr !important; }
+        @keyframes legalFade {
+          from { opacity: 0; transform: translateY(8px); }
+          to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
     </AppShell>
