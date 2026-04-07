@@ -29,10 +29,10 @@ export default function AboutPage() {
                 Open Defrag
               </div>
               <div style={{ display: "grid", gap: 12 }}>
-                <Link href="/enter" style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "16px", borderRadius: 14, background: "white", color: "#050505", textDecoration: "none", fontWeight: 600, fontSize: 16 }}>
+                <Link href="/enter" className="about-cta about-cta-primary">
                   Open Defrag
                 </Link>
-                <Link href="/studio#how-it-works" style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "16px", borderRadius: 14, border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.03)", color: "white", textDecoration: "none", fontSize: 16 }}>
+                <Link href="/studio#how-it-works" className="about-cta about-cta-secondary">
                   See how it works
                 </Link>
               </div>
@@ -53,7 +53,14 @@ export default function AboutPage() {
           </aside>
         </div>
       </div>
-      <style>{`@media (max-width: 900px) { .about-grid { grid-template-columns: 1fr !important; gap: 48px !important; } .about-aside { padding-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.08); } }`}</style>
+      <style>{`
+        .about-cta { display:flex; align-items:center; justify-content:center; padding:12px 16px; border-radius:12px; text-decoration:none; font-size:15px; letter-spacing:0.02em; transition:transform 180ms ease, color 180ms ease, border-color 180ms ease; }
+        .about-cta:hover { transform:translateY(-1px); }
+        .about-cta-primary { background:#f3ede2; color:#050505; border:1px solid rgba(243,237,226,0.82); font-weight:600; box-shadow:0 8px 20px rgba(0,0,0,0.22); }
+        .about-cta-secondary { border:1px solid rgba(255,255,255,0.18); background:transparent; color:rgba(245,242,236,0.92); font-weight:500; }
+        .about-cta-secondary:hover { border-color:rgba(255,255,255,0.34); color:#fff; }
+        @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr !important; gap: 48px !important; } .about-aside { padding-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.08); } .about-cta-primary { width:100%; } .about-cta-secondary { border:none; padding-inline:4px; justify-content:flex-start; color:rgba(245,242,236,0.72); } }
+      `}</style>
     </AppShell>
   );
 }

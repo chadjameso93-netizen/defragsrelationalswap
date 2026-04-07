@@ -10,9 +10,11 @@ export default function HomePage() {
         .home-muted { color:rgba(245,242,236,0.62); }
         .home-hero { display:grid; grid-template-columns: 1.02fr 0.98fr; gap:22px; }
         .home-title { font-size:78px; line-height:0.9; letter-spacing:-0.03em; font-family:var(--font-display), serif; }
-        .home-btn { display:inline-flex; align-items:center; justify-content:center; text-decoration:none; padding:13px 16px; font-weight:600; }
-        .home-btn.primary { background:#f5f2ec; color:#050505; }
-        .home-btn.secondary { border:1px solid rgba(255,255,255,0.1); color:#f5f2ec; }
+        .home-btn { display:inline-flex; align-items:center; justify-content:center; text-decoration:none; padding:12px 16px; font-weight:600; border-radius:12px; letter-spacing:0.04em; transition:transform 180ms ease, color 180ms ease, border-color 180ms ease; }
+        .home-btn:hover { transform:translateY(-1px); }
+        .home-btn.primary { background:#f3ede2; color:#050505; border:1px solid rgba(243,237,226,0.82); box-shadow:0 8px 20px rgba(0,0,0,0.22); }
+        .home-btn.secondary { border:1px solid rgba(255,255,255,0.18); background:transparent; color:rgba(245,242,236,0.92); font-weight:500; }
+        .home-btn.secondary:hover { border-color:rgba(255,255,255,0.34); color:#ffffff; }
         .home-stage { position:relative; min-height:660px; overflow:hidden; }
         .home-stage::before { content:""; position:absolute; inset:0; background:radial-gradient(circle at 50% 50%, rgba(214,195,161,0.10), transparent 34%), radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06), transparent 24%), radial-gradient(circle at 78% 76%, rgba(255,255,255,0.04), transparent 24%); }
         .home-stage::after { content:""; position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px); background-size:34px 34px; opacity:0.12; }
@@ -32,7 +34,7 @@ export default function HomePage() {
         @keyframes homePulse { 0%, 100% { transform:scale(1); opacity:0.4; } 50% { transform:scale(1.05); opacity:0.74; } }
         @keyframes homeFloat { 0%, 100% { transform:translate(-50%, -50%) translateY(0px); } 50% { transform:translate(-50%, -50%) translateY(-5px); } }
         @media (max-width: 1080px) { .home-hero, .home-grid { grid-template-columns:1fr; } .home-title { font-size:58px; } .home-thread { position:relative; left:auto; top:auto; width:auto; padding:20px 20px 0; } .home-stage { min-height:760px; } }
-        @media (max-width: 720px) { .home-title { font-size:44px; } .home-stage { min-height:860px; } .home-node { width:138px; height:138px; } }
+        @media (max-width: 720px) { .home-title { font-size:44px; } .home-stage { min-height:860px; } .home-node { width:138px; height:138px; } .home-btn.primary { width:100%; } .home-btn.secondary { border:none; padding-inline:4px; text-transform:none; letter-spacing:0.01em; color:rgba(245,242,236,0.72); justify-content:flex-start; } }
       `}</style>
 
       <div className="home-shell">

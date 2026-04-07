@@ -159,32 +159,37 @@ export default function StudioHomePage() {
           font-size: clamp(0.96rem, 1.3vw, 1.05rem);
           max-width: 58ch;
         }
-        .mk-actions { display: flex; gap: 12px; flex-wrap: wrap; padding-top: 6px; }
-        .mk-btn {
+        .mk-actions { display: flex; gap: 10px; flex-wrap: wrap; padding-top: 6px; }
+        .mk-cta {
           display: inline-flex;
           align-items: center;
           justify-content: center;
           text-decoration: none;
-          border-radius: 999px;
-          padding: 13px 22px;
+          border-radius: 12px;
+          padding: 12px 18px;
           font-size: 12px;
-          letter-spacing: 0.08em;
+          letter-spacing: 0.07em;
           text-transform: uppercase;
-          transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+          transition: transform 180ms ease, box-shadow 180ms ease, color 180ms ease, border-color 180ms ease;
         }
-        .mk-btn:hover { transform: translateY(-1px); }
-        .mk-btn-primary {
-          background: linear-gradient(135deg, #fbf7f0 0%, #e6d7b8 92%);
+        .mk-cta:hover { transform: translateY(-1px); }
+        .mk-cta-primary {
+          background: #f3ede2;
           color: #090909;
           font-weight: 600;
-          box-shadow: 0 10px 28px rgba(224, 201, 153, 0.26);
+          border: 1px solid rgba(243, 237, 226, 0.82);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
         }
-        .mk-btn-secondary {
-          color: #f5f2ec;
-          border: 1px solid rgba(255, 255, 255, 0.26);
-          background: rgba(255, 255, 255, 0.03);
+        .mk-cta-secondary {
+          color: rgba(245, 242, 236, 0.92);
+          border: 1px solid rgba(255, 255, 255, 0.18);
+          background: transparent;
+          font-weight: 500;
         }
-        .mk-btn-secondary:hover { border-color: rgba(255, 255, 255, 0.42); }
+        .mk-cta-secondary:hover {
+          border-color: rgba(255, 255, 255, 0.34);
+          color: #ffffff;
+        }
         .mk-note {
           font-size: 11px;
           letter-spacing: 0.12em;
@@ -334,16 +339,34 @@ export default function StudioHomePage() {
           .mk-steps {
             grid-template-columns: 1fr;
           }
+          .mk-actions {
+            width: 100%;
+            gap: 8px;
+          }
+          .mk-cta-primary {
+            flex: 1 1 100%;
+          }
+          .mk-cta-secondary {
+            border: none;
+            padding-inline: 6px;
+            color: rgba(245, 242, 236, 0.72);
+            text-transform: none;
+            letter-spacing: 0.01em;
+            justify-content: flex-start;
+          }
+          .mk-cta-secondary:hover {
+            color: rgba(255, 255, 255, 0.92);
+          }
         }
         @media (prefers-reduced-motion: reduce) {
           .mk-section,
           .mk-hero::after {
             animation: none;
           }
-          .mk-btn {
+          .mk-cta {
             transition: none;
           }
-          .mk-btn:hover {
+          .mk-cta:hover {
             transform: none;
           }
         }
