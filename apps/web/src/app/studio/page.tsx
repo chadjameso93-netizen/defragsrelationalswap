@@ -38,9 +38,9 @@ export default function StudioHomePage() {
         .mk-shell {
           width: min(1160px, 100%);
           margin: 0 auto;
-          padding: 28px clamp(16px, 3.8vw, 42px) 86px;
+          padding: 24px clamp(16px, 3.8vw, 42px) 86px;
           display: grid;
-          gap: 48px;
+          gap: 44px;
           position: relative;
           z-index: 1;
         }

@@ -99,7 +99,7 @@ export const marketingCopy: MarketingCopy = {
     title: "The tool you reach for before replying.",
     description:
       "See why it felt one way to you — and another way to them.",
-    quietNote: "Plain-language guidance • anti-stigma framing • built for real conversations",
+    quietNote: "Quiet clarity for loaded conversations",
     primaryCtaLabel: "Open Defrag",
     primaryCtaHref: "/enter",
     secondaryCtaLabel: "See how it works",
