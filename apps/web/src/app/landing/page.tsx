@@ -30,8 +30,8 @@ export default function LandingPage() {
   return (
     <main style={{ minHeight: "100vh", background: "#050505", color: "#f5f2ec" }}>
       <style>{`
-        .land-shell { max-width: 1320px; margin: 0 auto; padding: 34px 22px 80px; display:grid; gap:24px; }
-        .land-card { border:1px solid rgba(255,255,255,0.08); background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015)); }
+        .land-shell { max-width: 1320px; margin: 0 auto; padding: 34px 22px 80px; display:grid; gap:34px; }
+        .land-band { background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)); }
         .land-kicker { font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(245,242,236,0.42); }
         .land-muted { color:rgba(245,242,236,0.62); }
         .land-hero { display:grid; grid-template-columns: 1.02fr 0.98fr; gap:22px; }
@@ -45,7 +45,7 @@ export default function LandingPage() {
         .land-preview::before { content:""; position:absolute; inset:0; background:radial-gradient(circle at 50% 50%, rgba(214,195,161,0.10), transparent 34%), radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06), transparent 26%), radial-gradient(circle at 74% 74%, rgba(255,255,255,0.04), transparent 24%); }
         .land-preview::after { content:""; position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px); background-size:34px 34px; opacity:0.12; }
         .land-thread { position:absolute; left:24px; top:24px; width:360px; display:grid; gap:12px; z-index:2; }
-        .land-bubble { padding:14px 16px; border:1px solid rgba(255,255,255,0.08); line-height:1.65; backdrop-filter: blur(8px); }
+        .land-bubble { padding:14px 16px; line-height:1.65; backdrop-filter: blur(8px); }
         .land-bubble.user { background:rgba(255,255,255,0.03); }
         .land-bubble.assistant { background:rgba(214,195,161,0.08); }
         .land-fieldline { position:absolute; left:50%; top:48%; width:320px; height:2px; transform:translate(-50%, -50%); background:linear-gradient(90deg, rgba(214,195,161,0), rgba(214,195,161,0.35), rgba(255,255,255,0.42), rgba(214,195,161,0.35), rgba(214,195,161,0)); overflow:hidden; z-index:1; }
@@ -53,9 +53,9 @@ export default function LandingPage() {
         .land-node { position:absolute; width:156px; height:156px; border-radius:999px; display:grid; place-items:center; text-align:center; border:1px solid rgba(255,255,255,0.14); background:radial-gradient(circle at center, rgba(255,255,255,0.08), rgba(255,255,255,0.015)); backdrop-filter:blur(8px); z-index:2; animation:landFloat 5.2s ease-in-out infinite; }
         .land-node::before { content:""; position:absolute; inset:-14px; border-radius:999px; border:1px solid rgba(214,195,161,0.14); animation:landPulse 3.2s ease-in-out infinite; }
         .land-summary { position:absolute; left:24px; right:24px; bottom:24px; display:grid; gap:12px; z-index:2; }
-        .land-chip { display:inline-flex; padding:8px 10px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); font-size:12px; color:rgba(245,242,236,0.72); }
+        .land-chip { display:inline-flex; padding:8px 10px; background:rgba(255,255,255,0.05); font-size:12px; color:rgba(245,242,236,0.72); }
         .land-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:18px; }
-        .land-step { padding:18px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.02); line-height:1.68; }
+        .land-step { padding:18px 0; background:linear-gradient(180deg, rgba(255,255,255,0.04), transparent 80%); line-height:1.68; }
         @keyframes landSweep { from { left:-25%; } to { left:100%; } }
         @keyframes landPulse { 0%, 100% { transform:scale(1); opacity:0.4; } 50% { transform:scale(1.05); opacity:0.74; } }
         @keyframes landFloat { 0%, 100% { transform:translate(-50%, -50%) translateY(0px); } 50% { transform:translate(-50%, -50%) translateY(-5px); } }
@@ -76,7 +76,7 @@ export default function LandingPage() {
 
       <div className="land-shell">
         <section className="land-hero">
-          <div className="land-card" style={{ padding: 26, display: "grid", gap: 20, alignContent: "start" }}>
+          <div className="land-band" style={{ padding: "28px 0", display: "grid", gap: 20, alignContent: "start" }}>
             <div className="land-kicker">Relational intelligence for real life</div>
             <div className="land-title">The tool you reach for before replying.</div>
             <div className="land-muted" style={{ maxWidth: 700, lineHeight: 1.76, fontSize: 18 }}>
@@ -97,7 +97,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <section className="land-card land-preview">
+          <section className="land-band land-preview">
             <div className="land-thread">
               {PREVIEW_MESSAGES.map((entry) => (
                 <div key={entry.role} className={`land-bubble ${entry.role === "You" ? "user" : "assistant"}`}>
@@ -122,7 +122,7 @@ export default function LandingPage() {
             </div>
 
             <div className="land-summary">
-              <div className="land-card" style={{ padding: 16, display: "grid", gap: 10 }}>
+              <div className="land-band" style={{ padding: "16px 0", display: "grid", gap: 10 }}>
                 <div className="land-kicker">Workspace preview</div>
                 <div style={{ fontSize: 24, fontFamily: "var(--font-display), serif" }}>What may be happening</div>
                 <div className="land-muted" style={{ lineHeight: 1.7 }}>
@@ -140,7 +140,7 @@ export default function LandingPage() {
 
         <section className="land-grid">
           {STEPS.map((step) => (
-            <article key={step.label} className="land-card" style={{ padding: 20, display: "grid", gap: 12 }}>
+            <article key={step.label} className="land-band" style={{ padding: "20px 0", display: "grid", gap: 12 }}>
               <div className="land-kicker">{step.label}</div>
               <div className="land-muted" style={{ lineHeight: 1.7 }}>{step.body}</div>
             </article>

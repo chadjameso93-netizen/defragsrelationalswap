@@ -7,7 +7,7 @@ interface ClosingCtaSectionProps {
 
 export function ClosingCtaSection({ copy }: ClosingCtaSectionProps) {
   return (
-    <section className="mk-section mk-card">
+    <section className="mk-section mk-band-block">
       <div className="mk-kicker">{copy.kicker}</div>
       <h2 className="mk-h2">{copy.title}</h2>
       <p className="mk-body">{copy.description}</p>
