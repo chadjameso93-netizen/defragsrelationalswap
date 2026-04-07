@@ -3,7 +3,15 @@ import { PublicPageShell } from "../../components/public/page-shell";
 import Link from "next/link";
 
 const pillars = ["Simple language", "Relationship workspace", "Perspective comparison", "Practical next-step guidance"];
-
+const PREVIEW_MESSAGES = [
+  { role: "You", body: "I feel like nothing I say lands the way I mean it." },
+  { role: "Defrag", body: "That pattern often shows up when two people are both trying to be heard at the same time. Let's look at what may be happening on both sides." },
+];
+const STEPS = [
+  { label: "01 — Understand", body: "Paste a message, conversation, or situation. Defrag reads the relational context and surfaces what may actually be happening." },
+  { label: "02 — Compare", body: "See both perspectives side by side. Understand how the other person may be interpreting the same exchange." },
+  { label: "03 — Move", body: "Get one clear, practical next step — not therapy, not advice. Just the move that fits the moment." },
+];
 export default function LandingPage() {
   return (
     <main style={{ minHeight: "100vh", background: "#050505", color: "#f5f2ec" }}>
