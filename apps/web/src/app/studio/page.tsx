@@ -10,175 +10,300 @@ import { HowItWorksSection } from "../../components/marketing/HowItWorksSection"
 import { ProductSystemSection } from "../../components/marketing/ProductSystemSection";
 import { FaqSection } from "../../components/marketing/FaqSection";
 import { ClosingCtaSection } from "../../components/marketing/ClosingCtaSection";
+
 export default function StudioHomePage() {
   return (
     <main className="mk-page">
       <style>{`
+        /* ===== DEFRAG PREMIUM DESIGN SYSTEM ===== */
+        /* Multimillion-dollar AI platform aesthetic with cohesive visual language */
+
         .mk-page {
           min-height: 100vh;
           background:
-            radial-gradient(1200px 680px at 78% -8%, rgba(235, 219, 190, 0.12), transparent 64%),
-            radial-gradient(920px 620px at 18% 20%, rgba(255, 255, 255, 0.05), transparent 68%),
-            linear-gradient(160deg, #080808 0%, #050505 42%, #090909 100%);
+            radial-gradient(1400px 720px at 22% 15%, rgba(214, 195, 161, 0.09), transparent 58%),
+            radial-gradient(980px 680px at 78% 42%, rgba(108, 99, 255, 0.06), transparent 62%),
+            radial-gradient(1200px 800px at 50% 85%, rgba(214, 195, 161, 0.05), transparent 64%),
+            linear-gradient(165deg, #080808 0%, #0a0a0a 38%, #050505 100%);
+          color: #f5f2ec;
+          position: relative;
+        }
+
+        /* Ambient field overlay for depth */
+        .mk-page::before {
+          content: "";
+          position: fixed;
+          inset: 0;
+          background-image:
+            linear-gradient(rgba(245, 242, 236, 0.012) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(245, 242, 236, 0.012) 1px, transparent 1px);
+          background-size: 42px 42px;
+          opacity: 0.3;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .mk-shell {
+          width: min(1280px, 100%);
+          margin: 0 auto;
+          padding: 48px clamp(20px, 4.2vw, 56px) 120px;
+          display: grid;
+          gap: 72px;
+          position: relative;
+          z-index: 1;
+        }
+
+        /* ===== TYPOGRAPHY SCALE ===== */
+        .mk-kicker {
+          font-size: 11px;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: rgba(245, 242, 236, 0.48);
+          font-weight: 600;
+        }
+
+        .mk-h1 {
+          font-size: clamp(56px, 8vw, 96px);
+          line-height: 0.92;
+          letter-spacing: -0.04em;
+          font-family: var(--font-display), serif;
+          font-weight: 400;
           color: #f5f2ec;
         }
-        .mk-shell {
-          width: min(1120px, 100%);
-          margin: 0 auto;
-          padding: 30px clamp(16px, 3.4vw, 40px) 96px;
-          display: grid;
-          gap: 56px;
-        }
-        .mk-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          flex-wrap: wrap;
-          gap: 14px;
-        }
-        .mk-brand {
-          font-size: 11px;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
-          color: rgba(245, 242, 236, 0.56);
-        }
-        .mk-nav { display: flex; gap: 12px; flex-wrap: wrap; }
-        .mk-nav a {
-          color: rgba(245, 242, 236, 0.84);
-          text-decoration: none;
-          font-size: 12px;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-          border-bottom: 1px solid rgba(245, 242, 236, 0.24);
-          padding: 6px 0;
-        }
-        .mk-section { display: grid; gap: 14px; }
-        .mk-hero { padding-top: 10px; }
-        .mk-kicker {
-          font-size: 10px;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
-          color: rgba(245, 242, 236, 0.52);
-        }
-        .mk-title {
-          margin: 0;
-          font-family: var(--font-display), serif;
-          font-size: clamp(2.7rem, 8vw, 6.4rem);
-          line-height: 0.9;
-          letter-spacing: -0.045em;
-          max-width: 13ch;
-        }
+
         .mk-h2 {
-          margin: 0;
-          font-family: var(--font-display), serif;
-          font-size: clamp(1.7rem, 4.2vw, 3rem);
-          line-height: 0.95;
+          font-size: clamp(38px, 5vw, 64px);
+          line-height: 1.08;
           letter-spacing: -0.03em;
+          font-family: var(--font-display), serif;
+          font-weight: 400;
         }
+
         .mk-h3 {
-          margin: 0;
-          font-size: 1.1rem;
-          letter-spacing: -0.01em;
-          color: #fff;
+          font-size: clamp(24px, 3.2vw, 36px);
+          line-height: 1.22;
+          letter-spacing: -0.02em;
+          font-family: var(--font-display), serif;
+          font-weight: 400;
         }
-        .mk-lead,
+
+        .mk-lead {
+          font-size: clamp(17px, 2vw, 20px);
+          line-height: 1.68;
+          color: rgba(245, 242, 236, 0.78);
+          max-width: 720px;
+        }
+
         .mk-body {
-          margin: 0;
-          color: rgba(245, 242, 236, 0.72);
-          line-height: 1.8;
-          font-size: clamp(0.98rem, 1.35vw, 1.08rem);
-          max-width: 70ch;
+          font-size: 16px;
+          line-height: 1.72;
+          color: rgba(245, 242, 236, 0.7);
         }
-        .mk-actions { display: flex; gap: 12px; flex-wrap: wrap; padding-top: 4px; }
+
+        /* ===== PREMIUM GLASS CARD SYSTEM ===== */
+        .mk-card {
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          background:
+            linear-gradient(168deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.018) 100%),
+            rgba(12, 12, 12, 0.6);
+          backdrop-filter: blur(16px);
+          border-radius: 16px;
+          position: relative;
+          overflow: hidden;
+          transition: all 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mk-card::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          padding: 1px;
+          background: linear-gradient(165deg, rgba(255, 255, 255, 0.12), transparent 42%, rgba(214, 195, 161, 0.08));
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          opacity: 0.6;
+          pointer-events: none;
+        }
+
+        .mk-card:hover {
+          transform: translateY(-4px);
+          box-shadow:
+            0 0 60px rgba(214, 195, 161, 0.15),
+            0 20px 50px rgba(0, 0, 0, 0.4);
+          border-color: rgba(255, 255, 255, 0.14);
+        }
+
+        .mk-card-glow {
+          box-shadow:
+            0 0 80px rgba(214, 195, 161, 0.18),
+            0 24px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ===== PREMIUM BUTTON SYSTEM ===== */
         .mk-btn {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          text-decoration: none;
-          border-radius: 999px;
-          padding: 13px 22px;
-          font-size: 12px;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-        }
-        .mk-btn-primary {
-          background: linear-gradient(135deg, #faf6ee 0%, #e7d7b8 92%);
-          color: #090909;
+          padding: 15px 32px;
+          border-radius: 12px;
+          font-size: 15px;
           font-weight: 600;
+          letter-spacing: -0.01em;
+          text-decoration: none;
+          transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+          overflow: hidden;
         }
+
+        .mk-btn-primary {
+          background: linear-gradient(165deg, #f5f2ec 0%, #e8e4d8 100%);
+          color: #0a0a0a;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          box-shadow:
+            0 0 30px rgba(245, 242, 236, 0.2),
+            0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .mk-btn-primary:hover {
+          transform: translateY(-2px) scale(1.02);
+          box-shadow:
+            0 0 50px rgba(245, 242, 236, 0.35),
+            0 12px 32px rgba(0, 0, 0, 0.4);
+        }
+
         .mk-btn-secondary {
+          background: rgba(255, 255, 255, 0.04);
           color: #f5f2ec;
-          border: 1px solid rgba(255, 255, 255, 0.26);
-          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.14);
+          backdrop-filter: blur(12px);
         }
-        .mk-note {
-          font-size: 11px;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          color: rgba(245, 242, 236, 0.44);
+
+        .mk-btn-secondary:hover {
+          background: rgba(255, 255, 255, 0.08);
+          border-color: rgba(255, 255, 255, 0.24);
+          transform: translateY(-2px);
         }
-        .mk-list {
-          margin: 0;
-          padding-left: 20px;
+
+        /* ===== SECTION LAYOUTS ===== */
+        .mk-section {
           display: grid;
-          gap: 10px;
-          color: rgba(245, 242, 236, 0.72);
-          line-height: 1.75;
+          gap: 32px;
         }
-        .mk-list-tight { gap: 6px; }
+
+        .mk-section-divider {
+          width: 100%;
+          height: 1px;
+          background: linear-gradient(90deg, transparent 0%, rgba(214, 195, 161, 0.12) 50%, transparent 100%);
+          margin: 48px 0;
+        }
+
         .mk-grid-2 {
           display: grid;
-          grid-template-columns: minmax(0, 1fr) minmax(280px, 0.86fr);
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
           gap: 24px;
+        }
+
+        .mk-grid-3 {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+          gap: 24px;
+        }
+
+        .mk-grid-4 {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+          gap: 20px;
+        }
+
+        /* ===== COMPONENT-SPECIFIC OVERRIDES ===== */
+        .mk-hero-grid {
+          display: grid;
+          grid-template-columns: 1.1fr 0.9fr;
+          gap: 28px;
           align-items: start;
         }
-        .mk-card {
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 20px;
-          padding: 22px;
+
+        @media (max-width: 1024px) {
+          .mk-hero-grid {
+            grid-template-columns: 1fr;
+          }
+          .mk-shell {
+            gap: 56px;
+            padding-top: 32px;
+          }
         }
-        .mk-steps { display: grid; gap: 12px; }
-        .mk-step {
-          border-left: 1px solid rgba(255, 255, 255, 0.22);
-          padding-left: 16px;
+
+        .mk-feature-card {
+          padding: 32px;
           display: grid;
-          gap: 8px;
+          gap: 16px;
+          align-content: start;
         }
-        .mk-step-label {
-          font-size: 10px;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
+
+        .mk-feature-icon {
+          width: 48px;
+          height: 48px;
+          border-radius: 12px;
+          background: linear-gradient(135deg, rgba(214, 195, 161, 0.15), rgba(214, 195, 161, 0.05));
+          border: 1px solid rgba(214, 195, 161, 0.2);
+          display: grid;
+          place-items: center;
+          font-size: 22px;
+        }
+
+        /* Ambient glow accents */
+        .mk-glow-accent {
+          position: relative;
+        }
+
+        .mk-glow-accent::after {
+          content: "";
+          position: absolute;
+          inset: -120px;
+          background: radial-gradient(circle at center, rgba(214, 195, 161, 0.08), transparent 64%);
+          pointer-events: none;
+          z-index: -1;
+        }
+
+        /* Muted text utility */
+        .mk-muted {
           color: rgba(245, 242, 236, 0.58);
         }
-        .mk-faq-grid {
-          display: grid;
-          gap: 12px;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
+
+        /* Fade-in animations */
+        @keyframes mkFadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
-        @media (max-width: 960px) {
-          .mk-grid-2,
-          .mk-faq-grid { grid-template-columns: 1fr; }
-          .mk-shell { gap: 44px; }
+
+        .mk-section {
+          animation: mkFadeIn 0.6s ease-out;
         }
       `}</style>
-      <div className="mk-shell">
-        <header className="mk-header">
-          <div className="mk-brand">Defrag · Studio</div>
-          <nav className="mk-nav">
-            <Link href="/signin/studio">Sign in</Link>
-            <Link href="/about">Learn more</Link>
-            <Link href="/plans">Plans</Link>
-          </nav>
-        </header>
 
+      <div className="mk-shell">
         <HeroSection copy={marketingCopy.hero} />
+        <div className="mk-section-divider" />
         <OutputVisibilitySection copy={marketingCopy.outputVisibility} />
-        <CoreValueSection copy={marketingCopy.coreValue} />
-        <UseCasesSection copy={marketingCopy.useCases} />
+        <div className="mk-section-divider" />
         <HowItWorksSection copy={marketingCopy.howItWorks} />
+        <div className="mk-section-divider" />
+        <CoreValueSection copy={marketingCopy.coreValue} />
+        <div className="mk-section-divider" />
+        <UseCasesSection copy={marketingCopy.useCases} />
+        <div className="mk-section-divider" />
         <ProductSystemSection copy={marketingCopy.productSystem} />
-        <FaqSection items={marketingCopy.faq} />
+        <div className="mk-section-divider" />
+        <FaqSection copy={marketingCopy.faq} />
+        <div className="mk-section-divider" />
         <ClosingCtaSection copy={marketingCopy.closingCta} />
       </div>
     </main>
