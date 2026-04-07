@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
+import { CinematicHomepage } from "../components/marketing/cinematic-homepage";
 
 export default function HomePage() {
-  redirect("/studio");
+  return <CinematicHomepage />;
 }
