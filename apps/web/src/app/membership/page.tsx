@@ -49,8 +49,8 @@ export default function MembershipPage() {
         .member-muted { color:rgba(245,242,236,0.62); }
         .member-title { font-size:52px; line-height:0.96; font-family:var(--font-display), serif; }
         .member-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:18px; }
-        .member-btn { display:inline-flex; align-items:center; justify-content:center; text-decoration:none; border:none; padding:13px 16px; font-weight:600; }
-        .member-btn.primary { background:#f5f2ec; color:#050505; }
+        .member-btn { display:inline-flex; align-items:center; justify-content:center; text-decoration:none; border:none; padding:12px 16px; font-weight:600; border-radius:12px; letter-spacing:0.04em; text-transform:uppercase; }
+        .member-btn.primary { background:#f3ede2; color:#050505; border:1px solid rgba(243,237,226,0.82); box-shadow:0 8px 20px rgba(0,0,0,0.22); }
         .member-step { padding:12px 14px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.02); line-height:1.62; }
         @media (max-width: 980px) { .member-grid { grid-template-columns: 1fr; } .member-title { font-size:42px; } }
       `}</style>
