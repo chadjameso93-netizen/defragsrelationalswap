@@ -9,12 +9,14 @@ export function OutputVisibilitySection({ copy }: OutputVisibilitySectionProps) 
     <section className="mk-section">
       <div className="mk-kicker">{copy.kicker}</div>
       <h2 className="mk-h2">{copy.title}</h2>
-      <p className="mk-body">{copy.description}</p>
-      <ul className="mk-list">
-        {copy.bullets.map((item) => (
-          <li key={item}>{item}</li>
+      <div className="mk-get-grid">
+        {copy.items.map((item) => (
+          <article key={item.title} className="mk-band-block mk-get-card">
+            <h3 className="mk-h3">{item.title}</h3>
+            <p className="mk-body">{item.body}</p>
+          </article>
         ))}
-      </ul>
+      </div>
     </section>
   );
 }

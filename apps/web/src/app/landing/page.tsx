@@ -1,30 +1,7 @@
-import Link from "next/link";
+import { ClosingScene, HeroScene, ListScene, StepScene, TitleCardScene } from "../../components/public/primitives";
+import { PublicPageShell } from "../../components/public/page-shell";
 
-const STEPS = [
-  {
-    label: "Start with your baseline",
-    body: "Share a few core birth details so Defrag can build a clear baseline in plain language.",
-  },
-  {
-    label: "See the relationship more clearly",
-    body: "Bring that baseline into the workspace to understand what may be happening between you and another person.",
-  },
-  {
-    label: "Move toward a healthier next step",
-    body: "Use guided views to choose one practical next step that lowers pressure.",
-  },
-];
-
-const PREVIEW_MESSAGES = [
-  {
-    role: "You",
-    body: "I want to talk to my mom tonight, but I think we may end up missing each other again.",
-  },
-  {
-    role: "Defrag",
-    body: "This may be a moment where both of you care about the relationship, but may be reacting in ways that make each other harder to hear.",
-  },
-];
+const pillars = ["Simple language", "Relationship workspace", "Perspective comparison", "Practical next-step guidance"];
 
 export default function LandingPage() {
   return (

@@ -12,8 +12,7 @@ export interface HeroCopy {
 export interface OutputVisibilityCopy {
   kicker: string;
   title: string;
-  description: string;
-  bullets: string[];
+  items: Array<{ title: string; body: string }>;
 }
 
 export interface CoreValueCopy {
@@ -37,8 +36,19 @@ export interface UseCasesCopy {
 export interface HowItWorksCopy {
   kicker: string;
   title: string;
-  intro: string;
   steps: Array<{ label: string; body: string }>;
+}
+
+export interface ProofBlockCopy {
+  kicker: string;
+  title: string;
+  happenedLabel: string;
+  happenedBody: string;
+  readsLabel: string;
+  readsYou: string;
+  readsThem: string;
+  nextMoveLabel: string;
+  nextMoveBody: string;
 }
 
 export interface ProductSystemCopy {
@@ -76,6 +86,7 @@ export interface MarketingCopy {
   coreValue: CoreValueCopy;
   useCases: UseCasesCopy;
   howItWorks: HowItWorksCopy;
+  proofBlock: ProofBlockCopy;
   productSystem: ProductSystemCopy;
   about: AboutCopy;
   faq: FaqItem[];
@@ -92,7 +103,7 @@ export const marketingCopy: MarketingCopy = {
     primaryCtaLabel: "Open Defrag",
     primaryCtaHref: "/enter",
     secondaryCtaLabel: "See how it works",
-    secondaryCtaHref: "/studio#how-it-works",
+    secondaryCtaHref: "/how-it-works",
   },
   outputVisibility: {
     kicker: "What Defrag actually gives you",
@@ -161,6 +172,17 @@ export const marketingCopy: MarketingCopy = {
       },
     ],
   },
+  proofBlock: {
+    kicker: "Interaction preview",
+    title: "A compact read that changes what you send next.",
+    happenedLabel: "What happened",
+    happenedBody: 'You replied “Okay.” after a long message. It landed colder than you intended.',
+    readsLabel: "What each side may be reading",
+    readsYou: "Your likely intent: keep things calm and avoid escalating.",
+    readsThem: "Their likely read: emotional distance or withdrawal.",
+    nextMoveLabel: "Next move",
+    nextMoveBody: 'Try: “I care about this, and I went short earlier. I want to respond better.”',
+  },
   productSystem: {
     kicker: "Product clarity",
     title: "One voice from preview to workspace.",
@@ -224,6 +246,6 @@ export const marketingCopy: MarketingCopy = {
     primaryCtaLabel: "Open Defrag",
     primaryCtaHref: "/enter",
     secondaryCtaLabel: "See how it works",
-    secondaryCtaHref: "/studio#how-it-works",
+    secondaryCtaHref: "/how-it-works",
   },
 };

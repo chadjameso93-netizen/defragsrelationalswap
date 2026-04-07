@@ -1,13 +1,4 @@
-import Link from "next/link";
-import { ClosingCtaSection } from "../../components/marketing/ClosingCtaSection";
-import { CoreValueSection } from "../../components/marketing/CoreValueSection";
-import { FaqSection } from "../../components/marketing/FaqSection";
-import { HeroSection } from "../../components/marketing/HeroSection";
-import { HowItWorksSection } from "../../components/marketing/HowItWorksSection";
-import { OutputVisibilitySection } from "../../components/marketing/OutputVisibilitySection";
-import { ProductSystemSection } from "../../components/marketing/ProductSystemSection";
-import { UseCasesSection } from "../../components/marketing/UseCasesSection";
-import { marketingCopy } from "../../content/marketingCopy";
+import { CinematicHomepage } from "../../components/marketing/cinematic-homepage";
 
 export default function StudioHomePage() {
   return (

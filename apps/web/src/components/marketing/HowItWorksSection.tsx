@@ -9,7 +9,6 @@ export function HowItWorksSection({ copy }: HowItWorksSectionProps) {
     <section id="how-it-works" className="mk-section">
       <div className="mk-kicker">{copy.kicker}</div>
       <h2 className="mk-h2">{copy.title}</h2>
-      <p className="mk-body">{copy.intro}</p>
       <div className="mk-steps">
         {copy.steps.map((step) => (
           <article key={step.label} className="mk-step">
