@@ -1,5 +1,6 @@
 import { CinematicHomepage } from "../../components/marketing/cinematic-homepage";
 
+import Link from "next/link";
 export default function StudioHomePage() {
   return (
     <main className="mk-page">
