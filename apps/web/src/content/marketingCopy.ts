@@ -96,31 +96,24 @@ export interface MarketingCopy {
 export const marketingCopy: MarketingCopy = {
   hero: {
     kicker: "Relational intelligence for real life",
-    title: "The tool you reach for before you send the next line.",
+    title: "The tool you reach for before replying.",
     description:
-      "See why it felt one way to you — and another way to them.",
-    quietNote: "Quiet clarity for loaded conversations.",
+      "Defrag helps you understand why something landed badly, how the other person may be seeing it, and what to do next — before a text, conversation, or misunderstanding becomes a bigger problem.",
+    quietNote: "Plain-language guidance • anti-stigma framing • built for real conversations",
     primaryCtaLabel: "Open Defrag",
     primaryCtaHref: "/enter",
     secondaryCtaLabel: "See how it works",
     secondaryCtaHref: "/how-it-works",
   },
   outputVisibility: {
-    kicker: "What you get",
-    title: "Three clear reads in one pass.",
-    items: [
-      {
-        title: "What went wrong",
-        body: "Pinpoint the turn without blame language.",
-      },
-      {
-        title: "How it landed",
-        body: "See your intent beside their likely read.",
-      },
-      {
-        title: "What to do next",
-        body: "Leave with wording you can actually send.",
-      },
+    kicker: "What Defrag actually gives you",
+    title: "Clear reads you can use right away.",
+    description:
+      "You get concrete guidance for one real moment, not generic advice.",
+    bullets: [
+      "What may have gone wrong in the interaction.",
+      "How each side may be reading the same moment differently.",
+      "A grounded next step in words you can actually use.",
     ],
   },
   coreValue: {
@@ -161,19 +154,21 @@ export const marketingCopy: MarketingCopy = {
   },
   howItWorks: {
     kicker: "How it works",
-    title: "Simple flow. Better decisions.",
+    title: "Simple flow. Real-world decisions.",
+    intro:
+      "Defrag is designed to keep you oriented: bring the moment, review the read, then leave with one next move.",
     steps: [
       {
         label: "Bring the moment",
-        body: "Drop in the exchange that needs a steadier reply.",
+        body: "Share what happened in plain language, with enough context to understand the interaction.",
       },
       {
-        label: "See the read",
-        body: "Review what likely happened for you and for them.",
+        label: "See both sides",
+        body: "Review how it likely landed for you and how it may have landed for them.",
       },
       {
-        label: "Leave with a next move",
-        body: "Take one practical step you can use immediately.",
+        label: "Choose your next move",
+        body: "Leave with wording and action guidance you can use in your next message or conversation.",
       },
     ],
   },
@@ -245,9 +240,9 @@ export const marketingCopy: MarketingCopy = {
     },
   ],
   closingCta: {
-    kicker: "Final step",
+    kicker: "Ready when you are",
     title: "Bring one moment. Leave with a clearer next step.",
-    description: "Start with one exchange and leave with language you trust.",
+    description: "Open Defrag before your next reply and move forward with steadier language.",
     primaryCtaLabel: "Open Defrag",
     primaryCtaHref: "/enter",
     secondaryCtaLabel: "See how it works",
