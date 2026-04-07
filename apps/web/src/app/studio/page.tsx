@@ -1,6 +1,10 @@
 import { CinematicHomepage } from "../../components/marketing/cinematic-homepage";
 
 import Link from "next/link";
+import { HeroSection } from "../../components/marketing/HeroSection";
+import { OutputVisibilitySection } from "../../components/marketing/OutputVisibilitySection";
+import { CoreValueSection } from "../../components/marketing/CoreValueSection";
+import { UseCasesSection } from "../../components/marketing/UseCasesSection";
 export default function StudioHomePage() {
   return (
     <main className="mk-page">
