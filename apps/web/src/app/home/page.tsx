@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ClosingScene, HeroScene, QuoteScene, StepScene, TitleCardScene } from "../../components/public/primitives";
 import { PublicPageShell } from "../../components/public/page-shell";
 

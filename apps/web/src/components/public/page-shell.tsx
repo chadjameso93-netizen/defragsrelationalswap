@@ -1,9 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
-import { ctaTokens, publicSpacing, publicTypeScale } from "./primitives";
 
 export function PublicPageShell({
   eyebrow,
@@ -16,7 +12,6 @@ export function PublicPageShell({
   description?: string;
   children: ReactNode;
 }) {
-  const pathname = usePathname();
   const nav = [
     { href: "/home", label: "Home" },
     { href: "/about", label: "About" },
@@ -28,15 +23,25 @@ export function PublicPageShell({
     <main className="public-page">
       <style>{`
         :root {
-          --space-xs: ${publicSpacing.xs}; --space-sm: ${publicSpacing.sm}; --space-md: ${publicSpacing.md}; --space-lg: ${publicSpacing.lg}; --space-xl: ${publicSpacing.xl}; --space-2xl: ${publicSpacing["2xl"]};
-          --type-overline: ${publicTypeScale.overline}; --type-body: ${publicTypeScale.body}; --type-body-lg: ${publicTypeScale.bodyLg}; --type-title-sm: ${publicTypeScale.titleSm}; --type-title: ${publicTypeScale.title}; --type-display: ${publicTypeScale.display};
+          --space-xs: 0.5rem;
+          --space-sm: 0.75rem;
+          --space-md: 1rem;
+          --space-lg: 1.5rem;
+          --space-xl: 2rem;
+          --space-2xl: 3rem;
+          --type-overline: 0.7rem;
+          --type-body: 1rem;
+          --type-body-lg: 1.125rem;
+          --type-title-sm: clamp(1.4rem, 2.4vw, 1.85rem);
+          --type-title: clamp(2rem, 5.2vw, 3.5rem);
+          --type-display: clamp(2.6rem, 8vw, 5.4rem);
         }
         .public-page { min-height:100vh; color:#f5f2ec; background:#050505; background-image: radial-gradient(circle at 0% 0%, rgba(214,195,161,0.12), transparent 28%), radial-gradient(circle at 100% 0%, rgba(255,255,255,0.05), transparent 24%); }
         .public-frame { max-width: 1240px; margin:0 auto; padding: var(--space-xl) var(--space-lg) var(--space-2xl); display:grid; gap:var(--space-xl); }
         .public-header { display:flex; justify-content:space-between; align-items:center; gap:var(--space-md); border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:var(--space-md); }
         .public-nav { display:flex; gap:var(--space-md); }
         .public-nav a { color:rgba(245,242,236,0.62); text-decoration:none; font-size:0.86rem; }
-        .public-nav a.active { color:#fff; }
+        .public-nav a:hover { color:#fff; }
         .public-eyebrow { margin:0; font-size:var(--type-overline); letter-spacing:0.18em; text-transform:uppercase; color:rgba(245,242,236,0.44); font-weight:600; }
         .public-display { margin:0; font-size:var(--type-display); line-height:0.94; font-family:var(--font-display), serif; }
         .public-title { margin:0; font-size:var(--type-title); line-height:1.04; font-family:var(--font-display), serif; }
@@ -51,8 +56,8 @@ export function PublicPageShell({
         .public-actions { display:flex; gap:var(--space-sm); flex-wrap:wrap; }
         .public-cta { display:inline-flex; align-items:center; justify-content:center; text-decoration:none; font-size:0.95rem; font-weight:600; padding:0.72rem 1rem; transition:transform .2s ease, opacity .2s ease; }
         .public-cta:hover { transform:translateY(-1px); }
-        .public-cta-primary { background:${ctaTokens.primary.background}; color:${ctaTokens.primary.color}; border:${ctaTokens.primary.border}; }
-        .public-cta-secondary { background:${ctaTokens.secondary.background}; color:${ctaTokens.secondary.color}; border:${ctaTokens.secondary.border}; }
+        .public-cta-primary { background:#f5f2ec; color:#050505; border:1px solid transparent; }
+        .public-cta-secondary { background:rgba(255,255,255,0.02); color:#f5f2ec; border:1px solid rgba(255,255,255,0.15); }
         .public-list { margin:0; padding-left:1.1rem; display:grid; gap:var(--space-sm); }
         .public-quote { margin:0; font-size:clamp(1.2rem, 2.5vw, 1.9rem); line-height:1.42; color:white; }
         .public-legal-grid { display:grid; gap:var(--space-lg); }
@@ -68,7 +73,7 @@ export function PublicPageShell({
           <Link href="/home" style={{ textDecoration: "none", color: "white", letterSpacing: "0.2em", fontWeight: 700, fontSize: "0.84rem" }}>DEFRAG</Link>
           <nav className="public-nav">
             {nav.map((item) => (
-              <Link key={item.href} href={item.href} className={pathname.startsWith(item.href) ? "active" : ""}>{item.label}</Link>
+              <Link key={item.href} href={item.href}>{item.label}</Link>
             ))}
           </nav>
           <Link href="/enter" className="public-cta public-cta-secondary">Open Defrag</Link>
