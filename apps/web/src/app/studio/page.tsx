@@ -6,6 +6,10 @@ import { OutputVisibilitySection } from "../../components/marketing/OutputVisibi
 import { CoreValueSection } from "../../components/marketing/CoreValueSection";
 import { UseCasesSection } from "../../components/marketing/UseCasesSection";
 import { marketingCopy } from "../../content/marketingCopy";
+import { HowItWorksSection } from "../../components/marketing/HowItWorksSection";
+import { ProductSystemSection } from "../../components/marketing/ProductSystemSection";
+import { FaqSection } from "../../components/marketing/FaqSection";
+import { ClosingCtaSection } from "../../components/marketing/ClosingCtaSection";
 export default function StudioHomePage() {
   return (
     <main className="mk-page">
