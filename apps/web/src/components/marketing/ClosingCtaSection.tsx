@@ -12,10 +12,10 @@ export function ClosingCtaSection({ copy }: ClosingCtaSectionProps) {
       <h2 className="mk-h2">{copy.title}</h2>
       <p className="mk-body">{copy.description}</p>
       <div className="mk-actions">
-        <Link className="mk-btn mk-btn-primary" href={copy.primaryCtaHref}>
+        <Link className="mk-cta mk-cta-primary" href={copy.primaryCtaHref}>
           {copy.primaryCtaLabel}
         </Link>
-        <Link className="mk-btn mk-btn-secondary" href={copy.secondaryCtaHref}>
+        <Link className="mk-cta mk-cta-secondary" href={copy.secondaryCtaHref}>
           {copy.secondaryCtaLabel}
         </Link>
       </div>

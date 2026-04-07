@@ -36,9 +36,11 @@ export default function LandingPage() {
         .land-muted { color:rgba(245,242,236,0.62); }
         .land-hero { display:grid; grid-template-columns: 1.02fr 0.98fr; gap:22px; }
         .land-title { font-size:76px; line-height:0.92; letter-spacing:-0.03em; font-family:var(--font-display), serif; }
-        .land-btn { display:inline-flex; align-items:center; justify-content:center; text-decoration:none; padding:13px 16px; font-weight:600; }
-        .land-btn.primary { background:#f5f2ec; color:#050505; }
-        .land-btn.secondary { border:1px solid rgba(255,255,255,0.1); color:#f5f2ec; }
+        .land-btn { display:inline-flex; align-items:center; justify-content:center; text-decoration:none; padding:12px 16px; font-weight:600; border-radius:12px; letter-spacing:0.04em; transition:transform 180ms ease, color 180ms ease, border-color 180ms ease; }
+        .land-btn:hover { transform:translateY(-1px); }
+        .land-btn.primary { background:#f3ede2; color:#050505; border:1px solid rgba(243,237,226,0.82); box-shadow:0 8px 20px rgba(0,0,0,0.22); }
+        .land-btn.secondary { border:1px solid rgba(255,255,255,0.18); background:transparent; color:rgba(245,242,236,0.92); font-weight:500; }
+        .land-btn.secondary:hover { border-color:rgba(255,255,255,0.34); color:#ffffff; }
         .land-preview { position:relative; min-height:640px; overflow:hidden; }
         .land-preview::before { content:""; position:absolute; inset:0; background:radial-gradient(circle at 50% 50%, rgba(214,195,161,0.10), transparent 34%), radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06), transparent 26%), radial-gradient(circle at 74% 74%, rgba(255,255,255,0.04), transparent 24%); }
         .land-preview::after { content:""; position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px); background-size:34px 34px; opacity:0.12; }
@@ -67,6 +69,8 @@ export default function LandingPage() {
           .land-title { font-size:44px; }
           .land-preview { min-height:860px; }
           .land-node { width:138px; height:138px; }
+          .land-btn.primary { width:100%; }
+          .land-btn.secondary { border:none; padding-inline:4px; text-transform:none; letter-spacing:0.01em; color:rgba(245,242,236,0.72); justify-content:flex-start; }
         }
       `}</style>
 

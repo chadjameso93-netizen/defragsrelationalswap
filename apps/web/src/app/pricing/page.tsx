@@ -41,13 +41,17 @@ export default function PublicPricingPage() {
           <Link 
             href="/login"
             style={{
-              padding: "18px 36px",
-              borderRadius: 16,
-              background: "white",
+              padding: "12px 22px",
+              borderRadius: 12,
+              background: "#f3ede2",
               color: "#050505",
               textDecoration: "none",
               fontWeight: 600,
-              fontSize: 16,
+              fontSize: 14,
+              letterSpacing: "0.06em",
+              textTransform: "uppercase",
+              border: "1px solid rgba(243,237,226,0.82)",
+              boxShadow: "0 8px 20px rgba(0,0,0,0.22)",
               whiteSpace: "nowrap",
               display: "flex",
               alignItems: "center",
