@@ -74,7 +74,7 @@ export default function StudioHomePage() {
         }
         .mk-section {
           display: grid;
-          gap: 12px;
+          gap: 14px;
           animation: mk-rise 700ms ease both;
           animation-delay: calc(var(--mk-delay, 0) * 80ms);
         }
@@ -86,13 +86,6 @@ export default function StudioHomePage() {
           position: relative;
           isolation: isolate;
         }
-        .mk-hero-grid {
-          display: grid;
-          grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.76fr);
-          gap: clamp(18px, 3vw, 36px);
-          align-items: end;
-        }
-        .mk-hero-copy { display: grid; gap: 12px; }
         .mk-hero::after {
           content: "";
           position: absolute;
@@ -110,46 +103,6 @@ export default function StudioHomePage() {
           z-index: -1;
           animation: mk-drift 16s ease-in-out infinite;
         }
-        .mk-hero-frame {
-          justify-self: end;
-          width: min(420px, 100%);
-          border-radius: 22px;
-          border: 1px solid rgba(255, 255, 255, 0.14);
-          background:
-            radial-gradient(120% 140% at 84% -10%, rgba(237, 220, 183, 0.18), transparent 58%),
-            linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.02));
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 26px 58px rgba(0, 0, 0, 0.45);
-          padding: 18px;
-          display: grid;
-          gap: 10px;
-          transform: translateY(4px);
-          animation: mk-rise 900ms ease both;
-        }
-        .mk-hero-frame-label {
-          font-size: 10px;
-          letter-spacing: 0.18em;
-          text-transform: uppercase;
-          color: rgba(245, 242, 236, 0.52);
-        }
-        .mk-hero-frame-line,
-        .mk-hero-frame-next {
-          font-size: 0.95rem;
-          line-height: 1.6;
-          color: rgba(245, 242, 236, 0.78);
-        }
-        .mk-hero-frame-split {
-          display: grid;
-          gap: 8px;
-        }
-        .mk-hero-frame-split span {
-          display: block;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          background: rgba(255, 255, 255, 0.025);
-          border-radius: 14px;
-          padding: 10px;
-          font-size: 0.86rem;
-          color: rgba(245, 242, 236, 0.72);
-        }
         .mk-kicker {
           font-size: 10px;
           letter-spacing: 0.2em;
@@ -160,7 +113,7 @@ export default function StudioHomePage() {
           margin: 0;
           font-family: var(--font-display), serif;
           font-size: clamp(2.8rem, 8.8vw, 7.2rem);
-          line-height: 0.88;
+          line-height: 0.9;
           letter-spacing: -0.05em;
           max-width: 11ch;
           text-wrap: balance;
@@ -169,7 +122,7 @@ export default function StudioHomePage() {
           margin: 0;
           font-family: var(--font-display), serif;
           font-size: clamp(1.8rem, 4.2vw, 3.1rem);
-          line-height: 0.92;
+          line-height: 0.95;
           letter-spacing: -0.03em;
           text-wrap: balance;
         }
@@ -184,7 +137,7 @@ export default function StudioHomePage() {
         .mk-body {
           margin: 0;
           color: rgba(245, 242, 236, 0.74);
-          line-height: 1.64;
+          line-height: 1.74;
           font-size: clamp(0.96rem, 1.3vw, 1.05rem);
           max-width: 58ch;
         }
@@ -283,29 +236,6 @@ export default function StudioHomePage() {
           display: grid;
           gap: 6px;
         }
-        .mk-proof-reads-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 10px;
-        }
-        .mk-proof-read {
-          border-radius: 14px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          background: rgba(255, 255, 255, 0.02);
-          padding: 10px;
-          display: grid;
-          gap: 8px;
-        }
-        .mk-proof-chip {
-          display: inline-flex;
-          width: fit-content;
-          border-radius: 999px;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          color: rgba(245, 242, 236, 0.74);
-          font-size: 10px;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          padding: 3px 8px;
-        }
         @keyframes mk-rise {
           from { opacity: 0; transform: translateY(10px); }
           to { opacity: 1; transform: translateY(0); }
@@ -317,14 +247,6 @@ export default function StudioHomePage() {
         @media (max-width: 980px) {
           .mk-shell { gap: 40px; }
           .mk-hero { min-height: auto; padding-top: 6px; }
-          .mk-hero-grid {
-            grid-template-columns: 1fr;
-            align-items: start;
-          }
-          .mk-hero-frame {
-            justify-self: start;
-            max-width: 460px;
-          }
           .mk-hero::after {
             width: min(400px, 78vw);
             height: min(400px, 78vw);
@@ -333,9 +255,6 @@ export default function StudioHomePage() {
           }
           .mk-get-grid,
           .mk-steps {
-            grid-template-columns: 1fr;
-          }
-          .mk-proof-reads-grid {
             grid-template-columns: 1fr;
           }
         }

@@ -16,15 +16,9 @@ export function ProofBlockSection({ copy }: ProofBlockSectionProps) {
         </div>
         <div className="mk-proof-line">
           <div className="mk-proof-label">{copy.readsLabel}</div>
-          <div className="mk-proof-reads mk-proof-reads-grid">
-            <p className="mk-body mk-proof-read">
-              <span className="mk-proof-chip">You</span>
-              {copy.readsYou}
-            </p>
-            <p className="mk-body mk-proof-read">
-              <span className="mk-proof-chip">Them</span>
-              {copy.readsThem}
-            </p>
+          <div className="mk-proof-reads">
+            <p className="mk-body">{copy.readsYou}</p>
+            <p className="mk-body">{copy.readsThem}</p>
           </div>
         </div>
         <div className="mk-proof-line">
