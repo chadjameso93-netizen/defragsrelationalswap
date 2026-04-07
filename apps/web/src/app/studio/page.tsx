@@ -302,7 +302,7 @@ export default function StudioHomePage() {
         <div className="mk-section-divider" />
         <ProductSystemSection copy={marketingCopy.productSystem} />
         <div className="mk-section-divider" />
-        <FaqSection copy={marketingCopy.faq} />
+        <FaqSection items={marketingCopy.faq} />
         <div className="mk-section-divider" />
         <ClosingCtaSection copy={marketingCopy.closingCta} />
       </div>
