@@ -38,6 +38,7 @@ export interface UseCasesCopy {
 export interface HowItWorksCopy {
   kicker: string;
   title: string;
+  intro?: string;
   steps: Array<{ label: string; body: string }>;
 }
 
