@@ -240,31 +240,33 @@ export default function StudioHomePage() {
           font-size: 0.94rem;
           line-height: 1.6;
         }
+        .mk-band-block,
         .mk-card {
-          background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-          border: 1px solid rgba(255, 255, 255, 0.13);
-          border-radius: 20px;
-          padding: 22px;
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 18px 50px rgba(0, 0, 0, 0.35);
+          padding: clamp(18px, 3vw, 24px) 0;
+          background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 80%),
+            radial-gradient(120% 100% at 50% 0%, rgba(226, 202, 157, 0.12), transparent 65%);
         }
         .mk-get-grid {
           display: grid;
           grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 14px;
+          gap: 28px;
         }
-        .mk-get-card { gap: 8px; display: grid; }
+        .mk-get-card {
+          gap: 10px;
+          display: grid;
+          padding-top: 20px;
+        }
         .mk-steps {
           display: grid;
           grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 14px;
+          gap: 24px;
         }
         .mk-step {
-          border-radius: 18px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          background: rgba(255, 255, 255, 0.02);
-          padding: 16px;
+          padding: 18px 0 0;
           display: grid;
           gap: 8px;
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 78%);
         }
         .mk-step-label {
           font-size: 10px;
@@ -273,13 +275,10 @@ export default function StudioHomePage() {
           color: rgba(245, 242, 236, 0.58);
         }
         .mk-proof-card {
-          border-radius: 22px;
-          border: 1px solid rgba(255, 255, 255, 0.14);
           background:
-            radial-gradient(100% 140% at 84% -18%, rgba(230, 206, 160, 0.13), transparent 56%),
-            linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 24px 56px rgba(0, 0, 0, 0.4);
-          padding: clamp(20px, 4.5vw, 30px);
+            radial-gradient(110% 150% at 84% -18%, rgba(230, 206, 160, 0.18), transparent 58%),
+            linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.01));
+          padding: clamp(20px, 4.5vw, 30px) 0;
           display: grid;
           gap: 18px;
         }
