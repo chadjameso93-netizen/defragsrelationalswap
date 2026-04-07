@@ -68,6 +68,21 @@ type SessionResponse = {
 const INITIAL_MESSAGE =
   "I want to talk to my mom tonight, but I think we may end up missing each other again.";
 
+const SCENE_CONSTRAINTS: Record<"thread" | "field" | "guide", { mobileTopCopy: string; dominantIdea: string }> = {
+  thread: {
+    mobileTopCopy: "Start with one clear situation in plain language.",
+    dominantIdea: "Name the moment before trying to solve it.",
+  },
+  field: {
+    mobileTopCopy: "Read the live pattern before adding new details.",
+    dominantIdea: "See the pattern, pressure, and next small move.",
+  },
+  guide: {
+    mobileTopCopy: "Choose one support view, then return to the main thread.",
+    dominantIdea: "Use one guide at a time to stay emotionally clear.",
+  },
+};
+
 export default function FinalWorkspacePage() {
   const [message, setMessage] = useState(INITIAL_MESSAGE);
   const [session, setSession] = useState<SessionResponse | null>(null);
@@ -118,13 +133,13 @@ export default function FinalWorkspacePage() {
   return (
     <main style={{ minHeight: "100vh", background: "#050505", color: "#f5f2ec" }}>
       <style>{`
-        .fw-shell { display:grid; grid-template-columns: 420px minmax(0,1fr) 360px; min-height:100vh; }
-        .fw-col { border-right:1px solid rgba(255,255,255,0.07); }
-        .fw-col:last-child { border-right:none; }
+        .fw-shell { display:grid; grid-template-columns: 1fr; min-height:100vh; }
+        .fw-col { border-bottom:1px solid rgba(255,255,255,0.07); display:none; }
+        .fw-col.active { display:block; }
         .fw-top { display:flex; align-items:flex-end; justify-content:space-between; gap:14px; padding:20px 22px; border-bottom:1px solid rgba(255,255,255,0.07); }
         .fw-kicker { font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(245,242,236,0.42); }
         .fw-muted { color:rgba(245,242,236,0.62); }
-        .fw-title { font-size:32px; line-height:1.04; font-family:var(--font-display), serif; }
+        .fw-title { font-size:28px; line-height:1.08; font-family:var(--font-display), serif; text-wrap:balance; }
         .fw-chip { border:1px solid rgba(255,255,255,0.09); background:rgba(255,255,255,0.02); color:#f5f2ec; padding:9px 11px; font-size:12px; }
         .fw-chip.active { border-color:rgba(214,195,161,0.35); background:rgba(214,195,161,0.08); }
         .fw-thread { display:grid; gap:18px; padding:22px; }
@@ -152,22 +167,26 @@ export default function FinalWorkspacePage() {
         .fw-step { padding:12px 14px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.02); line-height:1.62; }
         .fw-right { padding:22px; display:grid; gap:16px; align-content:start; }
         .fw-tooltip { padding:10px 12px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.02); font-size:13px; color:rgba(245,242,236,0.74); }
-        .fw-tabbar { display:none; }
+        .fw-scene-focus { margin: 0 22px 0; padding: 12px 14px; border:1px solid rgba(214,195,161,0.2); background:rgba(214,195,161,0.06); display:grid; gap:6px; }
+        .fw-tabbar { position:sticky; bottom:0; display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid rgba(255,255,255,0.07); background:rgba(5,5,5,0.96); }
+        .fw-tabbtn { border:none; background:transparent; color:#f5f2ec; padding:16px 12px; min-height:52px; font-size:14px; }
+        .fw-tabbtn.active { background:rgba(214,195,161,0.08); }
         @keyframes fwSweep { from { left:-25%; } to { left:100%; } }
         @keyframes fwPulse { 0%, 100% { transform:scale(1); opacity:0.4; } 50% { transform:scale(1.05); opacity:0.72; } }
         @keyframes fwFloat { 0%, 100% { transform:translate(-50%, -50%) translateY(0px); } 50% { transform:translate(-50%, -50%) translateY(-4px); } }
-        @media (max-width: 1100px) {
-          .fw-shell { grid-template-columns: 1fr; }
-          .fw-col { border-right:none; border-bottom:1px solid rgba(255,255,255,0.07); display:none; }
-          .fw-col.active { display:block; }
-          .fw-tabbar { position:sticky; bottom:0; display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid rgba(255,255,255,0.07); background:rgba(5,5,5,0.96); }
-          .fw-tabbtn { border:none; background:transparent; color:#f5f2ec; padding:14px 12px; }
-          .fw-tabbtn.active { background:rgba(214,195,161,0.08); }
+        @media (min-width: 1101px) {
+          .fw-shell { grid-template-columns: 420px minmax(0,1fr) 360px; }
+          .fw-col { border-right:1px solid rgba(255,255,255,0.07); border-bottom:none; display:block; }
+          .fw-col:last-child { border-right:none; }
+          .fw-scene-focus { display:none; }
+          .fw-tabbar { display:none; }
+          .fw-title { font-size:32px; line-height:1.04; }
+          .fw-canvas::before { background:radial-gradient(circle at 50% 50%, rgba(214,195,161,0.10), transparent 34%), radial-gradient(circle at 20% 18%, rgba(255,255,255,0.06), transparent 30%), radial-gradient(circle at 82% 76%, rgba(255,255,255,0.04), transparent 28%); }
         }
       `}</style>
 
       <div className="fw-shell">
-        <section className={`fw-col ${tab === "thread" ? "active" : ""}`} style={{ display: tab === "thread" || typeof window === "undefined" ? undefined : undefined }}>
+        <section className={`fw-col ${tab === "thread" ? "active" : ""}`}>
           <div className="fw-top">
             <div style={{ display: "grid", gap: 6 }}>
               <div className="fw-kicker">Defrag workspace</div>
@@ -281,6 +300,11 @@ export default function FinalWorkspacePage() {
             <div className="fw-tooltip" title="What could help next means a small step that may make the situation easier to understand, not a guaranteed result.">What could help next</div>
           </div>
         </aside>
+      </div>
+
+      <div className="fw-scene-focus">
+        <div className="fw-kicker">{SCENE_CONSTRAINTS[tab].mobileTopCopy}</div>
+        <div style={{ lineHeight: 1.6 }}>{SCENE_CONSTRAINTS[tab].dominantIdea}</div>
       </div>
 
       <div className="fw-tabbar">
