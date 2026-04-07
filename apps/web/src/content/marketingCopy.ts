@@ -12,8 +12,7 @@ export interface HeroCopy {
 export interface OutputVisibilityCopy {
   kicker: string;
   title: string;
-  description: string;
-  bullets: string[];
+  items: Array<{ title: string; body: string }>;
 }
 
 export interface CoreValueCopy {
@@ -37,8 +36,19 @@ export interface UseCasesCopy {
 export interface HowItWorksCopy {
   kicker: string;
   title: string;
-  intro: string;
   steps: Array<{ label: string; body: string }>;
+}
+
+export interface ProofBlockCopy {
+  kicker: string;
+  title: string;
+  happenedLabel: string;
+  happenedBody: string;
+  readsLabel: string;
+  readsYou: string;
+  readsThem: string;
+  nextMoveLabel: string;
+  nextMoveBody: string;
 }
 
 export interface ProductSystemCopy {
@@ -76,6 +86,7 @@ export interface MarketingCopy {
   coreValue: CoreValueCopy;
   useCases: UseCasesCopy;
   howItWorks: HowItWorksCopy;
+  proofBlock: ProofBlockCopy;
   productSystem: ProductSystemCopy;
   about: AboutCopy;
   faq: FaqItem[];
@@ -88,21 +99,28 @@ export const marketingCopy: MarketingCopy = {
     title: "The tool you reach for before replying.",
     description:
       "See why it felt one way to you — and another way to them.",
-    quietNote: "Plain-language guidance • anti-stigma framing • built for real conversations",
+    quietNote: "Quiet clarity for loaded conversations",
     primaryCtaLabel: "Open Defrag",
     primaryCtaHref: "/enter",
     secondaryCtaLabel: "See how it works",
     secondaryCtaHref: "/studio#how-it-works",
   },
   outputVisibility: {
-    kicker: "What Defrag actually gives you",
-    title: "Clear reads you can use right away.",
-    description:
-      "You get concrete guidance for one real moment, not generic advice.",
-    bullets: [
-      "What may have gone wrong in the interaction.",
-      "How each side may be reading the same moment differently.",
-      "A grounded next step in words you can actually use.",
+    kicker: "What you get",
+    title: "Three clear reads in one pass.",
+    items: [
+      {
+        title: "What went wrong",
+        body: "Pinpoint the turn without blame language.",
+      },
+      {
+        title: "How it landed",
+        body: "See your intent beside their likely read.",
+      },
+      {
+        title: "What to do next",
+        body: "Leave with wording you can actually send.",
+      },
     ],
   },
   coreValue: {
@@ -143,23 +161,32 @@ export const marketingCopy: MarketingCopy = {
   },
   howItWorks: {
     kicker: "How it works",
-    title: "Simple flow. Real-world decisions.",
-    intro:
-      "Defrag is designed to keep you oriented: bring the moment, review the read, then leave with one next move.",
+    title: "Simple flow. Better decisions.",
     steps: [
       {
         label: "Bring the moment",
-        body: "Share what happened in plain language, with enough context to understand the interaction.",
+        body: "Drop in the exchange that needs a steadier reply.",
       },
       {
-        label: "See both sides",
-        body: "Review how it likely landed for you and how it may have landed for them.",
+        label: "See the read",
+        body: "Review what likely happened for you and for them.",
       },
       {
-        label: "Choose your next move",
-        body: "Leave with wording and action guidance you can use in your next message or conversation.",
+        label: "Leave with a next move",
+        body: "Take one practical step you can use immediately.",
       },
     ],
+  },
+  proofBlock: {
+    kicker: "Interaction preview",
+    title: "A compact read that shifts the conversation.",
+    happenedLabel: "What happened",
+    happenedBody: "A check-in turned tense after: \"ok, noted.\"",
+    readsLabel: "What each side may be reading",
+    readsYou: "You were trying to stay steady under pressure.",
+    readsThem: "They may have read the reply as withdrawal.",
+    nextMoveLabel: "Next move",
+    nextMoveBody: "Lead with acknowledgment before explanation.",
   },
   productSystem: {
     kicker: "Product clarity",
@@ -218,9 +245,9 @@ export const marketingCopy: MarketingCopy = {
     },
   ],
   closingCta: {
-    kicker: "Ready when you are",
+    kicker: "Final step",
     title: "Bring one moment. Leave with a clearer next step.",
-    description: "Open Defrag before your next reply and move forward with steadier language.",
+    description: "Start with one exchange and leave with language you trust.",
     primaryCtaLabel: "Open Defrag",
     primaryCtaHref: "/enter",
     secondaryCtaLabel: "See how it works",
