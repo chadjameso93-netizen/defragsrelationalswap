@@ -15,7 +15,7 @@
     "smoke:routes": "node scripts/route-smoke.mjs"
   },
   "devDependencies": {
-    "next": "15.5.14",
+    "next": "15.5.15",
     "typescript": "^5.6.3",
     "vitest": "^2.1.8"
   },
